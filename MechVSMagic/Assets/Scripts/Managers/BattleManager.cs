@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, EnemyTurn, Win, Lose }
 
+//1. 버튼과 enemy 1:1 매칭, 버튼 위치 고정
 public class BattleManager : MonoBehaviour
 {
     //전투 중인 모든 캐릭터
@@ -11,29 +12,44 @@ public class BattleManager : MonoBehaviour
 
     //아군, 적군 구분 저장
     public List<Character> inbattleAllie = new List<Character>();
+
     public List<Character> inbattleEnemy = new List<Character>();
 
+    public int enemyCount;
+    public GameObject[] enemyPrefabs;
+    public Transform[] enemyPos;
+
     //캐릭터들의 TP 최대치, 전투 시작 시 계산
-    public List<int> TP;
+    public int[] TP = new int[6];
     //캐릭터들의 현재 TP
-    public List<int> nowTP;
+    public int[] nowTP = new int[6];
 
     //TP를 통해 선정된 현재 턴 실행자
     public Character currCaster;
+    public GameObject point;
     //TP가 동일할 때, 속도와 공속 기준으로 순서대로 queue에 저장
     public List<Character> casterQueue = new List<Character>();
     public BattleState state;
 
-    public GameObject startBtn;
-    public GameObject point;
-
     //아군 타겟 선택 관련
+    public GameObject startBtn;
     public int skillidx;
     public GameObject skillUI;
     public GameObject targetSelectUI;
     public GameObject[] skillBtns;
     public GameObject[] targetBtns;
 
+    //던전 풀에 따른 적 캐릭터 생성
+    void Start()
+    {
+        Character tmp;
+        for (int i = 0; i < enemyCount; i++)
+        {
+            tmp = Instantiate(enemyPrefabs[0], enemyPos[i].position, Quaternion.identity).GetComponent<Character>();
+            inbattleEnemy.Add(tmp.GetComponent<Character>());
+            inbattleChar.Add(tmp);
+        }
+    }
 
     //전투 시작 시 1번만 호출, 아군, 적군 정보 불러오기, 버프 및 디버프 설정, TP값 초기화
     public void BattleStart()
@@ -44,39 +60,22 @@ public class BattleManager : MonoBehaviour
         Character tmp;
 
         //아군 캐릭터 정보 불러오기
-        GameObject[] alies = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i < alies.Length; i++)
+        GameObject[] allies = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < allies.Length; i++)
         {
-            tmp = alies[i].GetComponent<Character>();
+            tmp = allies[i].GetComponent<Character>();
             inbattleAllie.Add(tmp);
             inbattleChar.Add(tmp);
         }
 
-        //적군 캐릭터 정보 불러오기
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < enemys.Length; i++)
-        {
-            tmp = enemys[i].GetComponent<Character>();
-            inbattleEnemy.Add(tmp);
-            inbattleChar.Add(tmp);
-        }
-        inbattleEnemy.Sort(delegate (Character a, Character b) {
-            if (a.transform.position.x > b.transform.position.x)
-                return 1;
-            else if (a.transform.position.x < b.transform.position.x)
-                return -1;
-            else
-                return 0;
-        });
-       
 
         //버프 및 디버프 설정, 현재 미구현
 
         //TP 값 초기화
-        for (int i = 0; i < inbattleChar.Count; i++)    //TP 값 초기화
+        for (int i = 0; i < inbattleChar.Count; i++)
         {
-            nowTP.Add(0);
-            TP.Add(75 - inbattleChar[i].SPD);
+            nowTP[i] = 0;
+            TP[i] = 75 - inbattleChar[i].dungeonStat[(int)Stat.SPD];
         }
 
         StartCoroutine(FirstCalc());
@@ -134,9 +133,9 @@ public class BattleManager : MonoBehaviour
             {
                 charged.Sort(delegate (Character a, Character b)
                 {
-                    if (a.SPD < b.SPD)
+                    if (a.dungeonStat[(int)Stat.SPD] < b.dungeonStat[(int)Stat.SPD])
                         return 1;
-                    else if (a.SPD > b.SPD)
+                    else if (a.dungeonStat[(int)Stat.SPD] > b.dungeonStat[(int)Stat.SPD])
                         return -1;
                     else return 0;
                 });     //속도 기준 정렬
@@ -144,17 +143,16 @@ public class BattleManager : MonoBehaviour
                 int pivot = 0;
                 int i;
 
-
-                for (i = 1; i < charged.Count; i++)                  //속도가 같은 경우, 레벨 기준 정렬
+                //속도가 같은 경우, 레벨 기준 정렬
+                for (i = 1; i < charged.Count; i++)                  
                 {
-                    if (charged[pivot].SPD > charged[i].SPD)
+                    if (charged[pivot].dungeonStat[(int)Stat.SPD] > charged[i].dungeonStat[(int)Stat.SPD])
                     {
                         LVLSort(charged, pivot, i);
                         pivot = i;
                     }
                 }
                 LVLSort(charged, pivot, i);
-
             }
 
             //TP가 최대에 도달한 모든 캐릭터를 attackQueue에 저장, 다음 선정 시 TP 계산을 실시하지 않고 attackQueue에서 선정
@@ -214,7 +212,7 @@ public class BattleManager : MonoBehaviour
             return;
 
         //AP 회복
-        currCaster.currAP = currCaster.AP;
+        currCaster.currAP = (int)currCaster.dungeonStat[(int)Stat.AP];
         skillUI.SetActive(true);
         //스킬 수 만큼 스킬 버튼 활성화, 현재 미구현
     }
@@ -222,7 +220,7 @@ public class BattleManager : MonoBehaviour
     //스킬 선택 버튼, 타겟 선택 창 활성화
     public void AllieSkillBtn(int idx)
     {
-        if(currCaster.currAP < 2)
+        if(currCaster.currAP < currCaster.activeSkills[idx].skillAPCost)
         {
             Debug.Log("not enough AP");
             return;
@@ -251,12 +249,10 @@ public class BattleManager : MonoBehaviour
     //타겟 선택 버튼, 스킬 시전
     public void AllieTargetBtn(int idx)
     {
-        bool isDie;
-
         state = BattleState.AllieTargetSelected;
-        isDie = currCaster.CastSkill(inbattleEnemy[idx], skillidx);
+        currCaster.CastSkill(inbattleEnemy[idx], skillidx);
 
-        if(isDie)
+        if(inbattleEnemy[idx].currHP <= 0)
         {
             inbattleEnemy[idx].gameObject.SetActive(false);
             inbattleEnemy.RemoveAt(idx);
@@ -292,8 +288,7 @@ public class BattleManager : MonoBehaviour
     {
         if (state != BattleState.EnemyTurn)
             return; 
-
-        bool isDie;
+        
         Character target;
 
         //무작위로 대상 선택
@@ -302,9 +297,9 @@ public class BattleManager : MonoBehaviour
         if (target == null)
             return;
 
-        isDie = currCaster.Attack(target);
+        currCaster.CastSkill(target, 0);
 
-        if (isDie)
+        if (target.currHP <= 0)
         {
             inbattleAllie.Remove(target);
 
