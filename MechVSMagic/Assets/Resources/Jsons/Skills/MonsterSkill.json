@@ -1,0 +1,490 @@
+[
+ {
+   "name": "",
+   "idx": 0,
+   "class": 0,
+   "category": 0,
+   "usetype": 0,
+   "reqlvl": 0,
+   "reqskill": [
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "apCost": 0,
+   "cool": 0,
+   "targetSelect": 0,
+   "targetSide": 0,
+   "targetCount": 0,
+   "effectCount": 0,
+   "combo": 0,
+   "effectType": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCond": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTarget": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectObject": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectStat": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectRate": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCalc": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTurn": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectDispel": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectVisible": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ]
+},
+ {
+   "name": "마력 충격",
+   "idx": 1,
+   "class": 0,
+   "category": 0,
+   "usetype": 0,
+   "reqlvl": 0,
+   "reqskill": [
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "apCost": 0,
+   "cool": 0,
+   "targetSelect": 0,
+   "targetSide": 0,
+   "targetCount": 0,
+   "effectCount": 1,
+   "combo": 1,
+   "effectType": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCond": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+  "effectTarget": [
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+   "effectObject": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectStat": [
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectRate": [
+      -1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCalc": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTurn": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectDispel": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectVisible": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ]
+},
+ {
+   "name": "마법 부여 타격",
+   "idx": 2,
+   "class": 0,
+   "category": 0,
+   "usetype": 0,
+   "reqlvl": 0,
+   "reqskill": [
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "apCost": 0,
+   "cool": 0,
+   "targetSelect": 0,
+   "targetSide": 0,
+   "targetCount": 0,
+   "effectCount": 1,
+   "combo": 1,
+   "effectType": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCond": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTarget": [
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectObject": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectStat": [
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectRate": [
+      -1.2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCalc": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTurn": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectDispel": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectVisible": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ]
+},
+ {
+   "name": "마력 응집 폭발",
+   "idx": 3,
+   "class": 0,
+   "category": 0,
+   "usetype": 0,
+   "reqlvl": 0,
+   "reqskill": [
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "apCost": 0,
+   "cool": 0,
+   "targetSelect": 0,
+   "targetSide": 0,
+   "targetCount": 0,
+   "effectCount": 2,
+   "combo": 1,
+   "effectType": [
+      2,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCond": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTarget": [
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectObject": [
+      7,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectStat": [
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectRate": [
+      50,
+      -1.2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectCalc": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectTurn": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectDispel": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "effectVisible": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ]
+}
+]

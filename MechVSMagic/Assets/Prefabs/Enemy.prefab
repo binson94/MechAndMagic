@@ -107,211 +107,95 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LVL: 2
-  basicStat: 0a000000020000000100000001000000000000000000000000000000000000000000000003000000
-  dungeonStat: 02000000010000000100000000000000000000000000000000000000000000000000000003000000
-  currHP: 10
-  currAP: 0
-  activeSkills:
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 2
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0500000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 1
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  passiveSkills:
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
-  - skillIdx: 0
-    skillClass: 0
-    skillName: 
-    skillScript: 
-    skillCategory: 0
-    skillUsetype: 0
-    skillReqlvl: 0
-    skillReqskills: 0000000000000000000000000000000000000000
-    skillAPCost: 0
-    skillCooldown: 0
-    skillCombo: 0
-    skillEffectType: 0000000000000000000000000000000000000000
-    skillEffectCond: 0000000000000000000000000000000000000000
-    skillEffectTarget: 0000000000000000000000000000000000000000
-    skillEffectObject: 0000000000000000000000000000000000000000
-    skillEffectStat: 0000000000000000000000000000000000000000
-    skillEffectRate:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    skillEffectCalc: 0000000000000000000000000000000000000000
-    skillEffectTurn: 0000000000000000000000000000000000000000
-    skillEffectDispel: 0000000000000000000000000000000000000000
+  classIdx: 10
+  basicStat:
+  - statname: 
+    value: 0
+  - statname: currHP
+    value: 20
+  - statname: HP
+    value: 20
+  - statname: currAP
+    value: 0
+  - statname: AP
+    value: 0
+  - statname: ATK
+    value: 15
+  - statname: DEF
+    value: 5
+  - statname: ACC
+    value: 50
+  - statname: DOG
+    value: 0
+  - statname: CRC
+    value: 0
+  - statname: CRB
+    value: 150
+  - statname: PEN
+    value: 0
+  - statname: SPD
+    value: 3
+  dungeonStat:
+  - statname: 
+    value: 0
+  - statname: currHP
+    value: 0
+  - statname: HP
+    value: 0
+  - statname: currAP
+    value: 0
+  - statname: AP
+    value: 0
+  - statname: ATK
+    value: 0
+  - statname: DEF
+    value: 0
+  - statname: ACC
+    value: 0
+  - statname: DOG
+    value: 0
+  - statname: CRC
+    value: 0
+  - statname: CRB
+    value: 0
+  - statname: PEN
+    value: 0
+  - statname: SPD
+    value: 0
+  buffStat:
+  - statname: 
+    value: 0
+  - statname: currHP
+    value: 0
+  - statname: HP
+    value: 0
+  - statname: currAP
+    value: 0
+  - statname: AP
+    value: 0
+  - statname: ATK
+    value: 0
+  - statname: DEF
+    value: 0
+  - statname: ACC
+    value: 0
+  - statname: DOG
+    value: 0
+  - statname: CRC
+    value: 0
+  - statname: CRB
+    value: 0
+  - statname: PEN
+    value: 0
+  - statname: SPD
+    value: 0
+  activeSkills: 0000000000000000000000000000000000000000
+  cooldowns: 0000000000000000000000000000000000000000
+  passiveSkills: 000000000000000000000000
   eternalBuffList: []
-  limitedBuffList: []
+  eternalDebuffList: []
+  inbattleBuffList: []
+  inbattleDebuffList: []
+  inskillBuffList: []
+  inskillDebuffList: []
+  monsterIdx: 1

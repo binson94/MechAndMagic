@@ -7,18 +7,24 @@ public enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, Allie
 //1. 버튼과 enemy 1:1 매칭, 버튼 위치 고정
 public class BattleManager : MonoBehaviour
 {
+    [Header("Characters")]
+    #region CharList
     //전투 중인 모든 캐릭터
     public List<Character> inbattleChar = new List<Character>();
-
-    //아군, 적군 구분 저장
+    //아군만 저장
     public List<Character> inbattleAllie = new List<Character>();
-
+    //적군만 저장
     public List<Character> inbattleEnemy = new List<Character>();
+    #endregion
 
+    [Header("Enemy Spawn")]
+    #region Spawn
     public int enemyCount;
     public GameObject[] enemyPrefabs;
     public Transform[] enemyPos;
+    #endregion
 
+    [Header("Caster")]
     //캐릭터들의 TP 최대치, 전투 시작 시 계산
     public int[] TP = new int[6];
     //캐릭터들의 현재 TP
@@ -26,19 +32,26 @@ public class BattleManager : MonoBehaviour
 
     //TP를 통해 선정된 현재 턴 실행자
     public Character currCaster;
-    public GameObject point;
+
+    [SerializeField]
+    private GameObject point;
     //TP가 동일할 때, 속도와 공속 기준으로 순서대로 queue에 저장
     public List<Character> casterQueue = new List<Character>();
     public BattleState state;
 
+    [Header("UI")]
     //아군 타겟 선택 관련
-    public GameObject startBtn;
-    public int skillidx;
-    public GameObject skillUI;
-    public GameObject targetSelectUI;
-    public GameObject[] skillBtns;
-    public GameObject[] targetBtns;
+    public GameObject startBtn;         //최초 전투 시작 버튼
 
+    public int skillidx;
+    public GameObject skillSeclectUI;   //스킬 선택 UI, 내 턴에 활성화
+    public GameObject[] skillBtns;      //각각 스킬 선택 버튼, 스킬 수만큼 활성화
+
+    public GameObject targetSelectUI;   //타겟 선택 UI, 스킬 선택 시 활성화
+    public GameObject[] targetBtns;     //각각 타겟 선택 버튼, 타겟 수만큼 활성화
+
+
+    #region Start
     //던전 풀에 따른 적 캐릭터 생성
     void Start()
     {
@@ -68,6 +81,9 @@ public class BattleManager : MonoBehaviour
             inbattleChar.Add(tmp);
         }
 
+        foreach (Character c in inbattleChar)
+            c.OnBattleStart();
+
 
         //버프 및 디버프 설정, 현재 미구현
 
@@ -75,7 +91,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < inbattleChar.Count; i++)
         {
             nowTP[i] = 0;
-            TP[i] = 75 - inbattleChar[i].dungeonStat[(int)Stat.SPD];
+            TP[i] = 75 - inbattleChar[i].buffStat[(int)StatName.SPD];
         }
 
         StartCoroutine(FirstCalc());
@@ -87,7 +103,9 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SelectNextCaster();
     }
+    #endregion
 
+    #region Calcuation
     //다음 턴 시전자 탐색
     public void SelectNextCaster()
     {
@@ -133,9 +151,9 @@ public class BattleManager : MonoBehaviour
             {
                 charged.Sort(delegate (Character a, Character b)
                 {
-                    if (a.dungeonStat[(int)Stat.SPD] < b.dungeonStat[(int)Stat.SPD])
+                    if (a.buffStat[(int)StatName.SPD] < b.buffStat[(int)StatName.SPD])
                         return 1;
-                    else if (a.dungeonStat[(int)Stat.SPD] > b.dungeonStat[(int)Stat.SPD])
+                    else if (a.buffStat[(int)StatName.SPD] > b.buffStat[(int)StatName.SPD])
                         return -1;
                     else return 0;
                 });     //속도 기준 정렬
@@ -146,7 +164,7 @@ public class BattleManager : MonoBehaviour
                 //속도가 같은 경우, 레벨 기준 정렬
                 for (i = 1; i < charged.Count; i++)                  
                 {
-                    if (charged[pivot].dungeonStat[(int)Stat.SPD] > charged[i].dungeonStat[(int)Stat.SPD])
+                    if (charged[pivot].buffStat[(int)StatName.SPD] > charged[i].buffStat[(int)StatName.SPD])
                     {
                         LVLSort(charged, pivot, i);
                         pivot = i;
@@ -204,36 +222,46 @@ public class BattleManager : MonoBehaviour
             EnemyTurn();
         }
     }
+    #endregion
 
+    #region AllieTurn
     //아군 턴인 경우, 선택 UI 보이기, 캐릭터 스킬 수에 따라 버튼 활성화, AP 초기화
     void AllieTurn()
     {
         if (state != BattleState.AllieTurnStart)
             return;
+        
+        currCaster.OnTurnStart();
 
-        //AP 회복
-        currCaster.currAP = (int)currCaster.dungeonStat[(int)Stat.AP];
-        skillUI.SetActive(true);
-        //스킬 수 만큼 스킬 버튼 활성화, 현재 미구현
+        for (int i = 0; i < 5; i++)
+            skillBtns[i].SetActive(currCaster.activeSkills[i] > 0);
+
+        skillSeclectUI.SetActive(true);
     }
 
     //스킬 선택 버튼, 타겟 선택 창 활성화
     public void AllieSkillBtn(int idx)
     {
-        if(currCaster.currAP < currCaster.activeSkills[idx].skillAPCost)
+        Skill skill = SkillManager.instance.GetSkillData(currCaster.classIdx, currCaster.activeSkills[idx]);
+        Debug.Log(skill.skillName);
+
+        if (currCaster.buffStat[(int)StatName.currAP] < skill.apCost)
         {
             Debug.Log("not enough AP");
             return;
         }
+        else if (currCaster.cooldowns[idx] > 0)
+        {
+            Debug.Log("Cooldown");
+            return;
+        }
 
         state = BattleState.AllieSkillSelected;
+        
+        for (int i = 0; i < 3; i++)
+            targetBtns[i].SetActive(inbattleEnemy[i].isActiveAndEnabled);
 
-        int i;
-        for (i = 0; i < inbattleEnemy.Count; i++)
-            targetBtns[i].SetActive(true);
-        for (; i < 3; i++)
-            targetBtns[i].SetActive(false);
-
+        //랜덤 타겟, 전체 타겟 등 타겟 선택이 필요 없는 경우 예외 처리
         targetSelectUI.SetActive(true);
 
         skillidx = idx;
@@ -252,22 +280,28 @@ public class BattleManager : MonoBehaviour
         state = BattleState.AllieTargetSelected;
         currCaster.CastSkill(inbattleEnemy[idx], skillidx);
 
-        if(inbattleEnemy[idx].currHP <= 0)
-        {
+        if (inbattleEnemy[idx].buffStat[(int)StatName.currHP] <= 0)
             inbattleEnemy[idx].gameObject.SetActive(false);
-            inbattleEnemy.RemoveAt(idx);
-        }
+        
 
         targetSelectUI.SetActive(false);
 
-        if (inbattleEnemy.Count == 0)
+        bool isWin = true;
+        for (int i = 0; i < inbattleEnemy.Count; i++)
+            if (inbattleEnemy[i].isActiveAndEnabled)
+            {
+                isWin = false;
+                break;
+            }
+
+        if (isWin)
             Win();
     }
 
     public void AllieTurnEndBtn()
     {
         targetSelectUI.SetActive(false);
-        skillUI.SetActive(false);
+        skillSeclectUI.SetActive(false);
 
         nowTP[inbattleChar.IndexOf(currCaster)] = 0;
 
@@ -282,7 +316,9 @@ public class BattleManager : MonoBehaviour
 
         SelectNextCaster();
     }
+    #endregion
 
+    #region EnemyTurn
     //적 턴, 아군 캐릭터 대상으로 정해진 스킬 시전
     void EnemyTurn()
     {
@@ -299,7 +335,7 @@ public class BattleManager : MonoBehaviour
 
         currCaster.CastSkill(target, 0);
 
-        if (target.currHP <= 0)
+        if (target.buffStat[(int)StatName.currHP] <= 0)
         {
             inbattleAllie.Remove(target);
 
@@ -325,7 +361,9 @@ public class BattleManager : MonoBehaviour
         point.SetActive(false);
         SelectNextCaster();
     }
+    #endregion
 
+    #region BattleEnd
     //승리, 보상 획득, 탐험 계속 진행
     void Win()
     {
@@ -337,4 +375,5 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("Lose");
     }
+    #endregion
 }

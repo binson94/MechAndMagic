@@ -1,0 +1,142 @@
+[
+ {
+   "name": "",
+   "idx": 0,
+   "chapter": 0,
+   "region": 0,
+   "reclvl": 0,
+   "aboutScript": "0",
+   "rewardScript": "0",
+   "reqlvl": 0,
+   "request": 0,
+   "minRoom": 0,
+   "maxRoom": 0,
+   "minFloor": 0,
+   "maxFloor": 0,
+   "emptyChance": 0,
+   "monsterChance": 0,
+   "posChance": 0,
+   "neuChance": 0,
+   "negChance": 0,
+   "openChance": 0,
+   "questChance": 0,
+   "monRoomCount": 0,
+   "monRoomIdx": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "monRoomChance": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "eventCount": 0,
+   "eventIdx": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "questCount": 0,
+   "questIdx": [
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "conceptCount": 0,
+   "conceptIdx": [
+      0,
+      0,
+      0
+   ]
+},
+ {
+   "name": "황폐화된 마을",
+   "idx": 1,
+   "chapter": 1,
+   "region": 2,
+   "reclvl": 1,
+   "aboutScript": "마법사들의 공격으로 황폐화된 기계 진영의 마을",
+   "rewardScript": "Lv.1 - 일반 장비, 스킬북 & 하급 - 아이템 / 스킬 강화 재화",
+   "reqlvl": 1,
+   "request": 0,
+   "minRoom": 1,
+   "maxRoom": 3,
+   "minFloor": 4,
+   "maxFloor": 6,
+   "emptyChance": 0.1,
+   "monsterChance": 0.4,
+   "posChance": 0.2,
+   "neuChance": 0.1,
+   "negChance": 0.1,
+   "openChance": 1,
+   "questChance": 0.1,
+   "monRoomCount": 2,
+   "monRoomIdx": [
+      1,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+  "monRoomChance": [
+    0.6,
+    0.4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+   "eventCount": 3,
+   "eventIdx": [
+      1,
+      11,
+      21,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+   ],
+   "questCount": 1,
+   "questIdx": [
+      1001,
+      0,
+      0,
+      0,
+      0
+   ],
+   "conceptCount": 1,
+   "conceptIdx": [
+      0,
+      0,
+      0
+   ]
+}
+]
