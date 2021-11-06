@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using LitJson;
 
@@ -8,6 +9,7 @@ public enum RoomType
     Empty, Monster, Positive, Neutral, Negative, Quest, Boss
 }
 
+[System.Serializable]
 public class Room
 {
     public int floor;
@@ -18,91 +20,248 @@ public class Room
     public RoomType type;
     public bool isOpen;
 
-    public void LinkNext(Room r)
+    public void MakeLink(Room r)
     {
-        next.Add(r.roomNumber);
-        r.prev.Add(roomNumber);
+        if (r != null)
+            if (!next.Contains(r.roomNumber))
+            {
+                next.Add(r.roomNumber);
+                r.prev.Add(roomNumber);
+                next.Sort();
+                prev.Sort();
+            }
     }
-
     public void RemoveLink(Room r)
     {
-        next.Remove(r.roomNumber);
-        r.prev.Remove(roomNumber);
+        if (r != null)
+        {
+            next.RemoveAll(n => n.Equals(r.roomNumber));
+            r.prev.RemoveAll(n => n.Equals(roomNumber));
+        }
     }
 }
 
 [System.Serializable]
 public class Dungeon
 {
+    public int idx;
     public string dungeonName;
 
-    //0층 : 시작 방만 존재, 최고층 : 보스 방만 존재
-    public List<List<Room>> rooms = new List<List<Room>>();
+    //층의 갯수
+    public int floorCount;
+    //각 층의 방 갯수
+    public int[] roomCount;
 
+    //0층 : 시작 방만 존재, 최고층 방(rooms[floorCount - 1]) : 보스 방만 존재
+    public List<Room> rooms = new List<Room>();
+
+    #region DungeonMaking
+    //던전 생성
     public void DungeonInstantiate(DungeonBluePrint dbp)
     {
-        //층 수 선정 (시작 방 포함해서 + 1)
-        int floor = Random.Range(dbp.floorMinMax[0] + 1, dbp.floorMinMax[1] + 2);
-        for (int i = 0; i < floor; i++)
-            rooms.Add(new List<Room>());
-
-
-        rooms[0].Add(GetRoom(0, 0));
-        for (int i = 1; i < floor - 1; i++)
-        {
-            int room = Random.Range(dbp.roomMinMax[0], dbp.roomMinMax[1] + 1);
-
-            for (int j = 0; j < room; j++)
-                rooms[i].Add(GetRoom(i, j, dbp.openChance, dbp.roomKindChances));
-        }
-        rooms[floor - 1].Add(GetRoom(-1, 0));
+        MakeRoom(dbp);
+        MakePath();
+        CheckAloneNode();
+        CheckCross();
     }
 
-    //prob : empty, monster, pos, neu, neg, quest 순서 확률
-    Room GetRoom(int f,int roomNb, float openProb = 0, params float[] prob)
+    //방 생성
+    private void MakeRoom(DungeonBluePrint dbp)
     {
-        Room r = new Room
-        {
-            floor = f,
-            roomNumber = roomNb
-        };
+        //층 수 선정 (시작 방 포함해서 + 1)
+        floorCount = Random.Range(dbp.floorMinMax[0] + 1, dbp.floorMinMax[1] + 2);
+        roomCount = new int[floorCount];
 
-        //시작 방은 항상 빈 방
-        if (f == 0)
-            r.type = RoomType.Empty;
-        else if (f == -1)
-            r.type = RoomType.Boss;
-        else
-        {
-            float rand = Random.Range(0, 1f);
+        roomCount[0] = 1;
+        rooms.Add(NewRoom(0, 0));
 
-            int roomI;
-            float roomPivot = prob[0];
-            for (roomI = 0; rand > roomPivot; roomPivot += prob[++roomI]) ;
-            r.type = (RoomType)roomI;
+        for (int i = 1; i < floorCount - 1; i++)
+        {
+            roomCount[i] = Random.Range(dbp.roomMinMax[0], dbp.roomMinMax[1] + 1);
+
+            for (int j = 0; j < roomCount[i]; j++)
+                rooms.Add(NewRoom(i, j, dbp.openChance, dbp.roomKindChances));
         }
 
-        //공개 이벤트 설정
-        if (2 <= (int)r.type && (int)r.type <= 5)
+        roomCount[floorCount - 1] = 1;
+        rooms.Add(NewRoom(-1, 0));
+
+        //prob : empty, monster, pos, neu, neg, quest 순서 확률
+        Room NewRoom(int f, int roomNb, float openProb = 0, params float[] prob)
         {
-            float open = Random.Range(0, 1f);
-            if (open < openProb)
-                r.isOpen = true;
+            Room r = new Room
+            {
+                floor = f < 0 ? floorCount - 1 : f,
+                roomNumber = roomNb
+            };
+
+            //시작 방은 항상 빈 방
+            if (f == 0)
+            {
+                r.type = RoomType.Empty;
+                r.prev.Add(-1);
+            }
+            else if (f == -1)
+            {
+                r.type = RoomType.Boss;
+                r.next.Add(-1);
+            }
             else
-                r.isOpen = false;
-        }
-        else
-            r.isOpen = true;
+            {
+                float rand = Random.Range(0, 1f);
 
-        return r;
+                int roomI;
+                float roomPivot = prob[0];
+                for (roomI = 0; rand > roomPivot; roomPivot += prob[++roomI]) ;
+                r.type = (RoomType)roomI;
+            }
+
+            //공개 이벤트 설정
+            if (2 <= (int)r.type && (int)r.type <= 5)
+            {
+                float open = Random.Range(0, 1f);
+                if (open < openProb)
+                    r.isOpen = true;
+                else
+                    r.isOpen = false;
+            }
+            else
+                r.isOpen = true;
+
+            return r;
+        }
     }
+
+    //경로 생성
+    private void MakePath()
+    {
+        //처음 방은 모든 다음 방과 연결
+        for (int j = 0; j < roomCount[1]; j++)
+            rooms[0].MakeLink(GetRoom(1, j));
+
+        List<int> nextRoomIdx = new List<int>();
+
+        for (int i = 1; i < floorCount - 1; i++)
+        {
+            for (int j = 0; j < roomCount[i]; j++)
+            {
+                //1개 ~ 3개
+                int nextRoomCount = Random.Range(1, 4);
+                for (int k = -1; k < 2; k++) nextRoomIdx.Add(k);
+                Shuffle(nextRoomIdx);
+
+                for (int k = 0; k < nextRoomCount; k++)
+                    GetRoom(i, j).MakeLink(GetBoundedRoom(i + 1, j + nextRoomIdx[k]));
+
+                nextRoomIdx.Clear();
+            }
+        }
+
+        //막 전 층은 모두 보스 방과 연결
+        for (int j = 0; j < roomCount[floorCount - 2]; j++)
+            GetRoom(floorCount - 2, j).MakeLink(GetRoom(floorCount - 1, 0));
+
+        void Shuffle(List<int> list)
+        {
+            int n = list.Count;
+
+            while (n > 1)
+            {
+                n--;
+                int k = Random.Range(0, n + 1);
+                int v = list[k];
+                list[k] = list[n];
+                list[n] = v;
+            }
+        }
+    }
+
+    //연결되지 않은 방 찾아서 연결
+    private void CheckAloneNode()
+    {
+        for (int i = 2; i < floorCount - 1; i++)
+        {
+            for (int j = 0; j < roomCount[i]; j++)
+            {
+                if (GetRoom(i, j).prev.Count <= 0)
+                    GetBoundedRoom(i - 1, j + Random.Range(-1, 2)).MakeLink(GetRoom(i, j));
+            }
+        }
+    }
+
+    //교차 제거
+    private void CheckCross()
+    {
+        for (int i = 1; i < floorCount - 1; i++)
+        {
+            for (int j = 0; j < roomCount[i] - 1; j++)
+            {
+                Room left = GetRoom(i, j);
+                Room right = GetRoom(i, j + 1);
+
+                if (!left.next.Any(n => n == j + 1))
+                    continue;
+                if (!right.next.Any(n => n == j))
+                    continue;
+
+                left.MakeLink(GetRoom(i + 1, j));
+                right.MakeLink(GetRoom(i + 1, j + 1));
+
+                float rnd = Random.Range(0, 1f);
+                if(rnd < 0.33f)
+                {
+                    left.RemoveLink(GetRoom(i + 1, j + 1));
+                    right.RemoveLink(GetRoom(i + 1, j));
+                }
+                else if(rnd < 0.66f)
+                    left.RemoveLink(GetRoom(i + 1, j + 1));
+                else
+                    right.RemoveLink(GetRoom(i + 1, j));
+            }
+        }
+    }
+    #endregion DungeonMaking
 
     public void DebugShow()
     {
-        for(int i =0;i<rooms.Count;i++)
+        for (int i = 0; i < floorCount; i++)
         {
-            for (int j = 0; j < rooms[i].Count; j++)
-                Debug.Log(string.Concat("floor : ", i,", idx : ", rooms[i][j].roomNumber, ", type : ", rooms[i][j].type, ", open : ", rooms[i][j].isOpen));
+            Debug.Log(string.Concat(i, " floor, ", roomCount[i], " rooms"));
+            for (int j = 0; j < roomCount[i]; j++) 
+            {
+                Debug.Log(string.Concat("(", i, ", ", j, "), type : ", GetRoom(i,j).type, ", open : ", GetRoom(i, j).isOpen));
+                Debug.Log(string.Concat("prev : ", ListToString(GetRoom(i, j).prev), ", next : ", ListToString(GetRoom(i, j).next)));
+            }
         }
+        
+        string ListToString<T>(List<T> list)
+        {
+            if (list.Count <= 0)
+                return null;
+
+            string str = list[0].ToString();
+            for (int i = 1; i < list.Count; i++)
+                str = string.Concat(str, list[i].ToString());
+            return str;
+        }
+    }
+
+    //j가 배열 밖으로 벗어나도, 보정해서 반환
+    private Room GetBoundedRoom(int i, int j)
+    {
+        if (i < 0 || i >= floorCount)
+            return null;
+
+        j = Mathf.Max(0, Mathf.Min(roomCount[i] - 1, j));
+
+        return GetRoom(i, j);
+    }
+
+    //1차원 배열로 변경함에 따라, 편의성 함수
+    public Room GetRoom(int i, int j)
+    {
+        for (int k = 0; k < i; k++)
+            j += roomCount[k];
+        return rooms[j];
     }
 }
