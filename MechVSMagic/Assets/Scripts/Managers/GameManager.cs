@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    static public GameManager instance;
+    public static GameManager instance = null;
+
+    public static SoundManager sound = null;
+
+    [Header("Play Data")]
+    public int slotNumber;
 
     private void Awake()
     {
         if (instance == null)
         {
-            Screen.SetResolution(1080, 1920, true);
             instance = this;
+            sound = transform.GetChild(0).GetComponent<SoundManager>();
+            Screen.SetResolution(1080, 1920, true);
             DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame

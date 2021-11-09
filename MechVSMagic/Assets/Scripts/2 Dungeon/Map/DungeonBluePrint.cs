@@ -34,7 +34,7 @@ public class DungeonBluePrint
         string loadStr;
         JsonData json;
 
-        txtAsset = Resources.Load<TextAsset>("Jsons/Dungeon");
+        txtAsset = Resources.Load<TextAsset>("Jsons/Dungeons/Dungeon");
         loadStr = txtAsset.text;
         json = JsonMapper.ToObject(loadStr);
 

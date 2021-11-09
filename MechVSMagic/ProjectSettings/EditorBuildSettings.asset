@@ -6,15 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Start.unity
+    path: Assets/Scenes/0 Title/0 Title.unity
+    guid: 4fafbf3f8e35f684797b852ab7c132b9
+  - enabled: 1
+    path: Assets/Scenes/1 Town/1 Town.unity
     guid: 6ec92680420338740836c3c9b1dfc67b
   - enabled: 1
-    path: Assets/Scenes/Dungeon/Dungeon.unity
+    path: Assets/Scenes/2 Dungeon/2_0 Dungeon.unity
     guid: c1a10dc5cb149f1458b924ff531dbef4
   - enabled: 1
-    path: Assets/Scenes/Dungeon/Battle.unity
+    path: Assets/Scenes/2 Dungeon/2_1 Battle.unity
     guid: ddde7d0a3de41e64e97c6f5a8babeba1
   - enabled: 1
-    path: Assets/Scenes/Dungeon/Event.unity
+    path: Assets/Scenes/2 Dungeon/2_2 Event.unity
     guid: 8bdd52e560f05024d9372cc0409ef13a
   m_configObjects: {}

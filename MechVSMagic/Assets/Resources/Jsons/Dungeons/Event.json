@@ -1,0 +1,343 @@
+[
+ {
+   "name": "없음",
+   "idx": 0,
+   "region": 0,
+   "script": "빈 방이다",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "행복",
+   "idx": 1,
+   "region": 2,
+   "script": "여행 도중 배고팠는데, 진로 1병을 발견했다. 마시고 기분 좋게 마저 여행 떠나자!",
+   "typeCount": 1,
+   "type": [
+      1,
+      1
+   ]
+},
+ {
+   "name": "긍정 이벤트 2",
+   "idx": 2,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 3",
+   "idx": 3,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 4",
+   "idx": 4,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 5",
+   "idx": 5,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 6",
+   "idx": 6,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 7",
+   "idx": 7,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 8",
+   "idx": 8,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 9",
+   "idx": 9,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "긍정 이벤트 10",
+   "idx": 10,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "덤덤",
+   "idx": 11,
+   "region": 2,
+   "script": "내가 진로 1병을 주면, 이과두주 1병으로 바꿔준다는 상인을 만났다. 바꿀까? 말까?",
+   "typeCount": 1,
+   "type": [
+      4,
+      4
+   ]
+},
+ {
+   "name": "중립 이벤트 2",
+   "idx": 12,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 3",
+   "idx": 13,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 4",
+   "idx": 14,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 5",
+   "idx": 15,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 6",
+   "idx": 16,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 7",
+   "idx": 17,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 8",
+   "idx": 18,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 9",
+   "idx": 19,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "중립 이벤트 10",
+   "idx": 20,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "절망",
+   "idx": 21,
+   "region": 2,
+   "script": "저주가 내 몸을 감싼다. 내 영구 지속 버프 1개 해제, 그리고 공격력 -20%되는 영구 지속 디버프 1개 내게 부여.",
+   "typeCount": 2,
+   "type": [
+      2,
+      3
+   ]
+},
+ {
+   "name": "부정 이벤트 2",
+   "idx": 22,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 3",
+   "idx": 23,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 4",
+   "idx": 24,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 5",
+   "idx": 25,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 6",
+   "idx": 26,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 7",
+   "idx": 27,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 8",
+   "idx": 28,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 9",
+   "idx": 29,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+},
+ {
+   "name": "부정 이벤트 10",
+   "idx": 30,
+   "region": null,
+   "script": "",
+   "typeCount": 0,
+   "type": [
+      0,
+      0
+   ]
+}
+]

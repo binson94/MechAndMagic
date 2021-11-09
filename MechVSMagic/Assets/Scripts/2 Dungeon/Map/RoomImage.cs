@@ -19,7 +19,17 @@ public class RoomImage : MonoBehaviour
 
         rect = GetComponent<RectTransform>();
         GetComponent<Button>().onClick.AddListener(Btn_Select);
-        rect.transform.position = new Vector3(75, 75, 0) + Vector3.right * room.roomNumber * 200 + Vector3.up * room.floor * 300;
+        SetTxt();
+    }
+
+    private void SetTxt()
+    {
+        if (room.isOpen)
+        {
+            roomText.text = string.Concat(room.type, "\n", room.roomEventIdx);
+        }
+        else
+            roomText.text = "비공개";
     }
 
     public void SetPosition(Vector3 vec)

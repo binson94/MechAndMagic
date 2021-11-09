@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using LitJson;
 
 public enum RoomType
 {
@@ -18,6 +17,8 @@ public class Room
     public List<int> next = new List<int>();
     public List<int> prev = new List<int>();
     public RoomType type;
+    //몬스터일 경우-> 방 인덱스, 이벤트일 경우 -> 이벤트 인덱스
+    public int roomEventIdx;
     public bool isOpen;
 
     public void MakeLink(Room r)
@@ -80,56 +81,104 @@ public class Dungeon
             roomCount[i] = Random.Range(dbp.roomMinMax[0], dbp.roomMinMax[1] + 1);
 
             for (int j = 0; j < roomCount[i]; j++)
-                rooms.Add(NewRoom(i, j, dbp.openChance, dbp.roomKindChances));
+                rooms.Add(NewRoom(i, j, dbp));
         }
 
         roomCount[floorCount - 1] = 1;
-        rooms.Add(NewRoom(-1, 0));
-
-        //prob : empty, monster, pos, neu, neg, quest 순서 확률
-        Room NewRoom(int f, int roomNb, float openProb = 0, params float[] prob)
+        rooms.Add(NewRoom(-1, 0, dbp));
+    }
+    
+    //prob : empty, monster, pos, neu, neg, quest 순서 확률
+    private Room NewRoom(int f, int roomNb, DungeonBluePrint dbp = null)
+    {
+        Room r = new Room
         {
-            Room r = new Room
-            {
-                floor = f < 0 ? floorCount - 1 : f,
-                roomNumber = roomNb
-            };
+            floor = f < 0 ? floorCount - 1 : f,
+            roomNumber = roomNb
+        };
 
-            //시작 방은 항상 빈 방
-            if (f == 0)
-            {
-                r.type = RoomType.Empty;
-                r.prev.Add(-1);
-            }
-            else if (f == -1)
-            {
-                r.type = RoomType.Boss;
-                r.next.Add(-1);
-            }
-            else
-            {
-                float rand = Random.Range(0, 1f);
-
-                int roomI;
-                float roomPivot = prob[0];
-                for (roomI = 0; rand > roomPivot; roomPivot += prob[++roomI]) ;
-                r.type = (RoomType)roomI;
-            }
-
-            //공개 이벤트 설정
-            if (2 <= (int)r.type && (int)r.type <= 5)
-            {
-                float open = Random.Range(0, 1f);
-                if (open < openProb)
-                    r.isOpen = true;
-                else
-                    r.isOpen = false;
-            }
-            else
-                r.isOpen = true;
-
-            return r;
+        //시작 방 설정
+        if (f == 0)
+        {
+            r.type = RoomType.Empty;
+            r.prev.Add(-1);
         }
+        //보스 방 설정
+        else if (f == -1)
+        {
+            r.type = RoomType.Boss;
+            r.next.Add(-1);
+        }
+        else
+        {
+            float rand = Random.Range(0, 1f);
+
+            int roomI;
+            float roomPivot = dbp.roomKindChances[0];
+            for (roomI = 0; rand > roomPivot && roomI < 5; roomPivot += dbp.roomKindChances[++roomI]) ;
+            r.type = (RoomType)roomI;
+        }
+
+        //몬스터 방 && 이벤트 설정
+        switch (r.type)
+        {
+            case RoomType.Monster:
+                {
+                    float rand = Random.Range(0, 1f);
+                    int monIdx;
+                    float monProb = dbp.monRoomChance[0];
+                    for (monIdx = 0; rand > monProb && monIdx < dbp.monRoomCount - 1; monProb += dbp.monRoomChance[++monIdx]) ;
+                    r.roomEventIdx = dbp.monRoomIdx[monIdx];
+                    break;
+                }
+            case RoomType.Positive:
+                {
+                    int[] pivots = (from num in dbp.eventIdx
+                        where num <= 10
+                        select num).ToArray();
+                    r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
+                    break;
+                }
+            case RoomType.Neutral:
+                {
+                    int[] pivots = (from num in dbp.eventIdx
+                                    where 10 < num && num <= 20
+                                    select num).ToArray();
+                    r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
+                    break;
+                }
+            case RoomType.Negative:
+                {
+                    int[] pivots = (from num in dbp.eventIdx
+                                    where 20 < num && num <= 30
+                                    select num).ToArray();
+                    r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
+                    break;
+                }
+            case RoomType.Quest:
+                {
+                    break;
+                }
+            case RoomType.Boss:
+                {
+                    r.roomEventIdx = dbp.monRoomIdx[0];
+                    break;
+                }
+        }
+
+        //공개 이벤트 설정
+        if (2 <= (int)r.type && (int)r.type <= 5)
+        {
+            float open = Random.Range(0, 1f);
+            if (open < dbp.openChance)
+                r.isOpen = true;
+            else
+                r.isOpen = false;
+        }
+        else
+            r.isOpen = true;
+
+        return r;
     }
 
     //경로 생성
@@ -230,19 +279,7 @@ public class Dungeon
             for (int j = 0; j < roomCount[i]; j++) 
             {
                 Debug.Log(string.Concat("(", i, ", ", j, "), type : ", GetRoom(i,j).type, ", open : ", GetRoom(i, j).isOpen));
-                Debug.Log(string.Concat("prev : ", ListToString(GetRoom(i, j).prev), ", next : ", ListToString(GetRoom(i, j).next)));
             }
-        }
-        
-        string ListToString<T>(List<T> list)
-        {
-            if (list.Count <= 0)
-                return null;
-
-            string str = list[0].ToString();
-            for (int i = 1; i < list.Count; i++)
-                str = string.Concat(str, list[i].ToString());
-            return str;
         }
     }
 
@@ -256,7 +293,6 @@ public class Dungeon
 
         return GetRoom(i, j);
     }
-
     //1차원 배열로 변경함에 따라, 편의성 함수
     public Room GetRoom(int i, int j)
     {
