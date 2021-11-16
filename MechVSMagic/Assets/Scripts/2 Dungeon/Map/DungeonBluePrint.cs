@@ -24,9 +24,13 @@ public class DungeonBluePrint
     public int monRoomCount;
     public int[] monRoomIdx;
     public float[] monRoomChance;
+    public int bossRoomIdx;
 
     public int eventCount;
     public int[] eventIdx;
+
+    public int questCount;
+    public int[] questIdx;
 
     public DungeonBluePrint(int id)
     {
@@ -39,22 +43,22 @@ public class DungeonBluePrint
         json = JsonMapper.ToObject(loadStr);
 
         _name = json[id]["name"].ToString();
-        idx = int.Parse(json[id]["idx"].ToString());
-        chapter = int.Parse(json[id]["chapter"].ToString());
-        region = int.Parse(json[id]["region"].ToString());
-        reclvl = int.Parse(json[id]["reclvl"].ToString());
+        idx = id;
+        chapter = (int)json[id]["chapter"];
+        region = (int)json[id]["region"];
+        reclvl = (int)json[id]["reclvl"];
         aboutScript = json[id]["aboutScript"].ToString();
         rewardScript = json[id]["rewardScript"].ToString();
 
 
-        reqlvl = int.Parse(json[id]["reqlvl"].ToString());
-        request = int.Parse(json[id]["request"].ToString());
+        reqlvl = (int)json[id]["reqlvl"];
+        request = (int)json[id]["request"];
 
 
-        floorMinMax[0] = int.Parse(json[id]["minFloor"].ToString());
-        floorMinMax[1] = int.Parse(json[id]["maxFloor"].ToString());
-        roomMinMax[0] = int.Parse(json[id]["minRoom"].ToString());
-        roomMinMax[1] = int.Parse(json[id]["maxRoom"].ToString());
+        floorMinMax[0] = (int)json[id]["minFloor"];
+        floorMinMax[1] = (int)json[id]["maxFloor"];
+        roomMinMax[0] = (int)json[id]["minRoom"];
+        roomMinMax[1] = (int)json[id]["maxRoom"];
 
         roomKindChances[0] = float.Parse(json[id]["emptyChance"].ToString());
         roomKindChances[1] = float.Parse(json[id]["monsterChance"].ToString());
@@ -64,18 +68,24 @@ public class DungeonBluePrint
         roomKindChances[5] = float.Parse(json[id]["questChance"].ToString());
         openChance = float.Parse(json[id]["openChance"].ToString());
 
-        monRoomCount = int.Parse(json[id]["monRoomCount"].ToString());
+        monRoomCount = (int)json[id]["monRoomCount"];
         monRoomChance = new float[monRoomCount];
         monRoomIdx = new int[monRoomCount];
         for (int i = 0; i < monRoomCount; i++)
         {
-            monRoomIdx[i] = int.Parse(json[id]["monRoomIdx"][i].ToString());
+            monRoomIdx[i] = (int)json[id]["monRoomIdx"][i];
             monRoomChance[i] = float.Parse(json[id]["monRoomChance"][i].ToString());
         }
+        bossRoomIdx = (int)json[id]["bossRoomIdx"];
 
-        eventCount = int.Parse(json[id]["eventCount"].ToString());
+        eventCount = (int)json[id]["eventCount"];
         eventIdx = new int[eventCount];
         for (int i = 0; i < eventCount; i++)
-            eventIdx[i] = int.Parse(json[id]["eventIdx"][i].ToString());
+            eventIdx[i] = (int)json[id]["eventIdx"][i];
+
+        questCount = (int)json[id]["questCount"];
+        questIdx = new int[questCount];
+        for (int i = 0; i < questCount; i++)
+            questIdx[i] = (int)json[id]["questIdx"][i];
     }
 }

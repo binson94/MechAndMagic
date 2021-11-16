@@ -50,25 +50,27 @@ public class DungeonManager : MonoBehaviour
     private void SaveState()
     {
         string dungeonData = JsonMapper.ToJson(state);
-        PlayerPrefs.SetString(string.Concat("Dungeon", GameManager.instance.slotNumber), dungeonData);
+        PlayerPrefs.SetString(string.Concat("DungeonData", GameManager.slotNumber), dungeonData);
     }
 
     private void LoadState()
     {
-        if (PlayerPrefs.HasKey(string.Concat("Dungeon", GameManager.instance.slotNumber)))
+        if (PlayerPrefs.HasKey(string.Concat("DungeonData", GameManager.slotNumber)))
         {
-            state = JsonMapper.ToObject<DungeonState>(PlayerPrefs.GetString(string.Concat("Dungeon", GameManager.instance.slotNumber)));
+            state = JsonMapper.ToObject<DungeonState>(PlayerPrefs.GetString(string.Concat("DungeonData", GameManager.slotNumber)));
         }
         else
         {
-            state.dungeonIdx = 1;
-            state.currDungeon.DungeonInstantiate(new DungeonBluePrint(1));
+            state.dungeonIdx = PlayerPrefs.GetInt(string.Concat("Dungeon", GameManager.slotNumber), 1);
+            state.currDungeon.DungeonInstantiate(new DungeonBluePrint(state.dungeonIdx));
             state.currPos = new int[2] { 0, 0 };
         }
     }
 
     private void MakeImage()
     {
+        scrollContent.GetComponent<RectTransform>().sizeDelta = new Vector2(1063, Mathf.Max(1920, state.currDungeon.floorCount * 300));
+        //각 방의 위치 이미지 생성
         for (int i = 0; i < state.currDungeon.floorCount; i++)
         {
             roomImages.Add(new List<RoomImage>());
@@ -76,12 +78,13 @@ public class DungeonManager : MonoBehaviour
             {
                 RoomImage r = Instantiate(roomPrefab).GetComponent<RoomImage>();
                 r.transform.parent = scrollContent.transform;
-                r.Init(state.currDungeon.GetRoom(i,j), this);
-                r.SetPosition(new Vector3(0, 100, 0) + Vector3.right * 1080f * (j + 1) / (state.currDungeon.roomCount[i] + 1) + Vector3.up * state.currDungeon.GetRoom(i,j).floor * 300);
+                r.Init(state.currDungeon.GetRoom(i, j), this);
+                r.SetPosition(new Vector3(0, 100, 0) + Vector3.right * 1080f * (j + 1) / (state.currDungeon.roomCount[i] + 1) + Vector3.down * (state.currDungeon.floorCount - state.currDungeon.GetRoom(i,j).floor) * 300);
                 roomImages[i].Add(r);
             }
         }
 
+        //방 사이의 연결 이미지 생성
         for (int i = 0; i < state.currDungeon.floorCount - 1; i++)
         {
             for (int j = 0; j < state.currDungeon.roomCount[i]; j++)
@@ -90,9 +93,10 @@ public class DungeonManager : MonoBehaviour
                 {
                     roomConnectMgr.AddConnect(roomImages[i][j].rect, roomImages[i + 1][state.currDungeon.GetRoom(i,j).next[k]].rect);
                 }
-
             }
         }
+
+        scroll.verticalNormalizedPosition = PlayerPrefs.GetFloat(string.Concat("DungeonScroll", GameManager.slotNumber), 0f);
     }
     #endregion
 
@@ -106,21 +110,23 @@ public class DungeonManager : MonoBehaviour
         }
 
         state.currPos = (int[])pos.Clone();
+        PlayerPrefs.SetFloat(string.Concat("DungeonScroll", GameManager.slotNumber), scroll.verticalNormalizedPosition);
         SaveState();
 
         RoomType type = state.GetCurrRoom().type;
-        PlayerPrefs.SetInt(string.Concat("Room", GameManager.instance.slotNumber), state.GetCurrRoom().roomEventIdx);
-        if (type == RoomType.Empty || (RoomType.Positive <= type && type <= RoomType.Quest))
-            SceneManager.LoadScene("2_2 Event");
-        else
+        PlayerPrefs.SetInt(string.Concat("Room", GameManager.slotNumber), state.GetCurrRoom().roomEventIdx);
+
+        if (type == RoomType.Monster || type == RoomType.Boss)
             SceneManager.LoadScene("2_1 Battle");
+        else if (type == RoomType.Quest)
+            SceneManager.LoadScene("2_3 Outbreak");
+        else
+            SceneManager.LoadScene("2_2 Event");
     }
 
     public void Debug_NewDungeon()
     {
-        PlayerPrefs.DeleteKey(string.Concat("PosX", GameManager.instance.slotNumber));
-        PlayerPrefs.DeleteKey(string.Concat("PosY", GameManager.instance.slotNumber));
-        PlayerPrefs.DeleteKey(string.Concat("Dungeon", GameManager.instance.slotNumber));
+        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.slotNumber));
         SceneManager.LoadScene("2_0 Dungeon");
     }
     #endregion

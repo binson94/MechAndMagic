@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2 Dungeon/2_2 Event.unity
     guid: 8bdd52e560f05024d9372cc0409ef13a
+  - enabled: 1
+    path: Assets/Scenes/2 Dungeon/2_3 Outbreak.unity
+    guid: 425587e49f1d3bf4abfd6da2d297e38c
   m_configObjects: {}

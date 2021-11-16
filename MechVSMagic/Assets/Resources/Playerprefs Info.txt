@@ -1,0 +1,9 @@
+1. Quest
+string : "QuestData" + slotNumber -> 현재 진행 중인 Quest 정보, 이어하기용(json 상태 저장)
+
+2. Dungeon
+int : "Dungeon" + slotNumber -> 입장한 Dungeon idx
+string : "DungeonData" + slotNumber -> Dungeon Instance 정보, 이어하기용(json 상태 저장)
+float : "DungeonScroll" + slotNumber -> 방 클리어 후 돌아왔을 때, 스크롤 정도
+
+int : "Room" + slotNumber -> room event 정보(몬스터 방 넘버, 이벤트 넘버, 돌발퀘 넘버)

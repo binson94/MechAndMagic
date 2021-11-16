@@ -1,6 +1,6 @@
 [
  {
-   "name": "",
+   "name": "없음",
    "idx": 0,
    "chapter": 0,
    "region": 0,
@@ -41,6 +41,7 @@
       0,
       0
    ],
+   "bossRoomIdx": 0,
    "eventCount": 0,
    "eventIdx": [
       0,
@@ -111,6 +112,7 @@
     0,
     0
   ],
+   "bossRoomIdx": 101,
    "eventCount": 3,
    "eventIdx": [
       1,
@@ -126,7 +128,7 @@
    ],
    "questCount": 1,
    "questIdx": [
-      1001,
+      1,
       0,
       0,
       0,

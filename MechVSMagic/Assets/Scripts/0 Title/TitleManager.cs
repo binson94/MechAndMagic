@@ -54,7 +54,8 @@ public class TitleManager : MonoBehaviour
     #region Start
     public void Btn_Start_SelectSlot(int idx)
     {
-        GameManager.instance.slotNumber = idx;
+        GameManager.slotNumber = idx;
+        QuestDataManager.LoadData();
 
         Debug.Log(string.Concat("slot", idx));
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");

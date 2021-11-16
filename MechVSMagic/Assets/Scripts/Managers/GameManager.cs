@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public static SoundManager sound = null;
 
     [Header("Play Data")]
-    public int slotNumber;
+    //0 : 기계 슬롯, 1 : 마법 슬롯
+    public static int slotNumber;
 
     private void Awake()
     {

@@ -58,7 +58,7 @@ public class BattleManager : MonoBehaviour
     //던전 풀에 따른 적 캐릭터 생성
     void Start()
     {
-        roomInfo = new RoomInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.instance.slotNumber), 1));
+        roomInfo = new RoomInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.slotNumber), 1));
 
         Character tmp;
         for (int i = 0; i < roomInfo.monsterCount; i++)
@@ -273,9 +273,12 @@ public class BattleManager : MonoBehaviour
         }
 
         state = BattleState.AllieSkillSelected;
-        
-        for (int i = 0; i < roomInfo.monsterCount; i++)
+
+        int i;
+        for (i = 0; i < roomInfo.monsterCount; i++)
             targetBtns[i].SetActive(monList[i].isActiveAndEnabled);
+        for (; i < 3; i++)
+            targetBtns[i].SetActive(false);
 
         //랜덤 타겟, 전체 타겟 등 타겟 선택이 필요 없는 경우 예외 처리
         targetSelectUI.SetActive(true);
@@ -297,7 +300,10 @@ public class BattleManager : MonoBehaviour
         currCaster.CastSkill(monList[idx], skillidx);
 
         if (monList[idx].buffStat[(int)StatName.currHP] <= 0)
+        {
+            QuestDataManager.QuestUpdate(QuestType.Kill, monList[idx].classIdx, 1);
             monList[idx].gameObject.SetActive(false);
+        }
         
 
         targetSelectUI.SetActive(false);
@@ -400,6 +406,8 @@ public class BattleManager : MonoBehaviour
     public void Btn_BackToTown()
     {
         Debug.Log("Town Scene Load");
+        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.slotNumber));
+        UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
     #endregion
 }

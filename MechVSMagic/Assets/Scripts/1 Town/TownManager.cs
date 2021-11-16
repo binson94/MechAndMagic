@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum TownState
 {
-    Town, Bed, Dungeon, Smith, Dictionary
+    Town, Bed, Dungeon, Smith, Dictionary, Quest
 }
 
 public class TownManager : MonoBehaviour
@@ -19,7 +20,11 @@ public class TownManager : MonoBehaviour
     }
 
     #region Town
-
+    public void Btn_Town_Quest()
+    {
+        state = TownState.Quest;
+        PanelSet();
+    }
     #endregion
 
     #region Bed
@@ -27,7 +32,6 @@ public class TownManager : MonoBehaviour
     #endregion
 
     #region Dungeon
-
     #endregion
 
     #region Smith
@@ -72,7 +76,7 @@ public class TownManager : MonoBehaviour
     
     private void PanelSet()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < uiPanels.Length; i++)
             uiPanels[i].SetActive(i == (int)state);
     }
 }

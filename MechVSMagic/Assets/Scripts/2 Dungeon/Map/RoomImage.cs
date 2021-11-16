@@ -39,7 +39,6 @@ public class RoomImage : MonoBehaviour
 
     void Btn_Select()
     {
-        Debug.Log(string.Concat("(", room.floor, ", ", room.roomNumber, ")"));
         dungeonMgr.Btn_RoomSelect(room.floor, room.roomNumber);
     }
 }

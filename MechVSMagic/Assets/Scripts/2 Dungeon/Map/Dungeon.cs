@@ -56,18 +56,20 @@ public class Dungeon
     //0층 : 시작 방만 존재, 최고층 방(rooms[floorCount - 1]) : 보스 방만 존재
     public List<Room> rooms = new List<Room>();
 
+    DungeonBluePrint dbp;
     #region DungeonMaking
     //던전 생성
     public void DungeonInstantiate(DungeonBluePrint dbp)
     {
-        MakeRoom(dbp);
+        this.dbp = dbp;
+        MakeRoom();
         MakePath();
         CheckAloneNode();
         CheckCross();
     }
 
     //방 생성
-    private void MakeRoom(DungeonBluePrint dbp)
+    private void MakeRoom()
     {
         //층 수 선정 (시작 방 포함해서 + 1)
         floorCount = Random.Range(dbp.floorMinMax[0] + 1, dbp.floorMinMax[1] + 2);
@@ -81,15 +83,15 @@ public class Dungeon
             roomCount[i] = Random.Range(dbp.roomMinMax[0], dbp.roomMinMax[1] + 1);
 
             for (int j = 0; j < roomCount[i]; j++)
-                rooms.Add(NewRoom(i, j, dbp));
+                rooms.Add(NewRoom(i, j));
         }
 
         roomCount[floorCount - 1] = 1;
-        rooms.Add(NewRoom(-1, 0, dbp));
+        rooms.Add(NewRoom(-1, 0));
     }
     
     //prob : empty, monster, pos, neu, neg, quest 순서 확률
-    private Room NewRoom(int f, int roomNb, DungeonBluePrint dbp = null)
+    private Room NewRoom(int f, int roomNb)
     {
         Room r = new Room
         {
@@ -132,42 +134,31 @@ public class Dungeon
                     break;
                 }
             case RoomType.Positive:
-                {
-                    int[] pivots = (from num in dbp.eventIdx
-                        where num <= 10
-                        select num).ToArray();
-                    r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
-                    break;
-                }
             case RoomType.Neutral:
-                {
-                    int[] pivots = (from num in dbp.eventIdx
-                                    where 10 < num && num <= 20
-                                    select num).ToArray();
-                    r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
-                    break;
-                }
             case RoomType.Negative:
                 {
+
                     int[] pivots = (from num in dbp.eventIdx
-                                    where 20 < num && num <= 30
+                                    where (r.type == RoomType.Positive && num <= 10) || (r.type == RoomType.Neutral && (10 < num && num <= 20))
+                                    || (r.type == RoomType.Negative && (20 < num && num <= 30))
                                     select num).ToArray();
                     r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
                     break;
                 }
             case RoomType.Quest:
                 {
+                    r.roomEventIdx = dbp.questIdx[Random.Range(0, dbp.questCount)];
                     break;
                 }
             case RoomType.Boss:
                 {
-                    r.roomEventIdx = dbp.monRoomIdx[0];
+                    r.roomEventIdx = dbp.bossRoomIdx;
                     break;
                 }
         }
 
         //공개 이벤트 설정
-        if (2 <= (int)r.type && (int)r.type <= 5)
+        if (2 <= (int)r.type && (int)r.type <= 4)
         {
             float open = Random.Range(0, 1f);
             if (open < dbp.openChance)
@@ -175,6 +166,8 @@ public class Dungeon
             else
                 r.isOpen = false;
         }
+        else if (r.type == RoomType.Quest)
+            r.isOpen = false;
         else
             r.isOpen = true;
 
@@ -270,6 +263,30 @@ public class Dungeon
         }
     }
     #endregion DungeonMaking
+
+    public void QuestDetermined(int[] pos)
+    {
+        float probMax = dbp.roomKindChances[(int)RoomType.Positive] 
+            + dbp.roomKindChances[(int)RoomType.Neutral] + dbp.roomKindChances[(int)RoomType.Negative];
+
+        foreach (Room r in rooms)
+        {
+            if (r.type == RoomType.Quest && (r != GetRoom(pos[0], pos[1]))) 
+            {
+                float rand = Random.Range(0, probMax);
+                int i;
+                for (i = 2; rand < dbp.roomKindChances[i] && i < 4; i++) ;
+                r.type = (RoomType)i;
+                
+                int[] pivots = (from num in dbp.eventIdx
+                                where (r.type == RoomType.Positive && num <= 10) || (r.type == RoomType.Neutral && (10 < num && num <= 20))
+                                || (r.type == RoomType.Negative && (20 < num && num <= 30))
+                                select num).ToArray();
+                r.roomEventIdx = pivots.Skip(Random.Range(0, pivots.Length)).First();
+                break;
+            }
+        }
+    }
 
     public void DebugShow()
     {
