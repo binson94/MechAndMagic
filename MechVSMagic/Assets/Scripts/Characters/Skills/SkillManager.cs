@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    public static SkillManager instance = null;
-
-    SkillDB[] skillDB = new SkillDB[11];
+    static SkillDB[] skillDB = new SkillDB[11];
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            MakeDB();
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
+        MakeDB();
     }
 
-    void MakeDB()
+    static void MakeDB()
     {
         skillDB[1] = new ArmedFighterSkillDB();
         skillDB[1].DataLoad();
@@ -29,7 +20,11 @@ public class SkillManager : MonoBehaviour
         skillDB[10].DataLoad();
     }
 
-    public Skill GetSkillData(int classIdx, int skillIdx)
+    static public Skill[] GetSkillData()
+    {
+        return skillDB[GameManager.GetCurrClass()].skills;
+    }
+    static public Skill GetSkillData(int classIdx, int skillIdx)
     {
         return skillDB[classIdx].skills[skillIdx];
     }

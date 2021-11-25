@@ -10,7 +10,7 @@ public class OutbreakManager : MonoBehaviour
 
     private void Start()
     {
-        outbreakIdx = PlayerPrefs.GetInt(string.Concat("Room", GameManager.slotNumber));
+        outbreakIdx = PlayerPrefs.GetInt(string.Concat("Room", GameManager.currSlot));
 
         outbreakTxt.text = QuestSlot.GetQuestScript(true, outbreakIdx);
 

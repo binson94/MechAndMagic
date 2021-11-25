@@ -15,7 +15,7 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        eventInfo = new EventInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.slotNumber)));
+        eventInfo = new EventInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.currSlot)));
         eventText.text = eventInfo.script;
 
         EventEffect();

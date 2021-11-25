@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //스텟 index - 12가지
-public enum StatName { currHP = 1, HP, currAP, AP, ATK, DEF, ACC, DOG, CRC, CRB, PEN, SPD };
+public enum StatName { None, currHP, HP, currAP, AP, ATK, DEF, ACC, DOG, CRC, CRB, PEN, SPD };
 
 [System.Serializable]
 public struct Stat
@@ -151,7 +151,7 @@ public class Character : MonoBehaviour
         {
             for (int j = 0; j < 5; j++)
             {
-                Skill skill = SkillManager.instance.GetSkillData(classIdx, activeSkills[j]);
+                Skill skill = SkillManager.GetSkillData(classIdx, activeSkills[j]);
                 if (skill == null)
                     continue;
 
@@ -213,7 +213,7 @@ public class Character : MonoBehaviour
             }
             for(int j = 0;j<3;j++)
             {
-                Skill skill = SkillManager.instance.GetSkillData(classIdx, passiveSkills[j]);
+                Skill skill = SkillManager.GetSkillData(classIdx, passiveSkills[j]);
                 if (skill == null)
                     continue;
 
@@ -353,7 +353,7 @@ public class Character : MonoBehaviour
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.instance.GetSkillData(classIdx, activeSkills[idx]);
+        Skill skill = SkillManager.GetSkillData(classIdx, activeSkills[idx]);
         inskillBuffList.Clear();
         if (skill == null)
         {
@@ -656,7 +656,7 @@ public class Character : MonoBehaviour
     {
         for (int j = 0; j < 3; j++)
         {
-            Skill skill = SkillManager.instance.GetSkillData(classIdx, passiveSkills[j]);
+            Skill skill = SkillManager.GetSkillData(classIdx, passiveSkills[j]);
 
             for (int i = 0; i < skill.effectCount; i++)
             {

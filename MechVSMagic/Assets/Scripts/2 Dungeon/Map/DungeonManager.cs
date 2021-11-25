@@ -50,18 +50,18 @@ public class DungeonManager : MonoBehaviour
     private void SaveState()
     {
         string dungeonData = JsonMapper.ToJson(state);
-        PlayerPrefs.SetString(string.Concat("DungeonData", GameManager.slotNumber), dungeonData);
+        PlayerPrefs.SetString(string.Concat("DungeonData", GameManager.currSlot), dungeonData);
     }
 
     private void LoadState()
     {
-        if (PlayerPrefs.HasKey(string.Concat("DungeonData", GameManager.slotNumber)))
+        if (PlayerPrefs.HasKey(string.Concat("DungeonData", GameManager.currSlot)))
         {
-            state = JsonMapper.ToObject<DungeonState>(PlayerPrefs.GetString(string.Concat("DungeonData", GameManager.slotNumber)));
+            state = JsonMapper.ToObject<DungeonState>(PlayerPrefs.GetString(string.Concat("DungeonData", GameManager.currSlot)));
         }
         else
         {
-            state.dungeonIdx = PlayerPrefs.GetInt(string.Concat("Dungeon", GameManager.slotNumber), 1);
+            state.dungeonIdx = PlayerPrefs.GetInt(string.Concat("Dungeon", GameManager.currSlot), 1);
             state.currDungeon.DungeonInstantiate(new DungeonBluePrint(state.dungeonIdx));
             state.currPos = new int[2] { 0, 0 };
         }
@@ -96,7 +96,7 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        scroll.verticalNormalizedPosition = PlayerPrefs.GetFloat(string.Concat("DungeonScroll", GameManager.slotNumber), 0f);
+        scroll.verticalNormalizedPosition = PlayerPrefs.GetFloat(string.Concat("DungeonScroll", GameManager.currSlot), 0f);
     }
     #endregion
 
@@ -110,11 +110,11 @@ public class DungeonManager : MonoBehaviour
         }
 
         state.currPos = (int[])pos.Clone();
-        PlayerPrefs.SetFloat(string.Concat("DungeonScroll", GameManager.slotNumber), scroll.verticalNormalizedPosition);
+        PlayerPrefs.SetFloat(string.Concat("DungeonScroll", GameManager.currSlot), scroll.verticalNormalizedPosition);
         SaveState();
 
         RoomType type = state.GetCurrRoom().type;
-        PlayerPrefs.SetInt(string.Concat("Room", GameManager.slotNumber), state.GetCurrRoom().roomEventIdx);
+        PlayerPrefs.SetInt(string.Concat("Room", GameManager.currSlot), state.GetCurrRoom().roomEventIdx);
 
         if (type == RoomType.Monster || type == RoomType.Boss)
             SceneManager.LoadScene("2_1 Battle");
@@ -126,7 +126,7 @@ public class DungeonManager : MonoBehaviour
 
     public void Debug_NewDungeon()
     {
-        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.slotNumber));
+        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
         SceneManager.LoadScene("2_0 Dungeon");
     }
     #endregion

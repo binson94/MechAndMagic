@@ -33,13 +33,17 @@ public class QuestSlot
     public int outbreakObjectCount;
     public QuestProceed outbreakProceed;
     
+
+    static QuestSlot()
+    {
+        questDB = new QuestDatabase();
+    }
     public QuestSlot()
     {
-        if (questDB == null)
-            questDB = new QuestDatabase();
         questProceeds = new QuestProceed[questDB.questData.Length];
         for (int i = 0; i < questDB.questData.Length; i++)
             questProceeds[i] = new QuestProceed();
+        questProceeds[0].state = QuestState.Clear;
 
         outbreakIdx = 0;
         outbreakObjectCount = 0;
@@ -159,11 +163,11 @@ public class QuestDataManager : MonoBehaviour
         //if(char.lvl >= questDatabase.questData[idx].lvl && chapter >= questDatabase.questData[idx].chapter)
         //  return -1;
 
-        if (questSlot[GameManager.slotNumber].questProceeds[idx].state == QuestState.NotReceive)
+        if (questSlot[GameManager.currSlot].questProceeds[idx].state == QuestState.NotReceive)
             return 0;
-        else if (questSlot[GameManager.slotNumber].questProceeds[idx].state == QuestState.Proceeding)
+        else if (questSlot[GameManager.currSlot].questProceeds[idx].state == QuestState.Proceeding)
             return 1;
-        else if (questSlot[GameManager.slotNumber].questProceeds[idx].state == QuestState.CanClear)
+        else if (questSlot[GameManager.currSlot].questProceeds[idx].state == QuestState.CanClear)
             return 2;
         else
             return -1;
@@ -174,7 +178,7 @@ public class QuestDataManager : MonoBehaviour
     //적 처치 시 호출
     public static void QuestUpdate(QuestType type, int idx, int amt)
     {
-        questSlot[GameManager.slotNumber].QuestUpdate(type, idx, amt);
+        questSlot[GameManager.currSlot].QuestUpdate(type, idx, amt);
 
         SaveData();
     }
@@ -183,10 +187,10 @@ public class QuestDataManager : MonoBehaviour
     public static void NewQuest(bool isOutbreak, int idx)
     {
         if (isOutbreak)
-            questSlot[GameManager.slotNumber].NewOutbreak(idx);
+            questSlot[GameManager.currSlot].NewOutbreak(idx);
         else
         {
-            questSlot[GameManager.slotNumber].questProceeds[idx].state = QuestState.Proceeding;
+            questSlot[GameManager.currSlot].questProceeds[idx].state = QuestState.Proceeding;
         }
 
         SaveData();
@@ -202,23 +206,23 @@ public class QuestDataManager : MonoBehaviour
     #region Data
     public static void SaveData()
     {
-        PlayerPrefs.SetString(string.Concat("QuestData", GameManager.slotNumber), JsonMapper.ToJson(questSlot[GameManager.slotNumber]));
+        PlayerPrefs.SetString(string.Concat("QuestData", GameManager.currSlot), JsonMapper.ToJson(questSlot[GameManager.currSlot]));
     }
 
     public static void LoadData()
     {
-        if (questSlot[GameManager.slotNumber] == null)
-            questSlot[GameManager.slotNumber] = new QuestSlot();
+        if (questSlot[GameManager.currSlot] == null)
+            questSlot[GameManager.currSlot] = new QuestSlot();
 
-        if (PlayerPrefs.HasKey(string.Concat("QuestData", GameManager.slotNumber)))
-            questSlot[GameManager.slotNumber] = JsonMapper.ToObject<QuestSlot>(PlayerPrefs.GetString(string.Concat("QuestData", GameManager.slotNumber)));
+        if (PlayerPrefs.HasKey(string.Concat("QuestData", GameManager.currSlot)))
+            questSlot[GameManager.currSlot] = JsonMapper.ToObject<QuestSlot>(PlayerPrefs.GetString(string.Concat("QuestData", GameManager.currSlot)));
     }
     #endregion
 
     public static void Debug_QuestClean()
     {
-        PlayerPrefs.DeleteKey(string.Concat("QuestData", GameManager.slotNumber));
-        questSlot[GameManager.slotNumber] = null;
+        PlayerPrefs.DeleteKey(string.Concat("QuestData", GameManager.currSlot));
+        questSlot[GameManager.currSlot] = null;
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
 }

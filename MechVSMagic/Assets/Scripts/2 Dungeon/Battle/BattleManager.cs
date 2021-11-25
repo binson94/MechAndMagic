@@ -58,7 +58,7 @@ public class BattleManager : MonoBehaviour
     //던전 풀에 따른 적 캐릭터 생성
     void Start()
     {
-        roomInfo = new RoomInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.slotNumber), 1));
+        roomInfo = new RoomInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.currSlot), 1));
 
         Character tmp;
         for (int i = 0; i < roomInfo.monsterCount; i++)
@@ -258,7 +258,7 @@ public class BattleManager : MonoBehaviour
     //스킬 선택 버튼, 타겟 선택 창 활성화
     public void AllieSkillBtn(int idx)
     {
-        Skill skill = SkillManager.instance.GetSkillData(currCaster.classIdx, currCaster.activeSkills[idx]);
+        Skill skill = SkillManager.GetSkillData(currCaster.classIdx, currCaster.activeSkills[idx]);
         Debug.Log(skill.skillName);
 
         if (currCaster.buffStat[(int)StatName.currAP] < skill.apCost)
@@ -385,6 +385,10 @@ public class BattleManager : MonoBehaviour
     {
         skillSeclectUI.SetActive(false);
         targetSelectUI.SetActive(false);
+
+        for (int i = 0; i < roomInfo.ItemCount; i++)
+            ItemManager.ItemDrop(allieList[0].classIdx, roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
+
         Debug.Log("win");
         winUI.SetActive(true);
     }
@@ -406,7 +410,7 @@ public class BattleManager : MonoBehaviour
     public void Btn_BackToTown()
     {
         Debug.Log("Town Scene Load");
-        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.slotNumber));
+        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
     #endregion
