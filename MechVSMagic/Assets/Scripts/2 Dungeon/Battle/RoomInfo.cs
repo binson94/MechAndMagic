@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using LitJson;
 
-[System.Serializable]
 public class RoomInfo
 {
     public int roomIdx;

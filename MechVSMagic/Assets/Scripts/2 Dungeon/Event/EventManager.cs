@@ -15,7 +15,7 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        eventInfo = new EventInfo(PlayerPrefs.GetInt(string.Concat("Room", GameManager.currSlot)));
+        eventInfo = new EventInfo(GameManager.slotData.dungeonRoom);
         eventText.text = eventInfo.script;
 
         EventEffect();
@@ -83,6 +83,7 @@ public class EventManager : MonoBehaviour
 
     public void Btn_BackToMap()
     {
+        GameManager.SwitchSceneData(SceneKind.Dungeon);
         SceneManager.LoadScene("2_0 Dungeon");
     }
 }

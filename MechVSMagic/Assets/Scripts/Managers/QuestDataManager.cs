@@ -8,7 +8,6 @@ public enum QuestState
     NotReceive, Proceeding, CanClear, Clear
 }
 
-[System.Serializable]
 public class QuestProceed
 {
     public int[] objectCurr;
@@ -21,7 +20,6 @@ public class QuestProceed
     }
 }
 
-[System.Serializable]
 public class QuestSlot
 {
     //Json Data
@@ -34,10 +32,7 @@ public class QuestSlot
     public QuestProceed outbreakProceed;
     
 
-    static QuestSlot()
-    {
-        questDB = new QuestDatabase();
-    }
+    static QuestSlot() => questDB = new QuestDatabase(); 
     public QuestSlot()
     {
         questProceeds = new QuestProceed[questDB.questData.Length];
@@ -114,14 +109,25 @@ public class QuestSlot
         outbreakIdx = 0;
     }
 
-    public static int GetQuestCount()
+    public static int GetQuestCount() => questDB.questData.Length;
+    public static string GetQuestScript(bool isOutbreak, int idx) => isOutbreak ? questDB.outbreakData[idx].script : questDB.questData[idx].script;
+    public KeyValuePair<string, int[]>[] GetCurrQuest()
     {
-        return questDB.questData.Length;
+        KeyValuePair<string, int[]>[] currQuest = new KeyValuePair<string, int[]>[4];
+        int idx = 0;
+        for (int i = 0; i < questProceeds.Length && idx < 3; i++)
+            if (questProceeds[i].state == QuestState.Proceeding)
+                currQuest[idx++] = new KeyValuePair<string, int[]>(questDB.questData[i].script, new int[2] { questProceeds[i].objectCurr[0], questDB.questData[i].objectAmt[0] });
+        for (; idx < 3; idx++)
+            currQuest[idx++] = new KeyValuePair<string, int[]>("", null);
+        if (outbreakIdx != 0)
+            currQuest[3] = new KeyValuePair<string, int[]>(questDB.outbreakData[outbreakIdx].script, new int[2] { outbreakProceed.objectCurr[0], questDB.outbreakData[outbreakIdx].objectAmt[0] });
+        else
+            currQuest[3] = new KeyValuePair<string, int[]>("", null);
+
+        return currQuest;
     }
-    public static string GetQuestScript(bool isOutbreak, int idx)
-    {
-        return isOutbreak ? questDB.outbreakData[idx].script : questDB.questData[idx].script;
-    }
+    
     class QuestDatabase
     {
         public QuestData[] questData;
@@ -140,10 +146,11 @@ public class QuestSlot
     }
 }
 
+//퀘스트 정보 관리
 public class QuestDataManager : MonoBehaviour
 {
-    public static QuestDataManager instance = null;
-    static QuestSlot[] questSlot = new QuestSlot[2];
+    static QuestDataManager instance = null;
+    static QuestSlot questSlot;
 
     private void Awake()
     {
@@ -163,14 +170,19 @@ public class QuestDataManager : MonoBehaviour
         //if(char.lvl >= questDatabase.questData[idx].lvl && chapter >= questDatabase.questData[idx].chapter)
         //  return -1;
 
-        if (questSlot[GameManager.currSlot].questProceeds[idx].state == QuestState.NotReceive)
+        if (questSlot.questProceeds[idx].state == QuestState.NotReceive)
             return 0;
-        else if (questSlot[GameManager.currSlot].questProceeds[idx].state == QuestState.Proceeding)
+        else if (questSlot.questProceeds[idx].state == QuestState.Proceeding)
             return 1;
-        else if (questSlot[GameManager.currSlot].questProceeds[idx].state == QuestState.CanClear)
+        else if (questSlot.questProceeds[idx].state == QuestState.CanClear)
             return 2;
         else
             return -1;
+    }
+
+    public static KeyValuePair<string, int[]>[] GetCurrQuest()
+    {
+        return questSlot.GetCurrQuest();
     }
     #endregion
 
@@ -178,7 +190,7 @@ public class QuestDataManager : MonoBehaviour
     //적 처치 시 호출
     public static void QuestUpdate(QuestType type, int idx, int amt)
     {
-        questSlot[GameManager.currSlot].QuestUpdate(type, idx, amt);
+        questSlot.QuestUpdate(type, idx, amt);
 
         SaveData();
     }
@@ -187,11 +199,9 @@ public class QuestDataManager : MonoBehaviour
     public static void NewQuest(bool isOutbreak, int idx)
     {
         if (isOutbreak)
-            questSlot[GameManager.currSlot].NewOutbreak(idx);
+            questSlot.NewOutbreak(idx);
         else
-        {
-            questSlot[GameManager.currSlot].questProceeds[idx].state = QuestState.Proceeding;
-        }
+            questSlot.questProceeds[idx].state = QuestState.Proceeding;
 
         SaveData();
     }
@@ -199,30 +209,31 @@ public class QuestDataManager : MonoBehaviour
     //완료된 퀘스트 클리어
     public static void ClearQuest(int idx)
     {
+        questSlot.questProceeds[idx].state = QuestState.Clear;
+        SaveData();
+    }
+    public static void RemoveOutbreak()
+    {
+        questSlot.outbreakIdx = 0;
         SaveData();
     }
     #endregion
 
     #region Data
-    public static void SaveData()
-    {
-        PlayerPrefs.SetString(string.Concat("QuestData", GameManager.currSlot), JsonMapper.ToJson(questSlot[GameManager.currSlot]));
-    }
-
+    public static void SaveData() => PlayerPrefs.SetString(string.Concat("QuestData", GameManager.currSlot), JsonMapper.ToJson(questSlot));   
     public static void LoadData()
     {
-        if (questSlot[GameManager.currSlot] == null)
-            questSlot[GameManager.currSlot] = new QuestSlot();
-
         if (PlayerPrefs.HasKey(string.Concat("QuestData", GameManager.currSlot)))
-            questSlot[GameManager.currSlot] = JsonMapper.ToObject<QuestSlot>(PlayerPrefs.GetString(string.Concat("QuestData", GameManager.currSlot)));
+            questSlot = JsonMapper.ToObject<QuestSlot>(PlayerPrefs.GetString(string.Concat("QuestData", GameManager.currSlot)));
+        else
+            questSlot = new QuestSlot();
     }
     #endregion
 
     public static void Debug_QuestClean()
     {
         PlayerPrefs.DeleteKey(string.Concat("QuestData", GameManager.currSlot));
-        questSlot[GameManager.currSlot] = null;
+        LoadData();
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
 }

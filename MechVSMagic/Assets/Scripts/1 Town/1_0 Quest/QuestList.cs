@@ -22,8 +22,7 @@ public class QuestList : MonoBehaviour
             btnPool[btnPool.Count - 1].transform.parent = poolParent;
             btnPool[btnPool.Count - 1].gameObject.SetActive(false);
         }
-
-        QuestDataManager.LoadData();
+        
         int count = QuestSlot.GetQuestCount();
         for (int i = 0; i < count; i++)
         {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SmithManager : MonoBehaviour
 {
+    [SerializeField] TownManager TM;
+
     [Header("Equip Buttons")]
     [SerializeField] Transform btnParent;
     [SerializeField] Transform poolParent;
@@ -13,25 +15,51 @@ public class SmithManager : MonoBehaviour
     //0 : Equip, 1 : Skill, 2 : Resource
     [SerializeField] GameObject[] categoryPanels;
 
+    [SerializeField] EquipInfoPanel[] selectedEquipPanel = new EquipInfoPanel[3];
+    KeyValuePair<int, Equipment> selectedEquip;
+    static KeyValuePair<int, Equipment> dummyEquip;
+
+    EquipBluePrint selectedEBP = null;
+    Skillbook selectedSkillbook = null;
+
     List<EquipBtnSet> btnList = new List<EquipBtnSet>();
     List<EquipBtnSet> btnPool = new List<EquipBtnSet>();
 
     #region Category
     ItemCategory currCategory = ItemCategory.Weapon;
-
     //장비 전용
     Rarity currRarity = Rarity.None;
-
     //스킬북 전용, 0 : active, 1 : passive, -1 : all
     int currUseType = -1;
-
     //장비, 스킬북 0 : all, 1,3,5,7,9
     int currLvl = 0;
     #endregion
 
     private void Start()
+    {/*
+        ItemManager.ItemDrop(1, 84, 2);
+        ItemManager.ItemDrop(1, 85, 3);
+        ItemManager.ItemDrop(1, 86, 3);
+        ItemManager.ItemDrop(1, 148, 1);*/
+        ResetAllState();
+    }
+
+    public void ResetAllState()
     {
+        ResetCategory();
+    }
+    void ResetCategory()
+    {
+        currRarity = Rarity.None;
+        currUseType = -1;
+        currLvl = 0;
+
         Btn_SwitchCategory((int)ItemCategory.Weapon);
+
+        selectedEquip = dummyEquip;
+        selectedEBP = null;
+        selectedSkillbook = null;
+        SelectedPanelUpdate();
     }
 
     #region Btn Image Update
@@ -52,12 +80,13 @@ public class SmithManager : MonoBehaviour
         {
             List<Equipment> now = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
 
-            List<int> idxs = new List<int>();
+            List<KeyValuePair<int, Equipment>> idxs = new List<KeyValuePair<int, Equipment>>();
+
             for (int i = 0; i < now.Count;)
             {
                 while (idxs.Count < 4 && i < now.Count)
                 {
-                    idxs.Add(i);
+                    idxs.Add(new KeyValuePair<int, Equipment>(i, now[i]));
                     i++;
                 }
                 GameObject go = NewBtnSet();
@@ -71,18 +100,16 @@ public class SmithManager : MonoBehaviour
         }
         void BtnUpdate_Recipe()
         {
-            int[] recipe = ItemManager.GetResourceData(ItemCategory.Resource);
+            List<EquipBluePrint> recipe = ItemManager.GetRecipeData(currRarity, currLvl);
 
-            List<int> idxs = new List<int>();
-            for (int i = 0; i < recipe.Length;)
+            List<KeyValuePair<int, EquipBluePrint>> idxs = new List<KeyValuePair<int, EquipBluePrint>>();
+
+            for (int i = 0; i < recipe.Count;)
             {
-                for (int j = 0; j < 4 && i < recipe.Length;i++)
+                while (idxs.Count < 4 && i < recipe.Count)
                 {
-                    if(recipe[i]  > 0)
-                    {
-                        idxs.Add(i);
-                        j++;
-                    }
+                    idxs.Add(new KeyValuePair<int, EquipBluePrint>(i, recipe[i]));
+                    i++;
                 }
 
                 GameObject go = NewBtnSet();
@@ -98,12 +125,12 @@ public class SmithManager : MonoBehaviour
         {
             List<Skillbook> now = ItemManager.GetSkillbookData(currUseType, currLvl);
 
-            List<int> idxs = new List<int>();
+            List<KeyValuePair<int, Skillbook>> idxs = new List<KeyValuePair<int, Skillbook>>();
             for (int i = 0; i < now.Count;)
             {
                 while (idxs.Count < 4 && i < now.Count)
                 {
-                    idxs.Add(i);
+                    idxs.Add(new KeyValuePair<int, Skillbook>(i, now[i]));
                     i++;
                 }
                 GameObject go = NewBtnSet();
@@ -150,6 +177,11 @@ public class SmithManager : MonoBehaviour
         CategoryBtnUpdate();
         TokenBtnUpdate();
 
+        selectedEquip = dummyEquip;
+        selectedEBP = null;
+        selectedSkillbook = null;
+        SelectedPanelUpdate();
+
         void CategoryBtnUpdate()
         {
             int curr = 0;
@@ -178,19 +210,108 @@ public class SmithManager : MonoBehaviour
         TokenBtnUpdate();
     }
     #endregion
+    
+    public void Btn_EquipToken(KeyValuePair<int, Equipment> token)
+    {
+        if (selectedEquip.Equals(token))
+            selectedEquip = dummyEquip;
+        else
+            selectedEquip = token;
 
-    public void Btn_UnEquip(int part)
-    {
-        ItemManager.UnEquip((EquipPart)part);
-        TokenBtnUpdate();
+        SelectedPanelUpdate();
     }
-    public void Btn_Equip(int idx)
+    public void Btn_EBPToken(EquipBluePrint token)
     {
-        ItemManager.Equip(currCategory, idx);
-        TokenBtnUpdate();
+        if (selectedEBP == token) 
+            selectedEBP = null;
+        else
+            selectedEBP = token;
+
+        SelectedPanelUpdate();
     }
-    public void Btn_Smith(int idx)
+    public void Btn_SkillbookToken(Skillbook token)
+    {
+        if (selectedSkillbook == token) 
+            selectedSkillbook = null;
+        else
+            selectedSkillbook = token;
+
+        SelectedPanelUpdate();
+    }
+
+    public void Btn_EquipFusion()
+    {
+        if (ItemManager.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        {
+            ItemManager.FusionEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
+            selectedEquip = dummyEquip;
+            TokenBtnUpdate();
+            SelectedPanelUpdate();
+        }
+        else
+            Debug.Log("There is no same Equipment");
+    }
+    public void Btn_EquipOptionSwitch()
+    {
+        if (ItemManager.CanSwitchOption(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        {
+            ItemManager.SwitchEquipOption(selectedEquip.Value.ebp.part, selectedEquip.Key);
+            TokenBtnUpdate();
+            SelectedPanelUpdate();
+        }
+        else
+            Debug.Log("You Can't Switch this Equipment");
+    }
+    public void Btn_EquipDisassemble()
+    {
+        ItemManager.DisassembleEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
+        selectedEquip = dummyEquip;
+        TokenBtnUpdate();
+        SelectedPanelUpdate();
+    }
+
+    public void Btn_EquipSmith()
+    {
+        if (ItemManager.CanSmith(selectedEBP.idx))
+            ItemManager.SmithEquipment(selectedEBP.idx);
+        else
+            Debug.Log("not enough resources");
+    }
+
+    public void Btn_SkillLearn()
+    {
+        ItemManager.SkillLearn(selectedSkillbook.idx);
+    }
+    public void Btn_SkillbookDisassemble()
     {
 
+    }
+
+    void SelectedPanelUpdate()
+    {
+        foreach (EquipInfoPanel e in selectedEquipPanel)
+            e.gameObject.SetActive(false);
+
+        if (currCategory <= ItemCategory.Accessory && !selectedEquip.Equals(dummyEquip))
+        {
+            selectedEquipPanel[0].InfoUpdate(selectedEquip.Value);
+            selectedEquipPanel[0].gameObject.SetActive(true);
+        }
+        else if (currCategory <= ItemCategory.Recipe && selectedEBP != null)
+        {
+            selectedEquipPanel[1].InfoUpdate(selectedEBP);
+            selectedEquipPanel[1].gameObject.SetActive(true);
+        }
+        else if (currCategory <= ItemCategory.Skillbook && selectedSkillbook != null)
+        {
+            selectedEquipPanel[2].InfoUpdate(selectedSkillbook);
+            selectedEquipPanel[2].gameObject.SetActive(true);
+        }
+    }
+
+    void Btn_Smith(int idx)
+    {
+        //재료 검사
+        //제작
     }
 }

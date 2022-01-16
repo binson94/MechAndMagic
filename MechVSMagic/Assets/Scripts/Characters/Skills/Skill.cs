@@ -2,37 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillType {
-                        //스킬 시전 시 계산
-                        Damage = 1,
-                        BuffNxtATK, DebuffNxtATK, BuffCurrSkill, DebuffCurrSkill,               // 버프 or 디버프
-                        Acc_BuffNxtATK, Acc_DebffNxtATK, Acc_BuffCurrSkill, Acc_DebuffCurrSkill,// 적중 시 버프 or 디버프(다음 적중, 스킬 내)
-                        Acc_BuffTurn, Acc_DebuffTurn, Acc_Buff, Acc_Debuff,                     // 적중 시 버프 or 디버프(일정 턴, 반영구)
+public enum SkillType
+{
+    //액티브 - 스킬 시전 시 계산
+    Damage = 1, Heal,
+    Active_Buff, Active_Debuff,
 
-                        //스킬 시전 시, 특정 스킬을 장착하고 있는 경우 계산
-                        Cast_HasSkillBuffNxtATK, Cast_HasSkillDebuffNxtATK,
-                        Cast_HasSkillBuffCurrSkill, Cast_HasSkillDebuffCurrSkill,
-                        Cast_HasSkillBuff, Cast_HasSkillDebuff,                 
+    Passive_HasSkillBuff, Passive_HasSkillDebuff,
 
-                        //전투 돌입 시 계산
-                        Battle_Buff, Battle_Debuff, Battle_BuffTurn, Battle_DebuffTurn,
-
-                        //전투 돌입 시, 특정 스킬 장착 시
-                        Battle_HasSkillBuffTurn, Battle_HasSkillDebuffTurn,
-                        Battle_HasSkillBuff, Battle_HasSkillDebuff, 
-
-                        //패시브 - 전투 중 스킬 사용 시 계산
-                        Passive_SkillBuffCurrSkill, Passive_SkillDebuffCurrSkill,
-                        Passive_SkillBuffTurn, Passive_SkillDebuffTurn,
-                        Passive_SkillBuff, Passive_SkillDebuff,
-
-                        //패시브 - 던전 입장 시 계산
-                        Passive_EternalBuff, Passive_EternalDebuff,
-
-                        //크리티컬 시 계산
-                        Crit_BuffNxtATK, Crit_DebuffNxtATK, Crit_BuffCurrSkill, Crit_DebuffCurrSkill,
-                        Crit_BuffTurn, Crit_DebuffTurn, Crit_Buff, Crit_Debuff
-                        };
+    Passive_CastBuff, Passive_CastDebuff,
+    Passive_EternalBuff, Passive_EternalDebuff,
+    Passive_CritHitBuff, Passive_CritHitDebuff,
+    Passive_APBuff,
+    DoNothing, CharSpecial1, CharSpecial2, CharSpecial3
+}
 
 [System.Serializable]
 public class Skill
@@ -40,7 +23,7 @@ public class Skill
     [Header("Basic")]
     public int idx;
     public int useclass;
-    public string skillName;
+    public string name;
     public string script;
 
     public int category;

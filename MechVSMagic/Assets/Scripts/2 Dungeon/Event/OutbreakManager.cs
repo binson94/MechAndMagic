@@ -10,7 +10,7 @@ public class OutbreakManager : MonoBehaviour
 
     private void Start()
     {
-        outbreakIdx = PlayerPrefs.GetInt(string.Concat("Room", GameManager.currSlot));
+        outbreakIdx = GameManager.slotData.dungeonRoom;
 
         outbreakTxt.text = QuestSlot.GetQuestScript(true, outbreakIdx);
 
@@ -19,6 +19,7 @@ public class OutbreakManager : MonoBehaviour
 
     public void Btn_Back()
     {
+        GameManager.SwitchSceneData(SceneKind.Dungeon);
         UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
     }
 }

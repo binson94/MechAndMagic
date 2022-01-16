@@ -11,10 +11,14 @@ public enum TownState
 public class TownManager : MonoBehaviour
 {
     [SerializeField] GameObject[] uiPanels;
+
+    [SerializeField] BedManager BM;
+    [SerializeField] SmithManager SM;
     TownState state;
 
     private void Start()
     {
+        GameManager.sound.PlayBGM(1);
         state = TownState.Town;
         PanelSet();
     }
@@ -28,7 +32,6 @@ public class TownManager : MonoBehaviour
     #endregion
 
     #region Bed
-
     #endregion
 
     #region Dungeon
@@ -46,6 +49,7 @@ public class TownManager : MonoBehaviour
     public void Btn_Common_Bed()
     {
         state = TownState.Bed;
+        BM.ResetAllState();
         PanelSet();
     }
 

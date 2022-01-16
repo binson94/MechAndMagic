@@ -108,94 +108,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LVL: 2
   classIdx: 10
-  basicStat:
-  - statname: 
-    value: 0
-  - statname: currHP
-    value: 20
-  - statname: HP
-    value: 20
-  - statname: currAP
-    value: 0
-  - statname: AP
-    value: 0
-  - statname: ATK
-    value: 15
-  - statname: DEF
-    value: 5
-  - statname: ACC
-    value: 50
-  - statname: DOG
-    value: 0
-  - statname: CRC
-    value: 0
-  - statname: CRB
-    value: 150
-  - statname: PEN
-    value: 0
-  - statname: SPD
-    value: 3
-  dungeonStat:
-  - statname: 
-    value: 0
-  - statname: currHP
-    value: 0
-  - statname: HP
-    value: 0
-  - statname: currAP
-    value: 0
-  - statname: AP
-    value: 0
-  - statname: ATK
-    value: 0
-  - statname: DEF
-    value: 0
-  - statname: ACC
-    value: 0
-  - statname: DOG
-    value: 0
-  - statname: CRC
-    value: 0
-  - statname: CRB
-    value: 0
-  - statname: PEN
-    value: 0
-  - statname: SPD
-    value: 0
-  buffStat:
-  - statname: 
-    value: 0
-  - statname: currHP
-    value: 0
-  - statname: HP
-    value: 0
-  - statname: currAP
-    value: 0
-  - statname: AP
-    value: 0
-  - statname: ATK
-    value: 0
-  - statname: DEF
-    value: 0
-  - statname: ACC
-    value: 0
-  - statname: DOG
-    value: 0
-  - statname: CRC
-    value: 0
-  - statname: CRB
-    value: 0
-  - statname: PEN
-    value: 0
-  - statname: SPD
-    value: 0
-  activeSkills: 0000000000000000000000000000000000000000
-  cooldowns: 0000000000000000000000000000000000000000
-  passiveSkills: 000000000000000000000000
-  eternalBuffList: []
-  eternalDebuffList: []
+  basicStat: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  dungeonStat: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  buffStat: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   inbattleBuffList: []
   inbattleDebuffList: []
   inskillBuffList: []
   inskillDebuffList: []
-  monsterIdx: 1
+  activeSkills: 0000000000000000000000000000000000000000
+  cooldowns: 0000000000000000000000000000000000000000
+  passiveSkills: 000000000000000000000000
+  monsterName: 
+  idx: 1
+  region: 0
+  skillCount: 0
+  skillChance: []
+  pattern: 0

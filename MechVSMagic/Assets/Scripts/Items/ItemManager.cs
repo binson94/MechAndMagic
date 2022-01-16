@@ -6,7 +6,7 @@ using LitJson;
 
 
 public class ItemManager : MonoBehaviour
-{ 
+{
     static ItemData itemData;
 
     public const int EQUIP_COUNT = 19;
@@ -18,13 +18,6 @@ public class ItemManager : MonoBehaviour
     {
         for (int i = 0; i < EQUIP_COUNT; i++)
             bluePrints[i] = new EquipBluePrint(i);
-    }
-
-    private void Start()
-    {
-        //debug
-        LoadData();
-        ItemDrop(1, 84, 1);
     }
 
     #region ItemDrop
@@ -64,22 +57,25 @@ public class ItemManager : MonoBehaviour
                 Debug.Log("Exp");
         }
     }
-
     static void NewPotion(int category)
     {
 
     }
-    
     static void NewEquip(int classIdx, int category)
     {
-        List<EquipBluePrint> possibleList = (from token in bluePrints
-                                             where (token.category == category) && (token.useClass == classIdx)
-                                             select token).ToList();
-        EquipBluePrint ebp = possibleList.Skip(Random.Range(0, possibleList.Count)).Take(1).First();
+        int region = (classIdx < 5) ? 10 : 11;
+        Debug.Log(string.Concat(classIdx, " ", category, " ", region));
+        var possibleList = (from token in bluePrints
+                            where (token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0)
+                            select token);
+
+        if (possibleList.Count() <= 0)
+            return;
+
+        EquipBluePrint ebp = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First();
 
         itemData.EquipDrop(ebp);
     }
-
     static void NewSkillBook(int category)
     {
         int lvl = 47 - 2 * category;
@@ -88,17 +84,23 @@ public class ItemManager : MonoBehaviour
                             where (lvl == 0 || lvl == token.lvl)
                             select token);
 
-       possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().count += 1;
+        if (possibleList.Count() <= 0)
+            return;
+
+        possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().count += 1;
 
         SaveData();
     }
-
     static void NewEquipRecipe(int classIdx, int category)
     {
         category -= 63;
+        int region = (classIdx < 5) ? 10 : 11;
         var possibleList = (from token in bluePrints
-                            where token.useClass == classIdx && token.category == category
+                            where (token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0)
                             select token);
+
+        if (possibleList.Count() <= 0)
+            return;
 
         int idx = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().idx;
 
@@ -109,25 +111,74 @@ public class ItemManager : MonoBehaviour
     #endregion
 
     #region Smith
-    static public void SmithEquipment(int idx)
+    public static bool CanSmith(int idx)
+    {
+        return itemData.CanSmith(bluePrints[idx]);
+    }
+    public static bool CanSwitchOption(EquipPart part, int idx)
+    {
+        return itemData.CanSwitchOption(part, idx);
+    }
+    public static bool CanFusion(EquipPart part, int idx)
+    {
+        return itemData.CanFusion(part, idx);
+    }
+
+    public static void SmithEquipment(int idx)
     {
         itemData.Smith(bluePrints[idx]);
         SaveData();
     }
-    static public void DisassembleEquipment(EquipPart part, int idx)
+    public static void DisassembleEquipment(EquipPart part, int idx)
     {
         itemData.Disassemble(part, idx);
         SaveData();
     }
-
-    static public void Equip(ItemCategory category, int idx) 
+    public static void SwitchEquipOption(EquipPart part, int idx)
     {
-        itemData.Equip(category, idx);
+        itemData.SwitchOption(part, idx);
         SaveData();
     }
-    static public void UnEquip(EquipPart part)
+    public static void FusionEquipment(EquipPart part, int idx)
+    {
+        itemData.Fusion(part, idx);
+        SaveData();
+    }
+
+    public static void Equip(EquipPart part, int idx) 
+    {
+        itemData.Equip(part, idx);
+        ItemStatUpdate();
+        SaveData();
+    }
+    public static void UnEquip(EquipPart part)
     {
         itemData.UnEquip(part);
+        ItemStatUpdate();
+        SaveData();
+    }
+    static void ItemStatUpdate()
+    {
+        int[] addPivots = new int[13];
+        foreach (Equipment e in itemData.equipmentSlots)
+            if (e != null)
+            {
+                addPivots[(int)e.mainStat] += e.mainStatValue;
+                addPivots[(int)e.subStat] += e.subStatValue;
+            }
+
+        for(int i = 1;i<13;i++)
+        {
+            GameManager.slotData.itemStats[i] = SlotData.baseStats[i] + addPivots[i];
+        }
+        GameManager.slotData.itemStats[1] = GameManager.slotData.itemStats[2];
+        GameManager.slotData.itemStats[3] = GameManager.slotData.itemStats[4];
+        GameManager.SaveSlotData();
+    }
+
+    public static void SkillLearn(int idx)
+    {
+        itemData.SkillLearn(idx);
         SaveData();
     }
     #endregion
@@ -161,12 +212,42 @@ public class ItemManager : MonoBehaviour
                 where ((x.count > 0) && (skillType == -1 || x.type == skillType) && (lvl == 0 || x.lvl == lvl))
                 select x).ToList();
     }
+    public static List<EquipBluePrint> GetRecipeData(Rarity rarity, int lvl)
+    {
+        int region = (GameManager.slotData.slotClass < 5) ? 10 : 11;
+        List<EquipBluePrint> ebps = new List<EquipBluePrint>();
+
+        for (int i = 0; i < bluePrints.Length; i++)
+        {
+            if ((itemData.equipRecipes[i] > 0) &&
+                (bluePrints[i].useClass == 0 || bluePrints[i].useClass == GameManager.slotData.slotClass || bluePrints[i].useClass == region) &&
+                (rarity == Rarity.None || bluePrints[i].rarity == rarity) &&
+                (lvl == 0 || bluePrints[i].reqlvl == lvl))
+                ebps.Add(bluePrints[i]);
+        }
+
+        return ebps;
+    }
     public static int[] GetResourceData(ItemCategory category)
     {
         if (category == ItemCategory.Recipe)
             return itemData.equipRecipes;
         else
             return itemData.basicMaterials;
+    }
+
+    public static Equipment GetEquipment(EquipPart p)
+    {
+        return itemData.equipmentSlots[(int)p - 1];
+    }
+    public static int[] GetSkillbookData()
+    {
+        return (from a in itemData.skillbooks
+               select a.count).ToArray();
+    }
+    public static bool IsLearned(int idx)
+    {
+        return itemData.IsLearned(idx);
     }
     #endregion
 

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using LitJson;
 
-[System.Serializable]
 public class DungeonState
 {
     public int dungeonIdx;
@@ -24,6 +23,7 @@ public class DungeonManager : MonoBehaviour
 {
     DungeonState state;
 
+    [Header("Dungeon")]
     [SerializeField] RoomConnectManager roomConnectMgr;
     [SerializeField] GameObject roomPrefab;
 
@@ -31,6 +31,11 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] GameObject scrollContent;
 
     List<List<RoomImage>> roomImages = new List<List<RoomImage>>();
+
+    [Header("Quest Show")]
+    [SerializeField] GameObject expandPanel;
+    [SerializeField] QuestPanel[] questPanels;
+    [SerializeField] GameObject questExpandBtn;
 
     private void Start()
     {
@@ -44,6 +49,8 @@ public class DungeonManager : MonoBehaviour
         LoadState();
         MakeImage();
         SaveState();
+
+        QuestShow();
     }
 
     #region DungeonMaking
@@ -61,9 +68,11 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            state.dungeonIdx = PlayerPrefs.GetInt(string.Concat("Dungeon", GameManager.currSlot), 1);
+            state.dungeonIdx = GameManager.slotData.dungeonIdx;
             state.currDungeon.DungeonInstantiate(new DungeonBluePrint(state.dungeonIdx));
             state.currPos = new int[2] { 0, 0 };
+
+            PlayerPrefs.DeleteKey(string.Concat("CharState", GameManager.currSlot));
         }
     }
 
@@ -96,7 +105,7 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        scroll.verticalNormalizedPosition = PlayerPrefs.GetFloat(string.Concat("DungeonScroll", GameManager.currSlot), 0f);
+        scroll.verticalNormalizedPosition = (float)GameManager.slotData.dungeonScroll;
     }
     #endregion
 
@@ -110,24 +119,58 @@ public class DungeonManager : MonoBehaviour
         }
 
         state.currPos = (int[])pos.Clone();
-        PlayerPrefs.SetFloat(string.Concat("DungeonScroll", GameManager.currSlot), scroll.verticalNormalizedPosition);
+        GameManager.slotData.dungeonScroll = scroll.verticalNormalizedPosition;
+        GameManager.slotData.dungeonRoom = state.GetCurrRoom().roomEventIdx;
+        GameManager.SaveSlotData();
+
         SaveState();
 
         RoomType type = state.GetCurrRoom().type;
-        PlayerPrefs.SetInt(string.Concat("Room", GameManager.currSlot), state.GetCurrRoom().roomEventIdx);
 
         if (type == RoomType.Monster || type == RoomType.Boss)
+        {
+            GameManager.SwitchSceneData(SceneKind.Battle);
             SceneManager.LoadScene("2_1 Battle");
+        }
         else if (type == RoomType.Quest)
+        {
+            GameManager.SwitchSceneData(SceneKind.Outbreak);
             SceneManager.LoadScene("2_3 Outbreak");
+        }
         else
+        {
+            GameManager.SwitchSceneData(SceneKind.Event);
             SceneManager.LoadScene("2_2 Event");
+        }
     }
 
     public void Debug_NewDungeon()
     {
         PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
         SceneManager.LoadScene("2_0 Dungeon");
+    }
+    #endregion
+
+    #region Quest
+    void QuestShow()
+    {
+        KeyValuePair<string, int[]>[] currQuest = QuestDataManager.GetCurrQuest();
+
+        for (int i = 0; i < 4; i++)
+            if (currQuest[i].Value != null)
+                questPanels[i].SetQuestProceed(currQuest[i]);
+            else
+                questPanels[i].gameObject.SetActive(false);
+    }
+    public void Btn_QuestExpand()
+    {
+        expandPanel.SetActive(true);
+        questExpandBtn.SetActive(false);
+    }
+    public void Btn_QuestReduction()
+    {
+        expandPanel.SetActive(false);
+        questExpandBtn.SetActive(true);
     }
     #endregion
 }

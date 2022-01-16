@@ -54,8 +54,13 @@ public class DungeonButtonManager : MonoBehaviour
 
     public void Btn_Script(int idx)
     {
-        PlayerPrefs.SetInt(string.Concat("Dungeon", GameManager.currSlot), idx);
+        GameManager.slotData.dungeonIdx = idx;
+        GameManager.SaveSlotData();
+
         PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
+        PlayerPrefs.DeleteKey(string.Concat("CharState", GameManager.currSlot));
+        QuestDataManager.RemoveOutbreak();
+        GameManager.SwitchSceneData(SceneKind.Dungeon);
         SceneManager.LoadScene("2_0 Dungeon");
     }
 }

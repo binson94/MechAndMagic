@@ -5,16 +5,15 @@ using LitJson;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;
-
+    static GameManager instance = null;
     public static SoundManager sound = null;
 
     [Header("Play Data")]
     //0 : 기계 슬롯, 1 : 마법 슬롯
-    public const int SLOTMAX = 2;
+    public const int SLOTMAX = 4;
 
     public static int currSlot;
-    static int[] slotClass = new int[SLOTMAX];
+    public static SlotData slotData;
 
     private void Awake()
     {
@@ -24,26 +23,41 @@ public class GameManager : MonoBehaviour
             sound = transform.GetChild(0).GetComponent<SoundManager>();
             Screen.SetResolution(1080, 1920, true);
             DontDestroyOnLoad(gameObject);
-            LoadSlotData();
         }
         else
             Destroy(gameObject);
-
     }
 
-    static void LoadSlotData()
+    #region SlotCreate/Delete
+    public static void SwitchSceneData(SceneKind kind)
     {
-        if(PlayerPrefs.HasKey("SlotData"))
-        {
-            slotClass = JsonMapper.ToObject<int[]>(PlayerPrefs.GetString("SlotData"));
-        }
+        slotData.nowScene = kind;
+        SaveSlotData();
     }
+    public static void LoadSlotData(int slot)
+    {
+        slotData = JsonMapper.ToObject<SlotData>(PlayerPrefs.GetString(string.Concat("SlotData", currSlot = slot)));
+    }
+
     public static void SaveSlotData()
     {
-        PlayerPrefs.SetString("SlotData", JsonMapper.ToJson(slotClass));
+        PlayerPrefs.SetString(string.Concat("SlotData", currSlot), JsonMapper.ToJson(slotData));
     }
-    public static int GetCurrClass()
+
+    public static void NewSlot(int slot, int slotClass)
     {
-        return slotClass[currSlot];
+        currSlot = slot;
+        slotData = new SlotData(slotClass);
     }
+
+    public static void DeleteSlot(int slot)
+    {
+        PlayerPrefs.DeleteKey(string.Concat("CharState", slot));
+        PlayerPrefs.DeleteKey(string.Concat("Item", slot));
+        PlayerPrefs.DeleteKey(string.Concat("QuestData", slot));
+        PlayerPrefs.DeleteKey(string.Concat("DungeonData", slot));
+
+        PlayerPrefs.DeleteKey(string.Concat("SlotData", slot));
+    }
+    #endregion SlotCreate/Delete
 }
