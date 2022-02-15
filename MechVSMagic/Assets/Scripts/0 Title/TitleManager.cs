@@ -35,6 +35,8 @@ public class TitleManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("<color=yellow> <size=30> <b> <i>hi</i> </b> </size> </color>");
+
         state = TitleState.Title;
         bgmSlider.value = PlayerPrefs.GetFloat("BGM", 1);
         sfxSlider.value = PlayerPrefs.GetFloat("SFX", 1);
@@ -47,6 +49,8 @@ public class TitleManager : MonoBehaviour
         PanelSet();
 
         Start_SlotSet();
+
+        GameManager.sound.PlayBGM(BGM.Title);
     }
 
     #region Title
@@ -182,7 +186,7 @@ public class TitleManager : MonoBehaviour
     private void Start_SlotSet()
     {
         for (int i = 0; i < GameManager.SLOTMAX; i++)
-            slots[i].SlotUpdate(PlayerPrefs.HasKey(string.Concat("SlotData", i)), "class");
+            slots[i].SlotUpdate(LitJson.JsonMapper.ToObject<SlotData>(PlayerPrefs.GetString(string.Concat("SlotData", i))));
     }
     #endregion Start
 

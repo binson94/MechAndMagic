@@ -18,9 +18,10 @@ public class TownManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.sound.PlayBGM(1);
+        GameManager.sound.PlayBGM(BGM.Town1);
         state = TownState.Town;
         PanelSet();
+        ItemManager.ItemDrop(1, 84, 1);
     }
 
     #region Town

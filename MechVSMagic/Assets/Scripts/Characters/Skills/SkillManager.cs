@@ -6,30 +6,24 @@ public class SkillManager : MonoBehaviour
 {
     static SkillDB[] skillDB = new SkillDB[12];
 
-    private void Awake()
-    {
-        MakeDB();
-    }
+    private void Awake() => MakeDB();
 
     static void MakeDB()
     {
-        skillDB[1] = new ArmedFighterSkillDB();
-        skillDB[1].DataLoad();
+        if (skillDB[1] != null)
+            return;
 
-        skillDB[2] = new MetalKnightSkillDB();
-        skillDB[2].DataLoad();
+        skillDB[1] = new SkillDB("ArmedFighter", 1);
+        skillDB[2] = new SkillDB("MetalKnight", 2);
+        skillDB[3] = new SkillDB("Blaster", 3);
+        //skillDB[4] = new SkillDB("MadScientist", 4);
+        skillDB[5] = new SkillDB("ElementalController", 5);
+        skillDB[6] = new SkillDB("Druid", 6);
+        skillDB[7] = new SkillDB("VisionMaster", 7);
+        skillDB[8] = new SkillDB("MagicalRogue", 8);
 
-        skillDB[5] = new ElementalControllerSkillDB();
-        skillDB[5].DataLoad();
-
-        skillDB[6] = new DruidSkillDB();
-        skillDB[6].DataLoad();
-
-        skillDB[10] = new MonsterSkillDB();
-        skillDB[10].DataLoad();
-
-        skillDB[11] = new ElementalSkillDB();
-        skillDB[11].DataLoad();
+        skillDB[10] = new SkillDB("Monster", 10);
+        skillDB[11] = new SkillDB("Elemental", 11);
     }
 
     static public Skill[] GetSkillData(int classIdx)

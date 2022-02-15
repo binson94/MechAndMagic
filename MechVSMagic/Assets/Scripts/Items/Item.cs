@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+using System.Linq;
 
 
 public enum EquipPart
 {
-    None, Weapon, Top, Pants, Gloves, Shoes, Necklace, Ring
+    None, Weapon, Top, Pants, Gloves, Shoes, Ring, Necklace
 }
 public enum ItemCategory
 {
@@ -96,88 +97,107 @@ public class Equipment
     public Obj subStat;
     public int subStatValue;
 
-    static readonly Obj[] weaponSubs;
-    static readonly Obj[] rings;
-    static readonly Obj[] necks;
-    static Dictionary<Obj, int[]> weaponSubStats = new Dictionary<Obj, int[]>();
-    static Dictionary<Obj, int[]> armorSubStats = new Dictionary<Obj, int[]>();
-    static Dictionary<Obj, int[]> accessoryStats = new Dictionary<Obj, int[]>();
+    public List<KeyValuePair<Obj, int>> commonStatValue = new List<KeyValuePair<Obj, int>>();
+
+    /* #region Static Part */
+    static readonly Obj[] weaponObjs = new Obj[6];
+    static readonly Obj[] neckObjs = new Obj[4];
+    static readonly Obj[] ringObjs = new Obj[4];
+
+    static readonly Dictionary<KeyValuePair<EquipPart, Obj>, int> statIdx = new Dictionary<KeyValuePair<EquipPart, Obj>, int>();
+    static readonly Dictionary<EquipPart, Dictionary<KeyValuePair<int, Rarity>, int[]>> equipStats = new Dictionary<EquipPart, Dictionary<KeyValuePair<int, Rarity>, int[]>>();
+    static readonly Dictionary<int, int[]> allCommonStats = new Dictionary<int, int[]>();
+    /* #endregion Static Part */
 
     public Equipment() { }
     static Equipment()
     {
         TextAsset jsonTxt;
-        string jsonStr;
-        JsonData json;
+        string loadStr;
+        JsonData wepJson;
+        JsonData amrJson;
+        JsonData acceJson;
 
-        weaponSubs = new Obj[5];
-        weaponSubs[0] = Obj.ACC; weaponSubs[1] = Obj.SPD; weaponSubs[2] = Obj.AP; weaponSubs[3] = Obj.CRC; weaponSubs[4] = Obj.PEN;
+        weaponObjs[0] = Obj.AP; weaponObjs[1] = Obj.ATK; weaponObjs[2] = Obj.ACC;
+        weaponObjs[3] = Obj.CRC; weaponObjs[4] = Obj.PEN; weaponObjs[5] = Obj.SPD;
 
-        rings = new Obj[4];
-        rings[0] = Obj.ATK; rings[1] = Obj.ACC; rings[2] = Obj.CRC; rings[3] = Obj.PEN;
+        neckObjs[0] = Obj.HP; neckObjs[1] = Obj.DEF; neckObjs[2] = Obj.DOG; neckObjs[3] = Obj.SPD;
+        ringObjs[0] = Obj.ATK; ringObjs[1] = Obj.ACC; ringObjs[2] = Obj.CRC; ringObjs[3] = Obj.PEN;
 
-        necks = new Obj[4];
-        necks[0] = Obj.HP; necks[1] = Obj.DEF; necks[2] = Obj.DOG; necks[3] = Obj.SPD;
-
-        #region DataLoad
-        weaponSubStats.Add(Obj.ACC, new int[5]);
-        weaponSubStats.Add(Obj.SPD, new int[5]);
-        weaponSubStats.Add(Obj.AP, new int[5]);
-        weaponSubStats.Add(Obj.CRC, new int[5]);
-        weaponSubStats.Add(Obj.PEN, new int[5]);
-
-        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/WeaponStat");
-        jsonStr = jsonTxt.text;
-        json = JsonMapper.ToObject(jsonStr);
-        for (int i = 0; i < 5; i++)
-        {
-            weaponSubStats[Obj.ACC][i] = (int)json[i]["ACC"];
-            weaponSubStats[Obj.SPD][i] = (int)json[i]["SPD"];
-            weaponSubStats[Obj.AP][i] = (int)json[i]["AP"];
-            weaponSubStats[Obj.CRC][i] = (int)json[i]["CRC"];
-            weaponSubStats[Obj.PEN][i] = (int)json[i]["PEN"];
-        }
-
-        armorSubStats.Add(Obj.HP, new int[5]);
-        armorSubStats.Add(Obj.DOG, new int[5]);
-        armorSubStats.Add(Obj.ACC, new int[5]);
-        armorSubStats.Add(Obj.SPD, new int[5]);
-
-        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/ArmorStat");
-        jsonStr = jsonTxt.text;
-        json = JsonMapper.ToObject(jsonStr);
-        for (int i = 0; i < 5; i++)
-        {
-            armorSubStats[Obj.HP][i] = (int)json[i]["HP"];
-            armorSubStats[Obj.DOG][i] = (int)json[i]["DOG"];
-            armorSubStats[Obj.ACC][i] = (int)json[i]["ACC"];
-            armorSubStats[Obj.SPD][i] = (int)json[i]["SPD"];
-        }
-
-        accessoryStats.Add(Obj.ATK, new int[6]);
-        accessoryStats.Add(Obj.ACC, new int[6]);
-        accessoryStats.Add(Obj.CRC, new int[6]);
-        accessoryStats.Add(Obj.PEN, new int[6]);
-        accessoryStats.Add(Obj.HP, new int[6]);
-        accessoryStats.Add(Obj.DEF, new int[6]);
-        accessoryStats.Add(Obj.DOG, new int[6]);
-        accessoryStats.Add(Obj.SPD, new int[6]);
-
-        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/AccessoryStat");
-        jsonStr = jsonTxt.text;
-        json = JsonMapper.ToObject(jsonStr);
         for (int i = 0; i < 6; i++)
         {
-            accessoryStats[Obj.ATK][i] = (int)json[i]["ATK"];
-            accessoryStats[Obj.ACC][i] = (int)json[i]["ACC"];
-            accessoryStats[Obj.CRC][i] = (int)json[i]["CRC"];
-            accessoryStats[Obj.PEN][i] = (int)json[i]["PEN"];
-            accessoryStats[Obj.HP][i] = (int)json[i]["HP"];
-            accessoryStats[Obj.DEF][i] = (int)json[i]["DEF"];
-            accessoryStats[Obj.DOG][i] = (int)json[i]["DOG"];
-            accessoryStats[Obj.SPD][i] = (int)json[i]["SPD"];
+            statIdx.Add(new KeyValuePair<EquipPart, Obj>(EquipPart.Weapon, weaponObjs[i]), i);
+
+            if (i < 4)
+            {
+                statIdx.Add(new KeyValuePair<EquipPart, Obj>(EquipPart.Necklace, neckObjs[i]), i);
+                statIdx.Add(new KeyValuePair<EquipPart, Obj>(EquipPart.Ring, ringObjs[i]), i);
+            }
         }
-        #endregion
+
+        equipStats.Add(EquipPart.Weapon, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+        equipStats.Add(EquipPart.Top, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+        equipStats.Add(EquipPart.Pants, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+        equipStats.Add(EquipPart.Gloves, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+        equipStats.Add(EquipPart.Shoes, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+        equipStats.Add(EquipPart.Necklace, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+        equipStats.Add(EquipPart.Ring, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
+
+        for (int lvl = 1; lvl <= 9; lvl += 2)
+        {
+            Rarity maxR = (Rarity)Mathf.Min(lvl + 1, 5);
+
+            for (Rarity r = Rarity.Common; r <= maxR; r++)
+            {
+                equipStats[EquipPart.Weapon].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[6]);
+
+                equipStats[EquipPart.Top].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
+                equipStats[EquipPart.Pants].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
+                equipStats[EquipPart.Gloves].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
+                equipStats[EquipPart.Shoes].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
+
+                equipStats[EquipPart.Ring].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[4]);
+                equipStats[EquipPart.Necklace].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[4]);
+            }
+        }
+
+        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/WeaponStat");
+        loadStr = jsonTxt.text;
+        wepJson = JsonMapper.ToObject(loadStr);
+
+        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/ArmorStat");
+        loadStr = jsonTxt.text;
+        amrJson = JsonMapper.ToObject(loadStr);
+
+        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/AccessoryStat");
+        loadStr = jsonTxt.text;
+        acceJson = JsonMapper.ToObject(loadStr);
+
+        for (int lvl = 1; lvl <= 9; lvl += 2)
+        {
+            Rarity maxR = (Rarity)Mathf.Min(lvl + 1, 5);
+
+            for (Rarity r = Rarity.Common; r <= maxR; r++)
+            {
+                Debug.Log((lvl - 1) / 2 * 5 + (int)(r - Rarity.Common));
+                for (int i = 0; i < 6; i++)
+                    equipStats[EquipPart.Weapon][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)wepJson[(lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+
+                for (int i = 0; i < 2; i++)
+                {
+                    equipStats[EquipPart.Top][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[(lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+                    equipStats[EquipPart.Pants][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[25 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+                    equipStats[EquipPart.Gloves][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[50 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+                    equipStats[EquipPart.Shoes][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[75 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+                }
+
+                for (int i = 0; i < 4; i++)
+                {
+                    equipStats[EquipPart.Ring][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)acceJson[(lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+                    equipStats[EquipPart.Necklace][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)acceJson[25 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
+                }
+            }
+        }
     }
 
     public Equipment(EquipBluePrint ebp)
@@ -186,7 +206,8 @@ public class Equipment
 
         SetMainStat();
         SetSubStat();
-        
+        SetCommonStat();
+
         StatValueSet();
     }
     void SetMainStat()
@@ -206,10 +227,10 @@ public class Equipment
                     mainStat = Obj.DEF;
                     break;
                 case EquipPart.Ring:
-                    mainStat = rings[Random.Range(0, 4)];
+                    mainStat = ringObjs[Random.Range(0, 4)];
                     break;
                 case EquipPart.Necklace:
-                    mainStat = necks[Random.Range(0, 4)];
+                    mainStat = neckObjs[Random.Range(0, 4)];
                     break;
             }
         }
@@ -228,7 +249,9 @@ public class Equipment
                 switch (ebp.part)
                 {
                     case EquipPart.Weapon:
-                        subStat = weaponSubs[Random.Range(0, 5)];
+                        do
+                            subStat = weaponObjs[Random.Range(0, 6)];
+                        while (subStat == Obj.ATK);
                         break;
                     case EquipPart.Top:
                         subStat = Obj.HP;
@@ -244,15 +267,14 @@ public class Equipment
                         break;
                     case EquipPart.Ring:
                         do
-                        {
-                            subStat = rings[Random.Range(0, 4)];
-                        } while (mainStat == subStat);
+                            subStat = ringObjs[Random.Range(0, 4)];
+                        while (mainStat == subStat);
                         break;
                     case EquipPart.Necklace:
                         do
-                        {
-                            subStat = necks[Random.Range(0, 4)];
-                        } while (mainStat == subStat);
+
+                            subStat = neckObjs[Random.Range(0, 4)];
+                        while (mainStat == subStat);
                         break;
                 }
             }
@@ -266,101 +288,75 @@ public class Equipment
             subStat = Obj.None;
         }
     }
+    void SetCommonStat()
+    {
+        commonStatValue.Clear();
+        if (ebp.rarity < Rarity.Rare)
+        {
+            return;
+        }
+
+        int[] objs = new int[ebp.equipOption.Count(x => x > 0)];
+        ResetCommonStat();
+
+        for (int i = 0; i < objs.Length; i++)
+            commonStatValue.Add(new KeyValuePair<Obj, int>((Obj)objs[i], allCommonStats[ebp.reqlvl][objs[i]]));
+
+        void ResetCommonStat()
+        {
+            if (ebp.equipOption[0] != 13)
+                objs[0] = ebp.equipOption[0];
+            else
+            {
+                do
+                    objs[0] = Random.Range(1, 13);
+                while (objs[0] == 1 || objs[0] == 3);
+            }
+
+            if (objs.Length >= 2)
+                if (ebp.equipOption[1] != 13)
+                    objs[1] = ebp.equipOption[1];
+                else
+                {
+                    do
+                        objs[1] = Random.Range(1, 13);
+                    while (objs[1] == 1 || objs[1] == 3 || objs[1] == objs[0]);
+                }
+
+            if(objs.Length >= 3)
+                if (ebp.equipOption[2] != 13)
+                    objs[2] = ebp.equipOption[2];
+                else
+                {
+                    do
+                        objs[2] = Random.Range(1, 13);
+                    while (objs[2] == 1 || objs[2] == 3 || objs[2] == objs[0] || objs[2] == objs[1]);
+                }
+        }
+    }
+
+
     void StatValueSet()
     {
-        float multi = (1 + star * 0.5f);
-        #region mainStat
-        float mainLvl = ebp.reqlvl + ((int)ebp.rarity - 1) * 0.5f;
-
-        switch (ebp.part)
+        if (EquipPart.Top <= ebp.part && ebp.part <= EquipPart.Shoes)
         {
-            case EquipPart.Weapon:
-                mainStatValue = Mathf.RoundToInt(multi * Mathf.Pow(2, (mainLvl + 5) / 2));
-                break;
-            case EquipPart.Top:
-            case EquipPart.Pants:
-                mainStatValue = Mathf.RoundToInt(multi * Mathf.Pow(2, (mainLvl + 1) / 2));
-                break;
-            case EquipPart.Gloves:
-            case EquipPart.Shoes:
-                mainStatValue = Mathf.RoundToInt(multi * Mathf.Pow(2, (mainLvl - 1) / 2));
-                break;
-            case EquipPart.Ring:
-            case EquipPart.Necklace:
-                mainStatValue = Mathf.RoundToInt(multi * (accessoryStats[mainStat][(int)(mainLvl / 2)] + 
-                    (accessoryStats[mainStat][Mathf.CeilToInt(mainLvl / 2)] - accessoryStats[mainStat][(int)(mainLvl / 2)]) * (mainLvl - (int)mainLvl)));
-                break;
+            mainStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][0];
+            if (subStat != Obj.None) subStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][1];
         }
-        #endregion
-
-        #region subStat
-        if (subStat != Obj.None)
+        else
         {
-            float div = 1;
-            switch (ebp.rarity)
-            {
-                case Rarity.Uncommon:
-                    div = 3f;
-                    break;
-                case Rarity.Rare:
-                    div = 2f;
-                    break;
-                case Rarity.Unique:
-                    div = 1.5f;
-                    break;
-            }
-
-            switch (ebp.part)
-            {
-                case EquipPart.Weapon:
-                    subStatValue = Mathf.RoundToInt(multi * weaponSubStats[subStat][ebp.reqlvl / 2] / div);
-                    break;
-                case EquipPart.Top:
-                case EquipPart.Pants:
-                case EquipPart.Gloves:
-                case EquipPart.Shoes:
-                    subStatValue = Mathf.RoundToInt(multi * armorSubStats[subStat][ebp.reqlvl / 2] / div);
-                    break;
-                case EquipPart.Ring:
-                case EquipPart.Necklace:
-                    subStatValue = Mathf.RoundToInt(multi * accessoryStats[subStat][ebp.reqlvl / 2] / div);
-                    break;
-            }
+            mainStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, mainStat)]];
+            if (subStat != Obj.None) subStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, subStat)]];
         }
-        #endregion
     }
 
-    public bool CanSwitchMainStat()
+    public bool CanSwitchCommonStat() => ebp.rarity >= Rarity.Rare;
+    public void SwitchCommonStat()
     {
-        return (ebp.mainStat == Obj.None && ebp.part > EquipPart.Shoes);
-    }
-    public void SwitchMainStat()
-    {
-        if (!CanSwitchMainStat())
+        if (!CanSwitchCommonStat())
             return;
 
-        Obj currOption = mainStat;
-
-        while (mainStat == currOption)
-            SetMainStat();
-
-        StatValueSet();
-    }
-    public bool CanSwitchSubStat()
-    {
-        return (ebp.rarity > Rarity.Common && ebp.subStat == Obj.None && (ebp.part == EquipPart.Weapon || ebp.part == EquipPart.Ring || ebp.part == EquipPart.Necklace));
-    }
-    public void SwitchSubStat()
-    {
-        if (!CanSwitchSubStat())
-            return;
-
-        Obj currStat = subStat;
-
-        while (subStat == currStat)
-            SetSubStat();
-
-        StatValueSet();
+        SetCommonStat();
     }
     public void Fusion()
     {

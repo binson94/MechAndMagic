@@ -15,6 +15,7 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.sound.PlayBGM(BGM.Battle1);
         eventInfo = new EventInfo(GameManager.slotData.dungeonRoom);
         eventText.text = eventInfo.script;
 

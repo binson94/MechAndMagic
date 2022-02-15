@@ -48,12 +48,26 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: 0f42bbf7b125d894c9b2c39a989277d1, type: 2}
   BGM: {fileID: 3617403169124225319}
   SFX: {fileID: 3617403169677844766}
-  bgms:
-  - {fileID: 8300000, guid: 7e6e343acafcefb459a27a40a292b761, type: 3}
-  - {fileID: 8300000, guid: 294d9f3cfdde88c4c8c327e5e4f5a378, type: 3}
-  - {fileID: 8300000, guid: 2dc33f3c679df144aa3d146b5ad5dd9e, type: 3}
-  - {fileID: 8300000, guid: 2d00ccbfa183e6a4886420ab89efee46, type: 3}
-  - {fileID: 8300000, guid: 91f1db088e2c2154d8d92eb70c632068, type: 3}
+  mechBgms:
+  - {fileID: 8300000, guid: 32e28aac13767654e85d1fa15fc3d990, type: 3}
+  - {fileID: 8300000, guid: 1c7a2a7b144e51546b513a608189df0b, type: 3}
+  - {fileID: 8300000, guid: 0ca5d06df625a1946b9023922ec3c04c, type: 3}
+  - {fileID: 8300000, guid: ce29ac15d8f892342a5d9d1a4d978200, type: 3}
+  - {fileID: 8300000, guid: 2395c1d16e9fb5c4da4110cbe640b257, type: 3}
+  - {fileID: 8300000, guid: 8c48f808090452045bee9c143856a972, type: 3}
+  - {fileID: 8300000, guid: 1fb86ce1dfbe05444bccceb955816201, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 329ce6c6589f6a44b81bea6b0dad01af, type: 3}
+  magicBgms:
+  - {fileID: 8300000, guid: 32e28aac13767654e85d1fa15fc3d990, type: 3}
+  - {fileID: 8300000, guid: 16b1c43dde206ff48bab9e1707a5e901, type: 3}
+  - {fileID: 8300000, guid: c9fd122abfa1d5b48a5a71de7e190ffb, type: 3}
+  - {fileID: 8300000, guid: 17987bfe132fa9f47a534ac56fae4a8f, type: 3}
+  - {fileID: 8300000, guid: 16717b0fb09e70f4a8a023d0f90d8343, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: e4077106331a12b4587d71c8bc08c278, type: 3}
   sfxs: []
 --- !u!1 &3617403168383962929
 GameObject:

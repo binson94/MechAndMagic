@@ -25,11 +25,11 @@ public class LogManager : MonoBehaviour
         Log tmp = Instantiate(logPrefab).GetComponent<Log>();
         tmp.Set(str);
 
-        tmp.transform.parent = logContent;
+        tmp.transform.SetParent(logContent);
 
         tmp = Instantiate(logPrefab).GetComponent<Log>();
         tmp.Set(str);
-        tmp.transform.parent = expandLogContent;
+        tmp.transform.SetParent(expandLogContent);
     }
 
     public void Btn_ExpandToggle()

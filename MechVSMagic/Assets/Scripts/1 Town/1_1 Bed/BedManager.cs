@@ -322,6 +322,9 @@ public class BedManager : MonoBehaviour
 
         List<KeyValuePair<Skill, int>> skills = new List<KeyValuePair<Skill, int>>();
         for (int i = 0; i < s.Length; i++)
+            if (GameManager.slotData.slotClass == 7 && s[i].category == 1024)
+                continue;
+            else
                 skills.Add(new KeyValuePair<Skill, int>(s[i], ItemManager.IsLearned(s[i].idx) ? 1 : 0));
 
 

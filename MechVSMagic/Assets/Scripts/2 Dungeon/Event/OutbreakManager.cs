@@ -5,21 +5,38 @@ using UnityEngine.UI;
 
 public class OutbreakManager : MonoBehaviour
 {
-    int outbreakIdx;
-    [SerializeField] Text outbreakTxt;
+    int[] outbreakIdx = new int[2];
+    bool isSelect = false;
+
+    [SerializeField] GameObject selectPanel;
+    [SerializeField] Text[] outbreakTxt;
+    [SerializeField] GameObject backBtn;
 
     private void Start()
     {
-        outbreakIdx = GameManager.slotData.dungeonRoom;
+        GameManager.sound.PlayBGM(BGM.Battle1);
 
-        outbreakTxt.text = QuestSlot.GetQuestScript(true, outbreakIdx);
+        outbreakIdx[0] = GameManager.slotData.dungeonRoom;
+        outbreakIdx[1] = GameManager.slotData.outbreakSubRoom;
 
-        QuestDataManager.NewQuest(true, outbreakIdx);
+        outbreakTxt[0].text = QuestSlot.GetQuestScript(true, outbreakIdx[0]);
+        outbreakTxt[1].text = QuestSlot.GetQuestScript(true, outbreakIdx[1]);
+    }
+
+    public void Btn_QuestSelect(int idx)
+    {
+        if (isSelect)
+            return;
+        isSelect = true;
+
+        GameManager.SwitchSceneData(SceneKind.Dungeon);
+        QuestDataManager.NewQuest(true, outbreakIdx[idx]);
+        selectPanel.SetActive(false);
+        backBtn.SetActive(true);
     }
 
     public void Btn_Back()
     {
-        GameManager.SwitchSceneData(SceneKind.Dungeon);
         UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
     }
 }

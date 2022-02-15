@@ -12,13 +12,23 @@ public class SkillDB
     protected int skillCount;       //스킬 갯수
     public Skill[] skills = null;
 
-    public virtual void DataLoad() { }
-
-    protected void JsonLoad(string path)
+    public SkillDB(string className, int classIdx)
     {
-        TextAsset jsonTxt = Resources.Load<TextAsset>(path);
+        this.className = className;
+        this.classIdx = classIdx;
+        JsonLoad();
+    }
+
+    protected void JsonLoad()
+    {
+        TextAsset jsonTxt = Resources.Load<TextAsset>(string.Concat("Jsons/Skills/", className, "Skill"));
         string loadStr = jsonTxt.text;
         JsonData json = JsonMapper.ToObject(loadStr);
+
+        skillCount = json.Count;
+        skills = new Skill[skillCount];
+        for (int i = 0; i < skillCount; i++)
+            skills[i] = new Skill();
 
         startIdx = (int)json[0]["idx"];
         //Skill Data Load
@@ -40,8 +50,6 @@ public class SkillDB
             skills[i].targetSide = (int)json[i]["targetSide"];
             skills[i].targetCount = (int)json[i]["targetCount"];
 
-            skills[i].combo = (int)json[i]["combo"];
-
             skills[i].effectCount = (int)json[i]["effectCount"];
             skills[i].DataAssign();
             for (int j = 0; j < skills[i].effectCount; j++)
@@ -58,101 +66,5 @@ public class SkillDB
                 skills[i].effectVisible[j] = (int)json[i]["effectVisible"][j];
             }
         }
-    }
-}
-
-public class ArmedFighterSkillDB : SkillDB
-{
-    public override void DataLoad()
-    {
-        className = "ArmedFighter";
-        classIdx = 1;
-        skillCount = 41;
-        skills = new Skill[skillCount];
-
-        for (int i = 0; i < skillCount; i++)
-            skills[i] = new Skill();
-
-        JsonLoad("Jsons/Skills/ArmedFighterSkill");
-    }
-}
-
-public class MetalKnightSkillDB : SkillDB
-{
-    public override void DataLoad()
-    {
-        className = "MetalKnight";
-        classIdx = 2;
-        skillCount = 43;
-        skills = new Skill[skillCount];
-
-        for (int i = 0; i < skillCount; i++)
-            skills[i] = new Skill();
-
-        JsonLoad("Jsons/Skills/MetalKnightSkill");
-    }
-}
-
-public class ElementalControllerSkillDB : SkillDB
-{
-    public override void DataLoad()
-    {
-        className = "ElementalController";
-        classIdx = 5;
-        skillCount = 40;
-        skills = new Skill[skillCount];
-
-        for (int i = 0; i < skillCount; i++)
-            skills[i] = new Skill();
-
-        JsonLoad("Jsons/Skills/ElementalControllerSkill");
-    }
-}
-
-public class DruidSkillDB : SkillDB
-{
-    public override void DataLoad()
-    {
-        className = "Druid";
-        classIdx = 6;
-        skillCount = 43;
-        skills = new Skill[skillCount];
-
-        for (int i = 0; i < skillCount; i++)
-            skills[i] = new Skill();
-
-        JsonLoad("Jsons/Skills/DruidSkill");
-    }
-}
-
-public class MonsterSkillDB : SkillDB
-{
-    public override void DataLoad()
-    {
-        className = "Monster";
-        classIdx = 10;
-        skillCount = 3;
-        skills = new Skill[skillCount];
-
-        for (int i = 0; i < skillCount; i++)
-            skills[i] = new Skill();
-
-        JsonLoad("Jsons/Skills/MonsterSkill");
-    }
-}
-
-public class ElementalSkillDB : SkillDB
-{
-    public override void DataLoad()
-    {
-        className = "Elemental";
-        classIdx = 11;
-        skillCount = 12;
-        skills = new Skill[skillCount];
-
-        for (int i = 0; i < skillCount; i++)
-            skills[i] = new Skill();
-
-        JsonLoad("Jsons/Skills/ElementalSkill");
     }
 }

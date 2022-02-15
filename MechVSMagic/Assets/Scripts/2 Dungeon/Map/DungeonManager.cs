@@ -51,6 +51,8 @@ public class DungeonManager : MonoBehaviour
         SaveState();
 
         QuestShow();
+
+        GameManager.sound.PlayBGM(BGM.Battle1);
     }
 
     #region DungeonMaking
@@ -86,7 +88,7 @@ public class DungeonManager : MonoBehaviour
             for (int j = 0; j < state.currDungeon.roomCount[i]; j++)
             {
                 RoomImage r = Instantiate(roomPrefab).GetComponent<RoomImage>();
-                r.transform.parent = scrollContent.transform;
+                r.transform.SetParent(scrollContent.transform);
                 r.Init(state.currDungeon.GetRoom(i, j), this);
                 r.SetPosition(new Vector3(0, 100, 0) + Vector3.right * 1080f * (j + 1) / (state.currDungeon.roomCount[i] + 1) + Vector3.down * (state.currDungeon.floorCount - state.currDungeon.GetRoom(i,j).floor) * 300);
                 roomImages[i].Add(r);
@@ -121,6 +123,7 @@ public class DungeonManager : MonoBehaviour
         state.currPos = (int[])pos.Clone();
         GameManager.slotData.dungeonScroll = scroll.verticalNormalizedPosition;
         GameManager.slotData.dungeonRoom = state.GetCurrRoom().roomEventIdx;
+        GameManager.slotData.outbreakSubRoom = state.GetCurrRoom().outbreakSubIdx;
         GameManager.SaveSlotData();
 
         SaveState();

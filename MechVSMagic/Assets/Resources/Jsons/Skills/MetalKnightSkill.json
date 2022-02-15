@@ -288,7 +288,7 @@
     "effectCount": 1,
     "combo": 1,
     "effectType": [
-      15,
+      17,
       0,
       0,
       0,
@@ -609,7 +609,7 @@
       0
     ],
     "effectRate": [
-      20,
+      0.2,
       1,
       0,
       0,
@@ -1620,7 +1620,7 @@
     "effectType": [
       3,
       1,
-      16,
+      18,
       0,
       0,
       0,
@@ -1751,7 +1751,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -1884,7 +1884,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -2017,7 +2017,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -2150,7 +2150,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -2815,7 +2815,7 @@
     "effectCount": 2,
     "combo": 1,
     "effectType": [
-      14,
+      16,
       1,
       0,
       0,
@@ -3081,7 +3081,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -3347,7 +3347,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -3613,8 +3613,8 @@
     "effectCount": 3,
     "combo": 1,
     "effectType": [
-      14,
-      14,
+      16,
+      16,
       1,
       0,
       0,
@@ -4145,8 +4145,8 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
-      14,
+      16,
+      16,
       0,
       0,
       0,
@@ -4278,7 +4278,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -4411,7 +4411,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -4810,7 +4810,7 @@
     "effectCount": 1,
     "combo": 1,
     "effectType": [
-      15,
+      17,
       0,
       0,
       0,
@@ -4944,7 +4944,7 @@
     "combo": 1,
     "effectType": [
       1,
-      14,
+      16,
       0,
       0,
       0,
@@ -5209,7 +5209,7 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
+      16,
       0,
       0,
       0,
@@ -5608,8 +5608,8 @@
     "effectCount": 0,
     "combo": 0,
     "effectType": [
-      14,
-      14,
+      16,
+      16,
       0,
       0,
       0,

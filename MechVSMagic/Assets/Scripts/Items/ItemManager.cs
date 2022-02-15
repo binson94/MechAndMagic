@@ -8,6 +8,7 @@ using LitJson;
 public class ItemManager : MonoBehaviour
 {
     static ItemData itemData;
+    public static SetOptionManager setManager;
 
     public const int EQUIP_COUNT = 19;
     
@@ -117,7 +118,7 @@ public class ItemManager : MonoBehaviour
     }
     public static bool CanSwitchOption(EquipPart part, int idx)
     {
-        return itemData.CanSwitchOption(part, idx);
+        return itemData.CanSwitchCommonStat(part, idx);
     }
     public static bool CanFusion(EquipPart part, int idx)
     {
@@ -136,7 +137,7 @@ public class ItemManager : MonoBehaviour
     }
     public static void SwitchEquipOption(EquipPart part, int idx)
     {
-        itemData.SwitchOption(part, idx);
+        itemData.SwitchCommonStat(part, idx);
         SaveData();
     }
     public static void FusionEquipment(EquipPart part, int idx)
@@ -149,12 +150,14 @@ public class ItemManager : MonoBehaviour
     {
         itemData.Equip(part, idx);
         ItemStatUpdate();
+        setManager.SetComfirm(itemData);
         SaveData();
     }
     public static void UnEquip(EquipPart part)
     {
         itemData.UnEquip(part);
         ItemStatUpdate();
+        setManager.SetComfirm(itemData);
         SaveData();
     }
     static void ItemStatUpdate()
@@ -165,6 +168,9 @@ public class ItemManager : MonoBehaviour
             {
                 addPivots[(int)e.mainStat] += e.mainStatValue;
                 addPivots[(int)e.subStat] += e.subStatValue;
+
+                for(int i = 0;i < e.commonStatValue.Count;i++)
+                    addPivots[(int)e.commonStatValue[i].Key] += e.commonStatValue[i].Value;
             }
 
         for(int i = 1;i<13;i++)
@@ -175,7 +181,6 @@ public class ItemManager : MonoBehaviour
         GameManager.slotData.itemStats[3] = GameManager.slotData.itemStats[4];
         GameManager.SaveSlotData();
     }
-
     public static void SkillLearn(int idx)
     {
         itemData.SkillLearn(idx);
@@ -249,6 +254,8 @@ public class ItemManager : MonoBehaviour
     {
         return itemData.IsLearned(idx);
     }
+    
+    public static KeyValuePair<string, float[]> GetSetData(int set) => setManager.GetSetData(set);
     #endregion
 
     public static void LoadData()
@@ -262,13 +269,82 @@ public class ItemManager : MonoBehaviour
                 e.ebp.name = bluePrints[e.ebp.idx].name;
             foreach (Equipment e in itemData.accessorys)
                 e.ebp.name = bluePrints[e.ebp.idx].name;
+
+            setManager.SetComfirm(itemData);
         }
         else
             itemData = new ItemData();
     }
-
     static void SaveData()
     {
         PlayerPrefs.SetString(string.Concat("Item", GameManager.currSlot), JsonMapper.ToJson(itemData));
+    }
+}
+
+public class SetOptionManager
+{
+
+    Dictionary<int, int> setList =new Dictionary<int, int>();
+    SetOption[] options;
+    public SetOptionManager()
+    {
+        TextAsset jsonTxt = Resources.Load<TextAsset>("Jsons/Item/SetOption");
+        JsonData json = JsonMapper.ToObject(jsonTxt.text);
+
+        options = new SetOption[json.Count];
+
+        for (int i = 0; i < options.Length; i++)
+        {
+            options[i] = new SetOption();
+
+            options[i].name = json[i]["name"].ToString();
+            options[i].setIdx = (int)json[i]["set"];
+            options[i].count = (int)json[i]["count"];
+
+            for (int j = 0; j < options[i].count; j++)
+                options[i].rate[j] = float.Parse(json[i]["rate"].ToString());
+        }
+    }
+    public void SetComfirm(ItemData itemData)
+    {
+        setList.Clear();
+        Dictionary<int, int> count = new Dictionary<int, int>();
+
+        for (int i = 0; i < itemData.equipmentSlots.Length; i++)
+        {
+            if (itemData.equipmentSlots[i] != null)
+            {
+                int set = itemData.equipmentSlots[i].ebp.set;
+                if (set != 0)
+                    if (count.ContainsKey(set))
+                        count[set]++;
+                    else
+                        count.Add(set, 1);
+            }
+        }
+
+        foreach (KeyValuePair<int, int> token in count)
+            if (token.Value >= 2)
+                setList.Add(token.Key, token.Value);
+    }
+    public KeyValuePair<string, float[]> GetSetData(int set)
+    {
+        float[] tmp = new float[options[set].count];
+
+        if (setList.ContainsKey(set))
+            for (int i = 0; i < options[set].count; i++)
+                tmp[i] = setList[set] >= options[set].reqPart[i] ? options[set].rate[i] : 0;
+
+
+        return new KeyValuePair<string, float[]>(options[set].name, tmp);
+    }
+
+    class SetOption
+    {
+        public string name;
+        public int setIdx;
+        public int count;
+        public int[] reqPart;
+        public float[] rate;
     }
 }

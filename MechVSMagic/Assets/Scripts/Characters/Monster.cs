@@ -22,13 +22,6 @@ public class Monster : Unit
     public string pattern;
     Active UseSkill;
 
-    public override void OnBattleStart(BattleManager BM)
-    {
-        this.BM = BM;
-        StatLoad();
-        StatUpdate_Turn();
-        buffStat[(int)Obj.currHP] = buffStat[(int)Obj.HP];
-    }
     public override void OnTurnStart()
     {
         base.OnTurnStart();
@@ -36,10 +29,11 @@ public class Monster : Unit
         if (!IsStun())
             UseSkill();
 
+        //31 빙산의 일각
         if(HasSkill(31))
         {
-            inbattleBuffList.RemoveAll(x => x.name == "빙산의 일각");
-            AddBuff(SkillManager.GetSkill(classIdx, 31), 0, 0);
+            turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 31).name);
+            AddBuff(this, orderIdx, SkillManager.GetSkill(classIdx, 31), 0, 0);
         }
     }
 
@@ -59,14 +53,14 @@ public class Monster : Unit
         if (monsterIdx == 12 || monsterIdx == 13)
         {
             //16 발사
-            if (inbattleBuffList.Any(x => x.name == "포탄"))
+            if (turnBuffs.buffs.Any(x => x.name == "포탄"))
                 ActiveSkill(16, new List<Unit>());
             else
             {
                 bool reload = BM.ReloadBullet();
                 //15 장전
                 if (reload)
-                    inbattleBuffList.Add(new Buff("포탄", 99, 0, 0, 0, 0, 0, 1));
+                    turnBuffs.Add(new Buff(BuffType.None, LVL, new BuffOrder(this, -3), "포탄", 0, 0, 0, 0, 99, 0, 1));
                 //17 공포탄
                 else
                     ActiveSkill(17, new List<Unit>());
@@ -90,20 +84,22 @@ public class Monster : Unit
         //skillDB에서 스킬 불러오기
         Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
 
-        inskillBuffList.Clear();
+        skillBuffs.Clear();
+        skillDebuffs.Clear();
+
         if (skill == null)
         {
             Debug.LogError("skill is null");
             return;
         }
 
-        Passive_SkillCast(skill.category);
+        Passive_SkillCast(skill);
 
         //16 발사 - 포탄 버프 소모
         if (skill.idx == 16)
         {
-            Buff b = (from x in inbattleBuffList where x.name == "포탄" select x).First();
-            inbattleBuffList.Remove(b);
+            Buff b = (from x in turnBuffs.buffs where x.name == "포탄" select x).First();
+            turnBuffs.buffs.Remove(b);
         }
         //30 붕괴
         else if (skill.idx == 30)
@@ -112,18 +108,18 @@ public class Monster : Unit
             List<Unit> u = BM.GetEffectTarget(6);
             foreach (Unit a in u)
             {
-                cnt += a.inbattleBuffList.Count(x => x.objectIdx == (int)Obj.Cycle);
-                a.inbattleBuffList.RemoveAll(x => x.objectIdx == (int)Obj.Cycle);
+                cnt += a.turnBuffs.buffs.Count(x => x.objectIdx[0] == (int)Obj.Cycle);
+                a.turnBuffs.buffs.RemoveAll(x => x.objectIdx[0] == (int)Obj.Cycle);
             }
 
             Skill tmp = SkillManager.GetSkill(classIdx, 30);
-            inskillBuffList.Add(new Buff("", -1, 5, cnt, tmp.effectCalc[0], tmp.effectRate[0], 0, 0));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, cnt, tmp.effectRate[0], tmp.effectCalc[0], -1));
         }
         //32 만년설
         else if(skill.idx == 32)
         {
             Skill tmp = SkillManager.GetSkill(classIdx, 32);
-            inskillBuffList.Add(new Buff("", -1, 5, shieldAmount, tmp.effectCalc[0], tmp.effectRate[0], 0, 0));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), tmp.name, tmp.effectObject[0], shieldAmount, tmp.effectRate[0], tmp.effectCalc[0], tmp.effectTurn[0]));
         }
         //85 돈키호테
         else if(skill.idx == 85)
@@ -133,6 +129,7 @@ public class Monster : Unit
 
         Active_Effect(skill, selects);
 
+        orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
         cooldowns[idx] = skill.cooldown;
     }
@@ -147,68 +144,24 @@ public class Monster : Unit
             effectTargets = BM.GetEffectTarget(2);
 
             Skill tmp = SkillManager.GetSkill(classIdx, 78);
-            inskillBuffList.Add(new Buff("", -1, 5, effectTargets[0].inbattleDebuffList.Count(x => x.objectIdx == (int)Obj.Curse), tmp.effectCalc[0], tmp.effectRate[0], 0, 0));
-            effectTargets[0].inbattleDebuffList.RemoveAll(x => x.objectIdx == (int)Obj.Curse);
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", tmp.effectObject[0], effectTargets[0].turnDebuffs.buffs.Count(x => x.objectIdx[0] == (int)Obj.Curse), tmp.effectRate[0], tmp.effectCalc[0], -1));
+            effectTargets[0].turnDebuffs.buffs.RemoveAll(x => x.objectIdx[0] == (int)Obj.Curse);
             damaged.Add(effectTargets[0]);
         }
 
         for (int i = 0; i < skill.effectCount; i++)
         {
-            //타겟 결정
-            switch (skill.effectTarget[i])
-            {
-                case 0:
-                    effectTargets = new List<Unit>();
-                    effectTargets.Add(this);
-                    break;
-                case 1:
-                    effectTargets = selects;
-                    break;
-                case 12:
-                    effectTargets = damaged;
-                    break;
-                default:
-                    effectTargets = BM.GetEffectTarget(skill.effectTarget[i]);
-                    break;
-            }
-            //버프 결정
-            {
-                if (skill.effectStat[i] <= 12)
-                    rate = 0;
-                //전 턴 받은 피해
-                else if (skill.effectStat[i] == (int)Obj.GetDmg)
-                    rate = dmgs[3];
-                //전 턴 가한 피해
-                else if (skill.effectStat[i] == (int)Obj.GiveDmg)
-                    rate = dmgs[1];
-                //타겟 잃은 체력 비율
-                else if (skill.effectStat[i] == (int)Obj.LossPer)
-                    rate = 1 - ((float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.HP]);
-                //타겟 현재 체력 비율
-                else if (skill.effectStat[i] == (int)Obj.CurrPer)
-                    rate = (float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.HP];
-                else if (skill.effectStat[i] == (int)Obj.BuffCnt)
-                    rate = inbattleBuffList.Count;
-                else if (skill.effectStat[i] == (int)Obj.DebuffCnt)
-                    rate = selects[0].inbattleDebuffList.Count;
-                else if (skill.effectStat[i] == (int)Obj.MaxHP)
-                    rate = selects[0].buffStat[(int)Obj.HP];
-                else if (skill.effectStat[i] == (int)Obj.Bleed)
-                    rate = buffStat[(int)Obj.ATK] * 0.15f;
-                else if (skill.effectStat[i] == (int)Obj.Burn)
-                    rate = buffStat[(int)Obj.ATK] * 0.7f;
-                else if (skill.effectStat[i] == (int)Obj.Posion)
-                    rate = buffStat[(int)Obj.ATK] * 0.1f;
-            }
+            effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
+            rate = GetEffectStat(selects, skill.effectStat[i]);
 
             switch ((SkillType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
                 case SkillType.Damage:
                     {
-                        StatUpdate_Skill(skill.category);
+                        StatUpdate_Skill(skill);
 
-                        int dmg = Mathf.CeilToInt(buffStat[skill.effectStat[i]] * skill.effectRate[i]);
+                        float dmg = buffStat[skill.effectStat[i]] * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -217,24 +170,22 @@ public class Monster : Unit
                                 continue;
 
                             //명중 연산 - 최소 명중률 10%
-                            int acc = Mathf.Max(buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG], 10);
+                            int acc = 20;
+                            if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
+                                acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                            else
+                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
                                 isAcc = true;
                                 //크리티컬 연산 - dmg * CRB
-                                if (Random.Range(0, 100) < buffStat[(int)Obj.CRC])
-                                {
-                                    isCrit = true;
-                                    dmg = Mathf.CeilToInt(dmg * (buffStat[(int)Obj.CRB] / 100f));
-                                }
-                                else
-                                    isCrit = false;
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
 
-                                u.GetDamage(this, dmg, buffStat[(int)Obj.PEN]);
+                                u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRC] : 100);
                                 damaged.Add(u);
 
-                                Passive_SkillHit(skill.category);
+                                Passive_SkillHit(skill);
                             }
                             else
                             {
@@ -256,26 +207,35 @@ public class Monster : Unit
                 case SkillType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            AddBuff(skill, i, rate);
+                            foreach(Unit u in effectTargets)
+                                u.AddBuff(this, orderIdx, skill, i, rate);
                         break;
                     }
                 case SkillType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            AddDebuff(skill, i, rate);
+                            foreach (Unit u in effectTargets)
+                                u.AddDebuff(this, orderIdx, skill, i, rate);
                         break;
                     }
-                case SkillType.Passive_APBuff:
+                case SkillType.Active_RemoveBuff:
                     {
-                        apBuffs.Add(new APBuff(skill.name, skill.effectTurn[i], skill.effectCond[i], skill.effectRate[i], skill.effectCalc[i] == 1));
+                        foreach (Unit u in effectTargets)
+                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
+                        break;
+                    }
+                case SkillType.Active_RemoveDebuff:
+                    {
+                        foreach (Unit u in effectTargets)
+                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
                 case SkillType.CharSpecial1:
                     {
                         //저주 지속 시간 증가
                         foreach (Unit u in damaged)
-                            foreach (Buff b in u.inbattleDebuffList)
-                                if (b.objectIdx == (int)Obj.Curse)
+                            foreach (Buff b in u.turnDebuffs.buffs)
+                                if (b.objectIdx[0] == (int)Obj.Curse)
                                     b.duration++;
                         break;
                     }
@@ -283,8 +243,8 @@ public class Monster : Unit
                     {
                         //저주 있는 대상 저주 한번 더
                         foreach (Unit u in damaged)
-                            if (u.inbattleDebuffList.Any(x => x.objectIdx == (int)Obj.Curse))
-                                u.AddDebuff(skill, 1, 0);
+                            if (u.turnDebuffs.buffs.Any(x => x.objectIdx[0] == (int)Obj.Curse))
+                                u.AddDebuff(this, orderIdx, skill, 1, 0);
 
                         break;
                     }
@@ -294,29 +254,26 @@ public class Monster : Unit
         }
     }
 
-
-    public override bool GetDamage(Unit caster, int dmg, int pen)
+    public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
-        if(inbattleBuffList.Any(x=>x.name == "전류 방출"))
+        //90 전류 방출
+        if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 90).name)) caster.GetDamage(this, buffStat[(int)Obj.ATK], buffStat[(int)Obj.PEN], 100);
+        //44 플레임
+        if(turnBuffs.buffs.Any(x=>x.name == SkillManager.GetSkill(classIdx, 44).name))
         {
-            caster.GetDamage(this, buffStat[(int)Obj.ATK], buffStat[(int)Obj.PEN]);
-        }
-
-        if(inbattleBuffList.Any(x=>x.name == "플레임"))
-        {
-            inbattleBuffList.RemoveAll(x => x.name == "플레임");
+            turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 44).name);
             LogManager.instance.AddLog("Block");
-            return false;
+            return new KeyValuePair<bool, int>(false, 0);
         }
 
-        int finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] - pen);
-        int finalDmg = Mathf.Min(-1, -dmg + finalDEF);
+        float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
+        int finalDmg = Mathf.RoundToInt(-dmg / Mathf.Max(1, Mathf.Log(finalDEF, caster.LVL + 1)));
 
         if (shieldAmount >= finalDmg)
-            shieldAmount -= finalDmg;
+            shieldAmount += finalDmg;
         else
         {
-            finalDmg -= shieldAmount;
+            finalDmg += shieldAmount;
             shieldAmount = 0;
             buffStat[(int)Obj.currHP] += finalDmg;
         }
@@ -324,7 +281,7 @@ public class Monster : Unit
         caster.dmgs[0] -= finalDmg;
         //피격 시 차감되는 버프 처리
 
-        LogManager.instance.AddLog(string.Concat(caster.name, " damages ", name, ", ", finalDmg));
+        LogManager.instance.AddLog(string.Concat(caster.name, "의 공격, ", name, "에게 ", finalDmg, "만큼 피해"));
 
 
         bool killed = false;
@@ -336,9 +293,9 @@ public class Monster : Unit
             {
                 Skill skill = SkillManager.GetSkill(10, 38);
 
-                StatUpdate_Skill(0);
+                StatUpdate_Skill(skill);
 
-                int ret = Mathf.CeilToInt(buffStat[skill.effectStat[0]] * skill.effectRate[0]);
+                float ret = buffStat[skill.effectStat[0]] * skill.effectRate[0];
 
                 List<Unit> effectTargets = BM.GetEffectTarget(skill.effectTarget[0]);
                 foreach (Unit u in effectTargets)
@@ -346,24 +303,20 @@ public class Monster : Unit
                     if (!u.isActiveAndEnabled)
                         continue;
 
-                    //명중 연산 - 최소 명중률 10%
-                    int acc = Mathf.Max(buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG], 10);
+                    int acc = 20;
+                    if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
+                        acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                    else
+                        acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
                     //명중 시
                     if (Random.Range(0, 100) < acc)
                     {
                         isAcc = true;
-                        //크리티컬 연산 - dmg * CRB
-                        if (Random.Range(0, 100) < buffStat[(int)Obj.CRC])
-                        {
-                            isCrit = true;
-                            dmg = Mathf.CeilToInt(dmg * (buffStat[(int)Obj.CRB] / 100f));
-                        }
-                        else
-                            isCrit = false;
+                        isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
 
-                        u.GetDamage(this, dmg, buffStat[(int)Obj.PEN]);
+                        u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
 
-                        Passive_SkillHit(skill.category);
+                        Passive_SkillHit(skill);
                     }
                     else
                     {
@@ -374,11 +327,11 @@ public class Monster : Unit
             }
             else if (HasSkill(39))
             {
-                Skill skill = SkillManager.GetSkill(10, 38);
+                Skill skill = SkillManager.GetSkill(10, 39);
 
-                StatUpdate_Skill(0);
+                StatUpdate_Skill(skill);
 
-                int ret = Mathf.CeilToInt(buffStat[skill.effectStat[0]] * skill.effectRate[0]);
+                float ret = buffStat[skill.effectStat[0]] * skill.effectRate[0];
 
                 List<Unit> effectTargets = BM.GetEffectTarget(skill.effectTarget[0]);
                 foreach (Unit u in effectTargets)
@@ -386,24 +339,20 @@ public class Monster : Unit
                     if (!u.isActiveAndEnabled)
                         continue;
 
-                    //명중 연산 - 최소 명중률 10%
-                    int acc = Mathf.Max(buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG], 10);
+                    int acc = 20;
+                    if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
+                        acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                    else
+                        acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
                     //명중 시
                     if (Random.Range(0, 100) < acc)
                     {
                         isAcc = true;
-                        //크리티컬 연산 - dmg * CRB
-                        if (Random.Range(0, 100) < buffStat[(int)Obj.CRC])
-                        {
-                            isCrit = true;
-                            dmg = Mathf.CeilToInt(dmg * (buffStat[(int)Obj.CRB] / 100f));
-                        }
-                        else
-                            isCrit = false;
+                        isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
 
-                        u.GetDamage(this, dmg, buffStat[(int)Obj.PEN]);
+                        u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
 
-                        Passive_SkillHit(skill.category);
+                        Passive_SkillHit(skill);
                     }
                     else
                     {
@@ -416,9 +365,9 @@ public class Monster : Unit
             {
                 Skill skill = SkillManager.GetSkill(10, 100);
 
-                StatUpdate_Skill(0);
+                StatUpdate_Skill(skill);
 
-                int ret = Mathf.CeilToInt(buffStat[skill.effectStat[0]] * skill.effectRate[0]);
+                float ret = buffStat[skill.effectStat[0]] * skill.effectRate[0];
 
                 List<Unit> effectTargets = BM.GetEffectTarget(skill.effectTarget[0]);
                 foreach (Unit u in effectTargets)
@@ -426,24 +375,20 @@ public class Monster : Unit
                     if (!u.isActiveAndEnabled)
                         continue;
 
-                    //명중 연산 - 최소 명중률 10%
-                    int acc = Mathf.Max(buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG], 10);
+                    int acc = 20;
+                    if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
+                        acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                    else
+                        acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
                     //명중 시
                     if (Random.Range(0, 100) < acc)
                     {
                         isAcc = true;
-                        //크리티컬 연산 - dmg * CRB
-                        if (Random.Range(0, 100) < buffStat[(int)Obj.CRC])
-                        {
-                            isCrit = true;
-                            dmg = Mathf.CeilToInt(dmg * (buffStat[(int)Obj.CRB] / 100f));
-                        }
-                        else
-                            isCrit = false;
+                        isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
 
-                        u.GetDamage(this, dmg, buffStat[(int)Obj.PEN]);
+                        u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
 
-                        Passive_SkillHit(skill.category);
+                        Passive_SkillHit(skill);
                     }
                     else
                     {
@@ -453,14 +398,15 @@ public class Monster : Unit
                 }
             }
 
+            QuestDataManager.QuestUpdate(QuestType.Kill, monsterIdx, 1);
             gameObject.SetActive(false);
         }
 
-        return killed;
+        return new KeyValuePair<bool, int>(killed, -finalDmg);
     }
     public override void StatLoad()
     {
-        if(json == null)
+        if (json == null)
         {
             TextAsset jsonTxt = Resources.Load<TextAsset>("Jsons/Stats/MonsterStat");
             string loadStr = jsonTxt.text;
@@ -470,15 +416,15 @@ public class Monster : Unit
         monsterName = json[monsterIdx]["name"].ToString();
         region = (int)json[monsterIdx]["region"];
         LVL = (int)json[monsterIdx]["lvl"];
-        dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.HP] = basicStat[(int)Obj.currHP] = basicStat[(int)Obj.HP] = (int)json[monsterIdx]["HP"];
-        dungeonStat[(int)Obj.ATK] = basicStat[(int)Obj.ATK] = (int)json[monsterIdx]["ATK"];
-        dungeonStat[(int)Obj.DEF] = basicStat[(int)Obj.DEF] = (int)json[monsterIdx]["DEF"];
-        dungeonStat[(int)Obj.ACC] = basicStat[(int)Obj.ACC] = (int)json[monsterIdx]["ACC"];
-        dungeonStat[(int)Obj.DOG] = basicStat[(int)Obj.DOG] = (int)json[monsterIdx]["DOG"];
-        dungeonStat[(int)Obj.CRC] = basicStat[(int)Obj.CRC] = (int)json[monsterIdx]["CRC"];
-        dungeonStat[(int)Obj.CRB] = basicStat[(int)Obj.CRB] = (int)json[monsterIdx]["CRB"];
-        dungeonStat[(int)Obj.PEN] = basicStat[(int)Obj.PEN] = (int)json[monsterIdx]["PEN"];
-        dungeonStat[(int)Obj.SPD] = basicStat[(int)Obj.SPD] = (int)json[monsterIdx]["SPD"];
+        dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.HP] = (int)json[monsterIdx]["HP"];
+        dungeonStat[(int)Obj.ATK] = (int)json[monsterIdx]["ATK"];
+        dungeonStat[(int)Obj.DEF] = (int)json[monsterIdx]["DEF"];
+        dungeonStat[(int)Obj.ACC] = (int)json[monsterIdx]["ACC"];
+        dungeonStat[(int)Obj.DOG] = (int)json[monsterIdx]["DOG"];
+        dungeonStat[(int)Obj.CRC] = (int)json[monsterIdx]["CRC"];
+        dungeonStat[(int)Obj.CRB] = (int)json[monsterIdx]["CRB"];
+        dungeonStat[(int)Obj.PEN] = (int)json[monsterIdx]["PEN"];
+        dungeonStat[(int)Obj.SPD] = (int)json[monsterIdx]["SPD"];
 
         pattern = json[monsterIdx]["pattern"].ToString();
         if (pattern == "0")

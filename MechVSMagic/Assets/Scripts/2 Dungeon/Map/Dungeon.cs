@@ -19,6 +19,7 @@ public class Room
     public RoomType type;
     //몬스터일 경우-> 방 인덱스, 이벤트일 경우 -> 이벤트 인덱스
     public int roomEventIdx;
+    public int outbreakSubIdx;
     public bool isOpen;
 
     public void MakeLink(Room r)
@@ -147,7 +148,14 @@ public class Dungeon
                 }
             case RoomType.Quest:
                 {
-                    r.roomEventIdx = dbp.questIdx[Random.Range(0, dbp.questCount)];
+                    if (dbp.questCount < 2)
+                        r.roomEventIdx = r.outbreakSubIdx = dbp.questIdx[0];
+                    else
+                    {
+                        r.roomEventIdx = r.outbreakSubIdx = dbp.questIdx[Random.Range(0, dbp.questCount)];
+                        while (r.outbreakSubIdx == r.roomEventIdx)
+                            r.outbreakSubIdx = dbp.questIdx[Random.Range(0, dbp.questCount)];
+                    }
                     break;
                 }
             case RoomType.Boss:

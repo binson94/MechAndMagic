@@ -23,6 +23,7 @@ public class SlotData
     public SceneKind nowScene;
     public int dungeonIdx;
     public int dungeonRoom;
+    public int outbreakSubRoom;
     public double dungeonScroll;
 
     static SlotData()
@@ -86,7 +87,7 @@ public class ItemData
                 return false;
         return equipRecipes[ebp.idx] > 0;
     }
-    public bool CanSwitchOption(EquipPart part, int idx)
+    public bool CanSwitchCommonStat(EquipPart part, int idx)
     {
         Equipment tmp = null;
         if (part <= EquipPart.Weapon)
@@ -96,7 +97,7 @@ public class ItemData
         else if (part <= EquipPart.Ring)
             tmp = accessorys[idx];
 
-        return tmp.CanSwitchMainStat();
+        return tmp.CanSwitchCommonStat();
     }
     public bool CanFusion(EquipPart part, int idx)
     {
@@ -154,7 +155,7 @@ public class ItemData
                 basicMaterials[ebp.requireResources[i].Key] += Mathf.RoundToInt(0.4f * ebp.requireResources[i].Value);
         }
     }
-    public void SwitchOption(EquipPart part, int idx)
+    public void SwitchCommonStat(EquipPart part, int idx)
     {
         Equipment tmp = weapons[idx];
         switch(part)
@@ -171,7 +172,7 @@ public class ItemData
                 break;
         }
 
-        tmp.SwitchMainStat();
+        tmp.SwitchCommonStat();
     }
     public void Fusion(EquipPart part, int idx)
     {
@@ -293,6 +294,7 @@ public class ItemData
             equipmentSlots[(int)part - 1] = null;
         }
     }
+
 
     public void SkillLearn(int idx)
     {

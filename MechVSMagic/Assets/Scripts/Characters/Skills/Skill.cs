@@ -14,6 +14,7 @@ public enum SkillType
     Passive_EternalBuff, Passive_EternalDebuff,
     Passive_CritHitBuff, Passive_CritHitDebuff,
     Passive_APBuff,
+    Active_RemoveBuff, Active_RemoveDebuff,
     DoNothing, CharSpecial1, CharSpecial2, CharSpecial3
 }
 
@@ -44,8 +45,6 @@ public class Skill
     //밑의 두 개는 TargetSelect가 1이어야 유효
     public int targetSide;         //타겟 선택 시 소속(0 : 아군, 1 : 적군, 2 : 소환수, 3 : 미구분)
     public int targetCount;        //타겟 선택 수(1 ~ 4)
-
-    public int combo;      //스킬 적중 시도 횟수
 
     [Header("Effects")]
     public int effectCount;

@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             sound = transform.GetChild(0).GetComponent<SoundManager>();
-            Screen.SetResolution(1080, 1920, true);
+            Screen.SetResolution(1080, 1920, false);
             DontDestroyOnLoad(gameObject);
         }
         else

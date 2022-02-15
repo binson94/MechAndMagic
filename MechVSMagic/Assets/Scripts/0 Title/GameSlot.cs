@@ -10,12 +10,13 @@ public class GameSlot : MonoBehaviour
     [SerializeField] Text loadStr;
     [SerializeField] GameObject newBtn;
 
-    public void SlotUpdate(bool hasData, string name = "")
+    public void SlotUpdate(SlotData slot)
     {
-        deleteBtn.SetActive(hasData);
-        loadBtn.SetActive(hasData);
-        loadStr.text = name;
+        deleteBtn.SetActive(slot != null);
+        loadBtn.SetActive(slot != null);
 
-        newBtn.SetActive(!hasData);
+        if (slot != null)
+            loadStr.text = string.Concat("class : ", slot.slotClass);
+        newBtn.SetActive(slot == null);
     }
 }
