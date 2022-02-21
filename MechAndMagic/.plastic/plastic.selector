@@ -1,0 +1,4 @@
+repository "MechAndMagic@MechVSMagic@cloud"
+  path "/"
+    br "/main"
+    co "/main"
