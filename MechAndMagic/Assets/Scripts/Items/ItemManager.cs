@@ -58,9 +58,6 @@ public class ItemManager : MonoBehaviour
             //제작법
             else if (category <= 149)
                 NewEquipRecipe(classIdx, category);
-            //경험치
-            else
-                Debug.Log("Exp");
         }
     }
     static void NewPotion(int idx) => itemData.potions[idx] = 1;

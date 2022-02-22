@@ -85,6 +85,7 @@ public class EventManager : MonoBehaviour
     public void Btn_BackToMap()
     {
         GameManager.SwitchSceneData(SceneKind.Dungeon);
+        QuestManager.QuestUpdate(QuestType.Event, 0, 1);
         SceneManager.LoadScene("2_0 Dungeon");
     }
 }

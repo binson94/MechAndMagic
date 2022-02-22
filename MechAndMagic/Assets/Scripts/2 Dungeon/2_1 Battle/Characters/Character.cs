@@ -368,6 +368,9 @@ public class Character : Unit
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
         KeyValuePair<bool, int> killed = base.GetDamage(caster, dmg, pen, crb);
+
+        QuestManager.DiehardUpdate((float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.HP]);
+
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(28);
 
         if (set.Value[0] > 0)

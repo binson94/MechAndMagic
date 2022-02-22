@@ -5,24 +5,21 @@ using LitJson;
 
 public enum QuestType
 {
-    Kill = 1
+    Kill = 1, Battle, Event, Outbreak, Room, Dungeon, Level, Diehard
 }
 
-public class QuestData
+public class QuestBlueprint
 {
+    //퀘스트 정보
     public int idx;
-    public int region;
-    public int chapter;
     public string script;
 
-    public int lvl;
-    public int requestIdx;
-
+    //퀘스트 목표
     public QuestType type;
-    public int objectCount;
-    public int[] objectIdx;
-    public int[] objectAmt;
+    public int objectIdx;
+    public int objectAmt;
 
+    //퀘스트 보상
     public int rewardCount;
     public int[] rewardIdx;
     public int[] rewardAmt;
@@ -30,84 +27,29 @@ public class QuestData
     static JsonData questJson;
     static JsonData outbreakJson;
 
-    static QuestData()
+    static QuestBlueprint()
     {
         TextAsset jsonTxt = Resources.Load<TextAsset>("Jsons/Quests/Quest");
         questJson = JsonMapper.ToObject(jsonTxt.text);
         jsonTxt = Resources.Load<TextAsset>("Jsons/Quests/Outbreak");
         outbreakJson = JsonMapper.ToObject(jsonTxt.text);
     }
-    public QuestData(bool isOutbreak, int idx)
+    public QuestBlueprint(bool isOutbreak, int idx)
     {
-        if (isOutbreak)
-            LoadOutbreak(idx);
-        else
-            LoadQuest(idx);
-    }
+        JsonData json = isOutbreak ? outbreakJson : questJson;
 
-    public List<int> GetObjectIdx(int idx)
-    {
-        List<int> idxs = new List<int>();
-
-        for (int i = 0; i < objectCount; i++)
-            if (objectIdx[i] == idx || objectIdx[i] == 0)
-                idxs.Add(i);
-
-        return idxs;
-    }
-    
-    void LoadOutbreak(int idx)
-    {
-        JsonData json = outbreakJson;
-
+        //퀘스트 정보
         this.idx = idx;
-        region = (int)json[idx]["region"];
-        chapter = (int)json[idx]["chapter"];
         script = json[idx]["script"].ToString();
 
+        //퀘스트 목표
         type = (QuestType)(int)json[idx]["type"];
-        objectCount = (int)json[idx]["objectCount"];
-        objectIdx = new int[objectCount];
-        objectAmt = new int[objectCount];
-        for (int i = 0; i < objectCount; i++)
-        {
-            objectIdx[i] = (int)json[idx]["objectIdx"][i];
-            objectAmt[i] = (int)json[idx]["objectAmt"][i];
-        }
+        objectIdx = (int)json[idx]["objectIdx"];
+        objectAmt = (int)json[idx]["objectAmt"];
 
+        //퀘스트 보상
         rewardCount = (int)json[idx]["rewardCount"];
-        rewardIdx = new int[rewardCount];
-        rewardAmt = new int[rewardCount];
-        for (int i = 0; i < rewardCount; i++)
-        {
-            rewardIdx[i] = (int)json[idx]["rewardIdx"][i];
-            rewardAmt[i] = (int)json[idx]["rewardAmt"][i];
-        }
-    }
-    void LoadQuest(int idx)
-    {
-        JsonData json = questJson;
-
-        this.idx = idx;
-        region = (int)json[idx]["region"];
-        chapter = (int)json[idx]["chapter"];
-        script = json[idx]["script"].ToString();
-
-        lvl = (int)json[idx]["lvl"];
-        requestIdx = (int)json[idx]["requestIdx"];
-        type = (QuestType)(int)json[idx]["type"];
-        objectCount = (int)json[idx]["objectCount"];
-        objectIdx = new int[objectCount];
-        objectAmt = new int[objectCount];
-        for (int i = 0; i < objectCount; i++)
-        {
-            objectIdx[i] = (int)json[idx]["objectIdx"][i];
-            objectAmt[i] = (int)json[idx]["objectAmt"][i];
-        }
-
-        rewardCount = (int)json[idx]["rewardCount"];
-        rewardIdx = new int[rewardCount];
-        rewardAmt = new int[rewardCount];
+        rewardIdx = new int[rewardCount]; rewardAmt = new int[rewardCount];
         for (int i = 0; i < rewardCount; i++)
         {
             rewardIdx[i] = (int)json[idx]["rewardIdx"][i];

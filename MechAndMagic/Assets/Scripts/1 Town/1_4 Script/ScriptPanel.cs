@@ -6,8 +6,6 @@ using LitJson;
 
 public class ScriptPanel : MonoBehaviour, ITownPanel
 {
-    [SerializeField] TownManager TM;
-
     #region Btn
     [SerializeField] GameObject npcSelectPanel;
 
@@ -116,7 +114,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         {
             if (npcs[selectedNpc].dialogs[idx].reqQuest == -1 || proceeds[npcs[selectedNpc].dialogs[idx].reqQuest].state == QuestState.Clear)
                 if (npcs[selectedNpc].dialogs[idx].hideQuest == -1 || proceeds[npcs[selectedNpc].dialogs[idx].hideQuest].state != QuestState.Clear)
-                    return true;
+                    if(GameManager.slotData.lvl >= npcs[selectedNpc].dialogs[idx].lvl)
+                        return true;
 
             return false;
         }
@@ -186,6 +185,18 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         {
             switch ((DialogToken)(int)dialogJson[pos]["code"])
             {
+                case DialogToken.NPC:
+                    state = DialogState.Proceed;
+                    proceedDialog = StartCoroutine(ProceedDialog());
+                    break;
+                case DialogToken.Player:
+                    state = DialogState.Proceed;
+                    proceedDialog = StartCoroutine(ProceedDialog());
+                    break;
+                case DialogToken.Narration:
+                    state = DialogState.Proceed;
+                    proceedDialog = StartCoroutine(ProceedDialog());
+                    break;
                 //퀘스트 버튼 보이기, QuestAccept state로 전환
                 case DialogToken.Quest:
                     questSelectBtns.SetActive(true);
@@ -196,19 +207,20 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                     pos++;
                     NextToken();
                     break;
-                //스토리 보이기, 대화 종료
-                case DialogToken.Story:
-                    PlayStory(0);
-                    EndDialog();
-                    break;
                 //대화 종료
                 case DialogToken.EndDialog:
                     state = DialogState.End;
                     EndDialog();
                     break;
+                //스토리 보이기, 대화 종료
+                case DialogToken.Story:
+                    PlayStory(0);
+                    EndDialog();
+                    break;
+                //에러 - 대화 종료
                 default:
-                    state = DialogState.Proceed;
-                    proceedDialog = StartCoroutine(ProceedDialog());
+                    state = DialogState.End;
+                    EndDialog();
                     break;
             }
         }
@@ -283,9 +295,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
     enum DialogToken
     {
-        Quest = 11, QuestClear, Story, EndDialog
+        NPC, Player, Narration, Quest, QuestClear, EndDialog, Story
     }
-
     enum DialogState
     {
         Start, Proceed, QuestAccept, Next, End
@@ -297,6 +308,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         public int idx;
         //0 : 그냥 대화, 1 : 퀘스트 수락 대화
         public int kind;
+        public int chapter;
+        public int lvl;
 
         public int reqQuest;
         public int hideQuest;
@@ -320,6 +333,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                 dialogs[i].name = json[i]["name"].ToString();
                 dialogs[i].idx = (int)json[i]["idx"];
                 dialogs[i].kind = (int)json[i]["kind"];
+                dialogs[i].chapter = (int)json[i]["chapter"];
+                dialogs[i].lvl = (int)json[i]["lvl"];
 
                 dialogs[i].reqQuest = (int)json[i]["reqQuest"];
                 dialogs[i].hideQuest = (int)json[i]["hideQuest"];

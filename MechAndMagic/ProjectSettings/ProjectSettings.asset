@@ -691,7 +691,7 @@ PlayerSettings:
   cloudProjectId: 145a72f6-c1f0-4768-842e-fa46e3f84659
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: MechAndMagic
+  projectName: MechVSMagic
   organizationId: mechandmagic
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

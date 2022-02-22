@@ -1,70 +1,42 @@
 [
- {
-   "name": "",
-   "idx": 0,
-   "region": 0,
-   "chapter": 0,
-   "script": "0",
-   "type": 0,
-   "objectCount": 0,
-   "objectIdx": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "objectAmt": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "rewardCount": 0,
-   "rewardIdx": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "rewardAmt": [
-      0,
-      0,
-      0,
-      0
-   ]
-},
   {
-    "name": "돌발 상황",
+    "name": "없음",
+    "idx": 0,
+    "script": "0",
+    "type": 0,
+    "objectIdx": 0,
+    "objectAmt": 0,
+    "rewardIdx": 0,
+    "rewardAmt": 0
+  },
+  {
+    "name": "돌발 적 처치",
     "idx": 1,
-    "region": 1,
-    "chapter": 1,
     "script": "돌발 상황 발생. 아무 몬스터나 3마리 때려 잡아주세요.",
     "type": 1,
-    "objectCount": 1,
-    "objectIdx": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "objectAmt": [
-      3,
-      0,
-      0,
-      0
-    ],
-    "rewardCount": 1,
-    "rewardIdx": [
-      150,
-      0,
-      0,
-      0
-    ],
-    "rewardAmt": [
-      3,
-      0,
-      0,
-      0
-    ]
+    "objectIdx": 0,
+    "objectAmt": 3,
+    "rewardIdx": 150,
+    "rewardAmt": 3
+  },
+  {
+    "name": "돌발 체력 유지",
+    "idx": 2,
+    "script": "체력 30% 이상 유지",
+    "type": 8,
+    "objectIdx": 0,
+    "objectAmt": 30,
+    "rewardIdx": 150,
+    "rewardAmt": 3
+  },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 3,
+    "script": "전투 3회 승리",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 3,
+    "rewardIdx": 150,
+    "rewardAmt": 3
   }
-]
+ ]

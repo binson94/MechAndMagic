@@ -12,8 +12,6 @@ public class CharacterState
 
     public int golemHP;
     public int druidRevive;
-    public List<Buff> eternalBuffList = new List<Buff>();
-    public List<Buff> eternalDebuffList = new List<Buff>();
 
     public bool[] potionUse = new bool[2];
 
@@ -702,6 +700,7 @@ public class BattleManager : MonoBehaviour
     public void Btn_BackToMap()
     {
         GameManager.SwitchSceneData(SceneKind.Dungeon);
+        QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
         UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
     }
 
@@ -717,6 +716,7 @@ public class BattleManager : MonoBehaviour
     public void Btn_BackToTown()
     {
         PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
+        GameManager.GetExp(roomInfo.roomExp);
         GameManager.SwitchSceneData(SceneKind.Town);
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }

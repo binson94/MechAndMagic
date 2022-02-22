@@ -128,6 +128,7 @@ public class DungeonManager : MonoBehaviour
         SaveState();
 
         RoomType type = state.GetCurrRoom().type;
+        QuestManager.QuestUpdate(QuestType.Room, 0, 1);
 
         if (type == RoomType.Monster || type == RoomType.Boss)
         {
@@ -156,7 +157,7 @@ public class DungeonManager : MonoBehaviour
     #region Quest
     void QuestShow()
     {
-        KeyValuePair<QuestData, int[]>[] currQuest = QuestManager.GetCurrQuest();
+        KeyValuePair<QuestBlueprint, int>[] currQuest = QuestManager.GetCurrQuest();
 
         for (int i = 0; i < 4; i++)
             if (currQuest[i].Key != null)

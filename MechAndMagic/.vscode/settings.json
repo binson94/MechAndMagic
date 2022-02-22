@@ -55,7 +55,10 @@
     },
     "cSpell.ignoreWords": [
         "Behaviour",
+        "Btns",
+        "Jsons",
         "Mathf",
-        "Prefs"
+        "Prefs",
+        "npcs"
     ]
 }

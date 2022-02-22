@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
         currSlot = slot;
         slotData = new SlotData(slotClass);
     }
-
     public static void DeleteSlot(int slot)
     {
         PlayerPrefs.DeleteKey(string.Concat("CharState", slot));
@@ -60,6 +59,20 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey(string.Concat("SlotData", slot));
     }
     #endregion SlotCreate/Delete
+
+    public static void GetExp(int amt)
+    {
+        if(slotData.lvl < 10)
+        {
+            slotData.exp += amt;
+            if(slotData.exp > SlotData.reqExp[slotData.lvl])
+            {
+                slotData.exp -= SlotData.reqExp[slotData.lvl];
+                slotData.lvl++;
+            }
+            SaveSlotData();
+        }
+    }
 
     public static string ObjToHex<T>(T obj) => System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonMapper.ToJson(obj)));
     public static T HexToObj<T>(string s) => JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));

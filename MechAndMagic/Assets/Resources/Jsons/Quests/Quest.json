@@ -1,74 +1,170 @@
 [
- {
-   "name": "없음",
-   "idx": 0,
-   "region": 0,
-   "chapter": 0,
-   "script": "0",
-   "lvl": 0,
-   "requestIdx": 0,
-   "type": 0,
-   "objectCount": 0,
-   "objectIdx": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "objectAmt": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "rewardCount": 0,
-   "rewardIdx": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "rewardAmt": [
-      0,
-      0,
-      0,
-      0
-   ]
-},
- {
-   "name": "돌발 상황",
-   "idx": 1,
-   "region": 1,
-   "chapter": 1,
-   "script": "돌발 상황 발생. 아무 몬스터나 3마리 때려 잡아주세요.",
-   "lvl": 0,
-   "requestIdx": 0,
-   "type": 1,
-   "objectCount": 1,
-   "objectIdx": [
-      0,
-      0,
-      0,
-      0
-   ],
-   "objectAmt": [
-      3,
-      0,
-      0,
-      0
-   ],
-   "rewardCount": 1,
-   "rewardIdx": [
-      150,
-      0,
-      0,
-      0
-   ],
-   "rewardAmt": [
-      3,
-      0,
-      0,
-      0
-   ]
-}
-]
+   {
+     "name": "없음",
+     "idx": 0,
+     "script": "0",
+     "type": 0,
+     "objectIdx": 0,
+     "objectAmt": 0,
+     "rewardCount": 0,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "적 처치",
+     "idx": 1,
+     "script": "아무 적 처치 3회",
+     "type": 1,
+     "objectIdx": 0,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "전투",
+     "idx": 2,
+     "script": "전투 시행",
+     "type": 2,
+     "objectIdx": 0,
+     "objectAmt": 5,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "이벤트",
+     "idx": 3,
+     "script": "이벤트 시행",
+     "type": 3,
+     "objectIdx": 0,
+     "objectAmt": 5,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "돌발퀘",
+     "idx": 4,
+     "script": "돌발퀘 클리어",
+     "type": 4,
+     "objectIdx": 0,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "방 탐험",
+     "idx": 5,
+     "script": "방 탐험",
+     "type": 5,
+     "objectIdx": 0,
+     "objectAmt": 15,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "던전 클",
+     "idx": 6,
+     "script": "아무 던전 클리어",
+     "type": 6,
+     "objectIdx": 0,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "레벨 달성",
+     "idx": 7,
+     "script": "레벨 달성",
+     "type": 7,
+     "objectIdx": 0,
+     "objectAmt": 5,
+     "rewardCount": 1,
+     "rewardIdx": [
+        150,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        3,
+        0,
+        0,
+        0
+     ]
+  }
+  ]
