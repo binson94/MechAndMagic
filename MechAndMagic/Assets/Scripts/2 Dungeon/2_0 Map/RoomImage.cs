@@ -37,8 +37,6 @@ public class RoomImage : MonoBehaviour
         rect.transform.position = vec;
     }
 
-    void Btn_Select()
-    {
-        dungeonMgr.Btn_RoomSelect(room.floor, room.roomNumber);
-    }
+    void Btn_Select() => dungeonMgr.Btn_RoomSelect(room.floor, room.roomNumber);
+    
 }

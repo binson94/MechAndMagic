@@ -214,7 +214,7 @@ public class ItemManager : MonoBehaviour
                 tmp = itemData.armors;
                 break;
             case ItemCategory.Accessory:
-                tmp = itemData.accessorys;
+                tmp = itemData.accessories;
                 break;
             default:
                 return null;
@@ -276,9 +276,6 @@ public class ItemManager : MonoBehaviour
         if (PlayerPrefs.HasKey(string.Concat("Item", GameManager.currSlot)))
         {
             itemData = GameManager.HexToObj<ItemData>(PlayerPrefs.GetString(string.Concat("Item", GameManager.currSlot)));
-
-            foreach(Equipment e in itemData.weapons)
-                Debug.Log(e.ebp.name);
 
             setManager.SetComfirm(itemData);
         }

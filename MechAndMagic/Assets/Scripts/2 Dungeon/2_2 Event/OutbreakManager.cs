@@ -12,7 +12,7 @@ public class OutbreakManager : MonoBehaviour
     {
         GameManager.sound.PlayBGM(BGM.Battle1);
 
-        outbreakIdx = GameManager.slotData.dungeonRoom;
+        outbreakIdx = GameManager.slotData.dungeonState.currRoomEvent;
         outbreakTxt.text = QuestSlot.GetQuestScript(true, outbreakIdx);
 
         AcceptOutbreakQuest();

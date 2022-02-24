@@ -434,7 +434,7 @@ public class BedPanel : MonoBehaviour, ITownPanel
             selectedSkillPanel.InfoUpdate(SkillManager.GetSkill(GameManager.slotData.slotClass, selectedSkillIdx));
             selectedSkillPanel.gameObject.SetActive(true);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < skillBtns.Length; i++)
                 skillBtns[i].SetActive(i + 1 == (int)selectedSkillState);
         }
         else

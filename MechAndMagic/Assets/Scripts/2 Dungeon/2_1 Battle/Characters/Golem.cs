@@ -97,8 +97,6 @@ public class Golem : Character
         turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 6).name && x.objectIdx[0] == 5);
 
         orderIdx++;
-        buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        cooldowns[idx] = skill.cooldown;
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

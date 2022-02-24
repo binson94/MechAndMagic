@@ -16,8 +16,6 @@ public class TitleManager : MonoBehaviour
     #region Option
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
-
-    [SerializeField] Slider txtSizeSlider;
     [SerializeField] Slider txtSpdSlider;
     #endregion
 
@@ -40,8 +38,6 @@ public class TitleManager : MonoBehaviour
         sfxSlider.value = PlayerPrefs.GetFloat("SFX", 1);
         Slider_BGM();
         Slider_SFX();
-
-        txtSizeSlider.value = PlayerPrefs.GetInt("TxtSize", 1) / 2f;
         txtSpdSlider.value = PlayerPrefs.GetInt("TxtSpd", 1) / 2f;
 
         PanelSet();
@@ -67,12 +63,6 @@ public class TitleManager : MonoBehaviour
     public void Slider_SFX()
     {
         GameManager.sound.SFXSet(sfxSlider.value);
-    }
-    
-    public void Slider_TxtSize()
-    {
-        PlayerPrefs.SetInt("TxtSize", Mathf.RoundToInt(txtSizeSlider.value * 2));
-        txtSizeSlider.value = Mathf.RoundToInt(txtSizeSlider.value * 2) / 2f;
     }
 
     public void Slider_TxtSpd()

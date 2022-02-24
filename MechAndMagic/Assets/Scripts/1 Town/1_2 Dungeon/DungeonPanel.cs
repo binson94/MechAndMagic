@@ -63,13 +63,10 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
 
     public void Btn_Script(int idx)
     {
-        GameManager.slotData.dungeonIdx = idx;
-        GameManager.SaveSlotData();
-
-        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
-        PlayerPrefs.DeleteKey(string.Concat("CharState", GameManager.currSlot));
+        GameManager.SetNewDungeon(idx);
         QuestManager.RemoveOutbreak();
         GameManager.SwitchSceneData(SceneKind.Dungeon);
+        
         SceneManager.LoadScene("2_0 Dungeon");
     }
 }

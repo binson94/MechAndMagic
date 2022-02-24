@@ -6,39 +6,21 @@ using System.Linq;
 
 public enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, EnemyTurn, Win, Lose }
 
-public class CharacterState
-{
-    public int currHP;
 
-    public int golemHP;
-    public int druidRevive;
-
-    public bool[] potionUse = new bool[2];
-
-    public CharacterState()
-    {
-        currHP = -1;
-        druidRevive = 0;
-        golemHP = GameManager.slotData.slotClass == 4 ? 0 : -1;
-
-        potionUse[0] = potionUse[1] = false;
-    }
-}
 
 //1. 버튼과 enemy 1:1 매칭, 버튼 위치 고정
 public class BattleManager : MonoBehaviour
 {
-    /* #region CharList */
+    #region CharList
     //전투 중인 모든 캐릭터
     List<Unit> allCharList = new List<Unit>();
     //아군만 저장
     List<Character> characterList = new List<Character>();
-    CharacterState charState;
     //적군만 저장
     List<Monster> monsterList = new List<Monster>();
-    /* #endregion */
+    #endregion
 
-    /* #region Spawn */
+    #region Spawn
     [Header("Allie Spawn")]
     [SerializeField] GameObject[] alliePrefabs;
     [SerializeField] Transform alliePos;
@@ -47,9 +29,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject[] enemyPrefabs;
     [SerializeField] Transform[] enemyPos;
     RoomInfo roomInfo;
-    /* #endregion */
+    #endregion
 
-    /* #region Caster */
+    #region Caster
     [Header("Caster")]
     //캐릭터들의 TP 최대치, 전투 시작 시 계산
     [SerializeField] Dictionary<Unit, int[]> charTP = new Dictionary<Unit, int[]>();
@@ -62,11 +44,11 @@ public class BattleManager : MonoBehaviour
     //TP가 동일할 때, 속도와 공속 기준으로 순서대로 queue에 저장
     List<Unit> casterQueue = new List<Unit>();
     [SerializeField] List<int> targetIdxs = new List<int>();
-    /* #endregion */
+    #endregion
     
     BattleState state;
 
-    /* #region UI */
+    #region UI
     [Header("UI")]
     //아군 타겟 선택 관련
     [SerializeField] GameObject startBtn;         //최초 전투 시작 버튼
@@ -86,16 +68,16 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject winUI;
     [SerializeField] GameObject bossWinUI;
     [SerializeField] GameObject loseUI;
-    /* #endregion */
+    #endregion
 
-    /* #region Function_Start */
+    #region Function_Start
     void Start()
     {
         GameManager.sound.PlayBGM(BGM.Battle1);
-        if (GameManager.slotData.dungeonRoom > 100)
+        if (GameManager.slotData.dungeonState.currRoomEvent > 100)
             roomInfo = new RoomInfo(1);
         else
-            roomInfo = new RoomInfo(GameManager.slotData.dungeonRoom);
+            roomInfo = new RoomInfo(GameManager.slotData.dungeonState.currRoomEvent);
 
         Monster mon;
         //던전 풀에 따른 적 캐릭터 생성
@@ -116,17 +98,12 @@ public class BattleManager : MonoBehaviour
         characterList.Add(c);
         allCharList.Add(c);
 
-        if (PlayerPrefs.HasKey(string.Concat("CharState", GameManager.currSlot)))
-            charState = LitJson.JsonMapper.ToObject<CharacterState>(PlayerPrefs.GetString(string.Concat("CharState", GameManager.currSlot)));
-        else
-            charState = new CharacterState();
-
-        if(charState.golemHP >= 0)
+        if(GameManager.slotData.dungeonState.golemHP >= 0)
         {
-            c = Instantiate(alliePrefabs[11], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Golem>();
-            c.GetComponent<Golem>().GolemInit(characterList[0].GetComponent<MadScientist>());
-            characterList.Add(c);
-            allCharList.Add(c);
+            Golem g = Instantiate(alliePrefabs[11], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Golem>();
+            g.GolemInit(characterList[0].GetComponent<MadScientist>());
+            characterList.Add(g);
+            allCharList.Add(g);
         }
 
 
@@ -142,17 +119,22 @@ public class BattleManager : MonoBehaviour
         state = BattleState.Start;
         startBtn.SetActive(false);
 
+        foreach(KeyValuePair<int, Buff> b in GameManager.slotData.dungeonState.dungeonBuffs)
+            characterList[0].turnBuffs.Add(b.Value);
+        foreach(KeyValuePair<int, Buff> b in GameManager.slotData.dungeonState.dungeonDebuffs)
+            characterList[0].turnDebuffs.Add(b.Value);
+
         foreach (Unit c in allCharList)
             c.OnBattleStart(this);
 
-        if (charState.currHP > 0)
-            characterList[0].buffStat[(int)Obj.currHP] = charState.currHP;
+        if (GameManager.slotData.dungeonState.currHP > 0)
+            characterList[0].buffStat[(int)Obj.currHP] = GameManager.slotData.dungeonState.currHP;
         else
             characterList[0].buffStat[(int)Obj.currHP] = characterList[0].buffStat[(int)Obj.HP];
         if (characterList[0].classIdx == 6)
-            characterList[0].GetComponent<Druid>().revive = charState.druidRevive;
+            characterList[0].GetComponent<Druid>().revive = GameManager.slotData.dungeonState.druidRevive;
 
-        if (charState.golemHP == 0)
+        if (GameManager.slotData.dungeonState.golemHP == 0)
             characterList[1].buffStat[(int)Obj.currHP] = characterList[1].buffStat[(int)Obj.HP];
 
         foreach (Unit u in allCharList)
@@ -169,9 +151,9 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SelectNextCaster();
     }
-    /* #endregion */
+    #endregion
 
-    /* #region Function_TP */
+    #region Function_TP
     //속도가 변했을 때, TP 최대값 업데이트
     void TPMaxUpdate()
     {
@@ -312,9 +294,9 @@ public class BattleManager : MonoBehaviour
             EnemyTurn();
         }
     }
-    /* #endregion */
+    #endregion
 
-    /* #region Function_AllieTurn */
+    #region Function_AllieTurn
     //아군 턴인 경우, 선택 UI 보이기, 캐릭터 스킬 수에 따라 버튼 활성화, AP 초기화
     void AllieTurnStart()
     {
@@ -342,7 +324,6 @@ public class BattleManager : MonoBehaviour
         }
 
     }
-
     //스킬 선택 버튼, 타겟 선택 창 활성화
     public void Btn_SkillSelect(int idx)
     {
@@ -482,7 +463,6 @@ public class BattleManager : MonoBehaviour
             return false;
         }
     }
-
     //비전 마스터 스킬 선택 버튼
     public void Btn_SkillChoose(int isMinus)
     {
@@ -531,7 +511,6 @@ public class BattleManager : MonoBehaviour
                 Win();
         }
     }
-
     //스킬 선택 취소 버튼, 스킬 선택 전 상태로 돌아감
     public void Btn_SkillCancel()
     {
@@ -543,7 +522,6 @@ public class BattleManager : MonoBehaviour
         skillChoosePanel.SetActive(false);
         skillBtnPanel.SetActive(true);
     }
-
     //타겟 선택 버튼, 스킬 시전
     public void Btn_TargetSelect(int idx)
     {
@@ -579,10 +557,9 @@ public class BattleManager : MonoBehaviour
                 Win();
         }
     }
-
     public void Btn_UsePotion(int idx)
     {
-        if(charState.potionUse[idx])
+        if(GameManager.slotData.dungeonState.potionUse[idx])
             LogManager.instance.AddLog("이미 사용했습니다.");
         else
         {
@@ -597,7 +574,6 @@ public class BattleManager : MonoBehaviour
                 characterList[0].UsePotion(potionIdx);
         }
     }
-
     public void Btn_TurnEnd()
     {
         targetBtnPanel.SetActive(false);
@@ -617,7 +593,6 @@ public class BattleManager : MonoBehaviour
 
         StartCoroutine(AllieTurnEnd());
     }
-
     IEnumerator AllieTurnEnd()
     {
         point.SetActive(false);
@@ -626,9 +601,9 @@ public class BattleManager : MonoBehaviour
 
         SelectNextCaster();
     }
-    /* #endregion */
+    #endregion
 
-    /* #region Function_EnemyTurn */
+    #region Function_EnemyTurn
     //적 턴, 아군 캐릭터 대상으로 정해진 스킬 시전
     void EnemyTurn()
     {
@@ -658,7 +633,6 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(EnemyTurnEnd());
         }
     }
-
     IEnumerator EnemyTurnEnd()
     {
         yield return new WaitForSeconds(1f);
@@ -666,9 +640,9 @@ public class BattleManager : MonoBehaviour
         point.SetActive(false);
         SelectNextCaster();
     }
-    /* #endregion */
+    #endregion
 
-    /* #region Function_BattleEnd */
+    #region Function_BattleEnd
     //승리, 보상 획득, 탐험 계속 진행
     void Win()
     {
@@ -678,28 +652,27 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < roomInfo.ItemCount; i++)
             ItemManager.ItemDrop(characterList[0].classIdx, roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
 
-        charState.currHP = characterList[0].buffStat[(int)Obj.currHP];
+        GameManager.slotData.dungeonState.currHP = characterList[0].buffStat[(int)Obj.currHP];
 
         if (characterList[0].classIdx == 4 && characterList.Count > 1 && characterList[1].isActiveAndEnabled)
-            charState.golemHP = characterList[1].buffStat[(int)Obj.currHP];
+            GameManager.slotData.dungeonState.golemHP = characterList[1].buffStat[(int)Obj.currHP];
         else
-            charState.golemHP = -1;
+            GameManager.slotData.dungeonState.golemHP = -1;
 
         if (characterList[0].classIdx == 6)
-            charState.druidRevive = characterList[0].GetComponent<Druid>().revive;
-        PlayerPrefs.SetString(string.Concat("CharState", GameManager.currSlot), LitJson.JsonMapper.ToJson(charState));
+            GameManager.slotData.dungeonState.druidRevive = characterList[0].GetComponent<Druid>().revive;
 
-        LogManager.instance.AddLog("win");
+        LogManager.instance.AddLog("승리");
 
-        if (GameManager.slotData.dungeonRoom > 100)
+        if (GameManager.slotData.dungeonState.currRoomEvent > 100)
             bossWinUI.SetActive(true);
         else
             winUI.SetActive(true);
     }
-
     public void Btn_BackToMap()
     {
         GameManager.SwitchSceneData(SceneKind.Dungeon);
+        GameManager.UpdateBuff();
         QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
         UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
     }
@@ -715,14 +688,14 @@ public class BattleManager : MonoBehaviour
 
     public void Btn_BackToTown()
     {
-        PlayerPrefs.DeleteKey(string.Concat("DungeonData", GameManager.currSlot));
         GameManager.GetExp(roomInfo.roomExp);
+        GameManager.RemoveDungeonData();
         GameManager.SwitchSceneData(SceneKind.Town);
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
-    /* #endregion */
+    #endregion
 
-    /* #region Function_CharSkills */
+    #region Function_CharSkills
     public void ReduceTP(List<Unit> targets, int amt)
     {
         foreach (Unit u in targets)
@@ -828,7 +801,7 @@ public class BattleManager : MonoBehaviour
         Unit m = GetEffectTarget(4)[0];
         charTP[m][0] = charTP[m][1];
     }
-    /* #endregion Function_CharSkills */
+    #endregion Function_CharSkills
 
     public List<Unit> GetEffectTarget(int idx)
     {

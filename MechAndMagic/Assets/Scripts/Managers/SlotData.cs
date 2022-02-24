@@ -23,10 +23,9 @@ public class SlotData
     public int[] potionSlot = new int[2];
 
     public SceneKind nowScene;
+    
     public int dungeonIdx;
-    public int dungeonRoom;
-    public int outbreakSubRoom;
-    public double dungeonScroll;
+    public DungeonState dungeonState;
 
     static SlotData()
     {
@@ -63,6 +62,40 @@ public class SlotData
         nowScene = SceneKind.Town;
     }
 }
+public class DungeonState
+{
+    public double scroll;
+
+    public int currRoomEvent;
+    public int[] currPos;
+    public Dungeon currDungeon;
+
+    public int currHP;
+    public int golemHP;
+
+    public int druidRevive;
+    public bool[] potionUse = new bool[2];
+
+    public List<KeyValuePair<int, Buff>> dungeonBuffs = new List<KeyValuePair<int, Buff>>();
+    public List<KeyValuePair<int, Buff>> dungeonDebuffs = new List<KeyValuePair<int, Buff>>();
+
+    public DungeonState() {}
+    public DungeonState(DungeonBluePrint dbp)
+    {
+        currDungeon = new Dungeon();
+        currDungeon.DungeonInstantiate(dbp);
+        scroll = 0;
+
+        currHP = -1; druidRevive = 0; golemHP = GameManager.slotData.slotClass == 4 ? 0 : -1;
+        potionUse[0] = potionUse[1] = false;
+        currPos = new int[2] {0, 0};
+    }
+
+    public Room GetCurrRoom()
+    {
+        return currDungeon.GetRoom(currPos[0], currPos[1]);
+    }
+}
 
 public class ItemData
 {
@@ -79,7 +112,7 @@ public class ItemData
 
     public List<Equipment> weapons;
     public List<Equipment> armors;
-    public List<Equipment> accessorys;
+    public List<Equipment> accessories;
     int Compare(Equipment e1, Equipment e2) {
         int ret = e1.ebp.idx.CompareTo(e2.ebp.idx);
         if (ret == 0)
@@ -106,7 +139,7 @@ public class ItemData
         else if (part <= EquipPart.Shoes)
             tmp = armors[idx];
         else if (part <= EquipPart.Ring)
-            tmp = accessorys[idx];
+            tmp = accessories[idx];
 
         return tmp.CanSwitchCommonStat();
     }
@@ -120,7 +153,7 @@ public class ItemData
         else if (part <= EquipPart.Shoes)
         { tmp = armors[idx]; eList = armors; }
         else if (part <= EquipPart.Ring)
-        { tmp = accessorys[idx]; eList = accessorys; }
+        { tmp = accessories[idx]; eList = accessories; }
 
         for (int i = 0; i < eList.Count; i++)
             if (i != idx && eList[i].ebp.idx == tmp.ebp.idx && eList[i].star == tmp.star)
@@ -155,8 +188,8 @@ public class ItemData
                 break;
             case EquipPart.Ring:
             case EquipPart.Necklace:
-                GetResource(accessorys[idx].ebp);
-                accessorys.RemoveAt(idx);
+                GetResource(accessories[idx].ebp);
+                accessories.RemoveAt(idx);
                 break;
         }
 
@@ -179,7 +212,7 @@ public class ItemData
                 break;
             case EquipPart.Ring:
             case EquipPart.Necklace:
-                tmp = accessorys[idx];
+                tmp = accessories[idx];
                 break;
         }
 
@@ -201,8 +234,8 @@ public class ItemData
                 break;
             case EquipPart.Ring:
             case EquipPart.Necklace:
-                tmp = accessorys[idx];
-                eList = accessorys;
+                tmp = accessories[idx];
+                eList = accessories;
                 break;
         }
 
@@ -242,8 +275,8 @@ public class ItemData
                 break;
             case EquipPart.Ring:
             case EquipPart.Necklace:
-                accessorys.Add(tmp);
-                accessorys.Sort(Compare);
+                accessories.Add(tmp);
+                accessories.Sort(Compare);
                 break;
         }
     }
@@ -262,7 +295,7 @@ public class ItemData
                 break;
             case EquipPart.Ring:
             case EquipPart.Necklace:
-                eList = accessorys;
+                eList = accessories;
                 break;
         }
 
@@ -297,8 +330,8 @@ public class ItemData
                     break;
                 case EquipPart.Ring:
                 case EquipPart.Necklace:
-                    accessorys.Add(equipmentSlots[(int)part - 1]);
-                    accessorys.Sort(Compare);
+                    accessories.Add(equipmentSlots[(int)part - 1]);
+                    accessories.Sort(Compare);
                     break;
             }
             equipmentSlots[(int)part - 1] = null;
@@ -342,7 +375,7 @@ public class ItemData
 
         weapons = new List<Equipment>();
         armors = new List<Equipment>();
-        accessorys = new List<Equipment>();
+        accessories = new List<Equipment>();
     }
 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    static SkillDB[] skillDB = new SkillDB[12];
+    static SkillDB[] skillDB = new SkillDB[13];
 
     private void Awake() => MakeDB();
 
@@ -24,6 +24,7 @@ public class SkillManager : MonoBehaviour
 
         skillDB[10] = new SkillDB("Monster", 10);
         skillDB[11] = new SkillDB("Elemental", 11);
+        skillDB[12] = new SkillDB("Golem", 12);
     }
 
     static public Skill[] GetSkillData(int classIdx)
