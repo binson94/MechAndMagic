@@ -56,18 +56,21 @@ public class Dungeon
     //0층 : 시작 방만 존재, 최고층 방(rooms[floorCount - 1]) : 보스 방만 존재
     public List<Room> rooms = new List<Room>();
 
-    DungeonBluePrint dbp;
+    DungeonBluePrint dbp = null;
+
     #region DungeonMaking
     //던전 생성
-    public void DungeonInstantiate(DungeonBluePrint dbp)
+    public void DungeonInstantiate(int dungeonIdx)
     {
-        this.dbp = dbp;
+        dbp = new DungeonBluePrint(dungeonIdx);
+        idx = dungeonIdx;
+        dungeonName = dbp._name;
+
         MakeRoom();
         MakePath();
         CheckAloneNode();
         CheckCross();
     }
-
     //방 생성
     private void MakeRoom()
     {
@@ -89,7 +92,6 @@ public class Dungeon
         roomCount[floorCount - 1] = 1;
         rooms.Add(NewRoom(-1, 0));
     }
-    
     //prob : empty, monster, pos, neu, neg, quest 순서 확률
     private Room NewRoom(int f, int roomNb)
     {
@@ -173,7 +175,6 @@ public class Dungeon
 
         return r;
     }
-
     //경로 생성
     private void MakePath()
     {
@@ -217,7 +218,6 @@ public class Dungeon
             }
         }
     }
-
     //연결되지 않은 방 찾아서 연결
     private void CheckAloneNode()
     {
@@ -230,7 +230,6 @@ public class Dungeon
             }
         }
     }
-
     //교차 제거
     private void CheckCross()
     {
@@ -263,9 +262,11 @@ public class Dungeon
         }
     }
     #endregion DungeonMaking
-
     public void QuestDetermined(int[] pos)
     {
+        if(dbp == null)
+            dbp = new DungeonBluePrint(idx);
+
         float probMax = dbp.roomKindChances[(int)RoomType.Positive] 
             + dbp.roomKindChances[(int)RoomType.Neutral] + dbp.roomKindChances[(int)RoomType.Negative];
 

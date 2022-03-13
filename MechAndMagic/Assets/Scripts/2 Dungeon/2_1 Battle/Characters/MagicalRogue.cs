@@ -10,7 +10,7 @@ public class MagicalRogue : Character
     bool cast340 = false;
 
     //341, 342 1, 2형 교활함 스킬 사용 수 저장
-    int[] skillCount = new int[2];
+    int[] guileCount = new int[2];
 
     public override void OnTurnStart()
     {
@@ -116,11 +116,11 @@ public class MagicalRogue : Character
 
         //1형 무술
         if (skill.category == 1019)
-            skillCount[0]++;
+            guileCount[0]++;
         //2형 무술
         else if (skill.category == 1020)
         {
-            skillCount[1]++;
+            guileCount[1]++;
 
             //콤비네이션 2세트 - 2형 무술 사용 시 무작위 적 버프 해제 및 내 디버프 1개 해제
             set = ItemManager.GetSetData(22);
@@ -136,24 +136,24 @@ public class MagicalRogue : Character
         if (skill.idx == 348 && set.Value[2] > 0)
             RemoveDebuff(turnDebuffs.Count);
         //1형 교활함 - 1형 3번 사용 시 행동력 상승
-        if (HasSkill(341) && skillCount[0] >= 3)
+        if (HasSkill(341) && guileCount[0] >= 3)
         {
             Skill tmp = SkillManager.GetSkill(classIdx, 341);
 
             //두려운 악마 4세트 - 1형 교활함 강화, 기민한 맹공 3세트 - 1형 강화 스킬 강화
             float rate = 1 + set.Value[2] + ItemManager.GetSetData(24).Value[1];
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            skillCount[0] = 0;
+            guileCount[0] = 0;
         }
         //2형 교활함 - 2형 2번 사용 시 행동력 상승
-        if (HasSkill(342) && skillCount[1] >= 2)
+        if (HasSkill(342) && guileCount[1] >= 2)
         {
             Skill tmp = SkillManager.GetSkill(classIdx, 342);
 
             //두려운 악마 4세트 - 2형 교활함 강화
             float rate = 1 + set.Value[2];
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            skillCount[1] = 0;
+            guileCount[1] = 0;
         }
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)

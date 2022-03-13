@@ -7,7 +7,6 @@ using LitJson;
 
 public class ItemManager : MonoBehaviour
 {
-    static ItemData itemData;
     static SetOptionManager setManager;
 
     public const int EQUIP_COUNT = 567;
@@ -27,9 +26,11 @@ public class ItemManager : MonoBehaviour
     }
 
     #region ItemDrop
-    public static void ItemDrop(int classIdx, int category, float prob)
+    public static void ItemDrop(int category, float prob)
     {
-        if (prob >= 1f)
+        if(category == 150)
+            GameManager.GetExp((int)prob);
+        else if (prob >= 1f)
         {
             for (float i = 0; i < prob; i += 1f)
                 AddItem();
@@ -39,13 +40,16 @@ public class ItemManager : MonoBehaviour
             AddItem();
         }
 
-        SaveData();
+        GameManager.SaveSlotData();
 
         void AddItem()
         {
             //기본 재료
             if (category <= 15)
-                itemData.basicMaterials[category]++;
+            {
+                GameManager.slotData.itemData.basicMaterials[category]++;
+                GameManager.DropSave(DropType.Material, category);
+            }
             //포션
             else if (category <= 18)
                 NewPotion(category);
@@ -54,13 +58,13 @@ public class ItemManager : MonoBehaviour
                 NewSkillBook(category);
             //장비
             else if (category <= 86)
-                NewEquip(classIdx, category);
+                NewEquip(GameManager.slotData.slotClass, category);
             //제작법
             else if (category <= 149)
-                NewEquipRecipe(classIdx, category);
+                NewEquipRecipe(GameManager.slotData.slotClass, category);
         }
     }
-    static void NewPotion(int idx) => itemData.potions[idx] = 1;
+    static void NewPotion(int idx) => GameManager.slotData.itemData.potions[idx] = 1;
     static void NewEquip(int classIdx, int category)
     {
         int region = (classIdx < 5) ? 10 : 11;
@@ -69,30 +73,30 @@ public class ItemManager : MonoBehaviour
                             where (token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0)
                             select token);
 
-        foreach(EquipBluePrint e in possibleList)
-            Debug.Log(string.Concat(e.name, " ", e.category, " ", e.useClass));
-
         if (possibleList.Count() <= 0)
             return;
 
         EquipBluePrint ebp = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First();
 
-        itemData.EquipDrop(ebp);
+        GameManager.DropSave(DropType.Equip, ebp.idx);
+        GameManager.slotData.itemData.EquipDrop(ebp);
     }
     static void NewSkillBook(int category)
     {
         int lvl = 47 - 2 * category;
 
-        var possibleList = (from token in itemData.skillbooks
+        List<Skillbook> possibleList = (from token in GameManager.slotData.itemData.skillbooks
                             where (lvl == 0 || lvl == token.lvl)
-                            select token);
+                            select token).ToList();
 
         if (possibleList.Count() <= 0)
             return;
 
-        possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().count += 1;
+        int idx = Random.Range(0, possibleList.Count());
+        possibleList[idx].count += 1;
 
-        SaveData();
+        GameManager.DropSave(DropType.Skillbook, idx);
+        GameManager.SaveSlotData();
     }
     static void NewEquipRecipe(int classIdx, int category)
     {
@@ -107,73 +111,72 @@ public class ItemManager : MonoBehaviour
 
         int idx = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().idx;
 
-        itemData.equipRecipes[idx] += 1;
+        GameManager.slotData.itemData.equipRecipes[idx] += 1;
+        GameManager.DropSave(DropType.Recipe, bluePrints[idx].idx);
 
-        SaveData();
+        GameManager.SaveSlotData();
     }
     #endregion
 
     #region Smith
-    public static bool CanSmith(int idx)
-    {
-        return itemData.CanSmith(bluePrints[idx]);
-    }
-    public static bool CanSwitchOption(EquipPart part, int idx)
-    {
-        return itemData.CanSwitchCommonStat(part, idx);
-    }
-    public static bool CanFusion(EquipPart part, int idx)
-    {
-        return itemData.CanFusion(part, idx);
-    }
+    public static bool CanSmith(int idx) => GameManager.slotData.itemData.CanSmith(bluePrints[idx]);
+    public static bool CanSwitchOption(EquipPart part, int idx) => GameManager.slotData.itemData.CanSwitchCommonStat(part, idx);
+    public static bool CanFusion(EquipPart part, int idx) => GameManager.slotData.itemData.CanFusion(part, idx);
+    
+    public static bool IsLearned(int idx) => GameManager.slotData.itemData.IsLearned(idx);
 
     public static void SmithEquipment(int idx)
     {
-        itemData.Smith(bluePrints[idx]);
-        SaveData();
+        GameManager.slotData.itemData.Smith(bluePrints[idx]);
+        GameManager.SaveSlotData();
     }
     public static void DisassembleEquipment(EquipPart part, int idx)
     {
-        itemData.Disassemble(part, idx);
-        SaveData();
+        GameManager.slotData.itemData.Disassemble(part, idx);
+        GameManager.SaveSlotData();
     }
     public static void SwitchEquipOption(EquipPart part, int idx)
     {
-        itemData.SwitchCommonStat(part, idx);
-        SaveData();
+        GameManager.slotData.itemData.SwitchCommonStat(part, idx);
+        GameManager.SaveSlotData();
     }
     public static void FusionEquipment(EquipPart part, int idx)
     {
-        itemData.Fusion(part, idx);
-        SaveData();
+        GameManager.slotData.itemData.Fusion(part, idx);
+        GameManager.SaveSlotData();
     }
 
     public static void SkillLearn(int idx)
     {
-        itemData.SkillLearn(idx);
-        SaveData();
+        GameManager.slotData.itemData.SkillLearn(idx);
+        GameManager.SaveSlotData();
+    }
+    public static void DisassembleSkillBook(int idx)
+    {
+        GameManager.slotData.itemData.DisassembleSkillbook(idx);
+        GameManager.SaveSlotData();
     }
     #endregion
 
     #region Equip
     public static void Equip(EquipPart part, int idx) 
     {
-        itemData.Equip(part, idx);
+        GameManager.slotData.itemData.Equip(part, idx);
         ItemStatUpdate();
-        setManager.SetComfirm(itemData);
-        SaveData();
+        setManager.SetComfirm(GameManager.slotData.itemData);
+        GameManager.SaveSlotData();
     }
     public static void UnEquip(EquipPart part)
     {
-        itemData.UnEquip(part);
+        GameManager.slotData.itemData.UnEquip(part);
         ItemStatUpdate();
-        setManager.SetComfirm(itemData);
-        SaveData();
+        setManager.SetComfirm(GameManager.slotData.itemData);
+        GameManager.SaveSlotData();
     }
     static void ItemStatUpdate()
     {
         int[] addPivots = new int[13];
-        foreach (Equipment e in itemData.equipmentSlots)
+        foreach (Equipment e in GameManager.slotData.itemData.equipmentSlots)
             if (e != null)
             {
                 addPivots[(int)e.mainStat] += e.mainStatValue;
@@ -191,7 +194,34 @@ public class ItemManager : MonoBehaviour
         GameManager.slotData.itemStats[3] = GameManager.slotData.itemStats[4];
         GameManager.SaveSlotData();
     }
-    
+    public static int[] GetStatDelta(Equipment newE)
+    {
+        int[] addPivots = new int[13];
+
+        addPivots[(int)newE.mainStat] += newE.mainStatValue;
+        addPivots[(int)newE.subStat] += newE.subStatValue;
+        for(int i = 0; i<newE.commonStatValue.Count;i++)
+            addPivots[(int)newE.commonStatValue[i].Key] += newE.commonStatValue[i].Value;
+
+        Equipment currE = GameManager.slotData.itemData.equipmentSlots[(int)newE.ebp.part - 1];
+        if(currE != null)
+        {
+            addPivots[(int)currE.mainStat] -= currE.mainStatValue;
+            addPivots[(int)currE.subStat] -= currE.subStatValue;
+            for(int i =0;i<currE.commonStatValue.Count;i++)
+                addPivots[(int)currE.commonStatValue[i].Key] -= currE.commonStatValue[i].Value;
+        }
+        
+        int[] ret = new int[10];
+
+        for(int i = 2, j = 0;i < 13;i++)
+        {
+            if(i == 3) i++;
+            ret[j++] = addPivots[i];
+        }
+
+        return ret;
+    }
     public static void EquipPotion(int slot, int idx)
     {
         GameManager.slotData.potionSlot[slot] = idx;
@@ -208,13 +238,13 @@ public class ItemManager : MonoBehaviour
         switch(category)
         {
             case ItemCategory.Weapon:
-                tmp = itemData.weapons;
+                tmp = GameManager.slotData.itemData.weapons;
                 break;
             case ItemCategory.Armor:
-                tmp = itemData.armors;
+                tmp = GameManager.slotData.itemData.armors;
                 break;
             case ItemCategory.Accessory:
-                tmp = itemData.accessories;
+                tmp = GameManager.slotData.itemData.accessories;
                 break;
             default:
                 return null;
@@ -225,7 +255,7 @@ public class ItemManager : MonoBehaviour
     }
     public static List<Skillbook> GetSkillbookData(int skillType, int lvl)
     {
-        return (from x in itemData.skillbooks
+        return (from x in GameManager.slotData.itemData.skillbooks
                 where ((x.count > 0) && (skillType == -1 || x.type == skillType) && (lvl == 0 || x.lvl == lvl))
                 select x).ToList();
     }
@@ -236,7 +266,7 @@ public class ItemManager : MonoBehaviour
 
         for (int i = 0; i < bluePrints.Length; i++)
         {
-            if ((itemData.equipRecipes[i] > 0) &&
+            if ((GameManager.slotData.itemData.equipRecipes[i] > 0) &&
                 (bluePrints[i].useClass == 0 || bluePrints[i].useClass == GameManager.slotData.slotClass || bluePrints[i].useClass == region) &&
                 (rarity == Rarity.None || bluePrints[i].rarity == rarity) &&
                 (lvl == 0 || bluePrints[i].reqlvl == lvl))
@@ -248,44 +278,24 @@ public class ItemManager : MonoBehaviour
     public static int[] GetResourceData(ItemCategory category)
     {
         if (category == ItemCategory.Recipe)
-            return itemData.equipRecipes;
+            return GameManager.slotData.itemData.equipRecipes;
         else
-            return itemData.basicMaterials;
+            return GameManager.slotData.itemData.basicMaterials;
     }
 
     public static Equipment GetEquipment(EquipPart p)
     {
-        return itemData.equipmentSlots[(int)p - 1];
+        return GameManager.slotData.itemData.equipmentSlots[(int)p - 1];
     }
     public static int[] GetSkillbookData()
     {
-        return (from a in itemData.skillbooks
+        return (from a in GameManager.slotData.itemData.skillbooks
                select a.count).ToArray();
-    }
-    public static bool IsLearned(int idx)
-    {
-        return itemData.IsLearned(idx);
     }
     
     public static KeyValuePair<string, float[]> GetSetData(int set) => setManager.GetSetData(set);
     public static Potion GetPotion(int potionIdx) => potions[Mathf.Max(0, potionIdx - 1)];
     #endregion
-
-    public static void LoadData()
-    {
-        if (PlayerPrefs.HasKey(string.Concat("Item", GameManager.currSlot)))
-        {
-            itemData = GameManager.HexToObj<ItemData>(PlayerPrefs.GetString(string.Concat("Item", GameManager.currSlot)));
-
-            setManager.SetComfirm(itemData);
-        }
-        else
-            itemData = new ItemData();
-    }
-    static void SaveData()
-    {
-        PlayerPrefs.SetString(string.Concat("Item", GameManager.currSlot), GameManager.ObjToHex(itemData));
-    }
 }
 
 public class SetOptionManager

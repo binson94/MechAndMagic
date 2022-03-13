@@ -269,7 +269,7 @@ public class Monster : Unit
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
         int finalDmg = Mathf.RoundToInt(-dmg / Mathf.Max(1, Mathf.Log(finalDEF, caster.LVL + 1)));
 
-        if (shieldAmount >= finalDmg)
+        if (shieldAmount >= -finalDmg)
             shieldAmount += finalDmg;
         else
         {
@@ -444,6 +444,9 @@ public class Monster : Unit
             activeIdxs[i] = (int)json[monsterIdx]["skillIdx"][i];
             skillChance[i] = float.Parse(json[monsterIdx]["skillChance"][i].ToString());
         }
+
+        for(int i = 0;i<dungeonStat.Length;i++)
+            buffStat[i] = dungeonStat[i];
     }
     public override bool IsBoss() => isBoss;
 

@@ -4,28 +4,23 @@ using UnityEngine;
 
 public class SmithPanel : MonoBehaviour, ITownPanel
 {
-    [SerializeField] TownManager TM;
+    [Header("Stat Show")]
+    [SerializeField] UnityEngine.UI.Text[] statTxts;
+    [SerializeField] UnityEngine.UI.Slider expSlider;
 
-    [Header("Equip Buttons")]
+    [Header("Equip List")]
     [SerializeField] Transform btnParent;
     [SerializeField] Transform poolParent;
     [SerializeField] GameObject equipBtnPrefab;
-
-    [Header("Category Panel")]
-    //0 : Equip, 1 : Skill, 2 : Resource
-    [SerializeField] GameObject[] categoryPanels;
-
-    [SerializeField] EquipInfoPanel[] selectedEquipPanel = new EquipInfoPanel[3];
-    KeyValuePair<int, Equipment> selectedEquip;
-    static KeyValuePair<int, Equipment> dummyEquip;
-
-    EquipBluePrint selectedEBP = null;
-    Skillbook selectedSkillbook = null;
-
     List<EquipBtnSet> btnList = new List<EquipBtnSet>();
     List<EquipBtnSet> btnPool = new List<EquipBtnSet>();
 
     #region Category
+    [Header("Category")]
+    //0 : category, 1 : rarity, 2 : level, 3 : skillType
+    [SerializeField] GameObject[] categorySelectPanels;
+    //0 : rarity Btn, 1 : skillType Btn
+    [SerializeField] GameObject[] categoryBtns;
     ItemCategory currCategory = ItemCategory.Weapon;
     //장비 전용
     Rarity currRarity = Rarity.None;
@@ -33,28 +28,36 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     int currUseType = -1;
     //장비, 스킬북 0 : all, 1,3,5,7,9
     int currLvl = 0;
-    #endregion
+    #endregion Category
 
-    private void Start()
-    {/*
-        ItemManager.ItemDrop(1, 84, 2);
-        ItemManager.ItemDrop(1, 85, 3);
-        ItemManager.ItemDrop(1, 86, 3);
-        ItemManager.ItemDrop(1, 148, 1);*/
-        ResetAllState();
+    #region Work Panel
+    [SerializeField] EquipInfoPanel selectedEquipPanel;
+    //-1 : close, 0 : equipCommon, 1 : equipMerge, 2 : equipOptionSwitch, 3 : EquipDisassemble, 4 : EBPCreate, 5 : Skillbook
+    int currWorkPanel;
+    [SerializeField] GameObject[] workPanels;
+    KeyValuePair<int, Equipment> selectedEquip;
+    static KeyValuePair<int, Equipment> dummyEquip;
+
+    EquipBluePrint selectedEBP = null;
+    Skillbook selectedSkillbook = null;
+    #endregion Work Panel
+
+    private void Start() {
+        ItemManager.ItemDrop(84, 1);
+        ItemManager.ItemDrop(85, 1);
+        ItemManager.ItemDrop(86, 1);
+        ItemManager.ItemDrop(87, 1);
+        ItemManager.ItemDrop(23, 1);
     }
-
     public void ResetAllState()
-    {
-        ResetCategory();
-    }
-    void ResetCategory()
     {
         currRarity = Rarity.None;
         currUseType = -1;
         currLvl = 0;
 
+        StatTxtUpdate();
         Btn_SwitchCategory((int)ItemCategory.Weapon);
+        Btn_OpenCategorySelectPanel(-1);
 
         selectedEquip = dummyEquip;
         selectedEBP = null;
@@ -62,6 +65,60 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         SelectedPanelUpdate();
     }
 
+    #region Category
+    public void Btn_OpenCategorySelectPanel(int panelIdx)
+    {
+        for(int i = 0;i < categorySelectPanels.Length;i++)
+            categorySelectPanels[i].SetActive(i == panelIdx);
+
+        selectedEquip = dummyEquip;
+        selectedEBP = null;
+        selectedSkillbook = null;
+        SelectedPanelUpdate();
+        Btn_OpenWorkPanel(-1);
+    }
+    public void Btn_SwitchCategory(int category)
+    {
+        currCategory = (ItemCategory)category;
+        CategoryBtnUpdate();
+        TokenBtnUpdate();
+
+        selectedEquip = dummyEquip;
+        selectedEBP = null;
+        selectedSkillbook = null;
+        SelectedPanelUpdate();
+        Btn_OpenCategorySelectPanel(-1);
+
+        void CategoryBtnUpdate()
+        {
+            int curr = 0;
+            if (currCategory == ItemCategory.Skillbook)
+                curr = 1;
+
+            for(int i =0;i<categoryBtns.Length;i++)
+                categoryBtns[i].SetActive(i == curr);
+        }
+    }
+    public void Btn_SwitchRarity(int rarity)
+    {
+        currRarity = (Rarity)rarity;
+        TokenBtnUpdate();
+        Btn_OpenCategorySelectPanel(-1);
+    }
+    public void Btn_SwitchSkillUseType(int type)
+    {
+        currUseType = type;
+        TokenBtnUpdate();
+        Btn_OpenCategorySelectPanel(-1);
+    }
+    public void Btn_SwitchLvl(int lvl)
+    {
+        currLvl = lvl;
+        TokenBtnUpdate();
+        Btn_OpenCategorySelectPanel(-1);
+    }
+    #endregion
+    
     #region Btn Image Update
     void TokenBtnUpdate()
     {
@@ -70,10 +127,8 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             BtnUpdate_Equip();
         else if (currCategory <= ItemCategory.Recipe)
             BtnUpdate_Recipe();
-        else if (currCategory <= ItemCategory.Skillbook)
-            BtnUpdate_Skillbook();
         else
-            BtnUpdate_Resource();
+            BtnUpdate_Skillbook();
         
 
         void BtnUpdate_Equip()
@@ -96,6 +151,15 @@ public class SmithPanel : MonoBehaviour, ITownPanel
                 go.SetActive(true);
 
                 idxs.Clear();
+            }
+
+            for(int i = btnList.Count;i < 4;i++)
+            {
+                GameObject go = NewBtnSet();
+                go.transform.SetParent(btnParent);
+                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList[btnList.Count - 1].Init(this, idxs);
+                go.SetActive(true);
             }
         }
         void BtnUpdate_Recipe()
@@ -120,6 +184,15 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
                 idxs.Clear();
             }
+            
+            for(int i = btnList.Count;i < 4;i++)
+            {
+                GameObject go = NewBtnSet();
+                go.transform.SetParent(btnParent);
+                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList[btnList.Count - 1].Init(this, idxs);
+                go.SetActive(true);
+            }
         }
         void BtnUpdate_Skillbook()
         {
@@ -141,10 +214,15 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
                 idxs.Clear();
             }
-        }
-        void BtnUpdate_Resource()
-        {
-
+            
+            for(int i = btnList.Count;i < 4;i++)
+            {
+                GameObject go = NewBtnSet();
+                go.transform.SetParent(btnParent);
+                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList[btnList.Count - 1].Init(this, idxs);
+                go.SetActive(true);
+            }
         }
     }
     void TokenBtnReset()
@@ -170,47 +248,19 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     #endregion
 
-    #region Tag Btn
-    public void Btn_SwitchCategory(int category)
+    #region Work Panels
+    public void Btn_OpenWorkPanel(int workPanelIdx)
     {
-        currCategory = (ItemCategory)category;
-        CategoryBtnUpdate();
-        TokenBtnUpdate();
-
-        selectedEquip = dummyEquip;
-        selectedEBP = null;
-        selectedSkillbook = null;
-        SelectedPanelUpdate();
-
-        void CategoryBtnUpdate()
+        if(workPanelIdx == 2 && !ItemManager.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
-            int curr = 0;
-            if (currCategory == ItemCategory.Skillbook)
-                curr = 1;
-            else if (currCategory == ItemCategory.Resource)
-                curr = 2;
-
-            for (int i = 0; i < 3; i++)
-                categoryPanels[i].SetActive(i == curr);
+            Debug.Log("이 장비는 옵션 변경이 불가능합니다.");
+            return;
         }
+
+        for(int i = 0;i < workPanels.Length;i++)
+            workPanels[i].SetActive(i == workPanelIdx);
     }
-    public void Btn_SwitchRarity(int rarity)
-    {
-        currRarity = (Rarity)rarity;
-        TokenBtnUpdate();
-    }
-    public void Btn_SwitchSkillUseType(int type)
-    {
-        currUseType = type;
-        TokenBtnUpdate();
-    }
-    public void Btn_SwitchLvl(int lvl)
-    {
-        currLvl = lvl;
-        TokenBtnUpdate();
-    }
-    #endregion
-    
+
     public void Btn_EquipToken(KeyValuePair<int, Equipment> token)
     {
         if (selectedEquip.Equals(token))
@@ -239,7 +289,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         SelectedPanelUpdate();
     }
 
-    public void Btn_EquipFusion()
+    public void Btn_Fusion()
     {
         if (ItemManager.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
@@ -251,7 +301,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         else
             Debug.Log("There is no same Equipment");
     }
-    public void Btn_EquipOptionSwitch()
+    public void Btn_SwitchOption()
     {
         if (ItemManager.CanSwitchOption(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
@@ -259,59 +309,102 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             TokenBtnUpdate();
             SelectedPanelUpdate();
         }
-        else
-            Debug.Log("You Can't Switch this Equipment");
     }
-    public void Btn_EquipDisassemble()
+    public void Btn_Disassemble()
     {
         ItemManager.DisassembleEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
         selectedEquip = dummyEquip;
         TokenBtnUpdate();
         SelectedPanelUpdate();
     }
-
-    public void Btn_EquipSmith()
+    public void Btn_Create()
     {
         if (ItemManager.CanSmith(selectedEBP.idx))
             ItemManager.SmithEquipment(selectedEBP.idx);
         else
             Debug.Log("not enough resources");
     }
-
+    public void Btn_Cancel()
+    {
+        selectedEquip = dummyEquip;
+        selectedEBP = null;
+        selectedSkillbook = null;
+        SelectedPanelUpdate();
+    }
+   
     public void Btn_SkillLearn()
     {
+        if(ItemManager.IsLearned(selectedSkillbook.idx))
+        {
+            Debug.Log("이미 학습했습니다.");
+            return;
+        }
+
         ItemManager.SkillLearn(selectedSkillbook.idx);
+        ItemManager.DisassembleSkillBook(selectedSkillbook.idx);
+        selectedSkillbook = null;
+        TokenBtnUpdate();
+        SelectedPanelUpdate();
     }
     public void Btn_SkillbookDisassemble()
     {
+        ItemManager.DisassembleSkillBook(selectedSkillbook.idx);
+        selectedSkillbook = null;
+        TokenBtnUpdate();
+        SelectedPanelUpdate();
+    }
+    #endregion Work Panels
 
+    void StatTxtUpdate()
+    {
+        statTxts[0].text = GameManager.slotData.lvl.ToString();
+        statTxts[1].text = string.Concat(GameManager.slotData.exp, " / ", SlotData.reqExp[GameManager.slotData.lvl]);
+        expSlider.value = GameManager.slotData.exp / (float)SlotData.reqExp[GameManager.slotData.lvl];
+        int i, j;
+        for (i = j = 2; i < 13; i++, j++)
+        {
+            if (i == 3) i++;
+            statTxts[j].text = GameManager.slotData.itemStats[i].ToString();
+        }
+
+        statTxts[8].text = string.Concat(statTxts[8].text, "%");
+        statTxts[9].text = string.Concat(statTxts[9].text, "%");
     }
 
     void SelectedPanelUpdate()
     {
-        foreach (EquipInfoPanel e in selectedEquipPanel)
-            e.gameObject.SetActive(false);
-
         if (currCategory <= ItemCategory.Accessory && !selectedEquip.Equals(dummyEquip))
         {
-            selectedEquipPanel[0].InfoUpdate(selectedEquip.Value);
-            selectedEquipPanel[0].gameObject.SetActive(true);
+            selectedEquipPanel.InfoUpdate(selectedEquip.Value);
+            selectedEquipPanel.gameObject.SetActive(true);
+            Btn_OpenWorkPanel(0);
         }
         else if (currCategory <= ItemCategory.Recipe && selectedEBP != null)
         {
-            selectedEquipPanel[1].InfoUpdate(selectedEBP);
-            selectedEquipPanel[1].gameObject.SetActive(true);
+            selectedEquipPanel.InfoUpdate(selectedEBP);
+            selectedEquipPanel.gameObject.SetActive(true);
+            Btn_OpenWorkPanel(4);
         }
         else if (currCategory <= ItemCategory.Skillbook && selectedSkillbook != null)
         {
-            selectedEquipPanel[2].InfoUpdate(selectedSkillbook);
-            selectedEquipPanel[2].gameObject.SetActive(true);
+            selectedEquipPanel.InfoUpdate(selectedSkillbook);
+            selectedEquipPanel.gameObject.SetActive(true);
+            Btn_OpenWorkPanel(5);
+        }
+        else
+        {
+            selectedEquipPanel.gameObject.SetActive(false);
+            Btn_OpenWorkPanel(-1);
         }
     }
-
-    void Btn_Smith(int idx)
+    public void BedToSmith(ItemCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
     {
-        //재료 검사
-        //제작
+        currCategory = currC;
+        currRarity = currR;
+        currLvl = currL;
+        selectedEquip = selected;
+        TokenBtnUpdate();
+        SelectedPanelUpdate();
+        Btn_OpenWorkPanel(0);
     }
 }

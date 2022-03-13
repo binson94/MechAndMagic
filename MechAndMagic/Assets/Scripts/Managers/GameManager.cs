@@ -34,29 +34,15 @@ public class GameManager : MonoBehaviour
         slotData.nowScene = kind;
         SaveSlotData();
     }
-    public static void LoadSlotData(int slot)
-    {
-        slotData = JsonMapper.ToObject<SlotData>(PlayerPrefs.GetString(string.Concat("SlotData", currSlot = slot)));
-    }
-    public static void SaveSlotData()
-    {
-        PlayerPrefs.SetString(string.Concat("SlotData", currSlot), JsonMapper.ToJson(slotData));
-    }
-
+    public static void LoadSlotData(int slot) => slotData = HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", currSlot = slot)));
+    public static void SaveSlotData() => PlayerPrefs.SetString(string.Concat("Slot", currSlot), ObjToHex(slotData));
     public static void NewSlot(int slot, int slotClass)
     {
         currSlot = slot;
         slotData = new SlotData(slotClass);
+        SaveSlotData();
     }
-    public static void DeleteSlot(int slot)
-    {
-        PlayerPrefs.DeleteKey(string.Concat("CharState", slot));
-        PlayerPrefs.DeleteKey(string.Concat("Item", slot));
-        PlayerPrefs.DeleteKey(string.Concat("QuestData", slot));
-        PlayerPrefs.DeleteKey(string.Concat("DungeonData", slot));
-
-        PlayerPrefs.DeleteKey(string.Concat("SlotData", slot));
-    }
+    public static void DeleteSlot(int slot) => PlayerPrefs.DeleteKey(string.Concat("Slot", slot));
     #endregion SlotCreate/Delete
 
     #region Dungeon
@@ -70,6 +56,8 @@ public class GameManager : MonoBehaviour
                 slotData.exp -= SlotData.reqExp[slotData.lvl];
                 slotData.lvl++;
             }
+
+            slotData.DropSave(DropType.EXP, 1, amt);
             SaveSlotData();
         }
     }
@@ -77,7 +65,7 @@ public class GameManager : MonoBehaviour
     public static void SetNewDungeon(int dungeonIdx)
     {
         slotData.dungeonIdx = dungeonIdx;
-        slotData.dungeonState = new DungeonState(new DungeonBluePrint(dungeonIdx));
+        slotData.dungeonState = new DungeonState(dungeonIdx);
         SaveSlotData();
     }
     public static bool CanMove(int[] newPos) => (newPos[0] == slotData.dungeonState.currPos[0] + 1 && slotData.dungeonState.GetCurrRoom().next.Contains(newPos[1]));
@@ -86,6 +74,12 @@ public class GameManager : MonoBehaviour
         slotData.dungeonState.currPos = newPos;
         slotData.dungeonState.scroll = newScroll;
         slotData.dungeonState.currRoomEvent = slotData.dungeonState.currDungeon.GetRoom(newPos[0], newPos[1]).roomEventIdx;
+        SaveSlotData();
+    }
+    public static void OutbreakDetermine(int[] pos) => slotData.dungeonState.currDungeon.QuestDetermined(pos);
+    public static void DropSave(DropType type, int idx)
+    {
+        slotData.DropSave(type, idx);
         SaveSlotData();
     }
     public static void RemoveDungeonData()
@@ -107,35 +101,50 @@ public class GameManager : MonoBehaviour
         int dmg = Mathf.RoundToInt(slotData.itemStats[(int)Obj.HP] * rate);
         slotData.dungeonState.currHP = Mathf.Max(slotData.dungeonState.currHP - dmg, 1);
     }
-    public static void AddBuff(Buff b)
+    public static void AddBuff(DungeonBuff b)
     {
-        slotData.dungeonState.dungeonBuffs.Add(new KeyValuePair<int, Buff>(2, b));
+        slotData.dungeonState.dungeonBuffs.Add(b);
         SaveSlotData();
     }
-    public static void AddDebuff(Buff b)
+    public static void AddDebuff(DungeonBuff b)
     {
-        slotData.dungeonState.dungeonDebuffs.Add(new KeyValuePair<int, Buff>(2, b));
+        slotData.dungeonState.dungeonDebuffs.Add(b);
         SaveSlotData();
     }
     public static void UpdateBuff()
     {
-        List<KeyValuePair<int, Buff>> bList = new List<KeyValuePair<int, Buff>>();
-        foreach (KeyValuePair<int, Buff> b in slotData.dungeonState.dungeonBuffs)
-            if (b.Key > 1)
-                bList.Add(new KeyValuePair<int, Buff>(b.Key - 1, b.Value));
-        slotData.dungeonState.dungeonBuffs = bList;
+        List<DungeonBuff> list = slotData.dungeonState.dungeonBuffs;
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].count--;
+            if(list[i].count <= 0)
+                list.RemoveAt(i);
+        }
 
-        bList = new List<KeyValuePair<int, Buff>>();
-        foreach (KeyValuePair<int, Buff> b in slotData.dungeonState.dungeonDebuffs)
-            if (b.Key > 1)
-                bList.Add(new KeyValuePair<int, Buff>(b.Key - 1, b.Value));
-        slotData.dungeonState.dungeonDebuffs = bList;
-
+        list = slotData.dungeonState.dungeonDebuffs;
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].count--;
+            if(list[i].count <= 0)
+                list.RemoveAt(i);
+        }
         SaveSlotData();
     }
     #endregion Event
     #endregion Dungeon
 
-    public static string ObjToHex<T>(T obj) => System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonMapper.ToJson(obj)));
-    public static T HexToObj<T>(string s) => JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));
+    public static string ObjToHex<T>(T obj)
+    {
+        if (obj == null)
+            return string.Empty;
+        else
+            return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonMapper.ToJson(obj)));
+    }
+    public static T HexToObj<T>(string s)
+    {
+        if (s == string.Empty || s == null)
+            return default(T);
+        else
+            return JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));
+    }
 }

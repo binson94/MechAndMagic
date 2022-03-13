@@ -113,13 +113,13 @@ public class MetalKnight : Character
         }
 
         orderIdx++;
-        if(huntKill)
+        if(!huntKill)
             buffStat[(int)Obj.currAP]-= GetSkillCost(skill);
         //엘리트 스나이퍼 2세트 - 목표 지정 AP 회복
         if(skill.idx == 54 && ItemManager.GetSetData(5).Value[0] > 0)
             buffStat[(int)Obj.currAP] = Mathf.Min(buffStat[(int)Obj.AP], buffStat[(int)Obj.currAP] + 2);
         resentSkillCategory = skill.category;
-        if(huntKill)
+        if(!huntKill)
             cooldowns[idx] = Mathf.RoundToInt(coolRate * skill.cooldown);
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)

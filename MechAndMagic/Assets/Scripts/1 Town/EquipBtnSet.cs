@@ -8,7 +8,7 @@ public class EquipBtnSet : MonoBehaviour
     
 
     SmithPanel SM;
-    BedPanel BM;
+    BedItemPanel BM;
     [SerializeField] Button[] btns;
     [SerializeField] Text[] txts;
 
@@ -77,7 +77,7 @@ public class EquipBtnSet : MonoBehaviour
             btns[i].gameObject.SetActive(false);
     }
 
-    public void Init(BedPanel b, List<KeyValuePair<int, Equipment>> p)
+    public void Init(BedItemPanel b, List<KeyValuePair<int, Equipment>> p)
     {
         BM = b;
         SM = null;

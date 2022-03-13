@@ -33,7 +33,8 @@ public class QuestSlot
     
 
     static QuestSlot() => questDB = new QuestDB(); 
-    public QuestSlot()
+    public QuestSlot() {}
+    public QuestSlot(int slotClass)
     {
         questProceeds = new QuestProceed[questDB.questData.Length];
         for (int i = 0; i < questDB.questData.Length; i++)
@@ -161,7 +162,6 @@ public class QuestSlot
 public class QuestManager : MonoBehaviour
 {
     static QuestManager instance = null;
-    static QuestSlot questSlot;
 
     private void Awake()
     {
@@ -175,29 +175,29 @@ public class QuestManager : MonoBehaviour
 
     #region Quest Show
     //현재 수행 중인 퀘스트 정보 반환
-    public static KeyValuePair<QuestBlueprint, int>[] GetCurrQuest() => questSlot.GetCurrQuest();
+    public static KeyValuePair<QuestBlueprint, int>[] GetCurrQuest() => GameManager.slotData.questData.GetCurrQuest();
     
     //현재 수행 중인 퀘스트 갯수 반환
-    public static int GetCurrQuestCount() => questSlot.questProceeds.Count(x=>x.state == QuestState.Proceeding || x.state == QuestState.CanClear);
-    public static QuestProceed[] GetQuestProceed() => questSlot.questProceeds;
+    public static int GetCurrQuestCount() => GameManager.slotData.questData.questProceeds.Count(x=>x.state == QuestState.Proceeding || x.state == QuestState.CanClear);
+    public static QuestProceed[] GetQuestProceed() => GameManager.slotData.questData.questProceeds;
     #endregion
 
     #region Quest Progress
     public static void QuestUpdate(QuestType type, int idx, int amt)
     {
-        questSlot.QuestUpdate(type, idx, amt);
+        GameManager.slotData.questData.QuestUpdate(type, idx, amt);
 
         SaveData();
     }
-    public static void DiehardUpdate(float rate) => questSlot.DiehardUpdate(rate);
+    public static void DiehardUpdate(float rate) => GameManager.slotData.questData.DiehardUpdate(rate);
 
     //새 퀘스트 받기, 마을 메뉴 또는 던전 돌발퀘 방에서 호출
     public static void NewQuest(bool isOutbreak, int idx)
     {
         if (isOutbreak)
-            questSlot.NewOutbreak(idx);
+            GameManager.slotData.questData.NewOutbreak(idx);
         else
-            questSlot.questProceeds[idx].state = QuestState.Proceeding;
+            GameManager.slotData.questData.questProceeds[idx].state = QuestState.Proceeding;
 
         SaveData();
     }
@@ -205,31 +205,17 @@ public class QuestManager : MonoBehaviour
     //완료된 퀘스트 클리어
     public static void ClearQuest(int idx)
     {
-        questSlot.ClearQuest(idx);
+        GameManager.slotData.questData.ClearQuest(idx);
         SaveData();
     }
     public static void RemoveOutbreak()
     {
-        questSlot.RemoveOutbreak();
+        GameManager.slotData.questData.RemoveOutbreak();
         SaveData();
     }
     #endregion
 
     #region Data
-    public static void SaveData() => PlayerPrefs.SetString(string.Concat("QuestData", GameManager.currSlot), JsonMapper.ToJson(questSlot));   
-    public static void LoadData()
-    {
-        if (PlayerPrefs.HasKey(string.Concat("QuestData", GameManager.currSlot)))
-            questSlot = JsonMapper.ToObject<QuestSlot>(PlayerPrefs.GetString(string.Concat("QuestData", GameManager.currSlot)));
-        else
-            questSlot = new QuestSlot();
-    }
+    public static void SaveData() => GameManager.SaveSlotData();
     #endregion
-
-    public static void Debug_QuestClean()
-    {
-        PlayerPrefs.DeleteKey(string.Concat("QuestData", GameManager.currSlot));
-        LoadData();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
-    }
 }

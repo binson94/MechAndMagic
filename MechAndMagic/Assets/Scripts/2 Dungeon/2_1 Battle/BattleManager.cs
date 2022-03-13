@@ -11,42 +11,36 @@ public enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, Allie
 //1. 버튼과 enemy 1:1 매칭, 버튼 위치 고정
 public class BattleManager : MonoBehaviour
 {
+    #region Variables
+    BattleState state;
+
     #region CharList
     //전투 중인 모든 캐릭터
-    List<Unit> allCharList = new List<Unit>();
-    //아군만 저장
-    List<Character> characterList = new List<Character>();
-    //적군만 저장
-    List<Monster> monsterList = new List<Monster>();
+    [SerializeField] List<Unit> allCharList = new List<Unit>();
     #endregion
 
     #region Spawn
-    [Header("Allie Spawn")]
+    [Header("Spawn")]
     [SerializeField] GameObject[] alliePrefabs;
     [SerializeField] Transform alliePos;
-
-    [Header("Enemy Spawn")]
     [SerializeField] GameObject[] enemyPrefabs;
-    [SerializeField] Transform[] enemyPos;
+    [SerializeField] Unit DummyUnit;
     RoomInfo roomInfo;
     #endregion
 
     #region Caster
     [Header("Caster")]
     //캐릭터들의 TP 최대치, 전투 시작 시 계산
-    [SerializeField] Dictionary<Unit, int[]> charTP = new Dictionary<Unit, int[]>();
-    [SerializeField] Slider[] TPBars;
+    [SerializeField] TPSlider tpBars;
+    Dictionary<Unit, int[]> charTP = new Dictionary<Unit, int[]>();
 
     //TP를 통해 선정된 현재 턴 실행자
     Unit currCaster;
 
-    [SerializeField] GameObject point;
     //TP가 동일할 때, 속도와 공속 기준으로 순서대로 queue에 저장
     List<Unit> casterQueue = new List<Unit>();
-    [SerializeField] List<int> targetIdxs = new List<int>();
+    List<int> targetIdxs = new List<int>();
     #endregion
-    
-    BattleState state;
 
     #region UI
     [Header("UI")]
@@ -65,52 +59,55 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject targetBtnPanel;   //타겟 선택 UI, 스킬 선택 시 활성화
     [SerializeField] GameObject[] targetBtns;     //각각 타겟 선택 버튼, 타겟 수만큼 활성화
 
+    [SerializeField] APBar apBar;
+
     [SerializeField] GameObject winUI;
     [SerializeField] GameObject bossWinUI;
     [SerializeField] GameObject loseUI;
     #endregion
+    #endregion Variables
 
     #region Function_Start
-    void Start()
+    //BGM 재생, 몬스터 및 캐릭터 생성
+    public void OnStart()
     {
+        //
         GameManager.sound.PlayBGM(BGM.Battle1);
         if (GameManager.slotData.dungeonState.currRoomEvent > 100)
             roomInfo = new RoomInfo(1);
         else
             roomInfo = new RoomInfo(GameManager.slotData.dungeonState.currRoomEvent);
 
-        Monster mon;
-        //던전 풀에 따른 적 캐릭터 생성
-        for (int i = 0; i < roomInfo.monsterCount; i++)
-        {
-            mon = Instantiate(enemyPrefabs[roomInfo.monsterIdx[i]], enemyPos[i].position, Quaternion.identity).GetComponent<Monster>();
-            monsterList.Add(mon);
-            allCharList.Add(mon);
-        }
-
+        int i;
         //아군 캐릭터 생성
         Character c = Instantiate(alliePrefabs[GameManager.slotData.slotClass], alliePos.position, Quaternion.identity).GetComponent<Character>();
-        for (int i = 0; i < c.activeIdxs.Length; i++)
+        for (i = 0; i < c.activeIdxs.Length; i++)
             c.activeIdxs[i] = GameManager.slotData.activeSkills[i];
-        for (int i = 0; i < c.passiveIdxs.Length; i++)
+        for (i = 0; i < c.passiveIdxs.Length; i++)
             c.passiveIdxs[i] = GameManager.slotData.passiveSkills[i];
 
-        characterList.Add(c);
         allCharList.Add(c);
 
-        if(GameManager.slotData.dungeonState.golemHP >= 0)
+        //골렘 생성
+        if (GameManager.slotData.dungeonState.golemHP >= 0)
         {
             Golem g = Instantiate(alliePrefabs[11], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Golem>();
-            g.GolemInit(characterList[0].GetComponent<MadScientist>());
-            characterList.Add(g);
+            g.GolemInit(allCharList[0].GetComponent<MadScientist>());
             allCharList.Add(g);
         }
+        else
+            allCharList.Add(DummyUnit);
 
-
-        for (int i = 0; i < skillBtns.Length; i++)
+        //던전 풀에 따른 적 캐릭터 생성
+        for (i = 0; i < roomInfo.monsterCount; i++)
+        {
+            Monster mon = Instantiate(enemyPrefabs[roomInfo.monsterIdx[i]], alliePos.position, Quaternion.identity).GetComponent<Monster>();
+            allCharList.Add(mon);
+        }
+        for (; i < 3; i++) allCharList.Add(DummyUnit);
+   
+        for (i = 0; i < skillBtns.Length; i++)
             skillBtns[i].SetActive(GameManager.slotData.activeSkills[i] > 0);
-        for (int i = 0; i < TPBars.Length; i++)
-            TPBars[i].gameObject.SetActive(i < allCharList.Count && allCharList[i].isActiveAndEnabled);
     }
 
     //전투 시작 시 1번만 호출, 아군, 적군 정보 불러오기, 버프 및 디버프 설정, TP값 초기화
@@ -119,52 +116,53 @@ public class BattleManager : MonoBehaviour
         state = BattleState.Start;
         startBtn.SetActive(false);
 
-        foreach(KeyValuePair<int, Buff> b in GameManager.slotData.dungeonState.dungeonBuffs)
-            characterList[0].turnBuffs.Add(b.Value);
-        foreach(KeyValuePair<int, Buff> b in GameManager.slotData.dungeonState.dungeonDebuffs)
-            characterList[0].turnDebuffs.Add(b.Value);
+        //던전 이벤트로 생긴 버프, 디버프 처리
+        foreach (DungeonBuff b in GameManager.slotData.dungeonState.dungeonBuffs)
+            allCharList[0].turnBuffs.Add(new Buff(BuffType.Stat, allCharList[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
+        foreach (DungeonBuff b in GameManager.slotData.dungeonState.dungeonDebuffs)
+            allCharList[0].turnDebuffs.Add(new Buff(BuffType.Stat, allCharList[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
 
         foreach (Unit c in allCharList)
             c.OnBattleStart(this);
 
+        //캐릭터 현재 체력 불러오기
         if (GameManager.slotData.dungeonState.currHP > 0)
-            characterList[0].buffStat[(int)Obj.currHP] = GameManager.slotData.dungeonState.currHP;
+            allCharList[0].buffStat[(int)Obj.currHP] = GameManager.slotData.dungeonState.currHP;
         else
-            characterList[0].buffStat[(int)Obj.currHP] = characterList[0].buffStat[(int)Obj.HP];
-        if (characterList[0].classIdx == 6)
-            characterList[0].GetComponent<Druid>().revive = GameManager.slotData.dungeonState.druidRevive;
+            allCharList[0].buffStat[(int)Obj.currHP] = allCharList[0].buffStat[(int)Obj.HP];
 
+        //드루이드 - 부활 여부 불러오기
+        if (allCharList[0].classIdx == 6)
+            allCharList[0].GetComponent<Druid>().revive = GameManager.slotData.dungeonState.druidRevive;
+        //매드 사이언티스트 - 골렘 체력 불러오기
         if (GameManager.slotData.dungeonState.golemHP == 0)
-            characterList[1].buffStat[(int)Obj.currHP] = characterList[1].buffStat[(int)Obj.HP];
+            allCharList[1].buffStat[(int)Obj.currHP] = allCharList[1].buffStat[(int)Obj.HP];
 
         foreach (Unit u in allCharList)
-            charTP.Add(u, new int[2] { 0, 0 });
+            if (u.isActiveAndEnabled)
+                charTP.Add(u, new int[2] { 0, 0 });
 
         TPMaxUpdate();
-        
-        StartCoroutine(FirstCalc());
-    }
-
-    //전투 시작 시 잠시 대기 후 TP 계산 시작
-    IEnumerator FirstCalc()
-    {
-        yield return new WaitForSeconds(1f);
         SelectNextCaster();
     }
-    #endregion
+    #endregion Function_Start
 
     #region Function_TP
     //속도가 변했을 때, TP 최대값 업데이트
     void TPMaxUpdate()
     {
         foreach (Unit u in allCharList)
-            charTP[u][1] = 75 - u.buffStat[(int)Obj.SPD];
+            if (u.isActiveAndEnabled)
+                charTP[u][1] = 75 - u.buffStat[(int)Obj.SPD];
+
+        tpBars.ActiveSet(allCharList);
         TPImageUpdate();
     }
     void TPImageUpdate()
     {
         for (int i = 0; i < allCharList.Count; i++)
-            TPBars[i].value = (float)charTP[allCharList[i]][0] / charTP[allCharList[i]][1];
+            if(allCharList[i].isActiveAndEnabled)
+                tpBars.SetValue(i, (float)charTP[allCharList[i]][0] / charTP[allCharList[i]][1]);
     }
     //다음 턴 시전자 탐색
     public void SelectNextCaster()
@@ -172,118 +170,91 @@ public class BattleManager : MonoBehaviour
         if (state == BattleState.Calc)
             return;
 
-        StartCoroutine(TPCalcuate());
+        StartCoroutine(TPCalculate());
     }
     //TP 계산
-    IEnumerator TPCalcuate()
+    IEnumerator TPCalculate()
     {
         state = BattleState.Calc;
-
-        while (casterQueue.Count > 0 && !casterQueue[0].isActiveAndEnabled)
-            casterQueue.RemoveAt(0);
 
         //TP가 찬 캐릭터가 이미 있는 경우
         if (casterQueue.Count > 0)
         {
-            currCaster = casterQueue[0];
-            casterQueue.RemoveAt(0);
-            TurnAct();
+            Unit u;
+            do{ u = casterQueue[0]; casterQueue.RemoveAt(0);} while (!u.isActiveAndEnabled && casterQueue.Count > 0);
 
-            yield break;
-        }
-        else
-        {
-            List<Unit> charged = new List<Unit>();
-
-            //TP 상승
-            while (charged.Count == 0)
+            if (u.isActiveAndEnabled)
             {
-                foreach (Unit u in allCharList)
+                currCaster = u;
+                TurnAct();
+                yield break;
+            }
+        }
+
+        List<Unit> charged = new List<Unit>();
+
+        //TP 상승
+        while (charged.Count == 0)
+        {
+            foreach (Unit u in allCharList)
+            {
+                if (u.isActiveAndEnabled)
                 {
-                    if (u.isActiveAndEnabled)
-                        charTP[u][0]++;
+                    charTP[u][0]++;
                     if (charTP[u][0] >= charTP[u][1])
                         charged.Add(u);
                 }
-                TPImageUpdate();
-                yield return new WaitForSeconds(0.02f);
             }
 
-            //TP 최대치 도달 유닛이 둘 이상인 경우
-            if (charged.Count > 1)
-            {
-                Shuffle(charged);
-                charged.Sort(delegate (Unit a, Unit b)
-                {
-                    if (a.buffStat[(int)Obj.SPD] < b.buffStat[(int)Obj.SPD])
-                        return 1;
-                    else if (a.buffStat[(int)Obj.SPD] > b.buffStat[(int)Obj.SPD])
-                        return -1;
-                    else return 0;
-                });     //속도 기준 정렬
-
-                int pivot = 0;
-                int i;
-
-                //속도가 같은 경우, 레벨 기준 정렬
-                for (i = 1; i < charged.Count; i++)                  
-                {
-                    if (charged[pivot].buffStat[(int)Obj.SPD] > charged[i].buffStat[(int)Obj.SPD])
-                    {
-                        LVLSort(charged, pivot, i);
-                        pivot = i;
-                    }
-                }
-                LVLSort(charged, pivot, i);
-            }
-
-            //TP가 최대에 도달한 모든 캐릭터를 attackQueue에 저장, 다음 선정 시 TP 계산을 실시하지 않고 attackQueue에서 선정
-            casterQueue = charged;
-
-            currCaster = casterQueue[0];
-            casterQueue.RemoveAt(0);
-            TurnAct();
-
-            yield break;
+            TPImageUpdate();
+            yield return new WaitForSeconds(0.02f);
         }
 
-        //레벨 순 정렬
-        void LVLSort(List<Unit> list, int s, int e)
+        //TP 최대치 도달 유닛이 둘 이상인 경우
+        if (charged.Count > 1)
         {
-            for (int i = 0; i < e - 1; i++)
+            Shuffle(charged);
+            //속도 - 레벨 기준 정렬
+            charged.Sort(delegate (Unit a, Unit b)
             {
-                int tmp = i;
-                for (int j = i + 1; j < e; j++)
-                    if (list[tmp].LVL < list[j].LVL)
-                        tmp = j;
-
-                Unit c = list[tmp];
-                list[tmp] = list[i];
-                list[i] = c;
-            }
+                if (a.buffStat[(int)Obj.SPD] < b.buffStat[(int)Obj.SPD])
+                    return 1;
+                else if (a.buffStat[(int)Obj.SPD] > b.buffStat[(int)Obj.SPD])
+                    return -1;
+                else if (a.LVL > b.LVL)
+                    return 1;
+                else if (a.LVL < b.LVL)
+                    return -1;
+                else return 0;
+            });
         }
-    }
-    void Shuffle<T>(List<T> list)
-    {
-        int idx = list.Count - 1;
 
-        while(idx > 0)
+        //TP가 최대에 도달한 모든 캐릭터를 Queue에 저장
+        casterQueue = charged;
+        currCaster = casterQueue[0]; casterQueue.RemoveAt(0);
+        TurnAct();
+
+        yield break;
+
+        void Shuffle<T>(List<T> list)
         {
-            int rand = Random.Range(0, idx + 1);
-            T val = list[idx];
-            list[idx] = list[rand];
-            list[rand] = val;
-            idx--;
+            int idx = list.Count - 1;
+
+            while (idx > 0)
+            {
+                int rand = Random.Range(0, idx + 1);
+                T val = list[idx];
+                list[idx] = list[rand];
+                list[rand] = val;
+                idx--;
+            }
         }
     }
 
     //다음 턴 행동 대상이 선정되었을 때 호출
     void TurnAct()
     {
-        point.transform.position = currCaster.gameObject.transform.position + new Vector3(0, 1, 0);
-        point.SetActive(true);
-
-        if (characterList.Contains(currCaster))
+        if (allCharList.IndexOf(currCaster) < 2)
         {
             state = BattleState.AllieTurnStart;
             AllieTurnStart();
@@ -294,20 +265,20 @@ public class BattleManager : MonoBehaviour
             EnemyTurn();
         }
     }
-    #endregion
+    #endregion Function_TP
 
     #region Function_AllieTurn
     //아군 턴인 경우, 선택 UI 보이기, 캐릭터 스킬 수에 따라 버튼 활성화, AP 초기화
     void AllieTurnStart()
     {
-        if (state != BattleState.AllieTurnStart)
-            return;
+        if (state != BattleState.AllieTurnStart) return;
 
-        if(currCaster.classIdx == 11)
+        //정령, 골렘 - 알아서 행동 후 턴 종료
+        if (currCaster.classIdx == 11 || currCaster.classIdx == 12)
         {
             currCaster.OnTurnStart();
 
-            if (!monsterList.Any(x => x.isActiveAndEnabled))
+            if (IsWin())
                 Win();
             else
                 Btn_TurnEnd();
@@ -316,8 +287,9 @@ public class BattleManager : MonoBehaviour
         {
             turnEndBtn.SetActive(true);
             currCaster.OnTurnStart();
+            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
 
-            if (!monsterList.Any(x => x.isActiveAndEnabled))
+            if (IsWin())
                 Win();
             else if (currCaster.IsStun())
                 Btn_TurnEnd();
@@ -336,7 +308,7 @@ public class BattleManager : MonoBehaviour
         if (skill.category == 1023)
         {
             //둘 다 시전
-            if(currCaster.GetComponent<VisionMaster>().skillState > 1)
+            if (currCaster.GetComponent<VisionMaster>().skillState > 1)
             {
                 isBoth = true;
                 state = BattleState.AllieSkillSelected;
@@ -350,13 +322,10 @@ public class BattleManager : MonoBehaviour
                     targetIdxs.Clear();
                     state = BattleState.AllieSkillSelected;
 
-                    int i;
-                    for (i = 0; i < roomInfo.monsterCount; i++)
-                        targetBtns[i].SetActive(monsterList[i].isActiveAndEnabled);
-                    for (; i < 3; i++)
-                        targetBtns[i].SetActive(false);
+                    for (int i = 0; i < 3; i++)
+                        targetBtns[i].SetActive(allCharList[i + 2].isActiveAndEnabled);
 
-                    //랜덤 타겟, 전체 타겟 등 타겟 선택이 필요 없는 경우 예외 처리
+
                     skillBtnPanel.SetActive(false);
                     targetBtnPanel.SetActive(true);
 
@@ -373,7 +342,9 @@ public class BattleManager : MonoBehaviour
                     isBoth = false;
                     isMinus = 0;
 
-                    if (!monsterList.Any(n => n.isActiveAndEnabled))
+                    apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+
+                    if (IsWin())
                         Win();
                 }
             }
@@ -409,11 +380,8 @@ public class BattleManager : MonoBehaviour
                 targetIdxs.Clear();
                 state = BattleState.AllieSkillSelected;
 
-                int i;
-                for (i = 0; i < roomInfo.monsterCount; i++)
-                    targetBtns[i].SetActive(monsterList[i].isActiveAndEnabled);
-                for (; i < 3; i++)
-                    targetBtns[i].SetActive(false);
+                for (int i = 0; i < 3; i++)
+                    targetBtns[i].SetActive(allCharList[i + 2].isActiveAndEnabled);
 
                 //랜덤 타겟, 전체 타겟 등 타겟 선택이 필요 없는 경우 예외 처리
                 skillBtnPanel.SetActive(false);
@@ -431,7 +399,9 @@ public class BattleManager : MonoBehaviour
                 skillBtnPanel.SetActive(true);
                 state = BattleState.AllieTurnStart;
 
-                if (!monsterList.Any(n => n.isActiveAndEnabled))
+                apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+
+                if (IsWin())
                     Win();
             }
         }
@@ -440,7 +410,8 @@ public class BattleManager : MonoBehaviour
         {
             if (109 <= skill.idx && skill.idx <= 111)
             {
-                if (!characterList.Any(x => x.classIdx == 11) || !characterList[1].isActiveAndEnabled || characterList[1].GetComponent<Elemental>().type != skill.category || characterList[1].GetComponent<Elemental>().isUpgraded)
+                Elemental e = allCharList[1].GetComponent<Elemental>();
+                if (!allCharList[1].isActiveAndEnabled || e == null || e.type != skill.category || e.isUpgraded)
                 {
                     LogManager.instance.AddLog("must summon elemental before upgrade");
                     return true;
@@ -448,9 +419,10 @@ public class BattleManager : MonoBehaviour
             }
             if (skill.idx == 121)
             {
-                if (!characterList.Any(x => x.classIdx == 11) || !characterList[1].isActiveAndEnabled || !characterList[1].GetComponent<Elemental>().isUpgraded)
+                Elemental e = allCharList[1].GetComponent<Elemental>();
+                if (!allCharList[1].isActiveAndEnabled || e == null || !e.isUpgraded)
                 {
-                    LogManager.instance.AddLog("need upgraded elemantal");
+                    LogManager.instance.AddLog("need upgraded elemental");
                     return true;
                 }
             }
@@ -487,11 +459,8 @@ public class BattleManager : MonoBehaviour
             targetIdxs.Clear();
             state = BattleState.AllieSkillSelected;
 
-            int i;
-            for (i = 0; i < roomInfo.monsterCount; i++)
-                targetBtns[i].SetActive(monsterList[i].isActiveAndEnabled);
-            for (; i < 3; i++)
-                targetBtns[i].SetActive(false);
+            for (int i = 0; i < 3; i++)
+                targetBtns[i].SetActive(allCharList[i + 2].isActiveAndEnabled);
 
             //랜덤 타겟, 전체 타겟 등 타겟 선택이 필요 없는 경우 예외 처리
             skillChoosePanel.SetActive(false);
@@ -507,7 +476,9 @@ public class BattleManager : MonoBehaviour
             skillBtnPanel.SetActive(true);
             state = BattleState.AllieTurnStart;
 
-            if (!monsterList.Any(n => n.isActiveAndEnabled))
+            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+
+            if (IsWin())
                 Win();
         }
     }
@@ -532,11 +503,14 @@ public class BattleManager : MonoBehaviour
 
         Skill s = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[skillidx] + isMinus);
 
-        if (targetIdxs.Count == s.targetCount || targetIdxs.Count == monsterList.Count(x => x.isActiveAndEnabled))
+        int count = 0;
+        for (int i = 2; i < 5; i++) if (allCharList[i].isActiveAndEnabled) count++;
+
+        if (targetIdxs.Count == s.targetCount || targetIdxs.Count == count)
         {
             List<Unit> selects = new List<Unit>();
             foreach (int i in targetIdxs)
-                selects.Add(monsterList[i]);
+                selects.Add(allCharList[i]);
 
             state = BattleState.AllieTargetSelected;
             if (isBoth)
@@ -551,39 +525,43 @@ public class BattleManager : MonoBehaviour
             skillBtnPanel.SetActive(true);
             state = BattleState.AllieTurnStart;
 
+            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+
             targetIdxs.Clear();
 
-            if (!monsterList.Any(n => n.isActiveAndEnabled))
+            if (IsWin())
                 Win();
         }
     }
     public void Btn_UsePotion(int idx)
     {
-        if(GameManager.slotData.dungeonState.potionUse[idx])
+        if (GameManager.slotData.dungeonState.potionUse[idx])
             LogManager.instance.AddLog("이미 사용했습니다.");
         else
         {
             //재활용 포션
             int potionIdx = GameManager.slotData.potionSlot[idx] == 13 ? GameManager.slotData.potionSlot[(idx + 1) % 2] : GameManager.slotData.potionSlot[idx];
-            
-            string potionLog = characterList[0].CanUsePotion(potionIdx);
-            
-            if(potionLog != "")
+
+            string potionLog = allCharList[0].GetComponent<Character>().CanUsePotion(potionIdx);
+
+            if (potionLog != "")
                 LogManager.instance.AddLog(potionLog);
             else
-                characterList[0].UsePotion(potionIdx);
+                allCharList[0].GetComponent<Character>().UsePotion(potionIdx);
         }
     }
     public void Btn_TurnEnd()
     {
+        if(state != BattleState.AllieTurnStart) return;
+
         targetBtnPanel.SetActive(false);
         skillBtnPanel.SetActive(true);
         turnEndBtn.SetActive(false);
 
         currCaster.OnTurnEnd();
 
-        if(currCaster.classIdx == 4 && currCaster.GetComponent<MadScientist>().turnCount == 7)
-        {    
+        if (currCaster.classIdx == 4 && currCaster.GetComponent<MadScientist>().turnCount == 7)
+        {
             charTP[currCaster][0] = charTP[currCaster][1];
             currCaster.GetComponent<MadScientist>().turnCount = 0;
         }
@@ -595,8 +573,6 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator AllieTurnEnd()
     {
-        point.SetActive(false);
-
         yield return new WaitForSeconds(1f);
 
         SelectNextCaster();
@@ -612,7 +588,7 @@ public class BattleManager : MonoBehaviour
         Monster caster = currCaster.GetComponent<Monster>();
         caster.OnTurnStart();
 
-        if(caster.IsStun())
+        if (caster.IsStun())
         {
             charTP[currCaster][0] = 0;
             TPImageUpdate();
@@ -620,7 +596,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        if (!characterList.Any(x=>x.isActiveAndEnabled))
+        if (IsLose())
         {
             state = BattleState.Lose;
             Lose();
@@ -637,12 +613,25 @@ public class BattleManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        point.SetActive(false);
         SelectNextCaster();
     }
     #endregion
 
     #region Function_BattleEnd
+    bool IsWin()
+    {
+        foreach(Unit u in allCharList) if(u.buffStat[(int)Obj.currHP] <= 0 || u.classIdx == 0) u.gameObject.SetActive(false);
+
+        for (int i = 2; i < 5; i++) if (allCharList[i].isActiveAndEnabled) return false;
+        return true;
+    }
+    bool IsLose()
+    {
+        foreach(Unit u in allCharList) if(u.buffStat[(int)Obj.currHP] <= 0 || u.classIdx == 0) u.gameObject.SetActive(false);
+
+        for (int i = 0; i < 2; i++) if (allCharList[i].isActiveAndEnabled) return false;
+        return true;
+    }
     //승리, 보상 획득, 탐험 계속 진행
     void Win()
     {
@@ -650,22 +639,29 @@ public class BattleManager : MonoBehaviour
         targetBtnPanel.SetActive(false);
 
         for (int i = 0; i < roomInfo.ItemCount; i++)
-            ItemManager.ItemDrop(characterList[0].classIdx, roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
+            ItemManager.ItemDrop(roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
 
-        GameManager.slotData.dungeonState.currHP = characterList[0].buffStat[(int)Obj.currHP];
+        GameManager.slotData.dungeonState.currHP = allCharList[0].buffStat[(int)Obj.currHP];
 
-        if (characterList[0].classIdx == 4 && characterList.Count > 1 && characterList[1].isActiveAndEnabled)
-            GameManager.slotData.dungeonState.golemHP = characterList[1].buffStat[(int)Obj.currHP];
+        if (allCharList[0].classIdx == 4 && allCharList[1].isActiveAndEnabled)
+            GameManager.slotData.dungeonState.golemHP = allCharList[1].buffStat[(int)Obj.currHP];
         else
             GameManager.slotData.dungeonState.golemHP = -1;
 
-        if (characterList[0].classIdx == 6)
-            GameManager.slotData.dungeonState.druidRevive = characterList[0].GetComponent<Druid>().revive;
+        if (allCharList[0].classIdx == 6)
+            GameManager.slotData.dungeonState.druidRevive = allCharList[0].GetComponent<Druid>().revive;
 
         LogManager.instance.AddLog("승리");
 
         if (GameManager.slotData.dungeonState.currRoomEvent > 100)
+        {
+            string drops = "드랍 목록\n";
             bossWinUI.SetActive(true);
+            foreach (Triplet<DropType, int, int> token in GameManager.slotData.dungeonState.dropList)
+                drops = string.Concat(drops, token.first, " ", token.second, " ", token.third, "\n");
+
+            Debug.Log(drops);
+        }
         else
             winUI.SetActive(true);
     }
@@ -703,73 +699,63 @@ public class BattleManager : MonoBehaviour
     }
 
     //매드 사이언티스트
-    public bool HasGolem() => characterList.Count > 1 && characterList[1].isActiveAndEnabled;
+    public bool HasGolem() => allCharList[1].isActiveAndEnabled;
     public void GolemControl(KeyValuePair<int, List<Unit>> token)
     {
         if (HasGolem())
-            characterList[1].GetComponent<Golem>().AddControl(token);
+            allCharList[1].GetComponent<Golem>().AddControl(token);
     }
 
     //엘리멘탈 컨트롤러
     public void SummonElemental(ElementalController caster, int type)
     {
-        if (characterList.Any(x => x.classIdx == 11))
-        {
-            Character tmp = characterList[1];
-            charTP.Remove(tmp);
-            allCharList.Remove(tmp);
-            characterList.Remove(tmp);
-            casterQueue.Remove(tmp);
+        Unit tmp = allCharList[1];
+        charTP.Remove(tmp);
+        allCharList.Remove(tmp);
+        casterQueue.Remove(tmp);
+        if (tmp != DummyUnit)
             Destroy(tmp.gameObject);
-        }
+        
 
         Elemental e = Instantiate(alliePrefabs[10], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Elemental>();
         e.Summon(this, caster, type);
 
         charTP.Add(e, new int[2] { 0, 0 });
-        characterList.Add(e);
-        allCharList.Add(e);
+        allCharList.Insert(1, e);
 
-        for (int i = 0; i < TPBars.Length; i++)
-            TPBars[i].gameObject.SetActive(i < allCharList.Count && allCharList[i].isActiveAndEnabled);
         TPMaxUpdate();
     }
     public void UpgradeElemental(ElementalController caster, int type)
     {
-        if (characterList.Any(x => x.classIdx == 11))
-        {
-            Character tmp = characterList[1];
-            charTP.Remove(tmp);
-            allCharList.Remove(tmp);
-            characterList.Remove(tmp);
-            casterQueue.Remove(tmp);
+        Unit tmp = allCharList[1];
+        charTP.Remove(tmp);
+        allCharList.Remove(tmp);
+        casterQueue.Remove(tmp);
+        if (tmp != DummyUnit)
             Destroy(tmp.gameObject);
-        }
-
+        
         Elemental e = Instantiate(alliePrefabs[10], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Elemental>();
         e.Summon(this, caster, type, true);
 
         charTP.Add(e, new int[2] { 0, 0 });
-        characterList.Add(e);
-        allCharList.Add(e);
+        allCharList.Insert(1, e);
 
-        for (int i = 0; i < TPBars.Length; i++)
-            TPBars[i].gameObject.SetActive(i < allCharList.Count && allCharList[i].isActiveAndEnabled);
         TPMaxUpdate();
     }
     public int SacrificeElemental(ElementalController caster, Skill skill)
     {
         int type = -1;
-        if (characterList.Any(x => x.classIdx == 11))
+        if (allCharList[1].GetComponent<Elemental>())
         {
-            Character tmp = characterList[1];
+            Unit tmp = allCharList[1];
             type = tmp.GetComponent<Elemental>().type;
 
             charTP.Remove(tmp);
             allCharList.Remove(tmp);
-            characterList.Remove(tmp);
             casterQueue.Remove(tmp);
             Destroy(tmp.gameObject);
+
+            allCharList.Insert(1, DummyUnit);
         }
 
         return type;
@@ -784,7 +770,9 @@ public class BattleManager : MonoBehaviour
     //몬스터
     public bool ReloadBullet()
     {
-        var ene = from x in monsterList where x.monsterIdx == 10 || x.monsterIdx == 11 select x;
+        List<Monster> mons = new List<Monster>();
+        for (int i = 2; i < 5; i++) if (allCharList[i].isActiveAndEnabled) mons.Add(allCharList[i].GetComponent<Monster>());
+        var ene = from x in mons where x.monsterIdx == 10 || x.monsterIdx == 11 select x;
 
         if (ene.Count() <= 0)
             return false;
@@ -812,45 +800,45 @@ public class BattleManager : MonoBehaviour
             case 2:
                 if (HasUpgradedElemental())
                 {
-                    tmp.Add(characterList[1]);
+                    tmp.Add(allCharList[1]);
                     return tmp;
                 }
-                else if(IsMadSpecialCondition())
+                else if (IsMadSpecialCondition())
                 {
-                    tmp.Add(characterList[0]);
+                    tmp.Add(allCharList[0]);
                     return tmp;
                 }
                 else
-                    return RandomList(characterList.ConvertAll(x => (Unit)x), 1);
+                    return RandomList(0, 1);
             //아군 측 전체
             case 3:
-                return (from x in characterList where x.isActiveAndEnabled select x).ToList().ConvertAll(x => (Unit)x);
+                return AllList(0);
             //적군 측 랜덤 1개체
             case 4:
-                return RandomList(monsterList.ConvertAll(x => (Unit)x), 1);
+                return RandomList(1, 1);
             //적군 측 랜덤 2개체
             case 5:
-                return RandomList(monsterList.ConvertAll(x => (Unit)x), 2);
+                return RandomList(1, 2);
             //적군 측 전체
             case 6:
-                return (from x in monsterList where x.isActiveAndEnabled select x).ToList().ConvertAll(x => (Unit)x);
+                return AllList(1);
             //피아 미구분 랜덤 1개체
             case 7:
-                return RandomList(allCharList, 1);
+                return RandomList(2, 1);
             //피아 미구분 랜덤 2개체
             case 8:
-                return RandomList(allCharList, 2);
+                return RandomList(2, 2);
             //피아 미구분 랜덤 3개체
             case 9:
-                return RandomList(allCharList, 3);
+                return RandomList(2, 3);
             //피아 미구분 랜덤 4개체
             case 10:
-                return RandomList(allCharList, 4);
+                return RandomList(2, 4);
             //피아 미구분 전체
             case 11:
-                return (from x in allCharList where x.isActiveAndEnabled select x).ToList();
+                return AllList(2);
             case 13:
-                tmp.Add(characterList[0]);
+                tmp.Add(allCharList[0]);
                 return tmp;
             default:
                 return tmp;
@@ -858,21 +846,32 @@ public class BattleManager : MonoBehaviour
 
         bool HasUpgradedElemental()
         {
-            if (characterList.Count < 2)
+            Elemental e = allCharList[1].GetComponent<Elemental>();
+            if (e == null)
                 return false;
-            if (characterList[1].GetComponent<Elemental>() == null)
-                return false;
-            return characterList[1].GetComponent<Elemental>().isUpgraded && characterList[1].isActiveAndEnabled;
+            return e.isUpgraded && allCharList[1].isActiveAndEnabled;
         }
         bool IsMadSpecialCondition()
         {
-            if(characterList[0].classIdx != 4)
+            if (allCharList[0].classIdx != 4)
                 return false;
-            return characterList[0].GetComponent<MadScientist>().isMagnetic;
+            return allCharList[0].GetComponent<MadScientist>().isMagnetic;
         }
-        List<Unit> RandomList(List<Unit> baseList, int count)
+        List<Unit> RandomList(int type, int count)
         {
-            baseList = (from x in baseList where x.isActiveAndEnabled select x).ToList();
+            List<Unit> baseList = new List<Unit>();
+            switch(type)
+            {
+                case 0:
+                    for (int i = 0; i < 2; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
+                    break;
+                case 1:
+                    for (int i = 2; i < 5; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
+                    break;
+                case 2:
+                    for (int i = 0; i < 5; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
+                    break;
+            }
 
             if (baseList.Count <= count)
                 return baseList;
@@ -891,6 +890,24 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < count; i++)
                 tmp.Add(baseList[random[i]]);
             return tmp;
+        }
+        List<Unit> AllList(int type)
+        {
+            List<Unit> baseList = new List<Unit>();
+            switch(type)
+            {
+                case 0:
+                    for (int i = 0; i < 2; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
+                    break;
+                case 1:
+                    for (int i = 2; i < 5; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
+                    break;
+                case 2:
+                    for (int i = 0; i < 5; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
+                    break;
+            }
+
+            return baseList;
         }
     }
 }

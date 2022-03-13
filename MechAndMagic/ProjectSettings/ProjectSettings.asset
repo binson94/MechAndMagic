@@ -673,8 +673,14 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Collab: 1
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -688,7 +694,7 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 145a72f6-c1f0-4768-842e-fa46e3f84659
+  cloudProjectId: 96ed91d5-ddf7-48a4-9b57-ed6967033302
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: MechVSMagic

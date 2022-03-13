@@ -11,7 +11,7 @@ public enum SkillState
 public class SkillBtnSet : MonoBehaviour
 {
     SmithPanel SM;
-    BedPanel BM;
+    BedSkillPanel BM;
 
     [SerializeField] Text skillName;
 
@@ -26,7 +26,7 @@ public class SkillBtnSet : MonoBehaviour
         skillIdx = idx;
     }
 
-    public void Init(BedPanel b, KeyValuePair<Skill, int> s, SkillState state)
+    public void Init(BedSkillPanel b, KeyValuePair<Skill, int> s, SkillState state)
     {
         BM = b;
         SM = null;

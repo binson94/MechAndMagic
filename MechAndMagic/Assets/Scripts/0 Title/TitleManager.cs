@@ -24,7 +24,7 @@ public class TitleManager : MonoBehaviour
 
     int currSlot = -1;
     [SerializeField] GameObject charSelectPanel;
-    int currExplain = -1;
+    int currClass = -1;
     [SerializeField] GameObject[] charExplainPanels;
 
     [SerializeField] GameObject slotDeletePanel;
@@ -34,16 +34,12 @@ public class TitleManager : MonoBehaviour
     private void Start()
     {
         state = TitleState.Title;
-        bgmSlider.value = PlayerPrefs.GetFloat("BGM", 1);
-        sfxSlider.value = PlayerPrefs.GetFloat("SFX", 1);
-        Slider_BGM();
-        Slider_SFX();
-        txtSpdSlider.value = PlayerPrefs.GetInt("TxtSpd", 1) / 2f;
-
+        bgmSlider.value = (float)GameManager.sound.option.bgm;
+        sfxSlider.value = (float)GameManager.sound.option.sfx;
+        txtSpdSlider.value = GameManager.sound.option.txtSpd / 2f;
+        
         PanelSet();
-
         Start_SlotSet();
-
         GameManager.sound.PlayBGM(BGM.Title);
     }
 
@@ -51,24 +47,13 @@ public class TitleManager : MonoBehaviour
     public void Btn_Title_Exit() => Application.Quit();
     #endregion
 
-    #region Dictionary
-    #endregion
-
     #region Option
-    public void Slider_BGM()
-    {
-        GameManager.sound.BGMSet(bgmSlider.value);
-    }
-
-    public void Slider_SFX()
-    {
-        GameManager.sound.SFXSet(sfxSlider.value);
-    }
-
+    public void Slider_BGM() => GameManager.sound.BGMSet(bgmSlider.value);
+    public void Slider_SFX() => GameManager.sound.SFXSet(sfxSlider.value);
     public void Slider_TxtSpd()
     {
-        PlayerPrefs.SetInt("TxtSpd", Mathf.RoundToInt(txtSpdSlider.value * 2));
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
+        GameManager.sound.TxtSet(txtSpdSlider.value * 2);
     }
 
     public void Btn_Option_Credit()
@@ -82,8 +67,6 @@ public class TitleManager : MonoBehaviour
     public void Btn_Start_SlotLoad(int slot)
     {
         GameManager.LoadSlotData(slot);
-        QuestManager.LoadData();
-        ItemManager.LoadData();
 
         string name = "1 Town";
         switch(GameManager.slotData.nowScene)
@@ -122,24 +105,20 @@ public class TitleManager : MonoBehaviour
     public void Btn_Start_SlotNewClass(int classIdx)
     {
         charSelectPanel.SetActive(false);
-        charExplainPanels[currExplain = classIdx].SetActive(true);
+        charExplainPanels[currClass = classIdx].SetActive(true);
     }
 
     public void Btn_Start_SlotNewClassYes()
     {
-        GameManager.NewSlot(currSlot, currExplain);
-        GameManager.SaveSlotData();
-        QuestManager.LoadData();
-        ItemManager.LoadData();
-
+        GameManager.NewSlot(currSlot, currClass);
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
 
     public void Btn_Start_SlotNewClassNo()
     {
         charSelectPanel.SetActive(true);
-        charExplainPanels[currExplain].SetActive(false);
-        currExplain = -1;
+        charExplainPanels[currClass].SetActive(false);
+        currClass = -1;
     }
     #endregion start_New
 
@@ -166,15 +145,10 @@ public class TitleManager : MonoBehaviour
     }
     #endregion start_Delete
 
-    public void Btn_Start_Prestige()
-    {
-        Debug.Log("Prestige");
-    }
-
     private void Start_SlotSet()
     {
         for (int i = 0; i < GameManager.SLOTMAX; i++)
-            slots[i].SlotUpdate(LitJson.JsonMapper.ToObject<SlotData>(PlayerPrefs.GetString(string.Concat("SlotData", i))));
+            slots[i].SlotUpdate(GameManager.HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", i))));
     }
     #endregion Start
 

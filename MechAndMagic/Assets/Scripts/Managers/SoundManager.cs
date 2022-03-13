@@ -17,30 +17,36 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip[] mechBgms;
     [SerializeField] AudioClip[] magicBgms;
     [SerializeField] AudioClip[] sfxs;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public Option option;
+
+    private void Awake() 
     {
-        
+        if(PlayerPrefs.HasKey("Option"))
+            option = LitJson.JsonMapper.ToObject<Option>(PlayerPrefs.GetString("Option"));
+        else
+            option = new Option();
     }
 
     public void BGMSet(float val)
     {
+        option.bgm = (double)val;
         mixer.SetFloat("BGM", Mathf.Log10(val) * 20);
-        PlayerPrefs.SetFloat("BGM", val);
+        SaveOption();
     }
-
     public void SFXSet(float val)
     {
+        option.sfx = (double)val;
         mixer.SetFloat("SFX", Mathf.Log10(val) * 20);
-        PlayerPrefs.SetFloat("SFX", val);
+        SaveOption();
     }
+    public void TxtSet(float val)
+    {
+        option.txtSpd = Mathf.RoundToInt(val);
+        SaveOption();
+    }
+    void SaveOption() => PlayerPrefs.SetString("Option", LitJson.JsonMapper.ToJson(option));
+
 
     public void PlayBGM(BGM idx)
     {
@@ -61,5 +67,19 @@ public class SoundManager : MonoBehaviour
     {
         SFX.clip = sfxs[idx];
         SFX.Play();
+    }
+}
+
+public class Option
+{
+    public double bgm;
+    public double sfx;
+    public int txtSpd;
+
+    public Option()
+    {
+        bgm = 1;
+        sfx = 1;
+        txtSpd = 1;
     }
 }

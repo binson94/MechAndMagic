@@ -202,6 +202,7 @@ public class Equipment
     public Equipment(EquipBluePrint ebp)
     {
         this.ebp = ebp;
+        star = 1;
 
         SetMainStat();
         SetSubStat();
@@ -339,13 +340,13 @@ public class Equipment
     {
         if (EquipPart.Top <= ebp.part && ebp.part <= EquipPart.Shoes)
         {
-            mainStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][0];
-            if (subStat != Obj.None) subStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][1];
+            mainStatValue = star * equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][0];
+            if (subStat != Obj.None) subStatValue = star * equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][1];
         }
         else
         {
-            mainStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, mainStat)]];
-            if (subStat != Obj.None) subStatValue = equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, subStat)]];
+            mainStatValue = star *equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, mainStat)]];
+            if (subStat != Obj.None) subStatValue = star * equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, subStat)]];
         }
     }
 

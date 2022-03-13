@@ -16,7 +16,7 @@ public class EquipInfoPanel : MonoBehaviour
     public void InfoUpdate(Skillbook s)
     {
         if (s != null)
-            equipName.text = s.idx.ToString();
+            equipName.text = string.Concat("교본 : ", SkillManager.GetSkill(GameManager.slotData.slotClass, s.idx).name);
     }
 
     public void InfoUpdate(EquipBluePrint ebp)

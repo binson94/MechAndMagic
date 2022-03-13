@@ -85,6 +85,7 @@ public class DungeonManager : MonoBehaviour
         }
         else if (type == RoomType.Quest)
         {
+            GameManager.OutbreakDetermine(pos);
             GameManager.SwitchSceneData(SceneKind.Outbreak);
             SceneManager.LoadScene("2_3 Outbreak");
         }

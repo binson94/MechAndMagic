@@ -21,7 +21,6 @@ public class EventManager : MonoBehaviour
 
     void EventEffect()
     {
-        Buff b;
         for(int i =0;i<eventInfo.typeCount;i++)
         {
             switch ((EventType)eventInfo.type[i])
@@ -79,7 +78,7 @@ public class EventManager : MonoBehaviour
                             category = 10 - GameManager.slotData.lvl / 4 * 3 + Random.Range(0, 3);
                             break;
                     }
-                    ItemManager.ItemDrop(1, category, amt);
+                    ItemManager.ItemDrop(category, amt);
                     break;
                 case EventType.Heal:
                     GameManager.GetHeal(eventInfo.typeRate[i]);
@@ -88,12 +87,10 @@ public class EventManager : MonoBehaviour
                     GameManager.GetDamage(eventInfo.typeRate[i]);
                     break;
                 case EventType.Buff:
-                    b = new Buff(BuffType.Stat, 10, new BuffOrder(), eventInfo.name, eventInfo.typeObj[i], 1, eventInfo.typeRate[i], 1, 99, 0, 1);
-                    GameManager.AddBuff(b);
+                    GameManager.AddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     break;
                 case EventType.Debuff:
-                    b = new Buff(BuffType.Stat, 10, new BuffOrder(), eventInfo.name, eventInfo.typeObj[i], 1, eventInfo.typeRate[i], 1, 99, 0, 1);
-                    GameManager.AddDebuff(b);
+                    GameManager.AddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     break;
             }
         }
@@ -149,6 +146,21 @@ public class EventManager : MonoBehaviour
     }
 }
 }
+public class DungeonBuff
+{
+    public int count;
 
+    public string name;    
+    public int objIdx;
+    public double rate;
 
+    public DungeonBuff() {}
+    public DungeonBuff(string n, int obj, float r)
+    {
+        name = n;
+        objIdx = obj;
+        rate = (double)r;
+        count = 2;
+    }
+}
 

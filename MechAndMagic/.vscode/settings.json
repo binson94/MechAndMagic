@@ -55,6 +55,7 @@
     },
     "cSpell.ignoreWords": [
         "Behaviour",
+        "Bgms",
         "Btns",
         "Debuff",
         "Debuffs",
@@ -62,6 +63,8 @@
         "Jsons",
         "Mathf",
         "Prefs",
-        "npcs"
+        "Txts",
+        "npcs",
+        "sfxs"
     ]
 }
