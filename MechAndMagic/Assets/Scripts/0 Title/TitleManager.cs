@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum TitleState
 {
-    Title, Dictionary, Option, Start
+    Title, Start, Option
 }
 
 public class TitleManager : MonoBehaviour
@@ -160,7 +160,7 @@ public class TitleManager : MonoBehaviour
 
     private void PanelSet()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < uiPanels.Length; i++)
             uiPanels[i].SetActive(i == (int)state);
         creditPanel.SetActive(false);
     }

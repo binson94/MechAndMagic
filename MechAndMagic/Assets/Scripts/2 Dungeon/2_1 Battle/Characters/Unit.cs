@@ -531,7 +531,7 @@ public class Unit : MonoBehaviour
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
         int finalDmg = Mathf.RoundToInt(-dmg / Mathf.Max(1, Mathf.Log(finalDEF, caster.LVL + 1)) * ironHeartDEF * crb / 100);
 
-        if (shieldAmount >= finalDmg)
+        if (shieldAmount + finalDmg >= 0)
             shieldAmount += finalDmg;
         else
         {

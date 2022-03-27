@@ -15,9 +15,13 @@ public interface ITownPanel
 
 public class TownManager : MonoBehaviour
 {
+    //기계, 마법 캔버스 구분
     [SerializeField] GameObject[] canvases;
     [SerializeField] GameObject[] mechUiPanels;
     [SerializeField] GameObject[] magicUiPanels;
+    Image bgImage;
+    [SerializeField] Sprite[] bgSprites;
+
     GameObject[] uiPanels;
     ITownPanel[] townPanels;
     TownState state;
@@ -33,14 +37,17 @@ public class TownManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
             canvases[i].SetActive(GameManager.slotData.slotClass < 5 ^ i == 1);
         uiPanels = GameManager.slotData.slotClass < 5 ? mechUiPanels : magicUiPanels;
-
-        GameManager.sound.PlayBGM(BGM.Town1);
+        bgImage = (GameManager.slotData.slotClass < 5 ? canvases[0].transform.GetChild(0) : canvases[1].transform.GetChild(0)).GetComponent<Image>();
+        bgImage.sprite = bgSprites[2 * (GameManager.slotData.slotClass / 5)];
+        
         state = TownState.Town;
         townPanels = new ITownPanel[uiPanels.Length];
         for (int i = 1; i < uiPanels.Length; i++)
             townPanels[i] = uiPanels[i].GetComponent<ITownPanel>();
 
         PanelSet();
+
+        GameManager.sound.PlayBGM(BGM.Town1);
 
         bgmSlider.value = (float)GameManager.sound.option.bgm;
         sfxSlider.value = (float)GameManager.sound.option.sfx;

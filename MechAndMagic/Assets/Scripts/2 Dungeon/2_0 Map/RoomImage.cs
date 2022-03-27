@@ -7,10 +7,13 @@ public class RoomImage : MonoBehaviour
 {
     Room room;
     public RectTransform rect;
-    [SerializeField] Text roomText;
+
+    [SerializeField] Image bgImage;
     [SerializeField] Image roomImage;
 
     DungeonManager dungeonMgr;
+
+    const float randomRange = 50;
 
     public void Init(Room r, DungeonManager dmgr)
     {
@@ -19,21 +22,22 @@ public class RoomImage : MonoBehaviour
 
         rect = GetComponent<RectTransform>();
         GetComponent<Button>().onClick.AddListener(Btn_Select);
-        SetTxt();
+        LoadSprite();
     }
 
-    private void SetTxt()
+    void LoadSprite()
     {
-        if (room.isOpen)
-        {
-            roomText.text = string.Concat(room.type, "\n", room.roomEventIdx);
-        }
+        bgImage.sprite = dungeonMgr.roomBGSprites[Random.Range(0, 3)];
+
+        if(room.isOpen)
+            roomImage.sprite = dungeonMgr.roomSprites[(int)room.type];
         else
-            roomText.text = "비공개";
+            roomImage.sprite = dungeonMgr.roomSprites[5];
     }
 
     public void SetPosition(Vector3 vec)
     {
+        vec += new Vector3(Random.Range(-randomRange, randomRange), Random.Range(-randomRange, randomRange), 0);
         rect.transform.position = vec;
     }
 
