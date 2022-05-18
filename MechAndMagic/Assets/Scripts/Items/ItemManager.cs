@@ -120,10 +120,6 @@ public class ItemManager : MonoBehaviour
 
     #region Smith
     public static bool CanSmith(int idx) => GameManager.slotData.itemData.CanSmith(bluePrints[idx]);
-    public static bool CanSwitchOption(EquipPart part, int idx) => GameManager.slotData.itemData.CanSwitchCommonStat(part, idx);
-    public static bool CanFusion(EquipPart part, int idx) => GameManager.slotData.itemData.CanFusion(part, idx);
-    
-    public static bool IsLearned(int idx) => GameManager.slotData.itemData.IsLearned(idx);
 
     public static void SmithEquipment(int idx)
     {

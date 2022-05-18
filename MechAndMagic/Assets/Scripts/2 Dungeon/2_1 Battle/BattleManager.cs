@@ -305,8 +305,8 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < 8; i++)
                 statusTxts[i].text = allCharList[0].buffStat[i + 5].ToString();
 
-            statusTxts[5].text = string.Concat(statusTxts[4].text, "%");
-            statusTxts[6].text = string.Concat(statusTxts[5].text, "%");
+            statusTxts[5].text = string.Concat(statusTxts[5].text, "%");
+            statusTxts[6].text = string.Concat(statusTxts[6].text, "%");
         }
     }
     void SkillBtnInit()

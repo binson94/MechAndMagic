@@ -11,8 +11,10 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     [SerializeField] Transform skillTokenPoolParent;
     [SerializeField] GameObject skillTokenPrefab;
 
-    int currType = 0;       //0 active, 1 passive, 2 all
-    int currLearned = 0;    //0 didn't Learned, 1 Learned, 2 All
+    ///<summary> 0 active, 1 passive, 2 all </summary>
+    int currType = 0;
+    ///<summary> 0 didn't Learned, 1 Learned, 2 All </summary>
+    int currLearned = 0;
     int currLvl = 0;        //0 All
 
     int currSkillIdx = -1;
@@ -21,8 +23,8 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     SkillState selectedSkillState = SkillState.CantLearn;
     [SerializeField] SkillInfoPanel selectedSkillPanel;
 
-    //0 : «–Ω¿, 1 : ¿Â¬¯, 2 : «ÿ¡¶
-    [SerializeField] GameObject[] skillBtns;
+    [SerializeField] Sprite[] skillFrameSprites;
+    [SerializeField] Sprite[] skillIconSprites;
     List<SkillBtnSet> skillTokenList = new List<SkillBtnSet>();
     List<SkillBtnSet> skillTokenPool = new List<SkillBtnSet>();
     #endregion
@@ -70,58 +72,73 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
             if (GameManager.slotData.slotClass == 7 && s[i].category == 1024)
                 continue;
             else
-                skills.Add(new KeyValuePair<Skill, int>(s[i], ItemManager.IsLearned(s[i].idx) ? 1 : 0));
+                skills.Add(new KeyValuePair<Skill, int>(s[i], GameManager.slotData.itemData.IsLearned(s[i].idx) ? 1 : 0));
 
 
-        List<KeyValuePair<Skill, int>> showSkills = (from token in skills
-                         where (token.Key.useType == currType || currType == 2) && (token.Value == currLearned || currLearned == 2) && (token.Key.reqLvl == currLvl || currLvl == 0)
-                         select token).ToList();
+        var showSkills = 
+            (from token in skills
+             where (token.Key.useType == currType || currType == 2) && (token.Value == currLearned || currLearned == 2) && (token.Key.reqLvl == currLvl || currLvl == 0)
+             select token);
 
-        for (int i = 0; i < showSkills.Count; i++)
+        foreach(KeyValuePair<Skill, int> skillLearnPair in showSkills)
         {
-            GameObject go = NewSkillToken();
+            SkillBtnSet go = NewSkillToken();
             go.transform.SetParent(skillTokenParent);
-            skillTokenList.Add(go.GetComponent<SkillBtnSet>());
-            skillTokenList[skillTokenList.Count - 1].Init(this, showSkills[i], GetSkillState(showSkills[i]));
-            go.SetActive(true);
+            skillTokenList.Add(go);
+            go.Init(this, skillLearnPair, GetSkillState(skillLearnPair), skillFrameSprites[skillLearnPair.Key.useType], skillIconSprites[0]);
+            go.gameObject.SetActive(true);
         }
-        
-        GameObject NewSkillToken()
+
+        SkillBtnSet NewSkillToken()
         {
             if (skillTokenPool.Count > 0)
             {
-                GameObject go = skillTokenPool[0].gameObject;
+                SkillBtnSet go = skillTokenPool[0];
                 skillTokenPool.RemoveAt(0);
                 return go;
             }
             else
-                return Instantiate(skillTokenPrefab);
+                return Instantiate(skillTokenPrefab).GetComponent<SkillBtnSet>();
         }
-        SkillState GetSkillState(KeyValuePair<Skill, int> a)
+        KeyValuePair<SkillState, string> GetSkillState(KeyValuePair<Skill, int> skillLearnPair)
         {
             SkillState state;
-            if(a.Value == 0)
+            string expression = string.Empty;
+            if (skillLearnPair.Value == 0)
             {
                 state = SkillState.CanLearn;
-                for (int i = 0; i < a.Key.reqskills.Length; i++)
-                    if (!ItemManager.IsLearned(a.Key.reqskills[i]))
+
+                if (skillLearnPair.Key.reqLvl > GameManager.slotData.lvl)
+                {
+                    state = SkillState.CantLearn;
+                    expression = string.Concat("Lv.", skillLearnPair.Key.reqLvl, " ÌïÑÏöî");
+                }
+                else
+                {
+                    foreach(int skillIdx in skillLearnPair.Key.reqskills)
+                    {
+                        Skill s = SkillManager.GetSkill(GameManager.slotData.slotClass, skillIdx);
+                        if(s != null && !GameManager.slotData.itemData.IsLearned(s.idx))
+                        {
+                            state = SkillState.CantLearn;
+                            expression = string.Concat(s.name, " ÌïôÏäµ ÌïÑÏöî");
+                            break;
+                        }
+                    }
+
+                    if(!GameManager.slotData.itemData.HasSkillBook(skillLearnPair.Key.idx))
                     {
                         state = SkillState.CantLearn;
-                        break;
+                        expression = "Ïä§ÌÇ¨Î∂Å ÏóÜÏùå";
                     }
+                }
             }
+            else if (GameManager.slotData.activeSkills.Contains(skillLearnPair.Key.idx) || GameManager.slotData.passiveSkills.Contains(skillLearnPair.Key.idx))
+                state = SkillState.Equip;
             else
-            {
                 state = SkillState.Learned;
-                foreach (int idx in GameManager.slotData.activeSkills)
-                    if (a.Key.idx == idx)
-                        state = SkillState.Equip;
-                foreach (int idx in GameManager.slotData.passiveSkills)
-                    if (a.Key.idx == idx)
-                        state = SkillState.Equip;
-            }
 
-            return state;
+            return new KeyValuePair<SkillState, string>(state, expression);
         }
     }
     void SkillTokenReset()
@@ -185,16 +202,9 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
         {
             selectedSkillPanel.InfoUpdate(SkillManager.GetSkill(GameManager.slotData.slotClass, selectedSkillIdx));
             selectedSkillPanel.gameObject.SetActive(true);
-
-            for (int i = 0; i < skillBtns.Length; i++)
-                skillBtns[i].SetActive(i + 1 == (int)selectedSkillState);
         }
         else
-        {
             selectedSkillPanel.gameObject.SetActive(false);
-            foreach (GameObject g in skillBtns)
-                g.SetActive(false);
-        }
     }
 
     public void Btn_SkillEquip()
@@ -211,8 +221,8 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
         }
         else
         {
-            for(int i =0;i<4;i++)
-                if(GameManager.slotData.passiveSkills[i] == 0)
+            for (int i = 0; i < 4; i++)
+                if (GameManager.slotData.passiveSkills[i] == 0)
                 {
                     GameManager.slotData.passiveSkills[i] = selectedSkillIdx;
                     GameManager.SaveSlotData();

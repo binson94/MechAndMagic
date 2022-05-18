@@ -13,7 +13,18 @@ public class SkillBtnSet : MonoBehaviour
     SmithPanel SM;
     BedSkillPanel BM;
 
-    [SerializeField] Text skillName;
+    [SerializeField] Image frameImage;
+    [SerializeField] Image skillIconImage;
+
+    [Tooltip("0 skillName, 1 skillLV, 2 skillAP")]
+    ///<summary> 0 skillName, 1 skillLV, 2 skillAP </summary>
+    [SerializeField] Text[] skillTxts;
+
+
+    [SerializeField] GameObject skillAP;
+    [SerializeField] GameObject lockImage;
+    [SerializeField] GameObject learnBtn;
+    [SerializeField] Text skillExplain;
 
     SkillState state;
     int skillIdx;
@@ -26,14 +37,43 @@ public class SkillBtnSet : MonoBehaviour
         skillIdx = idx;
     }
 
-    public void Init(BedSkillPanel b, KeyValuePair<Skill, int> s, SkillState state)
+    public void Init(BedSkillPanel b, KeyValuePair<Skill, int> s, KeyValuePair<SkillState, string> state, Sprite frame, Sprite icon)
     {
         BM = b;
         SM = null;
 
-        this.state = state;
+        this.state = state.Key;
+        if (this.state == SkillState.CanLearn)
+        {
+            lockImage.SetActive(true);
+            learnBtn.SetActive(true);
+            skillExplain.gameObject.SetActive(false);
+            skillTxts[1].gameObject.SetActive(false);
+            skillAP.SetActive(false);
+        }
+        else if (this.state == SkillState.CantLearn)
+        {
+            lockImage.SetActive(true);
+            learnBtn.SetActive(false);
+            skillExplain.text = state.Value;
+            skillExplain.gameObject.SetActive(true);
+            skillTxts[1].gameObject.SetActive(false);
+            skillAP.SetActive(false);
+        }
+        else
+        {
+            lockImage.SetActive(false);
+            skillAP.SetActive(s.Key.useType == 0);
+            skillTxts[1].gameObject.SetActive(true);
+        }
+
+        frameImage.sprite = frame;
+        skillIconImage.sprite = icon;
+
         skillIdx = s.Key.idx;
-        skillName.text = string.Concat(s.Key.name, state);
+        skillTxts[0].text = s.Key.name;
+        skillTxts[1].text = string.Concat("Lv.", s.Key.reqLvl);
+        skillTxts[2].text = s.Key.reqLvl.ToString();
     }
 
     public void Btn_Select()

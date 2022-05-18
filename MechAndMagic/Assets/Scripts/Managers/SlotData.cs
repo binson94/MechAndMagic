@@ -173,7 +173,7 @@ public class ItemData
     public Skillbook[] skillbooks;
     public int[] potions;
 
-    public int startIdx;
+    public int skillStartIdx;
     public bool[] skillLearned;
 
     public List<Equipment> weapons;
@@ -411,18 +411,19 @@ public class ItemData
     #region Skill
     public bool IsLearned(int idx)
     {
-        if (idx < startIdx)
+        if (idx < skillStartIdx)
             return true;
-        return skillLearned[idx - startIdx];
+        return skillLearned[idx - skillStartIdx];
     }
     public void SkillLearn(int idx)
     {
-        skillLearned[idx - startIdx] = true;
+        skillLearned[idx - skillStartIdx] = true;
     }
     public void DisassembleSkillbook(int idx)
     {
-        skillbooks[idx - startIdx].count--;
+        skillbooks[idx - skillStartIdx].count--;
     }
+    public bool HasSkillBook(int idx) => skillbooks[idx - skillStartIdx].count > 0;
     #endregion Skill
 
     public ItemData() {}
@@ -434,7 +435,7 @@ public class ItemData
         Skill[] s = SkillManager.GetSkillData(currClass);
         skillbooks = new Skillbook[s.Length];
 
-        startIdx = s[0].idx;
+        skillStartIdx = s[0].idx;
         skillLearned = new bool[s.Length];
         for (int i = 0; i < s.Length; i++)
         {

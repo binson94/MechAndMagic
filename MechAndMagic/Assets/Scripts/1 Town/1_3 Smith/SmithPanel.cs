@@ -251,7 +251,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     #region Work Panels
     public void Btn_OpenWorkPanel(int workPanelIdx)
     {
-        if(workPanelIdx == 2 && !ItemManager.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        if(workPanelIdx == 2 && !GameManager.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             Debug.Log("이 장비는 옵션 변경이 불가능합니다.");
             return;
@@ -291,7 +291,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
     public void Btn_Fusion()
     {
-        if (ItemManager.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        if (GameManager.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             ItemManager.FusionEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
             selectedEquip = dummyEquip;
@@ -303,7 +303,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     public void Btn_SwitchOption()
     {
-        if (ItemManager.CanSwitchOption(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        if (GameManager.slotData.itemData.CanSwitchCommonStat(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             ItemManager.SwitchEquipOption(selectedEquip.Value.ebp.part, selectedEquip.Key);
             TokenBtnUpdate();
@@ -334,7 +334,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
    
     public void Btn_SkillLearn()
     {
-        if(ItemManager.IsLearned(selectedSkillbook.idx))
+        if(GameManager.slotData.itemData.IsLearned(selectedSkillbook.idx))
         {
             Debug.Log("이미 학습했습니다.");
             return;
