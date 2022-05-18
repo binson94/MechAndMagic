@@ -10,6 +10,7 @@ public enum TitleState
 
 public class TitleManager : MonoBehaviour
 {
+    /// <summary> 0 Title, 1 Start, 2 Option </summary>
     [SerializeField] GameObject[] uiPanels;
     [SerializeField] GameObject creditPanel;
 

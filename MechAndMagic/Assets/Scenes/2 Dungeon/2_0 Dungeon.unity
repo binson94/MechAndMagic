@@ -1479,11 +1479,11 @@ MonoBehaviour:
   scroll: {fileID: 564556622}
   scrollContent: {fileID: 1645544822}
   roomBGSprites:
-  - {fileID: 21300000, guid: acd8ea39ddaaa0d4196c811b1e26ab88, type: 3}
-  - {fileID: 21300000, guid: acd8ea39ddaaa0d4196c811b1e26ab88, type: 3}
-  - {fileID: 21300000, guid: acd8ea39ddaaa0d4196c811b1e26ab88, type: 3}
+  - {fileID: 21300000, guid: a84ecfd6c70eaf343a1d8a8a00a360ba, type: 3}
+  - {fileID: 21300000, guid: 44c1379524c4a8741a21f68997954071, type: 3}
+  - {fileID: 21300000, guid: 66f468ea20f3b7446812a4c544e90452, type: 3}
   roomSprites:
-  - {fileID: 21300000, guid: acd8ea39ddaaa0d4196c811b1e26ab88, type: 3}
+  - {fileID: 21300000, guid: b64abd0fbee1d0846a1a744257ccc88d, type: 3}
   - {fileID: 21300000, guid: 5fc57128b57fbd84f94aa1e8afce3be1, type: 3}
   - {fileID: 21300000, guid: c5653480465d07e40bf663469c714301, type: 3}
   - {fileID: 21300000, guid: dd205a5577d36314e90f62b5742c5871, type: 3}
