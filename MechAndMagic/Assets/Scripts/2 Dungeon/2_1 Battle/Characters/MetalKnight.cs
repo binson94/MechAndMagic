@@ -174,7 +174,7 @@ public class MetalKnight : Character
                                             if (HasSkill(73) && armorBreakCount[u] % 5 == 0)
                                             {
                                                 Skill s = SkillManager.GetSkill(2, 73);
-                                                u.GetDamage(this, u.buffStat[(int)Obj.currHP] * s.effectRate[0], buffStat[(int)Obj.PEN], 100);
+                                                u.GetDamage(this, u.buffStat[(int)Obj.currHP] / (float)u.buffStat[(int)Obj.HP] * s.effectRate[0], buffStat[(int)Obj.PEN], 100);
                                                 u.AddDebuff(this, orderIdx, s, 1, 0);
 
                                                 //오버파워 4세트 - 난도질 적용 시 버프 해제

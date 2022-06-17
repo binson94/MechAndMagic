@@ -44,11 +44,11 @@ public class DungeonManager : MonoBehaviour
         QuestShow();
         LoadPlayerInfo();
 
-        bgmSlider.value = (float)GameManager.sound.option.bgm;
-        sfxSlider.value = (float)GameManager.sound.option.sfx;
-        txtSpdSlider.value = GameManager.sound.option.txtSpd / 2f;
+        bgmSlider.value = (float)SoundManager.instance.option.bgm;
+        sfxSlider.value = (float)SoundManager.instance.option.sfx;
+        txtSpdSlider.value = SoundManager.instance.option.txtSpd / 2f;
         Btn_CloseOption();
-        GameManager.sound.PlayBGM(BGM.Battle1);
+        SoundManager.instance.PlayBGM(BGM.Battle1);
 
         void LoadPlayerInfo()
         {
@@ -95,7 +95,7 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        scroll.verticalNormalizedPosition = (float)GameManager.slotData.dungeonState.scroll;
+        scroll.verticalNormalizedPosition = (float)GameManager.slotData.dungeonState.mapScroll;
     }
     #endregion
 
@@ -163,8 +163,8 @@ public class DungeonManager : MonoBehaviour
     {
         optionPanel.SetActive(false);
     }
-    public void Slider_BGM() => GameManager.sound.BGMSet(bgmSlider.value);
-    public void Slider_SFX() => GameManager.sound.SFXSet(sfxSlider.value);
+    public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
+    public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
     public void Slider_TxtSpd()
     {
         PlayerPrefs.SetInt("TxtSpd", Mathf.RoundToInt(txtSpdSlider.value * 2));

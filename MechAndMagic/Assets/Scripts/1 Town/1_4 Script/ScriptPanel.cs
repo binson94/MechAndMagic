@@ -270,7 +270,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     #endregion Normal Dialog
 
     #region Special Event
-    void PlaySFX(int idx) => GameManager.sound.PlaySFX(idx);
+    void PlaySFX(int idx) => SoundManager.instance.PlaySFX(idx);
 
     void PlayStory(int idx)
     {

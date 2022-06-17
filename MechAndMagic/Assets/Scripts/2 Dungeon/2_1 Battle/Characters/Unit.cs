@@ -6,7 +6,7 @@ using System.Linq;
 //스텟 index - 12가지
 public enum Obj { None, currHP, HP, currAP, AP, ATK, DEF, ACC, DOG, CRC, CRB, PEN, SPD, 
     Stun, GetDmg, GiveDmg, LossPer, CurrPer, BuffCnt, DebuffCnt, MaxHP, Bleed, Burn, Cannon,
-    Cycle, Curse, Posion, Shield, Bomb, Venom, APCost };
+    Cycle, Curse, Posion, Shield, Bomb, Venom, Ghost, APCost };
 
 public class Unit : MonoBehaviour
 {

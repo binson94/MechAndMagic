@@ -8,14 +8,14 @@ public enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, Allie
 
 
 
-//1. ¹öÆ°°ú enemy 1:1 ¸ÅÄª, ¹öÆ° À§Ä¡ °íÁ¤
+//1. ë²„íŠ¼ê³¼ enemy 1:1 ë§¤ì¹­, ë²„íŠ¼ ìœ„ì¹˜ ê³ ì •
 public class BattleManager : MonoBehaviour
 {
     #region Variables
     BattleState state;
 
     #region CharList
-    //ÀüÅõ ÁßÀÎ ¸ğµç Ä³¸¯ÅÍ
+    //ì „íˆ¬ ì¤‘ì¸ ëª¨ë“  ìºë¦­í„°
     [SerializeField] List<Unit> allCharList = new List<Unit>();
     #endregion
 
@@ -30,22 +30,22 @@ public class BattleManager : MonoBehaviour
 
     #region Caster
     [Header("Caster")]
-    //Ä³¸¯ÅÍµéÀÇ TP ÃÖ´ëÄ¡, ÀüÅõ ½ÃÀÛ ½Ã °è»ê
+    //ìºë¦­í„°ë“¤ì˜ TP ìµœëŒ€ì¹˜, ì „íˆ¬ ì‹œì‘ ì‹œ ê³„ì‚°
     [SerializeField] TPSlider tpBars;
     Dictionary<Unit, int[]> charTP = new Dictionary<Unit, int[]>();
 
-    //TP¸¦ ÅëÇØ ¼±Á¤µÈ ÇöÀç ÅÏ ½ÇÇàÀÚ
+    //TPë¥¼ í†µí•´ ì„ ì •ëœ í˜„ì¬ í„´ ì‹¤í–‰ì
     Unit currCaster;
 
-    //TP°¡ µ¿ÀÏÇÒ ¶§, ¼Óµµ¿Í °ø¼Ó ±âÁØÀ¸·Î ¼ø¼­´ë·Î queue¿¡ ÀúÀå
+    //TPê°€ ë™ì¼í•  ë•Œ, ì†ë„ì™€ ê³µì† ê¸°ì¤€ìœ¼ë¡œ ìˆœì„œëŒ€ë¡œ queueì— ì €ì¥
     List<Unit> casterQueue = new List<Unit>();
     List<int> targetIdxs = new List<int>();
     #endregion
 
     #region UI
     [Header("UI")]
-    //¾Æ±º Å¸°Ù ¼±ÅÃ °ü·Ã
-    [SerializeField] GameObject startBtn;         //ÃÖÃÊ ÀüÅõ ½ÃÀÛ ¹öÆ°
+    //ì•„êµ° íƒ€ê²Ÿ ì„ íƒ ê´€ë ¨
+    [SerializeField] GameObject startBtn;         //ìµœì´ˆ ì „íˆ¬ ì‹œì‘ ë²„íŠ¼
     [SerializeField] GameObject turnEndBtn;
 
     [Header("Unit Status")]
@@ -56,17 +56,17 @@ public class BattleManager : MonoBehaviour
     int skillIdx;
     [Header("Skill Panel")]
     [SerializeField] Sprite[] skillIcons;
-    [SerializeField] GameObject skillBtnPanel;    //½ºÅ³ ¼±ÅÃ UI, ³» ÅÏ¿¡ È°¼ºÈ­
-    [SerializeField] SkillButton[] skillBtns;      //°¢°¢ ½ºÅ³ ¼±ÅÃ ¹öÆ°, ½ºÅ³ ¼ö¸¸Å­ È°¼ºÈ­
+    [SerializeField] GameObject skillBtnPanel;    //ìŠ¤í‚¬ ì„ íƒ UI, ë‚´ í„´ì— í™œì„±í™”
+    [SerializeField] SkillButton[] skillBtns;      //ê°ê° ìŠ¤í‚¬ ì„ íƒ ë²„íŠ¼, ìŠ¤í‚¬ ìˆ˜ë§Œí¼ í™œì„±í™”
     [SerializeField] GameObject skillTxtPanel;
     [SerializeField] Text[] skillTxts;
 
     bool isBoth = false;
     int isMinus = 0;
-    [SerializeField] GameObject skillChoosePanel; //ºñÀü ¸¶½ºÅÍ ½ºÅ³ ¼±ÅÃ
+    [SerializeField] GameObject skillChoosePanel; //ë¹„ì „ ë§ˆìŠ¤í„° ìŠ¤í‚¬ ì„ íƒ
 
-    [SerializeField] GameObject targetBtnPanel;   //Å¸°Ù ¼±ÅÃ UI, ½ºÅ³ ¼±ÅÃ ½Ã È°¼ºÈ­
-    [SerializeField] GameObject[] targetBtns;     //°¢°¢ Å¸°Ù ¼±ÅÃ ¹öÆ°, Å¸°Ù ¼ö¸¸Å­ È°¼ºÈ­
+    [SerializeField] GameObject targetBtnPanel;   //íƒ€ê²Ÿ ì„ íƒ UI, ìŠ¤í‚¬ ì„ íƒ ì‹œ í™œì„±í™”
+    [SerializeField] GameObject[] targetBtns;     //ê°ê° íƒ€ê²Ÿ ì„ íƒ ë²„íŠ¼, íƒ€ê²Ÿ ìˆ˜ë§Œí¼ í™œì„±í™”
 
     [Header("End Panel")]
     [SerializeField] GameObject winUI;
@@ -76,11 +76,11 @@ public class BattleManager : MonoBehaviour
     #endregion Variables
 
     #region Function_Start
-    //BGM Àç»ı, ¸ó½ºÅÍ ¹× Ä³¸¯ÅÍ »ı¼º
+    //BGM ì¬ìƒ, ëª¬ìŠ¤í„° ë° ìºë¦­í„° ìƒì„±
     public void OnStart()
     {
         //
-        GameManager.sound.PlayBGM(BGM.Battle1);
+        SoundManager.instance.PlayBGM(BGM.Battle1);
         if (GameManager.slotData.dungeonState.currRoomEvent > 100)
             roomInfo = new RoomInfo(1);
         else
@@ -95,7 +95,7 @@ public class BattleManager : MonoBehaviour
         {
             int i;
 
-            //¾Æ±º Ä³¸¯ÅÍ »ı¼º
+            //ì•„êµ° ìºë¦­í„° ìƒì„±
             Character c = Instantiate(alliePrefabs[GameManager.slotData.slotClass], alliePos.position, Quaternion.identity).GetComponent<Character>();
             for (i = 0; i < c.activeIdxs.Length; i++)
                 c.activeIdxs[i] = GameManager.slotData.activeSkills[i];
@@ -104,7 +104,7 @@ public class BattleManager : MonoBehaviour
 
             allCharList.Add(c);
 
-            //°ñ·½ »ı¼º
+            //ê³¨ë ˜ ìƒì„±
             if (GameManager.slotData.dungeonState.golemHP >= 0)
             {
                 Golem g = Instantiate(alliePrefabs[11], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Golem>();
@@ -114,7 +114,7 @@ public class BattleManager : MonoBehaviour
             else
                 allCharList.Add(DummyUnit);
 
-            //´øÀü Ç®¿¡ µû¸¥ Àû Ä³¸¯ÅÍ »ı¼º
+            //ë˜ì „ í’€ì— ë”°ë¥¸ ì  ìºë¦­í„° ìƒì„±
             for (i = 0; i < roomInfo.monsterCount; i++)
             {
                 Monster mon = Instantiate(enemyPrefabs[roomInfo.monsterIdx[i]], alliePos.position, Quaternion.identity).GetComponent<Monster>();
@@ -124,13 +124,13 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    //ÀüÅõ ½ÃÀÛ ½Ã 1¹ø¸¸ È£Ãâ, ¾Æ±º, Àû±º Á¤º¸ ºÒ·¯¿À±â, ¹öÇÁ ¹× µğ¹öÇÁ ¼³Á¤, TP°ª ÃÊ±âÈ­
+    //ì „íˆ¬ ì‹œì‘ ì‹œ 1ë²ˆë§Œ í˜¸ì¶œ, ì•„êµ°, ì êµ° ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°, ë²„í”„ ë° ë””ë²„í”„ ì„¤ì •, TPê°’ ì´ˆê¸°í™”
     public void BattleStart()
     {
         state = BattleState.Start;
         startBtn.SetActive(false);
 
-        //´øÀü ÀÌº¥Æ®·Î »ı±ä ¹öÇÁ, µğ¹öÇÁ Ã³¸®
+        //ë˜ì „ ì´ë²¤íŠ¸ë¡œ ìƒê¸´ ë²„í”„, ë””ë²„í”„ ì²˜ë¦¬
         foreach (DungeonBuff b in GameManager.slotData.dungeonState.dungeonBuffs)
             allCharList[0].turnBuffs.Add(new Buff(BuffType.Stat, allCharList[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
         foreach (DungeonBuff b in GameManager.slotData.dungeonState.dungeonDebuffs)
@@ -139,16 +139,16 @@ public class BattleManager : MonoBehaviour
         foreach (Unit c in allCharList)
             c.OnBattleStart(this);
 
-        //Ä³¸¯ÅÍ ÇöÀç Ã¼·Â ºÒ·¯¿À±â
+        //ìºë¦­í„° í˜„ì¬ ì²´ë ¥ ë¶ˆëŸ¬ì˜¤ê¸°
         if (GameManager.slotData.dungeonState.currHP > 0)
             allCharList[0].buffStat[(int)Obj.currHP] = GameManager.slotData.dungeonState.currHP;
         else
             allCharList[0].buffStat[(int)Obj.currHP] = allCharList[0].buffStat[(int)Obj.HP];
 
-        //µå·çÀÌµå - ºÎÈ° ¿©ºÎ ºÒ·¯¿À±â
+        //ë“œë£¨ì´ë“œ - ë¶€í™œ ì—¬ë¶€ ë¶ˆëŸ¬ì˜¤ê¸°
         if (allCharList[0].classIdx == 6)
             allCharList[0].GetComponent<Druid>().revive = GameManager.slotData.dungeonState.druidRevive;
-        //¸Åµå »çÀÌ¾ğÆ¼½ºÆ® - °ñ·½ Ã¼·Â ºÒ·¯¿À±â
+        //ë§¤ë“œ ì‚¬ì´ì–¸í‹°ìŠ¤íŠ¸ - ê³¨ë ˜ ì²´ë ¥ ë¶ˆëŸ¬ì˜¤ê¸°
         if (GameManager.slotData.dungeonState.golemHP == 0)
             allCharList[1].buffStat[(int)Obj.currHP] = allCharList[1].buffStat[(int)Obj.HP];
 
@@ -170,7 +170,7 @@ public class BattleManager : MonoBehaviour
     #endregion Function_Start
 
     #region Function_TP
-    //¼Óµµ°¡ º¯ÇßÀ» ¶§, TP ÃÖ´ë°ª ¾÷µ¥ÀÌÆ®
+    //ì†ë„ê°€ ë³€í–ˆì„ ë•Œ, TP ìµœëŒ€ê°’ ì—…ë°ì´íŠ¸
     void TPMaxUpdate()
     {
         foreach (Unit u in allCharList)
@@ -186,7 +186,7 @@ public class BattleManager : MonoBehaviour
             if (allCharList[i].isActiveAndEnabled)
                 tpBars.SetValue(i, (float)charTP[allCharList[i]][0] / charTP[allCharList[i]][1]);
     }
-    //´ÙÀ½ ÅÏ ½ÃÀüÀÚ Å½»ö
+    //ë‹¤ìŒ í„´ ì‹œì „ì íƒìƒ‰
     public void SelectNextCaster()
     {
         if (state == BattleState.Calc)
@@ -194,12 +194,12 @@ public class BattleManager : MonoBehaviour
 
         StartCoroutine(TPCalculate());
     }
-    //TP °è»ê
+    //TP ê³„ì‚°
     IEnumerator TPCalculate()
     {
         state = BattleState.Calc;
 
-        //TP°¡ Âù Ä³¸¯ÅÍ°¡ ÀÌ¹Ì ÀÖ´Â °æ¿ì
+        //TPê°€ ì°¬ ìºë¦­í„°ê°€ ì´ë¯¸ ìˆëŠ” ê²½ìš°
         if (casterQueue.Count > 0)
         {
             Unit u;
@@ -215,7 +215,7 @@ public class BattleManager : MonoBehaviour
 
         List<Unit> charged = new List<Unit>();
 
-        //TP »ó½Â
+        //TP ìƒìŠ¹
         while (charged.Count == 0)
         {
             foreach (Unit u in allCharList)
@@ -232,11 +232,11 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        //TP ÃÖ´ëÄ¡ µµ´Ş À¯´ÖÀÌ µÑ ÀÌ»óÀÎ °æ¿ì
+        //TP ìµœëŒ€ì¹˜ ë„ë‹¬ ìœ ë‹›ì´ ë‘˜ ì´ìƒì¸ ê²½ìš°
         if (charged.Count > 1)
         {
             Shuffle(charged);
-            //¼Óµµ - ·¹º§ ±âÁØ Á¤·Ä
+            //ì†ë„ - ë ˆë²¨ ê¸°ì¤€ ì •ë ¬
             charged.Sort(delegate (Unit a, Unit b)
             {
                 if (a.buffStat[(int)Obj.SPD] < b.buffStat[(int)Obj.SPD])
@@ -251,7 +251,7 @@ public class BattleManager : MonoBehaviour
             });
         }
 
-        //TP°¡ ÃÖ´ë¿¡ µµ´ŞÇÑ ¸ğµç Ä³¸¯ÅÍ¸¦ Queue¿¡ ÀúÀå
+        //TPê°€ ìµœëŒ€ì— ë„ë‹¬í•œ ëª¨ë“  ìºë¦­í„°ë¥¼ Queueì— ì €ì¥
         casterQueue = charged;
         currCaster = casterQueue[0]; casterQueue.RemoveAt(0);
         TurnAct();
@@ -273,7 +273,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    //´ÙÀ½ ÅÏ Çàµ¿ ´ë»óÀÌ ¼±Á¤µÇ¾úÀ» ¶§ È£Ãâ
+    //ë‹¤ìŒ í„´ í–‰ë™ ëŒ€ìƒì´ ì„ ì •ë˜ì—ˆì„ ë•Œ í˜¸ì¶œ
     void TurnAct()
     {
         if (allCharList.IndexOf(currCaster) < 2)
@@ -336,12 +336,12 @@ public class BattleManager : MonoBehaviour
     #endregion
 
     #region Function_AllieTurn
-    //¾Æ±º ÅÏÀÎ °æ¿ì, ¼±ÅÃ UI º¸ÀÌ±â, Ä³¸¯ÅÍ ½ºÅ³ ¼ö¿¡ µû¶ó ¹öÆ° È°¼ºÈ­, AP ÃÊ±âÈ­
+    //ì•„êµ° í„´ì¸ ê²½ìš°, ì„ íƒ UI ë³´ì´ê¸°, ìºë¦­í„° ìŠ¤í‚¬ ìˆ˜ì— ë”°ë¼ ë²„íŠ¼ í™œì„±í™”, AP ì´ˆê¸°í™”
     void AllieTurnStart()
     {
         if (state != BattleState.AllieTurnStart) return;
 
-        //Á¤·É, °ñ·½ - ¾Ë¾Æ¼­ Çàµ¿ ÈÄ ÅÏ Á¾·á
+        //ì •ë ¹, ê³¨ë ˜ - ì•Œì•„ì„œ í–‰ë™ í›„ í„´ ì¢…ë£Œ
         if (currCaster.classIdx == 11 || currCaster.classIdx == 12 || currCaster.IsStun())
         {
             currCaster.OnTurnStart();
@@ -366,7 +366,7 @@ public class BattleManager : MonoBehaviour
         }
 
     }
-    //½ºÅ³ ¼±ÅÃ ¹öÆ°, Å¸°Ù ¼±ÅÃ Ã¢ È°¼ºÈ­
+    //ìŠ¤í‚¬ ì„ íƒ ë²„íŠ¼, íƒ€ê²Ÿ ì„ íƒ ì°½ í™œì„±í™”
     public void Btn_SkillSelect(int idx)
     {
         if (state != BattleState.AllieTurnStart)
@@ -377,10 +377,10 @@ public class BattleManager : MonoBehaviour
         if (skillIdx == idx)
         {
             skillTxtPanel.SetActive(false);
-            //ºñÀü ¸¶½ºÅÍ ¼±ÅÃ ½ºÅ³
+            //ë¹„ì „ ë§ˆìŠ¤í„° ì„ íƒ ìŠ¤í‚¬
             if (skill.category == 1023)
             {
-                //µÑ ´Ù ½ÃÀü
+                //ë‘˜ ë‹¤ ì‹œì „
                 if (currCaster.GetComponent<VisionMaster>().skillState > 1)
                 {
                     isBoth = true;
@@ -388,7 +388,7 @@ public class BattleManager : MonoBehaviour
 
                     Skill minusS = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[idx] + 1);
 
-                    //Å¸°Ù ¼±ÅÃ
+                    //íƒ€ê²Ÿ ì„ íƒ
                     if (skill.targetSelect == 1 || minusS.targetSelect == 1)
                     {
                         isMinus = skill.targetSelect == 1 ? 0 : 1;
@@ -405,7 +405,7 @@ public class BattleManager : MonoBehaviour
 
                         skillIdx = idx;
                     }
-                    //Å¸°Ù ¹Ì¼±ÅÃ
+                    //íƒ€ê²Ÿ ë¯¸ì„ íƒ
                     else
                     {
                         state = BattleState.AllieTargetSelected;
@@ -420,7 +420,7 @@ public class BattleManager : MonoBehaviour
                             Win();
                     }
                 }
-                //ÇÏ³ª¸¸ ¼±ÅÃ ½ÃÀü
+                //í•˜ë‚˜ë§Œ ì„ íƒ ì‹œì „
                 else
                 {
                     isBoth = false;
@@ -432,7 +432,7 @@ public class BattleManager : MonoBehaviour
                     skillIdx = idx;
                 }
             }
-            //±× ¿Ü ½ºÅ³
+            //ê·¸ ì™¸ ìŠ¤í‚¬
             else
             {
                 Debug.Log(skill.name);
@@ -447,7 +447,7 @@ public class BattleManager : MonoBehaviour
                 if (IsUniqueCondition())
                     return;
 
-                //Å¸°Ù ¼±ÅÃ ½ºÅ³
+                //íƒ€ê²Ÿ ì„ íƒ ìŠ¤í‚¬
                 if (skill.targetSelect == 1)
                 {
                     targetIdxs.Clear();
@@ -456,13 +456,13 @@ public class BattleManager : MonoBehaviour
                     for (int i = 0; i < 3; i++)
                         targetBtns[i].SetActive(allCharList[i + 2].isActiveAndEnabled);
 
-                    //·£´ı Å¸°Ù, ÀüÃ¼ Å¸°Ù µî Å¸°Ù ¼±ÅÃÀÌ ÇÊ¿ä ¾ø´Â °æ¿ì ¿¹¿Ü Ã³¸®
+                    //ëœë¤ íƒ€ê²Ÿ, ì „ì²´ íƒ€ê²Ÿ ë“± íƒ€ê²Ÿ ì„ íƒì´ í•„ìš” ì—†ëŠ” ê²½ìš° ì˜ˆì™¸ ì²˜ë¦¬
                     skillBtnPanel.SetActive(false);
                     targetBtnPanel.SetActive(true);
 
                     skillIdx = idx;
                 }
-                //Å¸°Ù ¹Ì¼±ÅÃ ½ºÅ³
+                //íƒ€ê²Ÿ ë¯¸ì„ íƒ ìŠ¤í‚¬
                 else
                 {
                     state = BattleState.AllieTargetSelected;
@@ -484,7 +484,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             skillTxts[0].text = skill.name;
-            skillTxts[1].text = "±àÁ¤ ¼³¸í"; skillTxts[2].text= "ºÎÁ¤ ¼³¸í";
+            skillTxts[1].text = "ê¸ì • ì„¤ëª…"; skillTxts[2].text= "ë¶€ì • ì„¤ëª…";
             skillTxtPanel.SetActive(true);
             skillIdx = idx;
             for (int i = 0; i < skillBtns.Length; i++)
@@ -520,7 +520,7 @@ public class BattleManager : MonoBehaviour
             return false;
         }
     }
-    //ºñÀü ¸¶½ºÅÍ ½ºÅ³ ¼±ÅÃ ¹öÆ°
+    //ë¹„ì „ ë§ˆìŠ¤í„° ìŠ¤í‚¬ ì„ íƒ ë²„íŠ¼
     public void Btn_SkillChoose(int isMinus)
     {
         Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[skillIdx] + isMinus);
@@ -538,7 +538,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        //Å¸°Ù ¼±ÅÃ ½ºÅ³
+        //íƒ€ê²Ÿ ì„ íƒ ìŠ¤í‚¬
         if (skill.targetSelect == 1)
         {
             targetIdxs.Clear();
@@ -547,11 +547,11 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < 3; i++)
                 targetBtns[i].SetActive(allCharList[i + 2].isActiveAndEnabled);
 
-            //·£´ı Å¸°Ù, ÀüÃ¼ Å¸°Ù µî Å¸°Ù ¼±ÅÃÀÌ ÇÊ¿ä ¾ø´Â °æ¿ì ¿¹¿Ü Ã³¸®
+            //ëœë¤ íƒ€ê²Ÿ, ì „ì²´ íƒ€ê²Ÿ ë“± íƒ€ê²Ÿ ì„ íƒì´ í•„ìš” ì—†ëŠ” ê²½ìš° ì˜ˆì™¸ ì²˜ë¦¬
             skillChoosePanel.SetActive(false);
             targetBtnPanel.SetActive(true);
         }
-        //Å¸°Ù ¹Ì¼±ÅÃ ½ºÅ³
+        //íƒ€ê²Ÿ ë¯¸ì„ íƒ ìŠ¤í‚¬
         else
         {
             state = BattleState.AllieTargetSelected;
@@ -566,7 +566,7 @@ public class BattleManager : MonoBehaviour
                 Win();
         }
     }
-    //½ºÅ³ ¼±ÅÃ Ãë¼Ò ¹öÆ°, ½ºÅ³ ¼±ÅÃ Àü »óÅÂ·Î µ¹¾Æ°¨
+    //ìŠ¤í‚¬ ì„ íƒ ì·¨ì†Œ ë²„íŠ¼, ìŠ¤í‚¬ ì„ íƒ ì „ ìƒíƒœë¡œ ëŒì•„ê°
     public void Btn_SkillCancel()
     {
         skillIdx = -1;
@@ -581,7 +581,7 @@ public class BattleManager : MonoBehaviour
         skillChoosePanel.SetActive(false);
         skillBtnPanel.SetActive(true);
     }
-    //Å¸°Ù ¼±ÅÃ ¹öÆ°, ½ºÅ³ ½ÃÀü
+    //íƒ€ê²Ÿ ì„ íƒ ë²„íŠ¼, ìŠ¤í‚¬ ì‹œì „
     public void Btn_TargetSelect(int idx)
     {
         if (targetIdxs.Contains(idx))
@@ -621,10 +621,10 @@ public class BattleManager : MonoBehaviour
     public void Btn_UsePotion(int idx)
     {
         if (GameManager.slotData.dungeonState.potionUse[idx])
-            LogManager.instance.AddLog("ÀÌ¹Ì »ç¿ëÇß½À´Ï´Ù.");
+            LogManager.instance.AddLog("ì´ë¯¸ ì‚¬ìš©í–ˆìŠµë‹ˆë‹¤.");
         else
         {
-            //ÀçÈ°¿ë Æ÷¼Ç
+            //ì¬í™œìš© í¬ì…˜
             int potionIdx = GameManager.slotData.potionSlot[idx] == 13 ? GameManager.slotData.potionSlot[(idx + 1) % 2] : GameManager.slotData.potionSlot[idx];
 
             string potionLog = allCharList[0].GetComponent<Character>().CanUsePotion(potionIdx);
@@ -667,7 +667,7 @@ public class BattleManager : MonoBehaviour
     #endregion
 
     #region Function_EnemyTurn
-    //Àû ÅÏ, ¾Æ±º Ä³¸¯ÅÍ ´ë»óÀ¸·Î Á¤ÇØÁø ½ºÅ³ ½ÃÀü
+    //ì  í„´, ì•„êµ° ìºë¦­í„° ëŒ€ìƒìœ¼ë¡œ ì •í•´ì§„ ìŠ¤í‚¬ ì‹œì „
     void EnemyTurn()
     {
         if (state != BattleState.EnemyTurn)
@@ -712,7 +712,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < 2; i++) if (allCharList[i].isActiveAndEnabled) return false;
         return true;
     }
-    //½Â¸®, º¸»ó È¹µæ, Å½Çè °è¼Ó ÁøÇà
+    //ìŠ¹ë¦¬, ë³´ìƒ íšë“, íƒí—˜ ê³„ì† ì§„í–‰
     void Win()
     {
         skillBtnPanel.SetActive(false);
@@ -731,11 +731,11 @@ public class BattleManager : MonoBehaviour
         if (allCharList[0].classIdx == 6)
             GameManager.slotData.dungeonState.druidRevive = allCharList[0].GetComponent<Druid>().revive;
 
-        LogManager.instance.AddLog("½Â¸®");
+        LogManager.instance.AddLog("ìŠ¹ë¦¬");
 
         if (GameManager.slotData.dungeonState.currRoomEvent > 100)
         {
-            string drops = "µå¶ø ¸ñ·Ï\n";
+            string drops = "ë“œë ëª©ë¡\n";
             bossWinUI.SetActive(true);
             foreach (Triplet<DropType, int, int> token in GameManager.slotData.dungeonState.dropList)
                 drops = string.Concat(drops, token.first, " ", token.second, " ", token.third, "\n");
@@ -748,12 +748,12 @@ public class BattleManager : MonoBehaviour
     public void Btn_BackToMap()
     {
         GameManager.SwitchSceneData(SceneKind.Dungeon);
-        GameManager.UpdateBuff();
+        GameManager.UpdateDungeonBuff();
         QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
         UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
     }
 
-    //ÆĞ¹è, ÇöÀç±îÁöÀÇ º¸»ó¸¸ °¡Áø Ã¤ ¸¶À»·Î ±ÍÈ¯
+    //íŒ¨ë°°, í˜„ì¬ê¹Œì§€ì˜ ë³´ìƒë§Œ ê°€ì§„ ì±„ ë§ˆì„ë¡œ ê·€í™˜
     void Lose()
     {
         skillBtnPanel.SetActive(false);
@@ -778,7 +778,7 @@ public class BattleManager : MonoBehaviour
             charTP[u][0] = Mathf.Max(0, charTP[u][0] - amt);
     }
 
-    //¸Åµå »çÀÌ¾ğÆ¼½ºÆ®
+    //ë§¤ë“œ ì‚¬ì´ì–¸í‹°ìŠ¤íŠ¸
     public bool HasGolem() => allCharList[1].isActiveAndEnabled;
     public void GolemControl(KeyValuePair<int, List<Unit>> token)
     {
@@ -786,7 +786,7 @@ public class BattleManager : MonoBehaviour
             allCharList[1].GetComponent<Golem>().AddControl(token);
     }
 
-    //¿¤¸®¸àÅ» ÄÁÆ®·Ñ·¯
+    //ì—˜ë¦¬ë©˜íƒˆ ì»¨íŠ¸ë¡¤ëŸ¬
     public void SummonElemental(ElementalController caster, int type)
     {
         Unit tmp = allCharList[1];
@@ -847,7 +847,7 @@ public class BattleManager : MonoBehaviour
         TPImageUpdate();
     }
 
-    //¸ó½ºÅÍ
+    //ëª¬ìŠ¤í„°
     public bool ReloadBullet()
     {
         List<Monster> mons = new List<Monster>();
@@ -876,7 +876,7 @@ public class BattleManager : MonoBehaviour
         List<Unit> tmp = new List<Unit>();
         switch (idx)
         {
-            //¾Æ±º Ãø ·£´ı 1°³Ã¼
+            //ì•„êµ° ì¸¡ ëœë¤ 1ê°œì²´
             case 2:
                 if (HasUpgradedElemental())
                 {
@@ -890,31 +890,31 @@ public class BattleManager : MonoBehaviour
                 }
                 else
                     return RandomList(0, 1);
-            //¾Æ±º Ãø ÀüÃ¼
+            //ì•„êµ° ì¸¡ ì „ì²´
             case 3:
                 return AllList(0);
-            //Àû±º Ãø ·£´ı 1°³Ã¼
+            //ì êµ° ì¸¡ ëœë¤ 1ê°œì²´
             case 4:
                 return RandomList(1, 1);
-            //Àû±º Ãø ·£´ı 2°³Ã¼
+            //ì êµ° ì¸¡ ëœë¤ 2ê°œì²´
             case 5:
                 return RandomList(1, 2);
-            //Àû±º Ãø ÀüÃ¼
+            //ì êµ° ì¸¡ ì „ì²´
             case 6:
                 return AllList(1);
-            //ÇÇ¾Æ ¹Ì±¸ºĞ ·£´ı 1°³Ã¼
+            //í”¼ì•„ ë¯¸êµ¬ë¶„ ëœë¤ 1ê°œì²´
             case 7:
                 return RandomList(2, 1);
-            //ÇÇ¾Æ ¹Ì±¸ºĞ ·£´ı 2°³Ã¼
+            //í”¼ì•„ ë¯¸êµ¬ë¶„ ëœë¤ 2ê°œì²´
             case 8:
                 return RandomList(2, 2);
-            //ÇÇ¾Æ ¹Ì±¸ºĞ ·£´ı 3°³Ã¼
+            //í”¼ì•„ ë¯¸êµ¬ë¶„ ëœë¤ 3ê°œì²´
             case 9:
                 return RandomList(2, 3);
-            //ÇÇ¾Æ ¹Ì±¸ºĞ ·£´ı 4°³Ã¼
+            //í”¼ì•„ ë¯¸êµ¬ë¶„ ëœë¤ 4ê°œì²´
             case 10:
                 return RandomList(2, 4);
-            //ÇÇ¾Æ ¹Ì±¸ºĞ ÀüÃ¼
+            //í”¼ì•„ ë¯¸êµ¬ë¶„ ì „ì²´
             case 11:
                 return AllList(2);
             case 13:
@@ -953,22 +953,19 @@ public class BattleManager : MonoBehaviour
                     break;
             }
 
+            for (int i = 0; i < baseList.Count; i++)
+            Debug.Log(baseList[i].name);
+
             if (baseList.Count <= count)
                 return baseList;
 
-            List<int> random = new List<int>();
-            for (int i = 0; i < baseList.Count; i++)
-                random.Add(i);
-            for (int i = random.Count - 1; i > 0; i++)
+            for(int i = 0;i < count;i++)
             {
-                int rand = Random.Range(0, i);
-                int t = random[i];
-                random[i] = random[rand];
-                random[rand] = t;
+                int idx = Random.Range(0, baseList.Count);
+                tmp.Add(baseList[idx]);
+                baseList.RemoveAt(idx);
             }
 
-            for (int i = 0; i < count; i++)
-                tmp.Add(baseList[random[i]]);
             return tmp;
         }
         List<Unit> AllList(int type)

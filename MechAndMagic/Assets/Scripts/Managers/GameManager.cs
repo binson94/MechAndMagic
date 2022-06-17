@@ -5,53 +5,93 @@ using LitJson;
 
 public class GameManager : MonoBehaviour
 {
-    static GameManager instance = null;
-    public static SoundManager sound = null;
+    //singleton
+    static GameObject container;
+    static GameManager _instance = null;
+    public static GameManager instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                container = new GameObject();
+                container.name = "GameManager";
+                _instance = container.AddComponent(typeof(GameManager)) as GameManager;
 
-    [Header("Play Data")]
-    //0 : 기계 슬롯, 1 : 마법 슬롯
+                ItemManager.LoadData();
+                SkillManager.LoadData();
+
+                DontDestroyOnLoad(container);
+            }
+
+            return _instance;
+        }
+    }
+
     public const int SLOTMAX = 4;
-
-    public static int currSlot;
+    ///<summary> 현재 플레이 중인 슬롯 </summary>
+    static int currSlot;
+    ///<summary> 현재 플레이 중인 슬롯 데이터 관리 </summary>
     public static SlotData slotData;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            sound = transform.GetChild(0).GetComponent<SoundManager>();
-            Screen.SetResolution(1080, 1920, false);
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-    }
-
-    #region SlotCreate/Delete
-    public static void SwitchSceneData(SceneKind kind)
-    {
-        slotData.nowScene = kind;
-        SaveSlotData();
-    }
-    public static void LoadSlotData(int slot) => slotData = HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", currSlot = slot)));
-    public static void SaveSlotData() => PlayerPrefs.SetString(string.Concat("Slot", currSlot), ObjToHex(slotData));
-    public static void NewSlot(int slot, int slotClass)
+    #region SlotManage
+    ///<summary> 새로운 슬롯 생성 </summary>
+    public static void CreateNewSlot(int slot, int slotClass)
     {
         currSlot = slot;
         slotData = new SlotData(slotClass);
         SaveSlotData();
     }
-    public static void DeleteSlot(int slot) => PlayerPrefs.DeleteKey(string.Concat("Slot", slot));
-    #endregion SlotCreate/Delete
+    ///<summary> 슬롯 삭제 </summary>
+    public static void DeleteSlot(int slot) => PlayerPrefs.DeleteKey($"Slot{slot}");
+    ///<summary> 슬롯 불러오기 </summary>
+    public static void LoadSlotData(int slot) => slotData = HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", currSlot = slot)));
+    ///<summary> 슬롯 데이터 저장 </summary>
+    public static void SaveSlotData() => PlayerPrefs.SetString($"Slot{currSlot}", ObjToHex(slotData));
+    ///<summary> 씬 전환 시, 로드 시 불러올 씬 변경 </summary>
+    public static void SwitchSceneData(SceneKind kind)
+    {
+        slotData.nowScene = kind;
+        SaveSlotData();
+    } 
+    #endregion SlotManage
 
     #region Dungeon
+    ///<summary> 던전 입장 시 새로운 던전 정보 생성 </summary>
+    public static void SetNewDungeon(int dungeonIdx)
+    {
+        slotData.dungeonIdx = dungeonIdx;
+        slotData.dungeonState = new DungeonState(dungeonIdx);
+        SaveSlotData();
+    }
+    ///<summary> 던전 정보 삭제(던전 종료, 중단) </summary>
+    public static void RemoveDungeonData()
+    {
+        slotData.dungeonIdx = 0;
+        slotData.dungeonState = null;
+        SaveSlotData();
+    }
+    
+    ///<summary> 던전에서 해당 위치로 이동 가능 여부 반환 </summary>
+    public static bool CanMove(int[] newPos) => (newPos[0] == slotData.dungeonState.currPos[0] + 1 && slotData.dungeonState.GetCurrRoom().next.Contains(newPos[1]));
+    ///<summary> 던전에서 해당 위치로 이동 </summary>
+    public static void DungeonMove(int[] newPos, float newScroll)
+    {
+        slotData.dungeonState.currPos = newPos;
+        slotData.dungeonState.mapScroll = newScroll;
+        slotData.dungeonState.currRoomEvent = slotData.dungeonState.currDungeon.GetRoom(newPos[0], newPos[1]).roomEventIdx;
+        SaveSlotData();
+    }
+    ///<summary> 돌발퀘 방 입장 시, 다른 돌발퀘 방 이벤트로 변경 </summary>
+    public static void OutbreakDetermine(int[] pos) => slotData.dungeonState.currDungeon.QuestDetermined(pos);
+    
+    ///<summary> 경험치 획득 </summary>
     public static void GetExp(int amt)
     {
         if (slotData.lvl < 10)
         {
             slotData.exp += amt;
-            if (slotData.exp > SlotData.reqExp[slotData.lvl])
+            while (slotData.lvl < 10 && slotData.exp > SlotData.reqExp[slotData.lvl])
             {
                 slotData.exp -= SlotData.reqExp[slotData.lvl];
                 slotData.lvl++;
@@ -61,64 +101,52 @@ public class GameManager : MonoBehaviour
             SaveSlotData();
         }
     }
-
-    public static void SetNewDungeon(int dungeonIdx)
-    {
-        slotData.dungeonIdx = dungeonIdx;
-        slotData.dungeonState = new DungeonState(dungeonIdx);
-        SaveSlotData();
-    }
-    public static bool CanMove(int[] newPos) => (newPos[0] == slotData.dungeonState.currPos[0] + 1 && slotData.dungeonState.GetCurrRoom().next.Contains(newPos[1]));
-    public static void DungeonMove(int[] newPos, float newScroll)
-    {
-        slotData.dungeonState.currPos = newPos;
-        slotData.dungeonState.scroll = newScroll;
-        slotData.dungeonState.currRoomEvent = slotData.dungeonState.currDungeon.GetRoom(newPos[0], newPos[1]).roomEventIdx;
-        SaveSlotData();
-    }
-    public static void OutbreakDetermine(int[] pos) => slotData.dungeonState.currDungeon.QuestDetermined(pos);
+    ///<summary> 아이템 드롭 정보 저장 </summary>
     public static void DropSave(DropType type, int idx)
     {
         slotData.DropSave(type, idx);
         SaveSlotData();
     }
-    public static void RemoveDungeonData()
-    {
-        slotData.dungeonState = null;
-        SaveSlotData();
-    }
+
     #region Event
-    public static void GetExpPer(float rate) => GetExp(Mathf.RoundToInt(SlotData.reqExp[slotData.lvl] * rate / 100f));
-    public static void LossExpPer(float rate) => slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(SlotData.reqExp[slotData.lvl] * rate / 100f));
-    public static void GetHeal(float rate)
+    ///<summary> 긍정 이벤트 - 경험치 획득 </summary>
+    public static void EventGetExp(float rate) => GetExp(Mathf.RoundToInt(SlotData.reqExp[slotData.lvl] * rate / 100f));
+    ///<summary> 부정 이벤트 - 경험치 손실 </summary>
+    public static void EventLoseExp(float rate) => slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(SlotData.reqExp[slotData.lvl] * rate / 100f));
+    ///<summary> 긍정 이벤트 - 회복 </summary>
+    public static void EventGetHeal(float rate)
     {
         int heal = Mathf.RoundToInt(slotData.itemStats[(int)Obj.HP] * rate);
         slotData.dungeonState.currHP = Mathf.Min(slotData.dungeonState.currHP + heal, slotData.itemStats[(int)Obj.HP]);
         SaveSlotData();
     }
-    public static void GetDamage(float rate)
+    ///<summary> 부정 이벤트 - 피해 </summary>
+    public static void EventGetDamage(float rate)
     {
         int dmg = Mathf.RoundToInt(slotData.itemStats[(int)Obj.HP] * rate);
         slotData.dungeonState.currHP = Mathf.Max(slotData.dungeonState.currHP - dmg, 1);
     }
-    public static void AddBuff(DungeonBuff b)
+    ///<summary> 긍정 이벤트 - 버프 </summary>
+    public static void EventAddBuff(DungeonBuff b)
     {
         slotData.dungeonState.dungeonBuffs.Add(b);
         SaveSlotData();
     }
-    public static void AddDebuff(DungeonBuff b)
+    ///<summary> 부정 이벤트 - 디버프 </summary>
+    public static void EventAddDebuff(DungeonBuff b)
     {
         slotData.dungeonState.dungeonDebuffs.Add(b);
         SaveSlotData();
     }
-    public static void UpdateBuff()
+    ///<summary> 매 전투마다 던전 버프 지속시간 업데이트 </summary>
+    public static void UpdateDungeonBuff()
     {
         List<DungeonBuff> list = slotData.dungeonState.dungeonBuffs;
         for (int i = 0; i < list.Count; i++)
         {
             list[i].count--;
             if(list[i].count <= 0)
-                list.RemoveAt(i);
+                list.RemoveAt(i--);
         }
 
         list = slotData.dungeonState.dungeonDebuffs;
@@ -126,8 +154,9 @@ public class GameManager : MonoBehaviour
         {
             list[i].count--;
             if(list[i].count <= 0)
-                list.RemoveAt(i);
+                list.RemoveAt(i--);
         }
+
         SaveSlotData();
     }
     #endregion Event

@@ -10,7 +10,7 @@ public class OutbreakManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.sound.PlayBGM(BGM.Battle1);
+        SoundManager.instance.PlayBGM(BGM.Battle1);
 
         outbreakIdx = GameManager.slotData.dungeonState.currRoomEvent;
         outbreakTxt.text = QuestSlot.GetQuestScript(true, outbreakIdx);

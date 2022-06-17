@@ -155,7 +155,7 @@ RectTransform:
   m_Children:
   - {fileID: 440319028}
   m_Father: {fileID: 1568934849}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -207,8 +207,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -340,8 +340,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotDeleteNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelDeleteSlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -421,7 +421,7 @@ RectTransform:
   m_Children:
   - {fileID: 1001823340}
   m_Father: {fileID: 288077186}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -473,8 +473,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1069,7 +1069,7 @@ RectTransform:
   - {fileID: 1622543290}
   - {fileID: 1789259593}
   m_Father: {fileID: 1568934849}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1264,8 +1264,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotDelete
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_DeleteSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1657,81 +1657,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132247117}
   m_CullTransparentMesh: 0
---- !u!1 &144553697
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 144553698}
-  - component: {fileID: 144553700}
-  - component: {fileID: 144553699}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &144553698
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144553697}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 288077186}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &144553699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144553697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &144553700
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144553697}
-  m_CullTransparentMesh: 0
 --- !u!1 &144930846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,8 +1891,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2042,12 +1967,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 268232573}
   - {fileID: 2141181101}
   - {fileID: 1795295340}
   - {fileID: 1419842050}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2477,81 +2401,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212313814}
   m_CullTransparentMesh: 0
---- !u!1 &220223649
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 220223650}
-  - component: {fileID: 220223652}
-  - component: {fileID: 220223651}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &220223650
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220223649}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1568934849}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &220223651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220223649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &220223652
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220223649}
-  m_CullTransparentMesh: 0
 --- !u!1 &242444188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2671,8 +2520,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotDelete
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_DeleteSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2826,12 +2675,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 598886345}
   - {fileID: 888099991}
   - {fileID: 1193849525}
   - {fileID: 1480900526}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2912,81 +2760,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266929050}
-  m_CullTransparentMesh: 0
---- !u!1 &268232572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 268232573}
-  - component: {fileID: 268232575}
-  - component: {fileID: 268232574}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &268232573
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268232572}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 157657911}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &268232574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268232572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &268232575
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268232572}
   m_CullTransparentMesh: 0
 --- !u!1 &270475641
 GameObject:
@@ -3284,8 +3057,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3439,12 +3212,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 144553698}
   - {fileID: 1522977278}
   - {fileID: 427969205}
   - {fileID: 8994607}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3610,8 +3382,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4005,7 +3777,7 @@ RectTransform:
   - {fileID: 486517916}
   - {fileID: 64111740}
   m_Father: {fileID: 1631618935}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4164,8 +3936,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNew
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CreateNewSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4447,7 +4219,7 @@ RectTransform:
   m_Children:
   - {fileID: 1907446020}
   m_Father: {fileID: 288077186}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4499,8 +4271,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4632,8 +4404,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotLoad
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_LoadSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4992,12 +4764,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2074861866}
   - {fileID: 1165691849}
   - {fileID: 920242377}
   - {fileID: 1827867369}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5121,12 +4892,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1820726624}
   - {fileID: 1810235156}
   - {fileID: 1421596163}
   - {fileID: 1741524252}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5344,7 +5114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 494340548}
   m_Layer: 5
-  m_Name: Start Panel
+  m_Name: SlotSelect Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5836,8 +5606,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6120,7 +5890,7 @@ RectTransform:
   - {fileID: 769868603}
   - {fileID: 1758243712}
   m_Father: {fileID: 1221494300}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6315,8 +6085,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6438,156 +6208,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593784236}
-  m_CullTransparentMesh: 0
---- !u!1 &598886344
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 598886345}
-  - component: {fileID: 598886347}
-  - component: {fileID: 598886346}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &598886345
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598886344}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 265812157}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &598886346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598886344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &598886347
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598886344}
-  m_CullTransparentMesh: 0
---- !u!1 &636104132
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 636104133}
-  - component: {fileID: 636104135}
-  - component: {fileID: 636104134}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &636104133
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636104132}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1631618935}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &636104134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636104132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &636104135
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636104132}
   m_CullTransparentMesh: 0
 --- !u!1 &637872632
 GameObject:
@@ -6901,7 +6521,7 @@ RectTransform:
   m_Children:
   - {fileID: 1892202682}
   m_Father: {fileID: 1221494300}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6953,8 +6573,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7496,8 +7116,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNew
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CreateNewSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7761,7 +7381,7 @@ RectTransform:
   - {fileID: 1134238435}
   - {fileID: 1905643830}
   m_Father: {fileID: 1869969048}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7967,7 +7587,7 @@ RectTransform:
   - {fileID: 874496463}
   - {fileID: 1750519806}
   m_Father: {fileID: 265812157}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8228,8 +7848,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNew
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CreateNewSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8309,7 +7929,7 @@ RectTransform:
   m_Children:
   - {fileID: 1374431045}
   m_Father: {fileID: 455374675}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8361,8 +7981,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8722,75 +8342,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946008406}
   m_CullTransparentMesh: 0
---- !u!1001 &982997967
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3617403168957926434, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_Name
-      value: Game Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3617403168957926435, guid: e85672afdc7070d47be953b20812b39e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e85672afdc7070d47be953b20812b39e, type: 3}
 --- !u!1 &1001823339
 GameObject:
   m_ObjectHideFlags: 0
@@ -9129,7 +8680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1040941612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9141,6 +8692,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1345499060}
   - {fileID: 1221494300}
   - {fileID: 1568934849}
   - {fileID: 265812157}
@@ -9150,7 +8702,7 @@ RectTransform:
   - {fileID: 1631618935}
   - {fileID: 455374675}
   m_Father: {fileID: 1869969048}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9189,7 +8741,7 @@ RectTransform:
   m_Children:
   - {fileID: 1641339212}
   m_Father: {fileID: 1631618935}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9241,8 +8793,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9916,8 +9468,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotDelete
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_DeleteSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10075,7 +9627,7 @@ RectTransform:
   - {fileID: 1693726657}
   - {fileID: 1675935442}
   m_Father: {fileID: 455374675}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10552,7 +10104,7 @@ RectTransform:
   m_Children:
   - {fileID: 1277725433}
   m_Father: {fileID: 265812157}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10604,8 +10156,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10874,12 +10426,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1345499060}
   - {fileID: 577653981}
   - {fileID: 714996731}
   - {fileID: 1410454508}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10987,7 +10538,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1272377039
 GameObject:
@@ -11495,7 +11046,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1221494300}
+  m_Father: {fileID: 1040941612}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11625,8 +11176,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotLoad
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_LoadSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11706,7 +11257,7 @@ RectTransform:
   m_Children:
   - {fileID: 1203254357}
   m_Father: {fileID: 1631618935}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11758,8 +11309,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12120,8 +11671,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12201,7 +11752,7 @@ RectTransform:
   m_Children:
   - {fileID: 262245161}
   m_Father: {fileID: 1221494300}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12253,8 +11804,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12334,7 +11885,7 @@ RectTransform:
   m_Children:
   - {fileID: 86602780}
   m_Father: {fileID: 157657911}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12386,8 +11937,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12467,7 +12018,7 @@ RectTransform:
   m_Children:
   - {fileID: 2044872956}
   m_Father: {fileID: 480284640}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12519,8 +12070,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12727,8 +12278,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12860,8 +12411,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewBack
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelSlotSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13108,8 +12659,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotDelete
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_DeleteSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13189,7 +12740,7 @@ RectTransform:
   m_Children:
   - {fileID: 114329414}
   m_Father: {fileID: 265812157}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13241,8 +12792,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13522,7 +13073,7 @@ RectTransform:
   - {fileID: 1133500909}
   - {fileID: 720606355}
   m_Father: {fileID: 288077186}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13835,8 +13386,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClass
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_SelectClass
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14102,8 +13653,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotLoad
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_LoadSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14232,7 +13783,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1568934848
 GameObject:
@@ -14261,12 +13812,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 220223650}
   - {fileID: 73641280}
   - {fileID: 1809277503}
   - {fileID: 1259819}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14643,12 +14193,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 636104133}
   - {fileID: 327491860}
   - {fileID: 1351193102}
   - {fileID: 1062391602}
   m_Father: {fileID: 1040941612}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15301,7 +14850,7 @@ RectTransform:
   - {fileID: 1957063537}
   - {fileID: 528243306}
   m_Father: {fileID: 1869969048}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15419,7 +14968,7 @@ RectTransform:
   m_Children:
   - {fileID: 1864349515}
   m_Father: {fileID: 480284640}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15471,8 +15020,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15530,7 +15079,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745633923}
   m_Layer: 5
-  m_Name: NewClassSelect Panel
+  m_Name: ClassSelect Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15551,7 +15100,7 @@ RectTransform:
   - {fileID: 1311891970}
   - {fileID: 1444055565}
   m_Father: {fileID: 1869969048}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15768,8 +15317,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotLoad
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_LoadSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16259,7 +15808,7 @@ RectTransform:
   m_Children:
   - {fileID: 1937025317}
   m_Father: {fileID: 157657911}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16311,8 +15860,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16451,7 +16000,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1801166268
 GameObject:
@@ -16564,7 +16113,7 @@ RectTransform:
   m_Children:
   - {fileID: 1176176997}
   m_Father: {fileID: 1568934849}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16616,8 +16165,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16699,7 +16248,7 @@ RectTransform:
   - {fileID: 1187586302}
   - {fileID: 440212853}
   m_Father: {fileID: 480284640}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16773,81 +16322,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810235155}
-  m_CullTransparentMesh: 0
---- !u!1 &1820726623
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1820726624}
-  - component: {fileID: 1820726626}
-  - component: {fileID: 1820726625}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1820726624
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820726623}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 480284640}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1820726625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820726623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1820726626
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820726623}
   m_CullTransparentMesh: 0
 --- !u!1 &1823088646
 GameObject:
@@ -16939,7 +16413,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -17226,7 +16700,7 @@ RectTransform:
   m_Children:
   - {fileID: 2008704721}
   m_Father: {fileID: 455374675}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17278,8 +16752,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNewClassNo
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CancelClassSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17490,8 +16964,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotNew
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_CreateNewSlot
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17841,12 +17315,12 @@ RectTransform:
   - {fileID: 637872633}
   - {fileID: 857867493}
   - {fileID: 494340548}
-  - {fileID: 1721173863}
-  - {fileID: 853157576}
   - {fileID: 1745633923}
   - {fileID: 1040941612}
+  - {fileID: 1721173863}
+  - {fileID: 853157576}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18058,7 +17532,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -19018,8 +18492,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2102056651}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Btn_Start_SlotDeleteYes
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: Btn_ConfirmDeleteSlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19066,81 +18540,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070061407}
-  m_CullTransparentMesh: 0
---- !u!1 &2074861865
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2074861866}
-  - component: {fileID: 2074861868}
-  - component: {fileID: 2074861867}
-  m_Layer: 5
-  m_Name: Top Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2074861866
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074861865}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 455374675}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 825}
-  m_SizeDelta: {x: 1080, y: 270}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2074861867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074861865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2074861868
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2074861865}
   m_CullTransparentMesh: 0
 --- !u!1 &2089523560
 GameObject:
@@ -19301,7 +18700,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2102056651
 MonoBehaviour:
@@ -19318,6 +18717,8 @@ MonoBehaviour:
   uiPanels:
   - {fileID: 857867492}
   - {fileID: 494340547}
+  - {fileID: 1745633922}
+  - {fileID: 1040941611}
   - {fileID: 1721173862}
   creditPanel: {fileID: 853157575}
   bgmSlider: {fileID: 909784892}
@@ -19328,7 +18729,6 @@ MonoBehaviour:
   - {fileID: 391908676}
   - {fileID: 2135734461}
   - {fileID: 2089523562}
-  charSelectPanel: {fileID: 1745633922}
   charExplainPanels:
   - {fileID: 0}
   - {fileID: 1221494299}
@@ -19622,7 +19022,7 @@ RectTransform:
   - {fileID: 2055810645}
   - {fileID: 572190256}
   m_Father: {fileID: 157657911}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

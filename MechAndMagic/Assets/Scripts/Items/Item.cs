@@ -199,6 +199,7 @@ public class Equipment
         }
     }
 
+
     public Equipment(EquipBluePrint ebp)
     {
         this.ebp = ebp;
@@ -210,6 +211,16 @@ public class Equipment
 
         StatValueSet();
     }
+
+    public int CompareTo(Equipment e)
+    {
+        int ret = ebp.idx.CompareTo(ebp.idx);
+        if (ret == 0)
+            return star.CompareTo(star);
+
+        return ret;
+    }
+
     void SetMainStat()
     {
         //메인 스텟 결정

@@ -50,6 +50,7 @@ public class ElementalController : Character
             return;
         }
 
+        
         //200 불안정한 마법
         if (skill.idx == 200)
         {
@@ -59,6 +60,11 @@ public class ElementalController : Character
             //물 -> 무조건 명중
             else if (resentCategory == 1008)
                 skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ACC, 1, 999, 0, -1));
+        }
+        //208 응축된 조화
+        if(skill.idx == 208)
+        {
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, usedAP, 1, 0, -1));
         }
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(15);
@@ -159,9 +165,6 @@ public class ElementalController : Character
                         //193 원소 결합
                         if (skill.idx == 193)
                             dmg = dmg * 0.5f * (1 + elementalUsed.Count(x => x));
-                        //208 응축된 원소
-                        else if (skill.idx == 208)
-                            dmg = dmg * usedAP / 5f;
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)

@@ -6,13 +6,8 @@ public class SkillManager : MonoBehaviour
 {
     static SkillDB[] skillDB = new SkillDB[13];
 
-    private void Awake() => MakeDB();
-
-    static void MakeDB()
+    public static void LoadData()
     {
-        if (skillDB[1] != null)
-            return;
-
         skillDB[1] = new SkillDB("ArmedFighter", 1);
         skillDB[2] = new SkillDB("MetalKnight", 2);
         skillDB[3] = new SkillDB("Blaster", 3);

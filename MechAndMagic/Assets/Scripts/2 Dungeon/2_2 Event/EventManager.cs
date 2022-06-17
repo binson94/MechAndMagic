@@ -12,7 +12,7 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.sound.PlayBGM(BGM.Battle1);
+        SoundManager.instance.PlayBGM(BGM.Battle1);
         eventInfo = new EventInfo(GameManager.slotData.dungeonState.currRoomEvent);
         eventText.text = eventInfo.script;
 
@@ -26,10 +26,10 @@ public class EventManager : MonoBehaviour
             switch ((EventType)eventInfo.type[i])
             {
                 case EventType.GetEXP:
-                    GameManager.GetExpPer(eventInfo.typeRate[i]);
+                    GameManager.EventGetExp(eventInfo.typeRate[i]);
                     break;
                 case EventType.LossExp:
-                    GameManager.LossExpPer(eventInfo.typeRate[i]);
+                    GameManager.EventLoseExp(eventInfo.typeRate[i]);
                     break;
                 case EventType.GetItem:
                     int category = 0, amt;
@@ -81,16 +81,16 @@ public class EventManager : MonoBehaviour
                     ItemManager.ItemDrop(category, amt);
                     break;
                 case EventType.Heal:
-                    GameManager.GetHeal(eventInfo.typeRate[i]);
+                    GameManager.EventGetHeal(eventInfo.typeRate[i]);
                     break;
                 case EventType.Damage:
-                    GameManager.GetDamage(eventInfo.typeRate[i]);
+                    GameManager.EventGetDamage(eventInfo.typeRate[i]);
                     break;
                 case EventType.Buff:
-                    GameManager.AddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    GameManager.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     break;
                 case EventType.Debuff:
-                    GameManager.AddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    GameManager.EventAddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     break;
             }
         }

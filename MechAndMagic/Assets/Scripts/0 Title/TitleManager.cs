@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public enum TitleState
 {
-    Title, Start, Option
+    Title, SlotSelect, ClassSelect, ClassInfo, Option
 }
 
 public class TitleManager : MonoBehaviour
 {
-    /// <summary> 0 Title, 1 Start, 2 Option </summary>
+    ///<summary> 0 Title, 1 SlotSelect, 2ClassSelect, 3 ClassInfo, 4 Option </summary>
     [SerializeField] GameObject[] uiPanels;
+    ///<summary> option - credit 시 표시할 판넬 </summary>
     [SerializeField] GameObject creditPanel;
 
     #region Option
@@ -21,40 +22,40 @@ public class TitleManager : MonoBehaviour
     #endregion
 
     #region GameSlot
+    ///<summary> 슬롯 정보 판넬 </summary>
     [SerializeField] GameSlot[] slots;
 
+    ///<summary> 현재 선택 중인 슬롯 </summary>
     int currSlot = -1;
-    [SerializeField] GameObject charSelectPanel;
+    ///<summary> 현재 선택 중인 캐릭터 </summary>
     int currClass = -1;
+    ///<summary> 캐릭터 선택 시 보여줄 설명창 </summary>
     [SerializeField] GameObject[] charExplainPanels;
-
+    ///<summary> 슬롯 삭제 시 재확인창 </summary>
     [SerializeField] GameObject slotDeletePanel;
-    #endregion
+    #endregion GameSlot
+
     TitleState state;
 
     private void Start()
     {
         state = TitleState.Title;
-        bgmSlider.value = (float)GameManager.sound.option.bgm;
-        sfxSlider.value = (float)GameManager.sound.option.sfx;
-        txtSpdSlider.value = GameManager.sound.option.txtSpd / 2f;
+        bgmSlider.value = (float)SoundManager.instance.option.bgm;
+        sfxSlider.value = (float)SoundManager.instance.option.sfx;
+        txtSpdSlider.value = SoundManager.instance.option.txtSpd / 2f;
         
         PanelSet();
-        Start_SlotSet();
-        GameManager.sound.PlayBGM(BGM.Title);
+        SlotUpdate();
+        SoundManager.instance.PlayBGM(BGM.Title);
     }
 
-    #region Title
-    public void Btn_Title_Exit() => Application.Quit();
-    #endregion
-
     #region Option
-    public void Slider_BGM() => GameManager.sound.BGMSet(bgmSlider.value);
-    public void Slider_SFX() => GameManager.sound.SFXSet(sfxSlider.value);
+    public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
+    public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
     public void Slider_TxtSpd()
     {
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
-        GameManager.sound.TxtSet(txtSpdSlider.value * 2);
+        SoundManager.instance.TxtSet(txtSpdSlider.value * 2);
     }
 
     public void Btn_Option_Credit()
@@ -65,7 +66,8 @@ public class TitleManager : MonoBehaviour
     #endregion
 
     #region Start
-    public void Btn_Start_SlotLoad(int slot)
+    ///<summary> 진행 중이던 슬롯 불러옴 </summary>
+    public void Btn_LoadSlot(int slot)
     {
         GameManager.LoadSlotData(slot);
 
@@ -89,64 +91,70 @@ public class TitleManager : MonoBehaviour
     }
 
     #region start_New
-    public void Btn_Start_SlotNew(int slot)
+    ///<summary> 빈 슬롯 선택 - 캐릭터 선택 창 보여줌 </summary>
+    public void Btn_CreateNewSlot(int slot)
     {
         currSlot = slot;
-        charSelectPanel.SetActive(true);
-        uiPanels[(int)TitleState.Start].SetActive(false);
+        Btn_SelectPanel((int)TitleState.ClassSelect);
     }
-
-    public void Btn_Start_SlotNewBack()
+    ///<summary> 새로운 슬롯 생성 중, 취소 버튼 - 슬롯 선택 창으로 넘어감 </summary>
+    public void Btn_CancelSlotSelect()
     {
         currSlot = -1;
-        charSelectPanel.SetActive(false);
-        uiPanels[(int)TitleState.Start].SetActive(true);
+        Btn_SelectPanel((int)TitleState.SlotSelect);
     }
-
-    public void Btn_Start_SlotNewClass(int classIdx)
+    ///<summary> 캐릭터 선택 - 캐릭터 설명창 보여줌 </summary>
+    public void Btn_SelectClass(int classIdx)
     {
-        charSelectPanel.SetActive(false);
-        charExplainPanels[currClass = classIdx].SetActive(true);
+        currClass = classIdx;
+        for(int i = 1;i<=8;i++)
+            if(i == currClass)
+                charExplainPanels[i].SetActive(true); 
+            else
+                charExplainPanels[i].SetActive(false);
+
+        Btn_SelectPanel((int)TitleState.ClassInfo);
     }
-
-    public void Btn_Start_SlotNewClassYes()
+    ///<summary> 캐릭터 선택 확정 - 게임 시작 </summary>
+    public void Btn_ConfirmClassSelect()
     {
-        GameManager.NewSlot(currSlot, currClass);
+        GameManager.CreateNewSlot(currSlot, currClass);
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
-
-    public void Btn_Start_SlotNewClassNo()
+    ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>
+    public void Btn_CancelClassSelect()
     {
-        charSelectPanel.SetActive(true);
-        charExplainPanels[currClass].SetActive(false);
         currClass = -1;
+        Btn_SelectPanel((int)TitleState.ClassSelect);
     }
     #endregion start_New
 
     #region start_Delete
-    public void Btn_Start_SlotDelete(int slot)
+    ///<summary> 슬롯 삭제 버튼 </summary>
+    public void Btn_DeleteSlot(int slot)
     {
         currSlot = slot;
         slotDeletePanel.SetActive(true);
     }
-
-    public void Btn_Start_SlotDeleteYes()
+    ///<summary> 슬롯 삭제 확인 </summary>
+    public void Btn_ConfirmDeleteSlot()
     {
         GameManager.DeleteSlot(currSlot);
         currSlot = -1;
 
         slotDeletePanel.SetActive(false);
-        Start_SlotSet();
+        SlotUpdate();
     }
-
-    public void Btn_Start_SlotDeleteNo()
+    ///<summary> 슬롯 삭제 취소 </summary>
+    public void Btn_CancelDeleteSlot()
     {
         currSlot = -1;
         slotDeletePanel.SetActive(false);
     }
     #endregion start_Delete
 
-    private void Start_SlotSet()
+    ///<summary> 슬롯 정보 업데이트 </summary>
+    private void SlotUpdate()
     {
         for (int i = 0; i < GameManager.SLOTMAX; i++)
             slots[i].SlotUpdate(GameManager.HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", i))));
@@ -165,4 +173,6 @@ public class TitleManager : MonoBehaviour
             uiPanels[i].SetActive(i == (int)state);
         creditPanel.SetActive(false);
     }
+    
+    public void Btn_Title_Exit() => Application.Quit();
 }

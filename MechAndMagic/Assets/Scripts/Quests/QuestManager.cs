@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LitJson;
 using System.Linq;
 
 public enum QuestState
@@ -161,18 +160,6 @@ public class QuestSlot
 //퀘스트 정보 관리
 public class QuestManager : MonoBehaviour
 {
-    static QuestManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-            Destroy(gameObject);
-    }
-
     #region Quest Show
     //현재 수행 중인 퀘스트 정보 반환
     public static KeyValuePair<QuestBlueprint, int>[] GetCurrQuest() => GameManager.slotData.questData.GetCurrQuest();

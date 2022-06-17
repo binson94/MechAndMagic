@@ -171,7 +171,7 @@ public class Blaster : Character
                                 if (HasSkill(123))
                                 {
                                     Skill tmp = SkillManager.GetSkill(classIdx, 164);
-                                    u.GetDamage(this, dmg + u.buffStat[(int)Obj.HP] * tmp.effectRate[0], buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
+                                    u.GetDamage(this, dmg + u.buffStat[(int)Obj.currHP] * tmp.effectRate[0], buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
                                 }
                                 else
                                     u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);

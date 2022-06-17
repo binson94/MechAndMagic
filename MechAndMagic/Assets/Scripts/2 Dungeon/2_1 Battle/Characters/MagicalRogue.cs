@@ -336,7 +336,7 @@ public class MagicalRogue : Character
 
     protected override void Passive_SkillCast(Skill active)
     {
-        KeyValuePair<string, float[]> set;
+        KeyValuePair<string, float[]> set = ItemManager.GetSetData(24);
 
         for (int j = 0; j < passiveIdxs.Length; j++)
         {

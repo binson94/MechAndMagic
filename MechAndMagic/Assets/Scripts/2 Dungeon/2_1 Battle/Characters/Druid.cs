@@ -42,15 +42,15 @@ public class Druid : Character
         //226 자생력 - 생명력 비례 회복
         if (HasSkill(226))
         {
-            GetHeal(SkillManager.GetSkill(6, 226).effectRate[0] * currVitality);
+            //243 증폭된 자생력 - 더 회복
+            if (HasSkill(243))
+                GetHeal(SkillManager.GetSkill(6, 243).effectRate[0] * currVitality);
+            else
+                GetHeal(SkillManager.GetSkill(6, 226).effectRate[0] * currVitality);
 
             //자연의 선물 2세트 - 자생력 발동 시 무작위 디버프 1개 해제
             if (set.Value[0] > 0)
                 RemoveDebuff(1);
-
-            //243 증폭된 자생력 - 더 회복
-            if (HasSkill(243))
-                GetHeal(SkillManager.GetSkill(6, 243).effectRate[0] * currVitality * buffStat[(int)Obj.HP]);
         }
         //236 정화 작용
         if (HasSkill(236) && (set.Value[1] > 0 || turnNum % 2 == 0) && turnDebuffs.Count > 0)
@@ -248,7 +248,7 @@ public class Druid : Character
 
                             //238 거인의 타격 - 적 속도 반비례 명중 상승
                             if (skill.idx == 238)
-                                acc += Mathf.RoundToInt(skill.effectRate[2] / Mathf.Max(1, u.buffStat[(int)Obj.SPD]));
+                                acc += 50 - u.buffStat[(int)Obj.SPD];
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
@@ -358,7 +358,7 @@ public class Druid : Character
     public override void GetHeal(float heal)
     {
         if (rooted)
-            heal *= 1.3f;
+            heal *= 2f;
         buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.HP], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
     }
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
