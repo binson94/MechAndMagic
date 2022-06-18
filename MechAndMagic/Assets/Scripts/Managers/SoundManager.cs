@@ -20,7 +20,7 @@ public class SoundManager : MonoBehaviour
             {
                 container = new GameObject();
                 container.name = "SoundManager";
-                _instance = container.AddComponent(typeof(SoundManager)) as SoundManager;
+                _instance = container.AddComponent<SoundManager>();
 
                 MakeAudioSource();
                 LoadResources();
@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
     }
     public void TxtSet(float val)
     {
-        option.txtSpd = Mathf.RoundToInt(val);
+        option.txtSpd = 2 * (int)val;
         SaveOption();
     }
 
@@ -113,10 +113,10 @@ public class SoundManager : MonoBehaviour
     public void PlayBGM(BGM idx)
     {
         AudioClip tmp;
-        if (GameManager.slotData == null)
+        if (GameManager.instance.slotData == null)
             tmp = mechBgms[(int)idx];
         else
-            tmp = GameManager.slotData.slotClass < 5 ? mechBgms[(int)idx] : magicBgms[(int)idx];
+            tmp = GameManager.instance.slotData.slotClass < 5 ? mechBgms[(int)idx] : magicBgms[(int)idx];
 
         if (BGM.clip != tmp)
         {
@@ -124,11 +124,11 @@ public class SoundManager : MonoBehaviour
             BGM.Play();
         }
     }
-
     public void PlaySFX(int idx)
     {
         SFX.PlayOneShot(sfxs[idx]);
     }
+    public int GetTxtSpd() => option.txtSpd;
 }
 
 public class Option

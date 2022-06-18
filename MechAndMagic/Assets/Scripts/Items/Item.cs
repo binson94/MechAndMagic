@@ -11,7 +11,7 @@ public enum EquipPart
 }
 public enum ItemCategory
 {
-    None, Weapon, Armor, Accessory, Recipe, Skillbook, Resource, Potion
+    None, Weapon, Armor, Accessory, Recipe, Skillbook, Resource
 }
 public enum Rarity
 {
@@ -376,29 +376,24 @@ public class Equipment
     }
 }
 
-public class Recipe
-{
-    public int idx;
-    public int category;
-
-    public int count;
-}
-
 public class Skillbook
 {
     public int idx;
-    public int lvl;
-    public int type;        //0 : active, 1 : passive
-
     public int count;
+
+    public Skillbook() {}
+    public Skillbook(int idx, int count)
+    {
+        this.idx = idx; this.count = count;
+    }
 }
 
 public class Potion
 {
     public int idx;
     public string name;
-    public int count;
-    public float[] rate;
+    public int effectCount;
+    public float[] effectRate;
 
     static JsonData json;
     static int startIdx;
@@ -414,9 +409,9 @@ public class Potion
     {
         this.idx = idx;
         name = json[idx - startIdx]["name"].ToString();
-        count = (int)json[idx - startIdx]["count"];
-        rate = new float[count];
-        for(int i = 0;i < count;i++)
-            rate[i] = float.Parse(json[idx - startIdx]["rate"][i].ToString());
+        effectCount = (int)json[idx - startIdx]["count"];
+        effectRate = new float[effectCount];
+        for(int i = 0;i < effectCount;i++)
+            effectRate[i] = float.Parse(json[idx - startIdx]["rate"][i].ToString());
     }
 }

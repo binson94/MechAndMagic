@@ -3,40 +3,529 @@
     "name": "없음",
     "idx": 0,
     "script": "0",
+    "getScript": "",
+    "doneScript": "",
     "type": 0,
     "objectIdx": 0,
     "objectAmt": 0,
-    "rewardIdx": 0,
-    "rewardAmt": 0
-  },
+    "rewardCount": 0,
+    "rewardIdx": [
+       0,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       0,
+       0,
+       0,
+       0
+    ]
+ },
   {
     "name": "돌발 적 처치",
     "idx": 1,
-    "script": "돌발 상황 발생. 아무 몬스터나 3마리 때려 잡아주세요.",
+    "script": "적 5개체 소탕",
+    "getScript": "갑작스럽게 몰려오는 적들을 물리치자.",
+    "doneScript": "소탕 성공. 적들은 겁에 질렸다.",
     "type": 1,
     "objectIdx": 0,
-    "objectAmt": 3,
-    "rewardIdx": 150,
-    "rewardAmt": 3
-  },
+    "objectAmt": 5,
+    "rewardCount": 2,
+    "rewardIdx": [
+       15,
+       14,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       20,
+       5,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 적 처치",
+    "idx": 2,
+    "script": "적 10개체 소탕",
+    "getScript": "이곳의 원활한 재진입을 위해 적들을 모두 처리하자.",
+    "doneScript": "소탕 성공. 이곳은 정화되었다.",
+    "type": 1,
+    "objectIdx": 0,
+    "objectAmt": 10,
+    "rewardCount": 1,
+    "rewardIdx": [
+       14,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       20,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 적 처치",
+    "idx": 3,
+    "script": "적 10개체 소탕",
+    "getScript": "갑작스럽게 몰려오는 적들을 물리치자.",
+    "doneScript": "소탕 성공. 적들은 겁에 질렸다.",
+    "type": 1,
+    "objectIdx": 0,
+    "objectAmt": 10,
+    "rewardCount": 2,
+    "rewardIdx": [
+       14,
+       13,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       40,
+       5,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 적 처치",
+    "idx": 4,
+    "script": "적 15개체 소탕",
+    "getScript": "이곳의 원활한 재진입을 위해 적들을 모두 처리하자.",
+    "doneScript": "소탕 성공. 이곳은 정화되었다.",
+    "type": 1,
+    "objectIdx": 0,
+    "objectAmt": 15,
+    "rewardCount": 1,
+    "rewardIdx": [
+       13,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       20,
+       0,
+       0,
+       0
+    ]
+ },
   {
     "name": "돌발 체력 유지",
-    "idx": 2,
-    "script": "체력 30% 이상 유지",
+    "idx": 5,
+    "script": "전투 종료마다 체력 30% 이상 항상 유지",
+    "getScript": "은둔 고수를 만났다. \n\"자네가 이 곳을 나갈 때까지 치명적인 피해를 입지 않으면 보상을 주도록 하지.\"",
+    "doneScript": "그는 작은 선물을 두고 사라졌다.",
     "type": 8,
     "objectIdx": 0,
     "objectAmt": 30,
-    "rewardIdx": 150,
-    "rewardAmt": 3
-  },
+    "rewardCount": 1,
+    "rewardIdx": [
+       3,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       5,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 체력 유지",
+    "idx": 6,
+    "script": "전투 종료마다 체력 45% 이상 항상 유지",
+    "getScript": "은둔 고수를 만났다. \n\"자네가 이 곳을 나갈 때까지 큰 피해를 입지 않으면 보상을 주도록 하지.\"",
+    "doneScript": "그는 상당한 선물을 두고 사라졌다.",
+    "type": 8,
+    "objectIdx": 0,
+    "objectAmt": 45,
+    "rewardCount": 1,
+    "rewardIdx": [
+       2,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       5,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 체력 유지",
+    "idx": 7,
+    "script": "전투 종료마다 체력 60% 이상 항상 유지",
+    "getScript": "은둔 고수를 만났다. \n\"자네가 이 곳을 나갈 때까지 작은 피해도 입지 않으면 보상을 주도록 하지.\"",
+    "doneScript": "그는 귀중한 선물을 두고 사라졌다.",
+    "type": 8,
+    "objectIdx": 0,
+    "objectAmt": 60,
+    "rewardCount": 1,
+    "rewardIdx": [
+       1,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       5,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 체력 유지",
+    "idx": 8,
+    "script": "전투 종료마다 체력 70% 이하 항상 유지",
+    "getScript": "섬뜩한 광인을 만났다. \n\"상처는. 모험가를. 용감하게. 만든다. 겁쟁이. 약간쯤은. 아픈게. 좋다.\"",
+    "doneScript": "그녀의 말대로 약간의 용기를 얻었다.",
+    "type": 8,
+    "objectIdx": 0,
+    "objectAmt": 70,
+    "rewardCount": 1,
+    "rewardIdx": [
+       150,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       200,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 체력 유지",
+    "idx": 9,
+    "script": "전투 종료마다 체력 55% 이하 항상 유지",
+    "getScript": "섬뜩한 광인을 만났다. \n\"고통은. 용사를. 굳게. 만든다. 계속. 아파라. 그것이. 너를. 성장. 시킨다.\"",
+    "doneScript": "그녀의 말대로 전보다 확실히 성장했다.",
+    "type": 8,
+    "objectIdx": 0,
+    "objectAmt": 55,
+    "rewardCount": 1,
+    "rewardIdx": [
+       150,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       350,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 체력 유지",
+    "idx": 10,
+    "script": "전투 종료마다 체력 40% 이하 항상 유지",
+    "getScript": "섬뜩한 광인을 만났다. \n\"죽음은. 그것에. 대한 두려움을. 즐겨라. 그 때 너는. 범접할 수 없는. 인물이 된다.\"",
+    "doneScript": "가르침을 스스로 깨우쳤다. 상처, 고통, 죽음을 피하지 않게 되었다.",
+    "type": 8,
+    "objectIdx": 0,
+    "objectAmt": 40,
+    "rewardCount": 1,
+    "rewardIdx": [
+       150,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       600,
+       0,
+       0,
+       0
+    ]
+ },
   {
     "name": "돌발 전투 승리",
-    "idx": 3,
-    "script": "전투 3회 승리",
+    "idx": 11,
+    "script": "다음 1번의 전투 승리",
+    "getScript": "길 잃은 행인을 만났다. \"여기는 너무 위험해요. 나를 가까이 보이는 저 곳에 데려가주세요.\"",
+    "doneScript": "행인은 감사의 표시로 약간의 보석을 줬다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 1,
+    "rewardCount": 1,
+    "rewardIdx": [
+       12,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 12,
+    "script": "다음 1번의 전투 승리",
+    "getScript": "적들에게 둘러싸인 동료를 만났다. \"앞의 녀석들을 쓰러트리는 걸 도와주겠어?\"",
+    "doneScript": "동료를 도왔다. 적들의 기세가 꺾였다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 1,
+    "rewardCount": 1,
+    "rewardIdx": [
+       11,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 13,
+    "script": "다음 1번의 전투 승리",
+    "getScript": "쓰러진 기사를 만났다. \"내가 회복할 시간을 잠시만 벌어주게.\"",
+    "doneScript": "그는 충분히 회복하였고 자신의 무기 중 하나를 주고 떠났다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 1,
+    "rewardCount": 1,
+    "rewardIdx": [
+       10,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 14,
+    "script": "다음 1번의 전투 승리",
+    "getScript": "쓰러진 정령사를 만났다. \"내가 회복할 시간을 잠시만 벌어주게.\"",
+    "doneScript": "그는 충분히 회복하였고 자신의 무기 중 하나를 주고 떠났다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 1,
+    "rewardCount": 1,
+    "rewardIdx": [
+       10,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 15,
+    "script": "다음 2번의 전투 승리",
+    "getScript": "길 잃은 행인을 만났다. \"여기는 너무 위험해요. 나를 저 멀리 보이는 곳에 데려가주세요.\"",
+    "doneScript": "행인은 감사의 표시로 많은 보석을 줬다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 2,
+    "rewardCount": 1,
+    "rewardIdx": [
+       9,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 16,
+    "script": "다음 2번의 전투 승리",
+    "getScript": "적들에게 둘러싸인 동료를 만났다. \"당분간 적들과의 전투를 도와주겠어?\"",
+    "doneScript": "동료를 도왔다. 적들의 수가 눈에 띄게 줄었다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 2,
+    "rewardCount": 1,
+    "rewardIdx": [
+       8,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 17,
+    "script": "다음 2번의 전투 승리",
+    "getScript": "쓰러진 기사를 만났다. \"내가 회복할 시간을 잠시만 벌어주게.\"",
+    "doneScript": "그는 충분히 회복하였고 자신의 무기 중 하나를 주고 떠났다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 2,
+    "rewardCount": 1,
+    "rewardIdx": [
+       7,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 18,
+    "script": "다음 2번의 전투 승리",
+    "getScript": "쓰러진 정령사를 만났다. \"내가 회복할 시간을 잠시만 벌어주게.\"",
+    "doneScript": "그는 충분히 회복하였고 자신의 무기 중 하나를 주고 떠났다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 2,
+    "rewardCount": 1,
+    "rewardIdx": [
+       7,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 19,
+    "script": "다음 3번의 전투 승리",
+    "getScript": "길 잃은 행인을 만났다. \"이 지옥 같은 곳에서 벗어날 수 있도록, 적들을 모두 물리쳐주세요.\"",
+    "doneScript": "행인은 감사의 표시로 가진 모든 것을 줬다.",
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 3,
-    "rewardIdx": 150,
-    "rewardAmt": 3
-  }
+    "rewardCount": 1,
+    "rewardIdx": [
+       6,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 20,
+    "script": "다음 3번의 전투 승리",
+    "getScript": "적들에게 둘러싸인 동료를 만났다. \"이 곳을 소탕하라는 명을 받았다. 당신도 나를 도와주길 바라.\"",
+    "doneScript": "동료를 도왔다. 우리 진영의 승리에 한발짝 가까워졌다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 3,
+    "rewardCount": 1,
+    "rewardIdx": [
+       5,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 21,
+    "script": "다음 3번의 전투 승리",
+    "getScript": "쓰러진 기사를 만났다. \"내가 회복할 시간을 잠시만 벌어주게.\"",
+    "doneScript": "그는 충분히 회복하였고 자신의 무기 중 하나를 주고 떠났다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 3,
+    "rewardCount": 1,
+    "rewardIdx": [
+       4,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ },
+  {
+    "name": "돌발 전투 승리",
+    "idx": 22,
+    "script": "다음 3번의 전투 승리",
+    "getScript": "쓰러진 정령사를 만났다. \"내가 회복할 시간을 잠시만 벌어주게.\"",
+    "doneScript": "그는 충분히 회복하였고 자신의 무기 중 하나를 주고 떠났다.",
+    "type": 2,
+    "objectIdx": 0,
+    "objectAmt": 3,
+    "rewardCount": 1,
+    "rewardIdx": [
+       4,
+       0,
+       0,
+       0
+    ],
+    "rewardAmt": [
+       2,
+       0,
+       0,
+       0
+    ]
+ }
  ]

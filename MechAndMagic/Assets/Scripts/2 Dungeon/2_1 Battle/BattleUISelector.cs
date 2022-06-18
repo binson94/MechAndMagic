@@ -8,7 +8,7 @@ public class BattleUISelector : MonoBehaviour
 
     private void Start() 
     {
-        for (int i = 0; i < 2; i++) BMs[i].gameObject.SetActive(GameManager.slotData.slotClass < 5 ^ i == 1);
-        (GameManager.slotData.slotClass < 5 ? BMs[0] : BMs[1]).OnStart();
+        for (int i = 0; i < 2; i++) BMs[i].gameObject.SetActive(GameManager.instance.slotData.slotClass < 5 ^ i == 1);
+        (GameManager.instance.slotData.slotClass < 5 ? BMs[0] : BMs[1]).OnStart();
     }
 }

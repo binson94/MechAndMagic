@@ -35,10 +35,10 @@ public class TownManager : MonoBehaviour
     private void Start()
     {
         for (int i = 0; i < 2; i++)
-            canvases[i].SetActive(GameManager.slotData.slotClass < 5 ^ i == 1);
-        uiPanels = GameManager.slotData.slotClass < 5 ? mechUiPanels : magicUiPanels;
-        bgImage = (GameManager.slotData.slotClass < 5 ? canvases[0].transform.GetChild(0) : canvases[1].transform.GetChild(0)).GetComponent<Image>();
-        bgImage.sprite = bgSprites[2 * (GameManager.slotData.slotClass / 5)];
+            canvases[i].SetActive(GameManager.instance.slotData.slotClass < 5 ^ i == 1);
+        uiPanels = GameManager.instance.slotData.slotClass < 5 ? mechUiPanels : magicUiPanels;
+        bgImage = (GameManager.instance.slotData.slotClass < 5 ? canvases[0].transform.GetChild(0) : canvases[1].transform.GetChild(0)).GetComponent<Image>();
+        bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5)];
         
         state = TownState.Town;
         townPanels = new ITownPanel[uiPanels.Length];
@@ -97,8 +97,8 @@ public class TownManager : MonoBehaviour
     public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
     public void Slider_TxtSpd()
     {
-        PlayerPrefs.SetInt("TxtSpd", Mathf.RoundToInt(txtSpdSlider.value * 2));
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
+        SoundManager.instance.TxtSet(txtSpdSlider.value);
     }
 
     public void Btn_OpenCredit()

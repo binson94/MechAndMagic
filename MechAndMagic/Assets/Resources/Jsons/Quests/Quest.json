@@ -21,147 +21,651 @@
      ]
   },
    {
-     "name": "적 처치",
+     "name": "스승과의 재회",
      "idx": 1,
-     "script": "아무 적 처치 3회",
-     "type": 1,
-     "objectIdx": 0,
-     "objectAmt": 3,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        3,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "전투",
-     "idx": 2,
-     "script": "전투 시행",
-     "type": 2,
-     "objectIdx": 0,
-     "objectAmt": 5,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        3,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "이벤트",
-     "idx": 3,
-     "script": "이벤트 시행",
-     "type": 3,
-     "objectIdx": 0,
-     "objectAmt": 5,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        3,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "돌발퀘",
-     "idx": 4,
-     "script": "돌발퀘 클리어",
-     "type": 4,
-     "objectIdx": 0,
-     "objectAmt": 3,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        3,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "방 탐험",
-     "idx": 5,
-     "script": "방 탐험",
-     "type": 5,
-     "objectIdx": 0,
-     "objectAmt": 15,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        3,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "던전 클",
-     "idx": 6,
-     "script": "아무 던전 클리어",
+     "script": "던전 '마을 광장' 1회 클리어",
      "type": 6,
-     "objectIdx": 0,
-     "objectAmt": 3,
+     "objectIdx": 1,
+     "objectAmt": 1,
      "rewardCount": 1,
      "rewardIdx": [
-        150,
+        0,
         0,
         0,
         0
      ],
      "rewardAmt": [
-        3,
+        0,
         0,
         0,
         0
      ]
   },
    {
-     "name": "레벨 달성",
+     "name": "완벽한 재건",
+     "idx": 2,
+     "script": "던전 '새벽 노을의 언덕' 1회 클리어",
+     "type": 6,
+     "objectIdx": 2,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "추격",
+     "idx": 3,
+     "script": "던전 '야시장' 1회 클리어",
+     "type": 6,
+     "objectIdx": 3,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "강도 소탕",
+     "idx": 4,
+     "script": "던전 '강도 소굴' 1회 클리어",
+     "type": 6,
+     "objectIdx": 4,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "초대받지 못한 손님",
+     "idx": 5,
+     "script": "던전 '탑 1층 면회장' 1회 클리어",
+     "type": 6,
+     "objectIdx": 5,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "흐름 차단",
+     "idx": 6,
+     "script": "던전 '탑 3층 면회장' 1회 클리어",
+     "type": 6,
+     "objectIdx": 7,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "탑 안정화",
      "idx": 7,
-     "script": "레벨 달성",
+     "script": "던전 '탑 4층 망루' 1회 클리어",
+     "type": 6,
+     "objectIdx": 8,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "대의를 위해",
+     "idx": 8,
+     "script": "17구역을 떠날 준비하고 5레벨 달성",
      "type": 7,
      "objectIdx": 0,
      "objectAmt": 5,
      "rewardCount": 1,
      "rewardIdx": [
-        150,
+        0,
         0,
         0,
         0
      ],
      "rewardAmt": [
-        3,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "생존술 터득",
+     "idx": 9,
+     "script": "체력 70% 이상 남기고 아무 던전 클리어",
+     "type": 8,
+     "objectIdx": 0,
+     "objectAmt": 70,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "정보 수집",
+     "idx": 10,
+     "script": "아무 방 30개 진입",
+     "type": 5,
+     "objectIdx": 0,
+     "objectAmt": 30,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "엔트로피 수집",
+     "idx": 11,
+     "script": "아무 적 40개체 처치",
+     "type": 1,
+     "objectIdx": 0,
+     "objectAmt": 40,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "전력 혁신",
+     "idx": 12,
+     "script": "던전 '라이트닝 아카데미' 1회 클리어",
+     "type": 6,
+     "objectIdx": 10,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "슈뢰딩거 이론",
+     "idx": 13,
+     "script": "던전 '비밀의 방' 1회 클리어",
+     "type": 6,
+     "objectIdx": 12,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "첫번째 임무",
+     "idx": 14,
+     "script": "던전 '포션 제작소' 1회 클리어",
+     "type": 6,
+     "objectIdx": 13,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "변수 탐구",
+     "idx": 15,
+     "script": "던전 '흑마법 마법진 연구회'  2회 클리어",
+     "type": 6,
+     "objectIdx": 14,
+     "objectAmt": 2,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "두번째 임무",
+     "idx": 16,
+     "script": "던전 '인스네어 연구실' 1회 클리어",
+     "type": 6,
+     "objectIdx": 16,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "영향력 행사",
+     "idx": 17,
+     "script": "돌발 퀘스트 3회 성공",
+     "type": 4,
+     "objectIdx": 0,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "산전수전",
+     "idx": 18,
+     "script": "이벤트 20회 발생",
+     "type": 3,
+     "objectIdx": 0,
+     "objectAmt": 20,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마력 수집변환기 1",
+     "idx": 19,
+     "script": "아무 적 50개체 처치",
+     "type": 1,
+     "objectIdx": 0,
+     "objectAmt": 50,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마력 수집변환기 2",
+     "idx": 20,
+     "script": "아무 방 40개 진입",
+     "type": 5,
+     "objectIdx": 0,
+     "objectAmt": 40,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "의심스러운 사내",
+     "idx": 21,
+     "script": "던전 '검색 마법서 보관소' 2회 클리어",
+     "type": 6,
+     "objectIdx": 19,
+     "objectAmt": 2,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마력 수집변환기 3",
+     "idx": 22,
+     "script": "던전 '아벨의 기둥' 1회 클리어",
+     "type": 6,
+     "objectIdx": 20,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "개인적인 계산식",
+     "idx": 23,
+     "script": "아무 던전 5회 클리어",
+     "type": 6,
+     "objectIdx": 0,
+     "objectAmt": 5,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "세번째 임무",
+     "idx": 24,
+     "script": "던전 '시작의 샘' 1회 클리어",
+     "type": 6,
+     "objectIdx": 21,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "안테나 설치",
+     "idx": 25,
+     "script": "던전 '동방 대방벽' 4회 클리어",
+     "type": 6,
+     "objectIdx": 22,
+     "objectAmt": 4,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마지막 임무",
+     "idx": 26,
+     "script": "던전 '세계수 원로회' 1회 클리어",
+     "type": 6,
+     "objectIdx": 23,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "개체수 조절",
+     "idx": 27,
+     "script": "아무 전투 30회 승리",
+     "type": 2,
+     "objectIdx": 0,
+     "objectAmt": 30,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "희미한 기억",
+     "idx": 28,
+     "script": "던전 '마지막 저지선' 3회 클리어",
+     "type": 6,
+     "objectIdx": 24,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "영원한 엔진",
+     "idx": 29,
+     "script": " '탈리아' '트리샤' '트루디' 중 30개체 처치",
+     "type": 1,
+     "objectIdx": -1,
+     "objectAmt": 30,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마력 수집변환기 완성",
+     "idx": 30,
+     "script": "던전 '대마법의 첨탑' 1회 클리어",
+     "type": 6,
+     "objectIdx": 25,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "궁극의 장비",
+     "idx": 31,
+     "script": "10레벨 달성",
+     "type": 7,
+     "objectIdx": 0,
+     "objectAmt": 10,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
         0,
         0,
         0

@@ -251,7 +251,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     #region Work Panels
     public void Btn_OpenWorkPanel(int workPanelIdx)
     {
-        if(workPanelIdx == 2 && !GameManager.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        if(workPanelIdx == 2 && !GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             Debug.Log("이 장비는 옵션 변경이 불가능합니다.");
             return;
@@ -291,7 +291,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
     public void Btn_Fusion()
     {
-        if (GameManager.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        if (GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             ItemManager.FusionEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
             selectedEquip = dummyEquip;
@@ -303,7 +303,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     public void Btn_SwitchOption()
     {
-        if (GameManager.slotData.itemData.CanSwitchCommonStat(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        if (GameManager.instance.slotData.itemData.CanSwitchCommonStat(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             ItemManager.SwitchEquipOption(selectedEquip.Value.ebp.part, selectedEquip.Key);
             TokenBtnUpdate();
@@ -334,7 +334,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
    
     public void Btn_SkillLearn()
     {
-        if(GameManager.slotData.itemData.IsLearned(selectedSkillbook.idx))
+        if(GameManager.instance.slotData.itemData.IsLearned(selectedSkillbook.idx))
         {
             Debug.Log("이미 학습했습니다.");
             return;
@@ -357,14 +357,14 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
     void StatTxtUpdate()
     {
-        statTxts[0].text = GameManager.slotData.lvl.ToString();
-        statTxts[1].text = string.Concat(GameManager.slotData.exp, " / ", SlotData.reqExp[GameManager.slotData.lvl]);
-        expSlider.value = GameManager.slotData.exp / (float)SlotData.reqExp[GameManager.slotData.lvl];
+        statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
+        statTxts[1].text = string.Concat(GameManager.instance.slotData.exp, " / ", SlotData.reqExp[GameManager.instance.slotData.lvl]);
+        expSlider.value = GameManager.instance.slotData.exp / (float)SlotData.reqExp[GameManager.instance.slotData.lvl];
         int i, j;
         for (i = j = 2; i < 13; i++, j++)
         {
             if (i == 3) i++;
-            statTxts[j].text = GameManager.slotData.itemStats[i].ToString();
+            statTxts[j].text = GameManager.instance.slotData.itemStats[i].ToString();
         }
 
         statTxts[8].text = string.Concat(statTxts[8].text, "%");

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum SceneKind
 {
@@ -52,12 +53,12 @@ public class SlotData
     ///<summary> 현재 진행 중인 던전 인덱스 </summary>
     public int dungeonIdx;
     ///<summary> 현재 진행 중인 던전 정보 </summary>
-    public DungeonState dungeonState;
+    public DungeonData dungeonData;
 
     ///<summary> 획득한 아이템들 정보 </summary>
     public ItemData itemData;
     ///<summary> 퀘스트 진행 정보 </summary>
-    public QuestSlot questData;
+    public QuestData questData;
 
     ///<summary> 불변 스텟 및 경험치 요구량 로드 </summary>
     static SlotData()
@@ -96,31 +97,31 @@ public class SlotData
         nowScene = SceneKind.Town;
 
         itemData = new ItemData(slotClass);
-        questData = new QuestSlot(slotClass);
+        questData = new QuestData(slotClass);
     }
     ///<summary> 던전 진행 중 획득한 아이템 정보 저장(결과창 용) </summary>
     public void DropSave(DropType type, int idx, int amt = 1)
     {
-        if (dungeonState == null)
+        if (dungeonData == null)
             return;
 
-        if (dungeonState.dropList.Count <= 0)
+        if (dungeonData.dropList.Count <= 0)
         {
-            dungeonState.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
+            dungeonData.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
         }
         else
         {
-            int left = 0, right = dungeonState.dropList.Count - 1;
+            int left = 0, right = dungeonData.dropList.Count - 1;
 
             int middle = (left + right) / 2;
             while (left <= middle && middle <= right)
             {
                 middle = (left + right) / 2;
 
-                int compare = Compare(type, idx, dungeonState.dropList[middle]);
+                int compare = Compare(type, idx, dungeonData.dropList[middle]);
                 if (compare == 0)
                 {
-                    dungeonState.dropList[middle].third += amt;
+                    dungeonData.dropList[middle].third += amt;
                     return;
                 }
                 else if (compare < 0)
@@ -130,11 +131,11 @@ public class SlotData
             }
 
             if (middle < 0)
-                dungeonState.dropList.Insert(0, new Triplet<DropType, int, int>(type, idx, amt));
-            else if (middle >= dungeonState.dropList.Count)
-                dungeonState.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
+                dungeonData.dropList.Insert(0, new Triplet<DropType, int, int>(type, idx, amt));
+            else if (middle >= dungeonData.dropList.Count)
+                dungeonData.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
             else
-                dungeonState.dropList.Insert(middle, new Triplet<DropType, int, int>(type, idx, amt));
+                dungeonData.dropList.Insert(middle, new Triplet<DropType, int, int>(type, idx, amt));
         }
 
         int Compare(DropType type, int idx, Triplet<DropType, int, int> o2)
@@ -148,7 +149,7 @@ public class SlotData
     }
 }
 ///<summary> 던전 진행 정보 저장용 </summary>
-public class DungeonState
+public class DungeonData
 {
     ///<summary> 던전 맵 스크롤 </summary>
     public double mapScroll;
@@ -178,15 +179,15 @@ public class DungeonState
     public List<Triplet<DropType, int, int>> dropList = new List<Triplet<DropType, int, int>>();
 
     ///<summary> 로드를 위한 빈 생성자 </summary>
-    public DungeonState() { }
+    public DungeonData() { }
     ///<summary> 던전 입장 시 사용하는 생성자 </summary>
-    public DungeonState(int dungeonIdx)
+    public DungeonData(int dungeonIdx)
     {
         currDungeon = new Dungeon();
         currDungeon.DungeonInstantiate(dungeonIdx);
         mapScroll = 0;
 
-        currHP = -1; druidRevive = 0; golemHP = GameManager.slotData.slotClass == 4 ? 0 : -1;
+        currHP = -1; druidRevive = 0; golemHP = GameManager.instance.slotData.slotClass == 4 ? 0 : -1;
         potionUse[0] = potionUse[1] = false;
         currPos = new int[2] { 0, 0 };
     }
@@ -203,9 +204,9 @@ public class ItemData
     ///</summary>
     public int[] basicMaterials;
     ///<summary> 장비 레시피 획득 정보 </summary>
-    public int[] equipRecipes;
+    public List<int> equipRecipes = new List<int>();
     ///<summary> 보유 스킬북 정보 </summary>
-    public Skillbook[] skillbooks;
+    public List<Skillbook> skillbooks = new List<Skillbook>();
 
     ///<summary> 현재 슬롯 직업의 시작 스킬 인덱스 </summary>
     public int skillStartIdx;
@@ -213,11 +214,11 @@ public class ItemData
     public bool[] skillLearned;
 
     ///<summary> 획득한 무기 </summary>
-    public List<Equipment> weapons;
+    public List<Equipment> weapons = new List<Equipment>();
     ///<summary> 획득한 방어구 </summary>
-    public List<Equipment> armors;
+    public List<Equipment> armors = new List<Equipment>();
     ///<summary> 획득한 장신구 </summary>
-    public List<Equipment> accessories;
+    public List<Equipment> accessories = new List<Equipment>();
     List<Equipment> GetEquipmentList(EquipPart part)
     {
         switch (part)
@@ -244,7 +245,8 @@ public class ItemData
         for (int i = 0; i < ebp.requireResources.Count; i++)
             if (basicMaterials[ebp.requireResources[i].Key] < ebp.requireResources[i].Value)
                 return false;
-        return equipRecipes[ebp.idx] > 0;
+
+        return equipRecipes.Contains(ebp.idx);
     }
     ///<summary> 해당 장비 옵션 변환 가능 여부 반환 </summary>
     public bool CanSwitchCommonStat(EquipPart part, int idx) => GetEquipmentList(part)[idx].CanSwitchCommonStat();
@@ -318,6 +320,7 @@ public class ItemData
     }
     #endregion Smith
 
+    #region Drop
     ///<summary> 새로운 장비 드롭 </summary>
     public void EquipDrop(EquipBluePrint ebp)
     {
@@ -327,6 +330,34 @@ public class ItemData
         eList.Add(tmp);
         eList.Sort((a, b) => a.CompareTo(b));
     }
+    ///<summary> 새로운 스킬북 드롭 </summary>
+    public void SkillBookDrop(int skillIdx)
+    {
+        int left = 0; int right = skillbooks.Count - 1;
+        int mid = 0;
+
+        while(left <= right)
+        {
+            mid = (left + right) / 2;
+            if(skillbooks[mid].idx < skillIdx)
+                right = mid - 1;
+            else if(skillbooks[mid].idx == skillIdx)
+            {
+                skillbooks[mid].count++;
+                return;
+            }
+            else
+                left = mid + 1;
+        }
+        skillbooks.Insert(left, new Skillbook(skillIdx, 1));
+    }
+    ///<summary> 새로운 장비 레시피 드롭 </summary>
+    public void RecipeDrop(int equipIdx)
+    {
+        if(!equipRecipes.Contains(equipIdx))
+            equipRecipes.Add(equipIdx);
+    }
+    #endregion Drop
     ///<summary> 장비 장착 </summary>
     public void Equip(EquipPart part, int idx)
     {
@@ -380,7 +411,7 @@ public class ItemData
         skillbooks[idx - skillStartIdx].count--;
     }
     ///<summary> 스킬북 보유 여부 반환 </summary>
-    public bool HasSkillBook(int idx) => skillbooks[idx - skillStartIdx].count > 0;
+    public bool HasSkillBook(int idx) => skillbooks.Any(x => x.idx == idx);
     #endregion Skill
 
     ///<summary> 로드용 빈 생성자 </summary>
@@ -388,26 +419,112 @@ public class ItemData
     public ItemData(int currClass)
     {
         basicMaterials = new int[16];
-        equipRecipes = new int[ItemManager.EQUIP_COUNT + 1];
 
         Skill[] s = SkillManager.GetSkillData(currClass);
-        skillbooks = new Skillbook[s.Length];
 
         skillStartIdx = s[0].idx;
         skillLearned = new bool[s.Length];
-        for (int i = 0; i < s.Length; i++)
+
+        for(int i = 0;s[i].reqLvl == 1 && s[i].useType == 0;i++)
+            skillLearned[i] = true;
+    }
+}
+///<summary> 퀘스트 진행 정보 저장용 </summary>
+public class QuestData
+{
+    ///<summary> 이미 클리어 한 퀘스트 인덱스들 </summary>
+    public List<int> clearedQuestList = new List<int>();
+    ///<summary> 현재 진행 중인 퀘스트 정보(proceeding, canClear) </summary>
+    public List<QuestProceed> proceedingQuestList = new List<QuestProceed>();
+
+    ///<summary> 현재 진행 중인 돌발 퀘스트 정보 </summary>
+    public QuestProceed outbreakProceed;
+
+    ///<summary> 데이터 로드용 빈 생성자 </summary>
+    public QuestData() { }
+    ///<summary> 빈 생성자와 구별하기 위한 매개변수 사용 </summary>
+    public QuestData(int slotClass)
+    {
+        clearedQuestList.Add(0);
+
+        outbreakProceed = new QuestProceed();
+    }
+
+    ///<summary> 퀘스트 수락 </summary>
+    public void AcceptQuest(QuestBlueprint qbp)
+    {
+        if (proceedingQuestList.Count < 3)
+            proceedingQuestList.Add(new QuestProceed(qbp));
+    }
+    ///<summary> 적 처치 등 퀘스트 요구 사항 관련 변경점 있을 때마다 호출 </summary>
+    public void QuestUpdate(QuestType type, int objectIdx, int amt)
+    {
+        foreach (QuestProceed qp in proceedingQuestList)
         {
-            skillbooks[i] = new Skillbook();
-            skillbooks[i].idx = s[i].idx;
-            skillbooks[i].lvl = s[i].reqLvl;
-            skillbooks[i].type = s[i].useType;
-            skillbooks[i].count = 0;
+            if (qp.state == QuestState.Proceeding && qp.type == type)
+            {
+                //레벨 달성 퀘스트인 경우, 레벨 값으로 설정
+                if (qp.type == QuestType.Level)
+                    qp.objectCurr = GameManager.instance.slotData.lvl;
+                //그 외 경우, 대상 일치 시 퀘스트 증가
+                else if (qp.objectIdx == 0 || qp.objectIdx == objectIdx)
+                    qp.objectCurr += amt;
+
+                //목표 달성 시 클리어 처리
+                if (qp.objectCurr >= qp.objectReq)
+                    qp.state = QuestState.CanClear;
+            }
         }
 
-        skillLearned[0] = skillLearned[1] = true;
+        //돌발 퀘스트
+        if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == type)
+        {
+            if (outbreakProceed.type != QuestType.Diehard)
+                if (outbreakProceed.objectIdx == 0 || outbreakProceed.objectIdx == objectIdx)
+                    outbreakProceed.objectCurr++;
 
-        weapons = new List<Equipment>();
-        armors = new List<Equipment>();
-        accessories = new List<Equipment>();
+            //클리어 처리
+            if (outbreakProceed.objectCurr >= outbreakProceed.objectReq)
+                outbreakProceed.state = QuestState.CanClear;
+        }
+    }
+    ///<summary> 전투 끝날 때마다 호출 </summary>
+    public void DiehardUpdate(float rate)
+    {
+        if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard)
+            if (100 * rate < outbreakProceed.objectReq)
+                RemoveOutbreak();
+    }
+    ///<summary> 퀘스트 클리어 판정 </summary>
+    public void ClearQuest(int idx)
+    {
+        clearedQuestList.Add(idx);
+        proceedingQuestList.RemoveAll(x => x.idx == idx && x.state == QuestState.CanClear);
+    }
+
+    ///<summary> 돌발 퀘스트 수락 </summary>
+    public void AcceptOutbreak(QuestBlueprint qbp) => outbreakProceed.AcceptOutbreak(qbp);
+    ///<summary> 돌발 퀘스트 완료 </summary>
+    public void ClearOutbreak()
+    {
+        QuestUpdate(QuestType.Outbreak, outbreakProceed.idx, 1);
+        RemoveOutbreak();
+    }
+    ///<summary> 돌발 퀘스트 제거 </summary>
+    public void RemoveOutbreak()
+    {
+        outbreakProceed.idx = outbreakProceed.objectCurr = 0;
+        outbreakProceed.state = QuestState.NotReceive;
+    }
+
+    ///<summary> 현재 퀘스트 진행 상태 보여주기 위해 반환 </summary>
+    public List<QuestProceed> GetCurrQuest() => proceedingQuestList;
+    public List<int> GetClearedQuest() => clearedQuestList;
+    public int GetOutbreakIdx()
+    {
+        if (outbreakProceed.state == QuestState.CanClear)
+            return outbreakProceed.idx;
+        else
+            return -1;
     }
 }

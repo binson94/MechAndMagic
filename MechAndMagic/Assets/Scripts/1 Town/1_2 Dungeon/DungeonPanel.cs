@@ -63,9 +63,9 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
 
     public void Btn_Script(int idx)
     {
-        GameManager.SetNewDungeon(idx);
+        GameManager.instance.SetNewDungeon(idx);
         QuestManager.RemoveOutbreak();
-        GameManager.SwitchSceneData(SceneKind.Dungeon);
+        GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
         
         SceneManager.LoadScene("2_0 Dungeon");
     }

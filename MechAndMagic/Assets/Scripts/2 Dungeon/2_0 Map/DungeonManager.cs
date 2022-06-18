@@ -52,21 +52,21 @@ public class DungeonManager : MonoBehaviour
 
         void LoadPlayerInfo()
         {
-            playerIcon.sprite = playerSprites[GameManager.slotData.slotClass - 1];
-            playerIcon.transform.position = roomImages[GameManager.slotData.dungeonState.currPos[0]][GameManager.slotData.dungeonState.currPos[1]].transform.position + new Vector3(0, 100, 0);
+            playerIcon.sprite = playerSprites[GameManager.instance.slotData.slotClass - 1];
+            playerIcon.transform.position = roomImages[GameManager.instance.slotData.dungeonData.currPos[0]][GameManager.instance.slotData.dungeonData.currPos[1]].transform.position + new Vector3(0, 100, 0);
             playerIcon.transform.SetParent(scrollContent.transform);
 
-            int hpValue = GameManager.slotData.dungeonState.currHP > 0 ? GameManager.slotData.dungeonState.currHP : GameManager.slotData.itemStats[(int)Obj.HP];
+            int hpValue = GameManager.instance.slotData.dungeonData.currHP > 0 ? GameManager.instance.slotData.dungeonData.currHP : GameManager.instance.slotData.itemStats[(int)Obj.HP];
             hpTxt.text = hpValue.ToString();
-            hpBar.value = hpValue / (float)GameManager.slotData.itemStats[(int)Obj.HP];
-            lvlTxt.text = GameManager.slotData.lvl.ToString();
+            hpBar.value = hpValue / (float)GameManager.instance.slotData.itemStats[(int)Obj.HP];
+            lvlTxt.text = GameManager.instance.slotData.lvl.ToString();
         }
     }
 
     #region DungeonMaking
     private void MakeImage()
     {
-        Dungeon dungeon = GameManager.slotData.dungeonState.currDungeon;
+        Dungeon dungeon = GameManager.instance.slotData.dungeonData.currDungeon;
 
         scrollContent.GetComponent<RectTransform>().sizeDelta = new Vector2(1063, Mathf.Max(1920, dungeon.floorCount * 400));
         //각 방의 위치 이미지 생성
@@ -95,46 +95,46 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        scroll.verticalNormalizedPosition = (float)GameManager.slotData.dungeonState.mapScroll;
+        scroll.verticalNormalizedPosition = (float)GameManager.instance.slotData.dungeonData.mapScroll;
     }
     #endregion
 
     #region DungeonProcess
     public void Btn_RoomSelect(params int[] pos)
     {
-        if (!GameManager.CanMove(pos))
+        if (!GameManager.instance.CanMove(pos))
         {
             Debug.Log("Can't move there");
             return;
         }
 
-        GameManager.DungeonMove(pos, scroll.verticalNormalizedPosition);
+        GameManager.instance.DungeonMove(pos, scroll.verticalNormalizedPosition);
         QuestManager.QuestUpdate(QuestType.Room, 0, 1);
 
-        RoomType type = GameManager.slotData.dungeonState.GetCurrRoom().type;
+        RoomType type = GameManager.instance.slotData.dungeonData.GetCurrRoom().type;
         if (type == RoomType.Monster || type == RoomType.Boss)
         {
-            GameManager.SwitchSceneData(SceneKind.Battle);
+            GameManager.instance.SwitchSceneData(SceneKind.Battle);
             SceneManager.LoadScene("2_1 Battle");
         }
         else if (type == RoomType.Quest)
         {
-            GameManager.OutbreakDetermine(pos);
-            GameManager.SwitchSceneData(SceneKind.Outbreak);
+            GameManager.instance.OutbreakDetermine(pos);
+            GameManager.instance.SwitchSceneData(SceneKind.Outbreak);
             SceneManager.LoadScene("2_3 Outbreak");
         }
         else
         {
-            GameManager.SwitchSceneData(SceneKind.Event);
+            GameManager.instance.SwitchSceneData(SceneKind.Event);
             SceneManager.LoadScene("2_2 Event");
         }
     }
 
     public void Debug_NewDungeon()
     {
-        int dungeonIdx = GameManager.slotData.dungeonIdx;
-        GameManager.RemoveDungeonData();
-        GameManager.SetNewDungeon(dungeonIdx);
+        int dungeonIdx = GameManager.instance.slotData.dungeonIdx;
+        GameManager.instance.RemoveDungeonData();
+        GameManager.instance.SetNewDungeon(dungeonIdx);
         SceneManager.LoadScene("2_0 Dungeon");
     }
     #endregion
@@ -142,7 +142,7 @@ public class DungeonManager : MonoBehaviour
     #region Quest
     void QuestShow()
     {
-        KeyValuePair<QuestBlueprint, int>[] currQuest = QuestManager.GetCurrQuest();
+        KeyValuePair<QuestBlueprint, int>[] currQuest = QuestManager.GetProceedingQuestData();
 
         for (int i = 0; i < 4; i++)
             if (currQuest[i].Key != null)

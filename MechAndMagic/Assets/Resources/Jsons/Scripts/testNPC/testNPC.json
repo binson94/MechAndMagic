@@ -5,8 +5,7 @@
     "kind": 0,
     "chapter": 1,
     "lvl": 0,
-    "reqQuest": -1,
-    "hideQuest": -1,
+    "reqQuest": 0,
     "linkedQuest": 0
   },
   {
@@ -15,8 +14,7 @@
     "kind": 1,
     "chapter": 1,
     "lvl": 0,
-    "reqQuest": -1,
-    "hideQuest": 1,
+    "reqQuest": 0,
     "linkedQuest": 1
   }
  ]

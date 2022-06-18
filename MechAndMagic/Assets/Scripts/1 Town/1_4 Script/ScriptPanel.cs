@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using LitJson;
+using System.Linq;
 
 public class ScriptPanel : MonoBehaviour, ITownPanel
 {
@@ -23,9 +24,6 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     static NPC[] npcs;
     List<KeyValuePair<DialogData, QuestState>> dialogList = new List<KeyValuePair<DialogData, QuestState>>();
 
-    int tmp;
-
-
     #region Dialog
     [SerializeField] Text dialogTxt;
     JsonData dialogJson;
@@ -37,7 +35,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     public void ResetAllState()
     {
         if (npcName == null)
-            LoadNPC();
+            LoadNPCData();
 
         StopAllCoroutines();
 
@@ -59,17 +57,18 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
         }
     }
-    void LoadNPC()
+    void LoadNPCData()
     {
         npcName = new string[8];
         npcName[0] = "testNPC";
 
         npcs = new NPC[8];
-        npcs[0] = new NPC(npcName[0]);
+        for(int i = 0;i < 1;i++)
+            npcs[i] = new NPC(npcName[i]);
 
     }
 
-    //npc 선택 버튼 - 선택한 npc의 대화 목록 불러오기
+    ///<summary> npc 선택 버튼 - 선택한 npc의 대화 목록 불러오기 </summary>
     public void Btn_SelectNPC(int idx)
     {
         selectedNpc = idx;
@@ -79,26 +78,38 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         dialogSelectPanel.SetActive(true);
 
     }
-    //선택한 npc 대화 목록 불러오기 - 퀘스트 진행 상황에 따라 불러옴
+    ///<summary> 선택한 npc 대화 목록 불러오기 - 퀘스트 진행 상황에 따라 불러옴 </summary>
     void LoadDialogList()
     {
         dialogList.Clear();
-        QuestProceed[] proceeds = QuestManager.GetQuestProceed();
-        int currQuestCount = QuestManager.GetCurrQuestCount();
+        List<QuestProceed> proceedingQuestList = QuestManager.GetCurrQuest();
+        List<int> clearedQuestList = QuestManager.GetClearedQuest();
 
         int i = 0;
         for (; i < npcs[selectedNpc].count && dialogList.Count < 4; i++)
         {
+            DialogData dialog = npcs[selectedNpc].dialogs[i];
+
             //현재 3개 이상 퀘스트 수행 중일 시, 새로운 퀘스트 관련 대화 표시 안함
-            if (currQuestCount >= 3 && npcs[selectedNpc].dialogs[i].kind == 1 &&
-                proceeds[npcs[selectedNpc].dialogs[i].linkedQuest].state == QuestState.NotReceive)
+            if (proceedingQuestList.Count >= 3 && dialog.kind == 1 &&
+                !proceedingQuestList.Any(x=>x.idx == dialog.linkedQuest))
                 continue;
 
-            //보이기 조건 만족, 숨기기 조건 불만족 -> 리스트에 추가
-            //현재 퀘스트 상황 저장
+            //관련 퀘스트 수행 중 여부 알아냄
+            QuestState qs = QuestState.NotReceive;
+            foreach(QuestProceed qp in proceedingQuestList)
+                if(qp.idx == dialog.linkedQuest)
+                {
+                    qs = qp.state;
+                    break;
+                }
+
+            //1. 퀘스트 관련 대화가 아니거나 퀘스트 3개 이상 수행 중 아님
+            //2. 선행 퀘스트 클리어함
+            //3. 숨김 퀘스트 클리어 안함
+            // 위 조건 모두 만족 시 대화에 추가
             if (IsAdd(i))
-                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcs[selectedNpc].dialogs[i],
-                   proceeds[npcs[selectedNpc].dialogs[i].linkedQuest].state));
+                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcs[selectedNpc].dialogs[i], qs));
         }
 
         i = 0;
@@ -110,14 +121,15 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         for (; i < dialogSelectBtns.Length; i++)
             dialogSelectBtns[i].gameObject.SetActive(false);
 
+        //선행 퀘스트, 관련 퀘스트, 레벨 조건 검사
         bool IsAdd(int idx)
         {
-            if (npcs[selectedNpc].dialogs[idx].reqQuest == -1 || proceeds[npcs[selectedNpc].dialogs[idx].reqQuest].state == QuestState.Clear)
-                if (npcs[selectedNpc].dialogs[idx].hideQuest == -1 || proceeds[npcs[selectedNpc].dialogs[idx].hideQuest].state != QuestState.Clear)
-                    if(GameManager.slotData.lvl >= npcs[selectedNpc].dialogs[idx].lvl)
-                        return true;
-
-            return false;
+            int reqQuest = npcs[selectedNpc].dialogs[idx].reqQuest;
+            int linkedQuest = npcs[selectedNpc].dialogs[idx].linkedQuest;
+            //선행 퀘스트 클리어, 관련 퀘스트 클리어 안함, 레벨 넘김
+            return (clearedQuestList.Contains(reqQuest) && 
+                    (linkedQuest == 0 || !clearedQuestList.Contains(linkedQuest)) &&
+                    GameManager.instance.slotData.lvl >= npcs[selectedNpc].dialogs[idx].lvl);
         }
     }
 
@@ -134,7 +146,6 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                                         dialogList[idx].Value == QuestState.Proceeding ? "P" : "C");
 
 
-
         //선택한 대화 불러오기
         dialogJson = JsonMapper.ToObject(Resources.Load<TextAsset>(path).text);
         pos = 0;
@@ -147,6 +158,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     public void Btn_BackToNPCSelect() => ResetAllState();
 
     #region Dialog
+    ///<summary> 대화 진행 버튼 - 다음 대사 로드 </summary>
     public void Btn_NextDialog()
     {
         if (state == DialogState.Proceed)
@@ -154,13 +166,14 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         else if (state == DialogState.Next)
             NextToken();
     }
+    ///<summary> 퀘스트 관련 대화에서 퀘스트 수락 / 거절 버튼 </summary>
     public void Btn_AcceptQuest(int isAccept)
     {
         questSelectBtns.SetActive(false);
         //퀘스트 수락
         if (isAccept == 1)
         {
-            QuestManager.NewQuest(false, currDialog.linkedQuest);
+            QuestManager.AcceptQuest(false, currDialog.linkedQuest);
             pos++;
         }
         //퀘스트 거절 - 대화 위치 변경
@@ -170,12 +183,13 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         state = DialogState.Next;
         NextToken();
     }
-
+    ///<summary> 다음 대사 로드 </summary>
     void NextToken()
     {
         if (state != DialogState.Next)
             return;
 
+        //대화 끝
         if (pos == dialogJson.Count)
         {
             state = DialogState.End;
@@ -185,6 +199,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         {
             switch ((DialogToken)(int)dialogJson[pos]["code"])
             {
+                //대사 출력
                 case DialogToken.NPC:
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
@@ -202,6 +217,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                     questSelectBtns.SetActive(true);
                     state = DialogState.QuestAccept;
                     break;
+                //퀘스트 클리어
                 case DialogToken.QuestClear:
                     ClearQuest(currDialog.linkedQuest);
                     pos++;
@@ -214,7 +230,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                     break;
                 //스토리 보이기, 대화 종료
                 case DialogToken.Story:
-                    PlayStory(0);
+                    PlayStory(int.Parse(dialogJson[pos]["script"].ToString()));
                     EndDialog();
                     break;
                 //에러 - 대화 종료
@@ -230,7 +246,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     #region Normal Dialog
     IEnumerator ProceedDialog()
     {
-        float time = 0.1f;
+        float time = 0.05f + 0.05f * SoundManager.instance.GetTxtSpd();
         if (state != DialogState.Proceed)
             yield break;
 
@@ -277,7 +293,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         Debug.Log(string.Concat("스토리 재생 ", idx));
     }
 
-    void NewQuest(int idx) => QuestManager.NewQuest(false, idx);
+    void NewQuest(int idx) => QuestManager.AcceptQuest(false, idx);
     void ClearQuest(int idx) => QuestManager.ClearQuest(idx);
     #endregion Special Event
     void EndDialog()
@@ -304,15 +320,21 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
     class DialogData
     {
+        ///<summary> 대화 이름 </summary>
         public string name;
+        ///<summary> 대화 인덱스 </summary>
         public int idx;
-        //0 : 그냥 대화, 1 : 퀘스트 수락 대화
+        ///<summary> 퀘스트 받는 대화 표시
+        ///<para> 0 : 그냥 대화, 1 : 퀘스트 수락 대화 </para>
+        ///</summary>
         public int kind;
+        ///<summary> 대화 표시 요구 챕터 </summary>
         public int chapter;
+        ///<summary> 대화 표시 요구 레벨 </summary>
         public int lvl;
-
+        ///<summary> 대화 표시 요구 퀘스트 </summary>
         public int reqQuest;
-        public int hideQuest;
+        ///<summary> 대화 시 수락하는 퀘스트 </summary>
         public int linkedQuest;
     }
     class NPC
@@ -337,7 +359,6 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                 dialogs[i].lvl = (int)json[i]["lvl"];
 
                 dialogs[i].reqQuest = (int)json[i]["reqQuest"];
-                dialogs[i].hideQuest = (int)json[i]["hideQuest"];
                 dialogs[i].linkedQuest = (int)json[i]["linkedQuest"];
             }
         }

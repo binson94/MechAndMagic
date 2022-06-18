@@ -64,15 +64,15 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     {
         SkillTokenReset();
 
-        Skill[] s = SkillManager.GetSkillData(GameManager.slotData.slotClass);
+        Skill[] s = SkillManager.GetSkillData(GameManager.instance.slotData.slotClass);
         int[] skillBooks = ItemManager.GetSkillbookData();
 
         List<KeyValuePair<Skill, int>> skills = new List<KeyValuePair<Skill, int>>();
         for (int i = 0; i < s.Length; i++)
-            if (GameManager.slotData.slotClass == 7 && s[i].category == 1024)
+            if (GameManager.instance.slotData.slotClass == 7 && s[i].category == 1024)
                 continue;
             else
-                skills.Add(new KeyValuePair<Skill, int>(s[i], GameManager.slotData.itemData.IsLearned(s[i].idx) ? 1 : 0));
+                skills.Add(new KeyValuePair<Skill, int>(s[i], GameManager.instance.slotData.itemData.IsLearned(s[i].idx) ? 1 : 0));
 
 
         var showSkills = 
@@ -108,7 +108,7 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
             {
                 state = SkillState.CanLearn;
 
-                if (skillLearnPair.Key.reqLvl > GameManager.slotData.lvl)
+                if (skillLearnPair.Key.reqLvl > GameManager.instance.slotData.lvl)
                 {
                     state = SkillState.CantLearn;
                     expression = string.Concat("Lv.", skillLearnPair.Key.reqLvl, " 필요");
@@ -117,8 +117,8 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
                 {
                     foreach(int skillIdx in skillLearnPair.Key.reqskills)
                     {
-                        Skill s = SkillManager.GetSkill(GameManager.slotData.slotClass, skillIdx);
-                        if(s != null && !GameManager.slotData.itemData.IsLearned(s.idx))
+                        Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillIdx);
+                        if(s != null && !GameManager.instance.slotData.itemData.IsLearned(s.idx))
                         {
                             state = SkillState.CantLearn;
                             expression = string.Concat(s.name, " 학습 필요");
@@ -126,14 +126,14 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
                         }
                     }
 
-                    if(!GameManager.slotData.itemData.HasSkillBook(skillLearnPair.Key.idx))
+                    if(!GameManager.instance.slotData.itemData.HasSkillBook(skillLearnPair.Key.idx))
                     {
                         state = SkillState.CantLearn;
                         expression = "스킬북 없음";
                     }
                 }
             }
-            else if (GameManager.slotData.activeSkills.Contains(skillLearnPair.Key.idx) || GameManager.slotData.passiveSkills.Contains(skillLearnPair.Key.idx))
+            else if (GameManager.instance.slotData.activeSkills.Contains(skillLearnPair.Key.idx) || GameManager.instance.slotData.passiveSkills.Contains(skillLearnPair.Key.idx))
                 state = SkillState.Equip;
             else
                 state = SkillState.Learned;
@@ -181,10 +181,10 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     {
         if (currSkillIdx >= 0)
         {
-            int skillIdx = currSkillIdx < 6 ? GameManager.slotData.activeSkills[currSkillIdx] : GameManager.slotData.passiveSkills[currSkillIdx - 6];
+            int skillIdx = currSkillIdx < 6 ? GameManager.instance.slotData.activeSkills[currSkillIdx] : GameManager.instance.slotData.passiveSkills[currSkillIdx - 6];
             if (skillIdx > 0)
             {
-                currSkillPanel.InfoUpdate(SkillManager.GetSkill(GameManager.slotData.slotClass, skillIdx));
+                currSkillPanel.InfoUpdate(SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillIdx));
                 currSkillPanel.gameObject.SetActive(true);
             }
             else
@@ -200,7 +200,7 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     {
         if (selectedSkillIdx > 0)
         {
-            selectedSkillPanel.InfoUpdate(SkillManager.GetSkill(GameManager.slotData.slotClass, selectedSkillIdx));
+            selectedSkillPanel.InfoUpdate(SkillManager.GetSkill(GameManager.instance.slotData.slotClass, selectedSkillIdx));
             selectedSkillPanel.gameObject.SetActive(true);
         }
         else
@@ -209,23 +209,23 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
 
     public void Btn_SkillEquip()
     {
-        if (SkillManager.GetSkill(GameManager.slotData.slotClass, selectedSkillIdx).useType == 0)
+        if (SkillManager.GetSkill(GameManager.instance.slotData.slotClass, selectedSkillIdx).useType == 0)
         {
             for (int i = 0; i < 6; i++)
-                if (GameManager.slotData.activeSkills[i] == 0)
+                if (GameManager.instance.slotData.activeSkills[i] == 0)
                 {
-                    GameManager.slotData.activeSkills[i] = selectedSkillIdx;
-                    GameManager.SaveSlotData();
+                    GameManager.instance.slotData.activeSkills[i] = selectedSkillIdx;
+                    GameManager.instance.SaveSlotData();
                     break;
                 }
         }
         else
         {
             for (int i = 0; i < 4; i++)
-                if (GameManager.slotData.passiveSkills[i] == 0)
+                if (GameManager.instance.slotData.passiveSkills[i] == 0)
                 {
-                    GameManager.slotData.passiveSkills[i] = selectedSkillIdx;
-                    GameManager.SaveSlotData();
+                    GameManager.instance.slotData.passiveSkills[i] = selectedSkillIdx;
+                    GameManager.instance.SaveSlotData();
                     break;
                 }
         }
@@ -239,18 +239,18 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     public void Btn_SkillUnEquip()
     {
         for (int i = 0; i < 6; i++)
-            if (GameManager.slotData.activeSkills[i] == selectedSkillIdx)
+            if (GameManager.instance.slotData.activeSkills[i] == selectedSkillIdx)
             {
-                GameManager.slotData.activeSkills[i] = 0;
-                GameManager.SaveSlotData();
+                GameManager.instance.slotData.activeSkills[i] = 0;
+                GameManager.instance.SaveSlotData();
                 break;
             }
         for (int i = 0; i < 4; i++)
         {
-            if (GameManager.slotData.passiveSkills[i] == selectedSkillIdx)
+            if (GameManager.instance.slotData.passiveSkills[i] == selectedSkillIdx)
             {
-                GameManager.slotData.passiveSkills[i] = 0;
-                GameManager.SaveSlotData();
+                GameManager.instance.slotData.passiveSkills[i] = 0;
+                GameManager.instance.SaveSlotData();
                 break;
             }
         }

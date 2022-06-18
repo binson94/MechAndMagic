@@ -79,12 +79,14 @@ public class BattleManager : MonoBehaviour
     //BGM 재생, 몬스터 및 캐릭터 생성
     public void OnStart()
     {
+        Debug.Log("aa" + GameManager.instance.slotData.dungeonData.currRoomEvent);
+
         //
         SoundManager.instance.PlayBGM(BGM.Battle1);
-        if (GameManager.slotData.dungeonState.currRoomEvent > 100)
+        if (GameManager.instance.slotData.dungeonData.currRoomEvent > 100)
             roomInfo = new RoomInfo(1);
         else
-            roomInfo = new RoomInfo(GameManager.slotData.dungeonState.currRoomEvent);
+            roomInfo = new RoomInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
 
         Spawn();
 
@@ -96,16 +98,16 @@ public class BattleManager : MonoBehaviour
             int i;
 
             //아군 캐릭터 생성
-            Character c = Instantiate(alliePrefabs[GameManager.slotData.slotClass], alliePos.position, Quaternion.identity).GetComponent<Character>();
+            Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass], alliePos.position, Quaternion.identity).GetComponent<Character>();
             for (i = 0; i < c.activeIdxs.Length; i++)
-                c.activeIdxs[i] = GameManager.slotData.activeSkills[i];
+                c.activeIdxs[i] = GameManager.instance.slotData.activeSkills[i];
             for (i = 0; i < c.passiveIdxs.Length; i++)
-                c.passiveIdxs[i] = GameManager.slotData.passiveSkills[i];
+                c.passiveIdxs[i] = GameManager.instance.slotData.passiveSkills[i];
 
             allCharList.Add(c);
 
             //골렘 생성
-            if (GameManager.slotData.dungeonState.golemHP >= 0)
+            if (GameManager.instance.slotData.dungeonData.golemHP >= 0)
             {
                 Golem g = Instantiate(alliePrefabs[11], alliePos.position + new Vector3(1, 0, 0), Quaternion.identity).GetComponent<Golem>();
                 g.GolemInit(allCharList[0].GetComponent<MadScientist>());
@@ -131,25 +133,25 @@ public class BattleManager : MonoBehaviour
         startBtn.SetActive(false);
 
         //던전 이벤트로 생긴 버프, 디버프 처리
-        foreach (DungeonBuff b in GameManager.slotData.dungeonState.dungeonBuffs)
+        foreach (DungeonBuff b in GameManager.instance.slotData.dungeonData.dungeonBuffs)
             allCharList[0].turnBuffs.Add(new Buff(BuffType.Stat, allCharList[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
-        foreach (DungeonBuff b in GameManager.slotData.dungeonState.dungeonDebuffs)
+        foreach (DungeonBuff b in GameManager.instance.slotData.dungeonData.dungeonDebuffs)
             allCharList[0].turnDebuffs.Add(new Buff(BuffType.Stat, allCharList[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
 
         foreach (Unit c in allCharList)
             c.OnBattleStart(this);
 
         //캐릭터 현재 체력 불러오기
-        if (GameManager.slotData.dungeonState.currHP > 0)
-            allCharList[0].buffStat[(int)Obj.currHP] = GameManager.slotData.dungeonState.currHP;
+        if (GameManager.instance.slotData.dungeonData.currHP > 0)
+            allCharList[0].buffStat[(int)Obj.currHP] = GameManager.instance.slotData.dungeonData.currHP;
         else
             allCharList[0].buffStat[(int)Obj.currHP] = allCharList[0].buffStat[(int)Obj.HP];
 
         //드루이드 - 부활 여부 불러오기
         if (allCharList[0].classIdx == 6)
-            allCharList[0].GetComponent<Druid>().revive = GameManager.slotData.dungeonState.druidRevive;
+            allCharList[0].GetComponent<Druid>().revive = GameManager.instance.slotData.dungeonData.druidRevive;
         //매드 사이언티스트 - 골렘 체력 불러오기
-        if (GameManager.slotData.dungeonState.golemHP == 0)
+        if (GameManager.instance.slotData.dungeonData.golemHP == 0)
             allCharList[1].buffStat[(int)Obj.currHP] = allCharList[1].buffStat[(int)Obj.HP];
 
         foreach (Unit u in allCharList)
@@ -313,10 +315,10 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < skillBtns.Length; i++)
         {
-            if (GameManager.slotData.activeSkills[i] > 0)
+            if (GameManager.instance.slotData.activeSkills[i] > 0)
             {
                 skillBtns[i].gameObject.SetActive(true);
-                skillBtns[i].Init(SkillManager.GetSkill(GameManager.slotData.slotClass, GameManager.slotData.activeSkills[i]), skillIcons[0]);
+                skillBtns[i].Init(SkillManager.GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.activeSkills[i]), skillIcons[0]);
             }
             else
                 skillBtns[i].gameObject.SetActive(false);
@@ -326,9 +328,9 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < skillBtns.Length; i++)
         {
-            if (GameManager.slotData.activeSkills[i] > 0)
+            if (GameManager.instance.slotData.activeSkills[i] > 0)
             {
-                Skill s = SkillManager.GetSkill(GameManager.slotData.slotClass, GameManager.slotData.activeSkills[i]);
+                Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.activeSkills[i]);
                 skillBtns[i].APUpdate(allCharList[0].GetSkillCost(s));
             }
         }
@@ -372,7 +374,7 @@ public class BattleManager : MonoBehaviour
         if (state != BattleState.AllieTurnStart)
             return;
 
-        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[idx]);
+        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[idx]);
 
         if (skillIdx == idx)
         {
@@ -386,7 +388,7 @@ public class BattleManager : MonoBehaviour
                     isBoth = true;
                     state = BattleState.AllieSkillSelected;
 
-                    Skill minusS = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[idx] + 1);
+                    Skill minusS = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[idx] + 1);
 
                     //타겟 선택
                     if (skill.targetSelect == 1 || minusS.targetSelect == 1)
@@ -523,7 +525,7 @@ public class BattleManager : MonoBehaviour
     //비전 마스터 스킬 선택 버튼
     public void Btn_SkillChoose(int isMinus)
     {
-        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[skillIdx] + isMinus);
+        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[skillIdx] + isMinus);
 
         currCaster.GetComponent<VisionMaster>().skillState = isMinus;
         this.isMinus = isMinus;
@@ -589,7 +591,7 @@ public class BattleManager : MonoBehaviour
         else
             targetIdxs.Add(idx);
 
-        Skill s = SkillManager.GetSkill(currCaster.classIdx, GameManager.slotData.activeSkills[skillIdx] + isMinus);
+        Skill s = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[skillIdx] + isMinus);
 
         int count = 0;
         for (int i = 2; i < 5; i++) if (allCharList[i].isActiveAndEnabled) count++;
@@ -620,12 +622,12 @@ public class BattleManager : MonoBehaviour
     }
     public void Btn_UsePotion(int idx)
     {
-        if (GameManager.slotData.dungeonState.potionUse[idx])
+        if (GameManager.instance.slotData.dungeonData.potionUse[idx])
             LogManager.instance.AddLog("이미 사용했습니다.");
         else
         {
             //재활용 포션
-            int potionIdx = GameManager.slotData.potionSlot[idx] == 13 ? GameManager.slotData.potionSlot[(idx + 1) % 2] : GameManager.slotData.potionSlot[idx];
+            int potionIdx = GameManager.instance.slotData.potionSlot[idx] == 13 ? GameManager.instance.slotData.potionSlot[(idx + 1) % 2] : GameManager.instance.slotData.potionSlot[idx];
 
             string potionLog = allCharList[0].GetComponent<Character>().CanUsePotion(potionIdx);
 
@@ -721,23 +723,25 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < roomInfo.ItemCount; i++)
             ItemManager.ItemDrop(roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
 
-        GameManager.slotData.dungeonState.currHP = allCharList[0].buffStat[(int)Obj.currHP];
+        GameManager.instance.slotData.dungeonData.currHP = allCharList[0].buffStat[(int)Obj.currHP];
 
         if (allCharList[0].classIdx == 4 && allCharList[1].isActiveAndEnabled)
-            GameManager.slotData.dungeonState.golemHP = allCharList[1].buffStat[(int)Obj.currHP];
+            GameManager.instance.slotData.dungeonData.golemHP = allCharList[1].buffStat[(int)Obj.currHP];
         else
-            GameManager.slotData.dungeonState.golemHP = -1;
+            GameManager.instance.slotData.dungeonData.golemHP = -1;
 
         if (allCharList[0].classIdx == 6)
-            GameManager.slotData.dungeonState.druidRevive = allCharList[0].GetComponent<Druid>().revive;
+            GameManager.instance.slotData.dungeonData.druidRevive = allCharList[0].GetComponent<Druid>().revive;
 
         LogManager.instance.AddLog("승리");
+        //체력 유지 퀘스트 업데이트
+        QuestManager.DiehardUpdate((float)allCharList[0].buffStat[(int)Obj.currHP] / allCharList[0].buffStat[(int)Obj.HP]);
 
-        if (GameManager.slotData.dungeonState.currRoomEvent > 100)
+        if (GameManager.instance.slotData.dungeonData.currRoomEvent > 100)
         {
             string drops = "드랍 목록\n";
             bossWinUI.SetActive(true);
-            foreach (Triplet<DropType, int, int> token in GameManager.slotData.dungeonState.dropList)
+            foreach (Triplet<DropType, int, int> token in GameManager.instance.slotData.dungeonData.dropList)
                 drops = string.Concat(drops, token.first, " ", token.second, " ", token.third, "\n");
 
             Debug.Log(drops);
@@ -747,8 +751,8 @@ public class BattleManager : MonoBehaviour
     }
     public void Btn_BackToMap()
     {
-        GameManager.SwitchSceneData(SceneKind.Dungeon);
-        GameManager.UpdateDungeonBuff();
+        GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
+        GameManager.instance.UpdateDungeonBuff();
         QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
         UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
     }
@@ -764,9 +768,9 @@ public class BattleManager : MonoBehaviour
 
     public void Btn_BackToTown()
     {
-        GameManager.GetExp(roomInfo.roomExp);
-        GameManager.RemoveDungeonData();
-        GameManager.SwitchSceneData(SceneKind.Town);
+        GameManager.instance.GetExp(roomInfo.roomExp);
+        GameManager.instance.RemoveDungeonData();
+        GameManager.instance.SwitchSceneData(SceneKind.Town);
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
     #endregion

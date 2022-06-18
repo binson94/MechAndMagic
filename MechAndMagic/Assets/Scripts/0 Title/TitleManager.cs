@@ -55,7 +55,7 @@ public class TitleManager : MonoBehaviour
     public void Slider_TxtSpd()
     {
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
-        SoundManager.instance.TxtSet(txtSpdSlider.value * 2);
+        SoundManager.instance.TxtSet(txtSpdSlider.value);
     }
 
     public void Btn_Option_Credit()
@@ -69,10 +69,10 @@ public class TitleManager : MonoBehaviour
     ///<summary> 진행 중이던 슬롯 불러옴 </summary>
     public void Btn_LoadSlot(int slot)
     {
-        GameManager.LoadSlotData(slot);
+        GameManager.instance.LoadSlotData(slot);
 
         string name = "1 Town";
-        switch(GameManager.slotData.nowScene)
+        switch(GameManager.instance.slotData.nowScene)
         {
             case SceneKind.Dungeon:
                 name = "2_0 Dungeon";
@@ -118,7 +118,7 @@ public class TitleManager : MonoBehaviour
     ///<summary> 캐릭터 선택 확정 - 게임 시작 </summary>
     public void Btn_ConfirmClassSelect()
     {
-        GameManager.CreateNewSlot(currSlot, currClass);
+        GameManager.instance.CreateNewSlot(currSlot, currClass);
         UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
     }
     ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>
@@ -139,7 +139,7 @@ public class TitleManager : MonoBehaviour
     ///<summary> 슬롯 삭제 확인 </summary>
     public void Btn_ConfirmDeleteSlot()
     {
-        GameManager.DeleteSlot(currSlot);
+        GameManager.instance.DeleteSlot(currSlot);
         currSlot = -1;
 
         slotDeletePanel.SetActive(false);

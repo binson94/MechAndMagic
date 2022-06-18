@@ -12,15 +12,15 @@ public class OutbreakManager : MonoBehaviour
     {
         SoundManager.instance.PlayBGM(BGM.Battle1);
 
-        outbreakIdx = GameManager.slotData.dungeonState.currRoomEvent;
-        outbreakTxt.text = QuestSlot.GetQuestScript(true, outbreakIdx);
+        outbreakIdx = GameManager.instance.slotData.dungeonData.currRoomEvent;
+        outbreakTxt.text = QuestManager.GetQuestScript(true, outbreakIdx);
 
         AcceptOutbreakQuest();
     }
     void AcceptOutbreakQuest()
     {
-        GameManager.SwitchSceneData(SceneKind.Dungeon);
-        QuestManager.NewQuest(true, outbreakIdx);
+        GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
+        QuestManager.AcceptQuest(true, outbreakIdx);
     }
 
     public void Btn_Back()

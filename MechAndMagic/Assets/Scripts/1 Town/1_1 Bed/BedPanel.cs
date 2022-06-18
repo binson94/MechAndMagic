@@ -53,15 +53,15 @@ public class BedPanel : MonoBehaviour, ITownPanel
 
     public void StatTxtUpdate()
     {
-        statTxts[0].text = GameManager.slotData.lvl.ToString();
-        statTxts[1].text = string.Concat(GameManager.slotData.exp, " / ", SlotData.reqExp[GameManager.slotData.lvl]);
-        expSlider.value = GameManager.slotData.exp / (float)SlotData.reqExp[GameManager.slotData.lvl];
+        statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
+        statTxts[1].text = string.Concat(GameManager.instance.slotData.exp, " / ", SlotData.reqExp[GameManager.instance.slotData.lvl]);
+        expSlider.value = GameManager.instance.slotData.exp / (float)SlotData.reqExp[GameManager.instance.slotData.lvl];
 
         int i, j;
         for (i = j = 2; i < 13; i++, j++)
         {
             if (i == 3) i++;
-            statTxts[j].text = GameManager.slotData.itemStats[i].ToString();
+            statTxts[j].text = GameManager.instance.slotData.itemStats[i].ToString();
         }
 
         statTxts[8].text = string.Concat(statTxts[8].text, "%");

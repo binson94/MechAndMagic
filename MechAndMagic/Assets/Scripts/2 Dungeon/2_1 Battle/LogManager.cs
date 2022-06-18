@@ -17,7 +17,7 @@ public class LogManager : MonoBehaviour
 
     private void Awake()
     {
-        if ((name == "Log Mech" && GameManager.slotData.slotClass < 5) ||(name == "Log Magic" && GameManager.slotData.slotClass >= 5))
+        if ((name == "Log Mech" && GameManager.instance.slotData.slotClass < 5) ||(name == "Log Magic" && GameManager.instance.slotData.slotClass >= 5))
             instance = this;
     }
 

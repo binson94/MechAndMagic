@@ -13,7 +13,7 @@ public class EventManager : MonoBehaviour
     private void Start()
     {
         SoundManager.instance.PlayBGM(BGM.Battle1);
-        eventInfo = new EventInfo(GameManager.slotData.dungeonState.currRoomEvent);
+        eventInfo = new EventInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
         eventText.text = eventInfo.script;
 
         EventEffect();
@@ -26,30 +26,30 @@ public class EventManager : MonoBehaviour
             switch ((EventType)eventInfo.type[i])
             {
                 case EventType.GetEXP:
-                    GameManager.EventGetExp(eventInfo.typeRate[i]);
+                    GameManager.instance.EventGetExp(eventInfo.typeRate[i]);
                     break;
                 case EventType.LossExp:
-                    GameManager.EventLoseExp(eventInfo.typeRate[i]);
+                    GameManager.instance.EventLoseExp(eventInfo.typeRate[i]);
                     break;
                 case EventType.GetItem:
                     int category = 0, amt;
-                    amt = eventInfo.typeRate[i] > 0 ? Mathf.RoundToInt(eventInfo.typeRate[i]) : GameManager.slotData.lvl;
+                    amt = eventInfo.typeRate[i] > 0 ? Mathf.RoundToInt(eventInfo.typeRate[i]) : GameManager.instance.slotData.lvl;
                     switch ((EventItem)eventInfo.typeObj[i])
                     {
                         //19, 20, 21, 22, 23 - 97531
                         case EventItem.Skillbook:
-                            category = 23 - (GameManager.slotData.lvl - 1) / 2;
+                            category = 23 - (GameManager.instance.slotData.lvl - 1) / 2;
                             break;
                         //13, 14, 15 - 상중하
                         case EventItem.CommonEquipMaterial:
-                            category = 15 - GameManager.slotData.lvl / 4;
+                            category = 15 - GameManager.instance.slotData.lvl / 4;
                             break;
                         //1, 2, 3 - 상중하
                         case EventItem.CommonSkillMaterial:
-                            category = 3 - GameManager.slotData.lvl / 4;
+                            category = 3 - GameManager.instance.slotData.lvl / 4;
                             break;
                         case EventItem.Recipe:
-                            switch(GameManager.slotData.lvl)
+                            switch(GameManager.instance.slotData.lvl)
                             {
                                 case 1:
                                 case 2:
@@ -75,22 +75,22 @@ public class EventManager : MonoBehaviour
                             break;
                         //4, 5, 6, 7, 8, 9, 10, 11, 12 - 상무상방상장 중무중방중장 하무하방하장
                         case EventItem.SpecialEquipMaterial:
-                            category = 10 - GameManager.slotData.lvl / 4 * 3 + Random.Range(0, 3);
+                            category = 10 - GameManager.instance.slotData.lvl / 4 * 3 + Random.Range(0, 3);
                             break;
                     }
                     ItemManager.ItemDrop(category, amt);
                     break;
                 case EventType.Heal:
-                    GameManager.EventGetHeal(eventInfo.typeRate[i]);
+                    GameManager.instance.EventGetHeal(eventInfo.typeRate[i]);
                     break;
                 case EventType.Damage:
-                    GameManager.EventGetDamage(eventInfo.typeRate[i]);
+                    GameManager.instance.EventGetDamage(eventInfo.typeRate[i]);
                     break;
                 case EventType.Buff:
-                    GameManager.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    GameManager.instance.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     break;
                 case EventType.Debuff:
-                    GameManager.EventAddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    GameManager.instance.EventAddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     break;
             }
         }
@@ -98,7 +98,7 @@ public class EventManager : MonoBehaviour
 
     public void Btn_BackToMap()
     {
-        GameManager.SwitchSceneData(SceneKind.Dungeon);
+        GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
         QuestManager.QuestUpdate(QuestType.Event, 0, 1);
         SceneManager.LoadScene("2_0 Dungeon");
     }
