@@ -16,6 +16,7 @@ public class QuestBlueprint
 {
     //퀘스트 정보
     public int idx;
+    public string name;
     public string script;
 
     //퀘스트 목표
@@ -44,6 +45,7 @@ public class QuestBlueprint
 
         //퀘스트 정보
         this.idx = idx;
+        name = json[idx]["name"].ToString();
         script = json[idx]["script"].ToString();
 
         //퀘스트 목표

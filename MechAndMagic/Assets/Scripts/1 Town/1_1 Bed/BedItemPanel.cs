@@ -29,8 +29,8 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     [SerializeField] GameObject equipBtns;
     static KeyValuePair<int, Equipment> dummyEquip = new KeyValuePair<int, Equipment>(-1, null);
 
-    List<EquipBtnSet> equipTokenList = new List<EquipBtnSet>();
-    List<EquipBtnSet> equipTokenPool = new List<EquipBtnSet>();
+    List<EquipBtnToken> equipTokenList = new List<EquipBtnToken>();
+    List<EquipBtnToken> equipTokenPool = new List<EquipBtnToken>();
 
     [SerializeField] UnityEngine.UI.Text[] statDelta;
     #endregion
@@ -101,7 +101,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
                 }
                 GameObject go = NewItemToken();
                 go.transform.SetParent(equipTokenParent);
-                equipTokenList.Add(go.GetComponent<EquipBtnSet>());
+                equipTokenList.Add(go.GetComponent<EquipBtnToken>());
                 equipTokenList[equipTokenList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
 
@@ -112,7 +112,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
             {
                 GameObject go = NewItemToken();
                 go.transform.SetParent(equipTokenParent);
-                equipTokenList.Add(go.GetComponent<EquipBtnSet>());
+                equipTokenList.Add(go.GetComponent<EquipBtnToken>());
                 equipTokenList[equipTokenList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
             }
@@ -232,7 +232,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
             for(int i = 0;i < 10;i++)
                 if(newDelta[i] > 0)
                 {
-                    statDelta[i].text = string.Concat("¡ã", newDelta[i]);
+                    statDelta[i].text = string.Concat("+", newDelta[i]);
                     if(i == 6 || i == 7)
                         statDelta[i].text = string.Concat(statDelta[i].text, "%");
 
@@ -240,7 +240,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
                 }
                 else if (newDelta[i] < 0)
                 {
-                    statDelta[i].text = string.Concat("¡å", -newDelta[i]);
+                    statDelta[i].text = string.Concat(newDelta[i]);
                     if(i == 6 || i == 7)
                         statDelta[i].text = string.Concat(statDelta[i].text, "%");
                         

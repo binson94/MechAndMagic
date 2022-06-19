@@ -167,8 +167,8 @@ public class DungeonManager : MonoBehaviour
     public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
     public void Slider_TxtSpd()
     {
-        PlayerPrefs.SetInt("TxtSpd", Mathf.RoundToInt(txtSpdSlider.value * 2));
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
+        SoundManager.instance.TxtSet(txtSpdSlider.value);
     }
     #endregion Option
 }

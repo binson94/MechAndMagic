@@ -25,8 +25,8 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
 
     [SerializeField] Sprite[] skillFrameSprites;
     [SerializeField] Sprite[] skillIconSprites;
-    List<SkillBtnSet> skillTokenList = new List<SkillBtnSet>();
-    List<SkillBtnSet> skillTokenPool = new List<SkillBtnSet>();
+    List<SkillBtnToken> skillTokenList = new List<SkillBtnToken>();
+    List<SkillBtnToken> skillTokenPool = new List<SkillBtnToken>();
     #endregion
 
     public void ResetAllState()
@@ -82,23 +82,23 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
 
         foreach(KeyValuePair<Skill, int> skillLearnPair in showSkills)
         {
-            SkillBtnSet go = NewSkillToken();
+            SkillBtnToken go = NewSkillToken();
             go.transform.SetParent(skillTokenParent);
             skillTokenList.Add(go);
             go.Init(this, skillLearnPair, GetSkillState(skillLearnPair), skillFrameSprites[skillLearnPair.Key.useType], skillIconSprites[0]);
             go.gameObject.SetActive(true);
         }
 
-        SkillBtnSet NewSkillToken()
+        SkillBtnToken NewSkillToken()
         {
             if (skillTokenPool.Count > 0)
             {
-                SkillBtnSet go = skillTokenPool[0];
+                SkillBtnToken go = skillTokenPool[0];
                 skillTokenPool.RemoveAt(0);
                 return go;
             }
             else
-                return Instantiate(skillTokenPrefab).GetComponent<SkillBtnSet>();
+                return Instantiate(skillTokenPrefab).GetComponent<SkillBtnToken>();
         }
         KeyValuePair<SkillState, string> GetSkillState(KeyValuePair<Skill, int> skillLearnPair)
         {

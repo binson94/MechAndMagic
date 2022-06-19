@@ -209,7 +209,7 @@ public class ItemManager : MonoBehaviour
         for (int i = 0; i < newE.commonStatValue.Count; i++)
             addPivots[(int)newE.commonStatValue[i].Key] += newE.commonStatValue[i].Value;
 
-        Equipment currE = GameManager.instance.slotData.itemData.equipmentSlots[(int)newE.ebp.part - 1];
+        Equipment currE = GameManager.instance.slotData.itemData.equipmentSlots[(int)newE.ebp.part];
         if (currE != null)
         {
             addPivots[(int)currE.mainStat] -= currE.mainStatValue;

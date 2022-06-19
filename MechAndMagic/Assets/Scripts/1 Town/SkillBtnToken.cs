@@ -8,7 +8,7 @@ public enum SkillState
     CantLearn, CanLearn, Learned, Equip
 }
 
-public class SkillBtnSet : MonoBehaviour
+public class SkillBtnToken : MonoBehaviour
 {
     SmithPanel SM;
     BedSkillPanel BM;

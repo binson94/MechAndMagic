@@ -12,8 +12,8 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     [SerializeField] Transform btnParent;
     [SerializeField] Transform poolParent;
     [SerializeField] GameObject equipBtnPrefab;
-    List<EquipBtnSet> btnList = new List<EquipBtnSet>();
-    List<EquipBtnSet> btnPool = new List<EquipBtnSet>();
+    List<EquipBtnToken> btnList = new List<EquipBtnToken>();
+    List<EquipBtnToken> btnPool = new List<EquipBtnToken>();
 
     #region Category
     [Header("Category")]
@@ -146,7 +146,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
                 }
                 GameObject go = NewBtnSet();
                 go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList.Add(go.GetComponent<EquipBtnToken>());
                 btnList[btnList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
 
@@ -157,7 +157,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             {
                 GameObject go = NewBtnSet();
                 go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList.Add(go.GetComponent<EquipBtnToken>());
                 btnList[btnList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
             }
@@ -178,7 +178,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
                 GameObject go = NewBtnSet();
                 go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList.Add(go.GetComponent<EquipBtnToken>());
                 btnList[btnList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
 
@@ -189,7 +189,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             {
                 GameObject go = NewBtnSet();
                 go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList.Add(go.GetComponent<EquipBtnToken>());
                 btnList[btnList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
             }
@@ -208,7 +208,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
                 }
                 GameObject go = NewBtnSet();
                 go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList.Add(go.GetComponent<EquipBtnToken>());
                 btnList[btnList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
 
@@ -219,7 +219,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             {
                 GameObject go = NewBtnSet();
                 go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnSet>());
+                btnList.Add(go.GetComponent<EquipBtnToken>());
                 btnList[btnList.Count - 1].Init(this, idxs);
                 go.SetActive(true);
             }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6369745419946735765}
   - component: {fileID: 8153573603509205211}
   m_Layer: 5
-  m_Name: Skill Btn Set
+  m_Name: Skill Btn Token
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1213500679211263461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9862124de1afa1f449b4619604e67e4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a905412801540541a610e7fd158b590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   frameImage: {fileID: 6961208212146055630}

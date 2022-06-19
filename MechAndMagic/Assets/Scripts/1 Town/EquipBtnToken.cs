@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipBtnSet : MonoBehaviour
+public class EquipBtnToken : MonoBehaviour
 {
-    
-
     SmithPanel SM;
     BedItemPanel BM;
     [SerializeField] Button[] btns;

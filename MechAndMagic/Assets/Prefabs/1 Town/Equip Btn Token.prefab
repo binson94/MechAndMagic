@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 98751719624018146}
   - component: {fileID: 6879333736856071240}
   m_Layer: 5
-  m_Name: Equip Btn Set
+  m_Name: Equip Btn Token
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 67791658564259964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9b917578abedb948b6be1b73180c16f, type: 3}
+  m_Script: {fileID: 11500000, guid: d17349c933fc92d44b75b821b45ab365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   btns:

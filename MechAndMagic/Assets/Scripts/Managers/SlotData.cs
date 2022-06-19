@@ -36,6 +36,8 @@ public class SlotData
     public int slotClass;
     public int lvl;
     public int exp;
+    ///<summary> 현재 진행 중인 챕터 </summary>
+    public int chapter;
     ///<summary> 기본 스텟 + 아이템에 의한 스텟 </summary>
     public int[] itemStats = new int[13];
 
@@ -89,6 +91,7 @@ public class SlotData
     {
         lvl = 1;
         slotClass = classIdx;
+        chapter = 1;
 
         for (int i = 0; i <= 12; i++)
             itemStats[i] = baseStats[i];
@@ -387,7 +390,7 @@ public class ItemData
             eList.Add(equipmentSlots[(int)part]);
             eList.Sort((a, b) => a.CompareTo(b));
 
-            equipmentSlots[(int)part - 1] = null;
+            equipmentSlots[(int)part] = null;
         }
     }
 

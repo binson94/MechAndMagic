@@ -92,12 +92,19 @@ public class QuestManager : MonoBehaviour
         return list;
     }
     public static List<int> GetClearedQuest() => GameManager.instance.slotData.questData.GetClearedQuest();
-    public static string GetQuestScript(bool isOutbreak, int idx)
+    public static string GetQuestName(bool isOutbreak, int questIdx)
     {
         if(isOutbreak)
-            return outbreakData[idx].script;
+            return outbreakData[questIdx].name;
         else
-            return questData[idx].script;
+            return questData[questIdx].name;
+    }
+    public static string GetQuestScript(bool isOutbreak, int questIdx)
+    {
+        if(isOutbreak)
+            return outbreakData[questIdx].script;
+        else
+            return questData[questIdx].script;
     }
 
     #region QuestProgress
