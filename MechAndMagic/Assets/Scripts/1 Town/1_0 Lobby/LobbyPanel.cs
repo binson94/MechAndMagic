@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class LobbyPanel : MonoBehaviour, ITownPanel
 {
+    [Header("Player Info")]
     ///<summary> 클래스 텍스트 </summary>
     [SerializeField] Text classTxt;
     [SerializeField] Text lvlTxt;
 
+    [Header("Equipment Info")]
     [Tooltip("0 lv1 ~ 4 lv9")]
     ///<summary> 장비 정보 프레임 스프라이트들
     ///<para> 0 lv1, 1 lv3, 2 lv5, 3 lv7, 4 lv9</para>
@@ -20,6 +22,7 @@ public class LobbyPanel : MonoBehaviour, ITownPanel
     ///<summary> 장착 중인 장비 정보 보여줄 이미지 </summary>
     [SerializeField] EquipInfoImage[] equipInfos;
 
+    [Header("Quest Info")]
     ///<summary> 퀘스트 정보 판넬 </summary>
     [SerializeField] GameObject questListPanel;
     ///<summary> 퀘스트 리스트 창 여는 버튼 </summary>
@@ -78,7 +81,7 @@ public class LobbyPanel : MonoBehaviour, ITownPanel
             if(e == null)
                 equipInfos[i].SetImage(equipFrameSprites[0], null, 0);
             else
-                equipInfos[i].SetImage(equipFrameSprites[e.ebp.reqlvl / 2], equipIconSprites[0], e.ebp.reqlvl);
+                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], equipIconSprites[0], e.ebp.reqlvl);
             
         }
     }
