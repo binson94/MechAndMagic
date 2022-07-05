@@ -21,7 +21,7 @@ public class EventManager : MonoBehaviour
 
     void EventEffect()
     {
-        for(int i =0;i<eventInfo.typeCount;i++)
+        for (int i = 0; i < eventInfo.typeCount; i++)
         {
             switch ((EventType)eventInfo.type[i])
             {
@@ -49,7 +49,7 @@ public class EventManager : MonoBehaviour
                             category = 3 - GameManager.instance.slotData.lvl / 4;
                             break;
                         case EventItem.Recipe:
-                            switch(GameManager.instance.slotData.lvl)
+                            switch (GameManager.instance.slotData.lvl)
                             {
                                 case 1:
                                 case 2:
@@ -100,7 +100,7 @@ public class EventManager : MonoBehaviour
     {
         GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
         QuestManager.QuestUpdate(QuestType.Event, 0, 1);
-        SceneManager.LoadScene("2_0 Dungeon");
+        SceneManager.LoadScene((int)SceneKind.Dungeon);
     }
 
     enum EventType
@@ -112,49 +112,49 @@ public class EventManager : MonoBehaviour
         Skillbook, CommonEquipMaterial, CommonSkillMaterial, Recipe, SpecialEquipMaterial
     }
     class EventInfo
-{
-    public int idx;
-    public string name;
-    public string script;
-
-    public int typeCount;
-    public int[] type;
-    public int[] typeObj;
-    public float[] typeRate;
-
-    static JsonData json;
-
-    static EventInfo() => json = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Dungeons/Event").text);
-
-    public EventInfo(int idx)
     {
-        this.idx = idx;
-        name = json[idx]["name"].ToString();
-        script = json[idx]["script"].ToString();
+        public int idx;
+        public string name;
+        public string script;
 
-        typeCount = (int)json[idx]["typeCount"];
-        type = new int[typeCount];
-        typeObj = new int[typeCount];
-        typeRate = new float[typeCount];
+        public int typeCount;
+        public int[] type;
+        public int[] typeObj;
+        public float[] typeRate;
 
-        for (int i = 0; i < typeCount; i++)
+        static JsonData json;
+
+        static EventInfo() => json = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Dungeons/Event").text);
+
+        public EventInfo(int idx)
         {
-            type[i] = (int)json[idx]["type"][i];
-            typeObj[i] = (int)json[idx]["typeObj"][i];
-            typeRate[i] = float.Parse(json[idx]["typeRate"][i].ToString());
+            this.idx = idx;
+            name = json[idx]["name"].ToString();
+            script = json[idx]["script"].ToString();
+
+            typeCount = (int)json[idx]["typeCount"];
+            type = new int[typeCount];
+            typeObj = new int[typeCount];
+            typeRate = new float[typeCount];
+
+            for (int i = 0; i < typeCount; i++)
+            {
+                type[i] = (int)json[idx]["type"][i];
+                typeObj[i] = (int)json[idx]["typeObj"][i];
+                typeRate[i] = float.Parse(json[idx]["typeRate"][i].ToString());
+            }
         }
     }
-}
 }
 public class DungeonBuff
 {
     public int count;
 
-    public string name;    
+    public string name;
     public int objIdx;
     public double rate;
 
-    public DungeonBuff() {}
+    public DungeonBuff() { }
     public DungeonBuff(string n, int obj, float r)
     {
         name = n;

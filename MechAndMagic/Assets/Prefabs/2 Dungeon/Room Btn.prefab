@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 540, y: 960}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2855223829718901773
 CanvasRenderer:
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bf668a620053d43aa1c1fc6ca61293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rect: {fileID: 0}
+  rectTransform: {fileID: 0}
   bgImage: {fileID: 1136314669206104003}
   roomImage: {fileID: 6035340422691980799}
 --- !u!1 &8575737823133993066
@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 20, y: 20}
+  m_SizeDelta: {x: 175, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7385815898400685840
 CanvasRenderer:

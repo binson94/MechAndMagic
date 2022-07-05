@@ -7,34 +7,55 @@ using System.Linq;
 
 public class ScriptPanel : MonoBehaviour, ITownPanel
 {
-    #region Btn
-    [SerializeField] GameObject npcSelectPanel;
+    NPC[] npcDatas = null; 
 
-    int selectedNpc = -1;
+    #region UI
+    [Header("Illust")]
+    ///<summary> 대화 중인 캐릭터와 npc 일러스트 </summary>
+    [SerializeField] Image[] charIllusts;
+    [SerializeField] Sprite[] playerSprites;
+    [SerializeField] Sprite[] npcSprites;
+
+    [Header("Dialog")]
+    ///<summary> 대화 선택 버튼 부모 오브젝트, 선택 가능 상황에서만 활성화 </summary>
     [SerializeField] GameObject dialogSelectPanel;
+    ///<summary> 대화 선택 버튼들 상태 표시 </summary>
     [SerializeField] DialogButton[] dialogSelectBtns;
-
-    DialogData currDialog = null;
+    ///<summary> 퀘스트 수락/거절 버튼 부모 오브젝트, 선택 가능 상황에서만 활성화 </summary>
     [SerializeField] GameObject questSelectBtns;
-    #endregion Btn
 
-    [SerializeField] DialogState state = DialogState.Start;
+    ///<summary> 실제 대화 내용 표시 텍스트 </summary>
+    [SerializeField] Text dialogTxt;
+    ///<summary> 현재 대사 중인 캐릭터 이름 표시 텍스트 </summary>
+    [SerializeField] Text dialogTalkerTxt;
 
-    static string[] npcName = null;
-    static NPC[] npcs;
-    List<KeyValuePair<DialogData, QuestState>> dialogList = new List<KeyValuePair<DialogData, QuestState>>();
+    [SerializeField] GameObject[] jumpBtns;
+    [SerializeField] Text[] jumpTxts;
+    #endregion UI
+
+    Color illustGrayColor = new Color(0.7f, 0.7f, 0.7f, 1);
 
     #region Dialog
-    [SerializeField] Text dialogTxt;
+    ///<summary> 현재 대화 진행 상태 </summary>
+    DialogState state = DialogState.Start;
+    ///<summary> 현재 선택한 npc의 idx </summary>
+    int selectedNpc = -1;
+    ///<summary> 선택한 npc의 현재 가능한 대화 목록 </summary>
+    List<KeyValuePair<DialogData, QuestState>> dialogList = new List<KeyValuePair<DialogData, QuestState>>();
+    ///<summary> 현재 진행 중인 대화 데이터 </summary>
+    DialogData currDialog = null;
+    ///<summary> 진행 중인 대화 텍스트 </summary>
     JsonData dialogJson;
+    ///<summary> 현재 대화 텍스트 위치 dialogJson[pos] </summary>
     int pos;
+    ///<summary> 텍스트 표시 코루틴 </summary>
     Coroutine proceedDialog;
     #endregion Dialog
 
-    //최초 상태(npc 선택 창)로 되돌리기, npc 목록 새로고침
+    //최초 상태로 되돌리기
     public void ResetAllState()
     {
-        if (npcName == null)
+        if (npcDatas == null)
             LoadNPCData();
 
         StopAllCoroutines();
@@ -42,41 +63,33 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         state = DialogState.Start;
         dialogTxt.text = string.Empty;
 
-        selectedNpc = -1;
+        foreach(GameObject g in jumpBtns)
+            g.SetActive(false);
+
         currDialog = null;
 
-        RefreshNPC();
         dialogList.Clear();
-        npcSelectPanel.SetActive(true);
-        dialogSelectPanel.SetActive(false);
         questSelectBtns.SetActive(false);
 
-        //NPC 목록 새로고침
-        void RefreshNPC()
+        void LoadNPCData()
         {
-
+            npcDatas = new NPC[8];
+            for (int i = 0; i < 8; i++)
+                npcDatas[i] = new NPC($"NPC{i}");
         }
     }
-    void LoadNPCData()
+    
+    ///<summary> 선택한 npc의 대화 목록 불러오기 </summary>
+    public void SelectNPC(int npcIdx)
     {
-        npcName = new string[8];
-        npcName[0] = "testNPC";
-
-        npcs = new NPC[8];
-        for(int i = 0;i < 1;i++)
-            npcs[i] = new NPC(npcName[i]);
-
-    }
-
-    ///<summary> npc 선택 버튼 - 선택한 npc의 대화 목록 불러오기 </summary>
-    public void Btn_SelectNPC(int idx)
-    {
-        selectedNpc = idx;
-        npcSelectPanel.SetActive(false);
+        selectedNpc = npcIdx;
+        charIllusts[1].sprite = npcSprites[selectedNpc];
+        charIllusts[1].color = illustGrayColor;
 
         LoadDialogList();
         dialogSelectPanel.SetActive(true);
 
+        dialogTalkerTxt.text = "NPC";
     }
     ///<summary> 선택한 npc 대화 목록 불러오기 - 퀘스트 진행 상황에 따라 불러옴 </summary>
     void LoadDialogList()
@@ -86,9 +99,9 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         List<int> clearedQuestList = QuestManager.GetClearedQuest();
 
         int i = 0;
-        for (; i < npcs[selectedNpc].count && dialogList.Count < 4; i++)
+        for (; i < npcDatas[selectedNpc].count && dialogList.Count < 4; i++)
         {
-            DialogData dialog = npcs[selectedNpc].dialogs[i];
+            DialogData dialog = npcDatas[selectedNpc].dialogs[i];
 
             //현재 3개 이상 퀘스트 수행 중일 시, 새로운 퀘스트 관련 대화 표시 안함
             if (proceedingQuestList.Count >= 3 && dialog.kind == 1 &&
@@ -109,7 +122,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             //3. 숨김 퀘스트 클리어 안함
             // 위 조건 모두 만족 시 대화에 추가
             if (IsAdd(i))
-                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcs[selectedNpc].dialogs[i], qs));
+                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcDatas[selectedNpc].dialogs[i], qs));
         }
 
         i = 0;
@@ -124,12 +137,12 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         //선행 퀘스트, 관련 퀘스트, 레벨 조건 검사
         bool IsAdd(int idx)
         {
-            int reqQuest = npcs[selectedNpc].dialogs[idx].reqQuest;
-            int linkedQuest = npcs[selectedNpc].dialogs[idx].linkedQuest;
+            int reqQuest = npcDatas[selectedNpc].dialogs[idx].reqQuest;
+            int linkedQuest = npcDatas[selectedNpc].dialogs[idx].linkedQuest;
             //선행 퀘스트 클리어, 관련 퀘스트 클리어 안함, 레벨 넘김
             return (clearedQuestList.Contains(reqQuest) && 
                     (linkedQuest == 0 || !clearedQuestList.Contains(linkedQuest)) &&
-                    GameManager.instance.slotData.lvl >= npcs[selectedNpc].dialogs[idx].lvl);
+                    GameManager.instance.slotData.lvl >= npcDatas[selectedNpc].dialogs[idx].lvl);
         }
     }
 
@@ -140,7 +153,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             return;
 
         currDialog = dialogList[idx].Key;
-        string path = string.Concat("Jsons/Scripts/", npcName[selectedNpc], "/", "dialog", currDialog.idx);
+        string path =$"Jsons/Scripts/NPC{selectedNpc}/dialog{currDialog.idx}";
         if (currDialog.kind == 1)
             path = string.Concat(path, dialogList[idx].Value == QuestState.NotReceive ? "R" :
                                         dialogList[idx].Value == QuestState.Proceeding ? "P" : "C");
@@ -154,8 +167,6 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         state = DialogState.Next;
         NextToken();
     }
-    //NPC 선택창으로 돌아가기
-    public void Btn_BackToNPCSelect() => ResetAllState();
 
     #region Dialog
     ///<summary> 대화 진행 버튼 - 다음 대사 로드 </summary>
@@ -183,6 +194,16 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         state = DialogState.Next;
         NextToken();
     }
+    ///<summary> 선택 분기 대화에서 선택 버튼 </summary>
+    public void Btn_SelectJump(int idx)
+    {
+        foreach(GameObject g in jumpBtns)
+            g.SetActive(false);
+
+        pos++;
+        pos = int.Parse(dialogJson[pos]["script"].ToString().Split('^')[idx]);
+        NextToken();
+    }
     ///<summary> 다음 대사 로드 </summary>
     void NextToken()
     {
@@ -201,19 +222,26 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             {
                 //대사 출력
                 case DialogToken.NPC:
+                    charIllusts[0].color = illustGrayColor; charIllusts[1].color = Color.white;
+                    dialogTalkerTxt.text = "NPC";
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
                     break;
                 case DialogToken.Player:
+                    charIllusts[0].color = Color.white; charIllusts[1].color = illustGrayColor;
+                    dialogTalkerTxt.text = GameManager.instance.slotData.className;
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
                     break;
                 case DialogToken.Narration:
+                    charIllusts[0].color = illustGrayColor; charIllusts[1].color = illustGrayColor;
+                    dialogTalkerTxt.text = string.Empty;
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
                     break;
                 //퀘스트 버튼 보이기, QuestAccept state로 전환
                 case DialogToken.Quest:
+                    charIllusts[0].color = illustGrayColor; charIllusts[1].color = illustGrayColor;
                     questSelectBtns.SetActive(true);
                     state = DialogState.QuestAccept;
                     break;
@@ -222,6 +250,16 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                     ClearQuest(currDialog.linkedQuest);
                     pos++;
                     NextToken();
+                    break;
+                //선택지 구문
+                case DialogToken.Select:
+                    charIllusts[0].color = illustGrayColor; charIllusts[1].color = illustGrayColor;
+                    string[] btnTxts = dialogJson[pos]["script"].ToString().Split('^');
+                    for(int i = 0; i < btnTxts.Length;i++)
+                    {
+                        jumpTxts[i].text = btnTxts[i];
+                        jumpBtns[i].SetActive(true);
+                    }
                     break;
                 //대화 종료
                 case DialogToken.EndDialog:
@@ -243,7 +281,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
     }
 
-    #region Normal Dialog
+    #region DialogTokens
+    #region NormalDialog
     IEnumerator ProceedDialog()
     {
         float time = 0.05f + 0.05f * SoundManager.instance.GetTxtSpd();
@@ -283,35 +322,33 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         dialogTxt.text = dialogJson[pos++]["script"].ToString();
         state = DialogState.Next;
     }
-    #endregion Normal Dialog
+    #endregion NormalDialog
 
-    #region Special Event
     void PlaySFX(int idx) => SoundManager.instance.PlaySFX(idx);
-
     void PlayStory(int idx)
     {
         Debug.Log(string.Concat("스토리 재생 ", idx));
     }
-
     void NewQuest(int idx) => QuestManager.AcceptQuest(false, idx);
     void ClearQuest(int idx) => QuestManager.ClearQuest(idx);
-    #endregion Special Event
     void EndDialog()
     {
         state = DialogState.Start;
         dialogTxt.text = string.Empty;
+        dialogTalkerTxt.text = "NPC";
         currDialog = null;
         LoadDialogList();
 
-        npcSelectPanel.SetActive(false);
+        charIllusts[0].color = illustGrayColor; charIllusts[1].color = illustGrayColor;
         dialogSelectPanel.SetActive(true);
         questSelectBtns.SetActive(false);
     }
+    #endregion DialogTokens
     #endregion Dialog
 
     enum DialogToken
     {
-        NPC, Player, Narration, Quest, QuestClear, EndDialog, Story
+        NPC, Player, Narration, Quest, QuestClear, Select, Select_Jump, EndDialog, Story
     }
     enum DialogState
     {
@@ -344,7 +381,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
         public NPC(string name)
         {
-            JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>(string.Concat("Jsons/Scripts/", name, "/", name)).text);
+            JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>($"Jsons/Scripts/{name}/{name}").text);
             count = json.Count;
 
             dialogs = new DialogData[count];

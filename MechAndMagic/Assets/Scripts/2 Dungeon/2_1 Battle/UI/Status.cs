@@ -13,8 +13,8 @@ public class Status : MonoBehaviour
 
     public void SetName(Unit u)
     {
-        nameTxt.text = u.classIdx < 9 ? "플레이어" : "몬스터";
-        lvlTxt.text = u.LVL.ToString();
+        nameTxt.text = u.name;
+        lvlTxt.text = $"{u.LVL}";
     }
 
     public void UpdateValue(Unit u)

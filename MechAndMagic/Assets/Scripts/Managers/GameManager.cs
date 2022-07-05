@@ -47,10 +47,10 @@ public class GameManager : MonoBehaviour
     ///<summary> 슬롯 삭제 </summary>
     public void DeleteSlot(int slot) => PlayerPrefs.DeleteKey($"Slot{slot}");
     ///<summary> 슬롯 불러오기 </summary>
-    public void LoadSlotData(int slot) => slotData = HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", currSlot = slot)));
+    public void LoadSlotData(int slot) => slotData = HexToObj<SlotData>(PlayerPrefs.GetString($"Slot{currSlot = slot}"));
     ///<summary> 슬롯 데이터 저장 </summary>
     public void SaveSlotData() => PlayerPrefs.SetString($"Slot{currSlot}", ObjToHex(slotData));
-    ///<summary> 씬 전환 시, 로드 시 불러올 씬 변경 </summary>
+    ///<summary> 씬 전환 시 호출, 로드 시 불러올 씬 변경 </summary>
     public void SwitchSceneData(SceneKind kind)
     {
         slotData.nowScene = kind;
@@ -177,5 +177,34 @@ public class GameManager : MonoBehaviour
             return default(T);
         else
             return JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));
+    }
+
+    public static T GetToken<T>(Queue<T> pool, RectTransform parent, GameObject prefab) where T : MonoBehaviour
+    {
+        T token;
+
+        if(pool.Count > 0)
+        {
+            token = pool.Dequeue();
+            token.transform.SetParent(parent);
+        }
+        else
+        {
+            token = Instantiate(prefab).GetComponent<T>();
+            token.transform.SetParent(parent);
+
+            //해상도에 맞게 사이즈 조절
+            RectTransform newRect = token.transform as RectTransform;
+            RectTransform prefabRect = prefab.GetComponent<RectTransform>();
+            newRect.anchoredPosition = prefabRect.anchoredPosition;
+            newRect.anchorMax = prefabRect.anchorMax;
+            newRect.anchorMin = prefabRect.anchorMin;
+            newRect.localRotation = prefabRect.localRotation;
+            newRect.localScale = prefabRect.localScale; ;
+            newRect.pivot = prefabRect.pivot;
+            newRect.sizeDelta = prefabRect.sizeDelta;
+        }
+
+        return token;
     }
 }

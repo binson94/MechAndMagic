@@ -1,1598 +1,1034 @@
 [
-  {
-    "name": "화염 공격",
-    "script": "랜덤 단일 공격(강한 공격력)",
-    "idx": 1,
-    "class": 11,
-    "category": 1007,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      1.4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "화염 공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 1,
+     "icon": "",
+     "class": 11,
+     "category": 1007,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "화염 버프",
-    "script": "플레이어 공격력 버프 2턴",
-    "idx": 2,
-    "class": 11,
-    "category": 1007,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      10,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "화염 버프",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 2,
+     "icon": "",
+     "class": 11,
+     "category": 1007,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        6,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "물 공격",
-    "script": "적 전체 공격(낮은 공격력)",
-    "idx": 3,
-    "class": 11,
-    "category": 1008,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      6,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      0.7,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "물 공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 3,
+     "icon": "",
+     "class": 11,
+     "category": 1008,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        6,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.6,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "물 버프",
-    "script": "플레이어 행동력 버프 2턴",
-    "idx": 4,
-    "class": 11,
-    "category": 1008,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      2,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "물 버프",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 4,
+     "icon": "",
+     "class": 11,
+     "category": 1008,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        2,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "바람 공격",
-    "script": "랜덤 단일 공격(낮은 공격력) + 2턴 속도 디버프",
-    "idx": 5,
-    "class": 11,
-    "category": 1009,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 2,
-    "combo": 0,
-    "effectType": [
-      1,
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      4,
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      1,
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      0.7,
-      10,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      0,
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "바람 공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 5,
+     "icon": "",
+     "class": 11,
+     "category": 1009,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 2,
+     "sfx": 0,
+     "effectType": [
+        1,
+        4,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        4,
+        12,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        12,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.9,
+        4,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        3,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0
+     ]
   },
-  {
-    "name": "바람 버프",
-    "script": "플레이어 속도 버프 2턴",
-    "idx": 6,
-    "class": 11,
-    "category": 1009,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      10,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "바람 버프",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 6,
+     "icon": "",
+     "class": 11,
+     "category": 1009,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        6,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "화염 강공격",
-    "script": "랜덤 단일 공격(매우 강한 공격력, 무조건 치명타, 방어무시 40, 치명타 보너스 40 추가)",
-    "idx": 7,
-    "class": 11,
-    "category": 1007,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 4,
-    "combo": 0,
-    "effectType": [
-      3,
-      3,
-      3,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      0,
-      0,
-      0,
-      4,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      9,
-      10,
-      11,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      5,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      100,
-      40,
-      40,
-      1.5,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      -1,
-      -1,
-      -1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "화염 강공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 7,
+     "icon": "",
+     "class": 11,
+     "category": 1007,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 4,
+     "sfx": 0,
+     "effectType": [
+        3,
+        3,
+        3,
+        1
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        4
+     ],
+     "effectObject": [
+        9,
+        10,
+        11,
+        1
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        5
+     ],
+     "effectRate": [
+        100,
+        40,
+        40,
+        0.9
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        -1,
+        -1,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "화염 강버프",
-    "script": "플레이어 공격력 대량 버프 2턴",
-    "idx": 8,
-    "class": 11,
-    "category": 1007,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      20,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "화염 강버프",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 8,
+     "icon": "",
+     "class": 11,
+     "category": 1007,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        14,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "물 강공격",
-    "script": "적 전체 공격(낮은 공격력, 명중률, 명중 시 1턴 스턴)",
-    "idx": 9,
-    "class": 11,
-    "category": 1008,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 3,
-    "combo": 0,
-    "effectType": [
-      4,
-      1,
-      10,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      0,
-      4,
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      7,
-      1,
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      20,
-      0.8,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      -1,
-      0,
-      2,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "물 강공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 9,
+     "icon": "",
+     "class": 11,
+     "category": 1008,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 3,
+     "sfx": 0,
+     "effectType": [
+        4,
+        1,
+        4,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        4,
+        12,
+        0
+     ],
+     "effectObject": [
+        7,
+        1,
+        13,
+        0
+     ],
+     "effectStat": [
+        0,
+        5,
+        0,
+        0
+     ],
+     "effectRate": [
+        30,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        0,
+        2,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        1,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        1,
+        0
+     ]
   },
-  {
-    "name": "물 강버프",
-    "script": "플레이어 행동력 대량 버프 2턴",
-    "idx": 10,
-    "class": 11,
-    "category": 1008,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      6,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "물 강버프",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 10,
+     "icon": "",
+     "class": 11,
+     "category": 1008,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0
+     ]
   },
-  {
-    "name": "바람 강공격",
-    "script": "적 전체 공격(낮은 공격력, 명중 시 2턴 속도 디버프)",
-    "idx": 11,
-    "class": 11,
-    "category": 1009,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 2,
-    "combo": 0,
-    "effectType": [
-      1,
-      4,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      6,
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      1,
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      5,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      0.8,
-      10,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      0,
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "바람 강공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 11,
+     "icon": "",
+     "class": 11,
+     "category": 1009,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 2,
+     "sfx": 0,
+     "effectType": [
+        1,
+        4,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        6,
+        12,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        12,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.6,
+        8,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        3,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0
+     ]
   },
-  {
-    "name": "바람 강버프",
-    "script": "플레이어 속도 대량 버프 2턴",
-    "idx": 12,
-    "class": 11,
-    "category": 1009,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "combo": 0,
-    "effectType": [
-      3,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCond": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTarget": [
-      13,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectObject": [
-      12,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectStat": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectRate": [
-      20,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectCalc": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectTurn": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectDispel": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ],
-    "effectVisible": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ]
+   {
+     "name": "바람 강버프",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 12,
+     "icon": "",
+     "class": 11,
+     "category": 1009,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        14,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0
+     ]
   }
-]
+  ]

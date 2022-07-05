@@ -64,7 +64,7 @@ public class ElementalController : Character
         //208 응축된 조화
         if(skill.idx == 208)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, usedAP, 1, 0, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, usedAP, 1, 0, -1));
         }
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(15);
@@ -74,8 +74,8 @@ public class ElementalController : Character
         //삼위일체 4세트 - 불 CRC상승,ACC감소, 물ACC상승,ATK감소, 바람ATK상승,CRC감소
         if(set.Value[2] > 0 && (skill.category == 1007 || skill.category == 1008 || skill.category == 1009))
         {
-            Obj up = skill.category == 1007 ? Obj.CRC : skill.category == 1008 ? Obj.ACC : Obj.ATK;
-            Obj down = skill.category == 1007 ? Obj.ACC : skill.category == 1008 ? Obj.ATK : Obj.CRC;
+            Obj up = skill.category == 1007 ? Obj.CRC : skill.category == 1008 ? Obj.ACC : Obj.공격력;
+            Obj down = skill.category == 1007 ? Obj.ACC : skill.category == 1008 ? Obj.공격력 : Obj.CRC;
 
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)up, 1, set.Value[2], 1, -1));
             skillDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)down, 1, set.Value[2], 1, -1));

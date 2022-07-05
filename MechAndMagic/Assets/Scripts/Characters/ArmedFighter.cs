@@ -239,7 +239,7 @@ public class ArmedFighter : Character
                         AddBuff(this, orderIdx, skill, i, 0);
                         StatUpdate_Skill(skill);
 
-                        chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.ATK], buffStat[(int)Obj.ACC]);
+                        chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.공격력], buffStat[(int)Obj.ACC]);
                         //AP 값 0으로
                         buffStat[(int)Obj.AP] = buffStat[(int)Obj.currAP] = 0;
                         break;
@@ -356,7 +356,7 @@ public class ArmedFighter : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(3);
         if (set.Value[0] > 0 && active.category == 1002)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
         }
     }
 

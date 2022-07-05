@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LogManager : MonoBehaviour
 {
     public static LogManager instance;
 
-    [SerializeField] Transform logContent;
-    [SerializeField] Transform expandLogContent;
+    [SerializeField] ScrollRect logScroll;
+    [SerializeField] ScrollRect expandLogScroll;
+
+    [SerializeField] RectTransform logContent;
+    [SerializeField] RectTransform expandLogContent;
     [SerializeField] GameObject logPrefab;
 
     bool isExpand = false;
@@ -17,20 +21,37 @@ public class LogManager : MonoBehaviour
 
     private void Awake()
     {
-        if ((name == "Log Mech" && GameManager.instance.slotData.slotClass < 5) ||(name == "Log Magic" && GameManager.instance.slotData.slotClass >= 5))
-            instance = this;
+        instance = this;
     }
 
     public void AddLog(string str)
     {
-        Log tmp = Instantiate(logPrefab).GetComponent<Log>();
-        tmp.Set(str);
+        Log token = GetToken(logContent);
+        token.Set(str);
 
-        tmp.transform.SetParent(logContent);
+        token = GetToken(expandLogContent);
+        token.Set(str);
 
-        tmp = Instantiate(logPrefab).GetComponent<Log>();
-        tmp.Set(str);
-        tmp.transform.SetParent(expandLogContent);
+        logScroll.verticalNormalizedPosition = 0;
+        expandLogScroll.verticalNormalizedPosition = 0;
+    }
+
+    Log GetToken(RectTransform parent)
+    {
+        Log token = Instantiate(logPrefab).GetComponent<Log>();
+        token.transform.SetParent(parent);
+
+        RectTransform newRect = token.transform as RectTransform;
+        RectTransform prefabRect = logPrefab.GetComponent<RectTransform>();
+        newRect.anchoredPosition = prefabRect.anchoredPosition;
+        newRect.anchorMax = prefabRect.anchorMax;
+        newRect.anchorMin = prefabRect.anchorMin;
+        newRect.localRotation = prefabRect.localRotation;
+        newRect.localScale = prefabRect.localScale;
+        newRect.pivot = prefabRect.pivot;
+        newRect.sizeDelta = prefabRect.sizeDelta;
+
+        return token;
     }
 
     public void Btn_ExpandToggle()

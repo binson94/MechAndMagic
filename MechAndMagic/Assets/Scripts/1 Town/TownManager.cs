@@ -15,19 +15,13 @@ public interface ITownPanel
 
 public class TownManager : MonoBehaviour
 {
-    ///<summary> 기계, 마법 캔버스 구분, 인스펙터 할당 </summary>
-    [SerializeField] GameObject[] canvases;
-    ///<summary> 기계 진영 자식 캔버스들(Lobby, Bed, Dungeon, Smith, Script), 인스펙터 할당 </summary>
-    [SerializeField] GameObject[] mechUiPanels;
-    ///<summary> 마법 진영 자식 캔버스들(Lobby, Bed, Dungeon, Smith, Script), 인스펙터 할당 </summary>
-    [SerializeField] GameObject[] magicUiPanels;
-    ///<summary> 기계, 마법 진영에 따라 mechUiPanels, magicUiPanels 할당 </summary>
-    GameObject[] uiPanels;
+    ///<summary> 자식 캔버스들(Lobby, Bed, Dungeon, Smith, Script), 인스펙터 할당 </summary>
+    [SerializeField] GameObject[] uiPanels;
     ///<summary> uiPanels에서 GetComponent로 얻음 </summary>
-    ITownPanel[] townPanels;
+    [SerializeField] ITownPanel[] townPanels;
 
     ///<summary> 배경 이미지 </summary>
-    Image bgImage;
+    [SerializeField] Image bgImage;
     ///<summary> 배경 이미지 스프라이트들, 인스펙터에서 할당
     ///<para> 1to2 기계, 3to4 기계, 1to2 마법, 3to4 마법 순 </para>
     ///</summary>
@@ -36,24 +30,36 @@ public class TownManager : MonoBehaviour
     ///<summary> 현재 열린 판넬 정보 </summary>
     TownState state;
 
+    #region PlayerInfoPanel
+    [Header("Player Info")]
+    [SerializeField] GameObject playerInfoPanel;
+    ///<summary> 클래스 텍스트 </summary>
+    [SerializeField] Text classTxt;
+    [SerializeField] Text lvlTxt;
+
+    [Header("Equipment Info")]
+    [Tooltip("0 lv1 ~ 4 lv9")]
+    ///<summary> 장비 정보 프레임 스프라이트들
+    ///<para> 0 lv1, 1 lv3, 2 lv5, 3 lv7, 4 lv9</para>
+    ///</summary>
+    [SerializeField] Sprite[] equipFrameSprites;
+    [Tooltip("장비 아이콘")]
+    ///<summary> 장비 아이콘 스프라이트들 </summary>
+    [SerializeField] Sprite[] equipIconSprites;
+    ///<summary> 장착 중인 장비 정보 보여줄 이미지 </summary>
+    [SerializeField] EquipInfoImage[] equipInfos;
+    #endregion PlayerInfoPanel
+
+    [Header("Option")]
     ///<summary> 옵션 판넬 </summary>
     [SerializeField] GameObject optionPanel;
-    ///<summary> 크레딧 판넬 </summary>
-    [SerializeField] GameObject creditPanel;
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider txtSpdSlider;
 
     private void Start()
     {
-        //기계, 마법 진영에 따라 캔버스 선택
-        for (int i = 0; i < 2; i++)
-            canvases[i].SetActive(GameManager.instance.slotData.slotClass < 5 ^ i == 1);
-        uiPanels = GameManager.instance.slotData.slotClass < 5 ? mechUiPanels : magicUiPanels;
-        
-        //진영 및 챕터에 따라 배경 이미지 설정
-        bgImage = (GameManager.instance.slotData.slotClass < 5 ? canvases[0].transform.GetChild(0) : canvases[1].transform.GetChild(0)).GetComponent<Image>();
-        bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5)];
+        bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5) + (GameManager.instance.slotData.chapter / 2)];
         
         //ITownPanel GetComponent로 얻음
         townPanels = new ITownPanel[uiPanels.Length];
@@ -93,20 +99,68 @@ public class TownManager : MonoBehaviour
         uiPanels[(int)state].GetComponent<SmithPanel>().BedToSmith(currC, currR, currL, selected);
         PanelSet();
     }
+    public void BedToSkillLearn(int skillIdx)
+    {
+        state = TownState.Smith;
+        townPanels[(int)state].ResetAllState();
+        uiPanels[(int)state].GetComponent<SmithPanel>().BedToSkillLearn(skillIdx);
+        PanelSet();
+    }
+    ///<summary> 로비에서 NPC 선택 시 대화로 넘어가기 위한 중계 함수 </summary>
+    public void LoadDialog(int npcIdx)
+    {
+        state = TownState.Script;
+        townPanels[(int)state].ResetAllState();
+        uiPanels[(int)state].GetComponent<ScriptPanel>().SelectNPC(npcIdx);
+        PanelSet();
+    }
+
+    void ShowItemInfo()
+    {
+        LoadPlayerInfo();
+        LoadItemInfo();
+        playerInfoPanel.SetActive(true);
+    ///<summary> 플레이어 레벨 및 직업 표시 </summary>
+    void LoadPlayerInfo()
+    {
+        classTxt.text = GameManager.instance.slotData.className;
+        lvlTxt.text = $"Lv.{GameManager.instance.slotData.lvl}";
+    }
+    ///<summary> 현재 장착한 장비 정보 불러오기, 장비 정보 창에 적용 </summary>
+    void LoadItemInfo()
+    {
+        for(int i = 0;i < 7;i++)
+        {
+            Equipment e = GameManager.instance.slotData.itemData.equipmentSlots[i + 1];
+            if(e == null)
+                equipInfos[i].SetImage(equipFrameSprites[0], null, 0);
+            else
+                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], equipIconSprites[0], e.ebp.reqlvl);
+            
+        }
+    }
+
+    }
 
     ///<summary> 선택만 판넬만 보이게 설정 </summary>
     private void PanelSet()
     {
         for (int i = 0; i < uiPanels.Length; i++)
             uiPanels[i].SetActive(i == (int)state);
+        
+        if(state == TownState.Lobby || state == TownState.Dungeon || state == TownState.Script)
+            ShowItemInfo();
+        else
+            playerInfoPanel.SetActive(false);
     }
 
     #region Option
     public void Btn_OpenOption() => optionPanel.SetActive(true);
-    public void Btn_CloseOption()
+    public void Btn_CloseOption() => optionPanel.SetActive(false);
+    public void Btn_GoToTitle()
     {
-        Btn_CloseCredit();
-        optionPanel.SetActive(false);
+        GameManager.instance.slotData = null; 
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
     public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
     public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
@@ -114,17 +168,6 @@ public class TownManager : MonoBehaviour
     {
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
         SoundManager.instance.TxtSet(txtSpdSlider.value);
-    }
-
-    public void Btn_OpenCredit()
-    {
-        Btn_CloseOption();
-        creditPanel.SetActive(true);
-    }
-    public void Btn_CloseCredit()
-    {
-        creditPanel.SetActive(false);
-        Btn_OpenOption();
     }
     #endregion Option
 }

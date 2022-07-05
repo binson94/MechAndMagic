@@ -19,7 +19,7 @@ public class SkillButton : MonoBehaviour
 
     public void APUpdate(int val)
     {
-        apTxt.text = string.Concat("<color=#ed2929> ", val, " </color> AP");
+        apTxt.text = $"<color=#ed2929> {val} </color> AP";
     }
 
     public void Highlight(bool isHigh)

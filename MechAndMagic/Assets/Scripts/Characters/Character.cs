@@ -33,9 +33,9 @@ public class Character : Unit
         if (set.Value[0] > 0)
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.AP, 1, set.Value[0], 0, 99, 0, 1));
 
-        //메탈 그리드 4세트 - 매 전투 2번 디버프 면역
+        //메탈 그리드 4세트 - 매 전투 1번 디버프 면역
         if (ItemManager.GetSetData(28).Value[1] > 0)
-            debuffImmune = 2;
+            debuffImmune = 1;
 
         //완벽한 톱니바퀴 2세트 - ACC 상승
         set = ItemManager.GetSetData(29);
@@ -91,7 +91,7 @@ public class Character : Unit
         if (set.Value[0] > 0)
         {
             int crit = Random.Range(0, 100) < buffStat[(int)Obj.CRC] ? buffStat[(int)Obj.CRB] : 100;
-            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.ATK] * set.Value[0], buffStat[(int)Obj.PEN], crit);
+            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[0], buffStat[(int)Obj.PEN], crit);
         }
 
         set = ItemManager.GetSetData(32);
@@ -116,7 +116,7 @@ public class Character : Unit
         if (set.Value[1] > 0)
         {
             int crit = Random.Range(0, 100) < buffStat[(int)Obj.CRC] ? buffStat[(int)Obj.CRB] : 100;
-            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.ATK] * set.Value[1], buffStat[(int)Obj.PEN], crit);
+            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[1], buffStat[(int)Obj.PEN], crit);
         }
 
         set = ItemManager.GetSetData(32);
@@ -139,142 +139,6 @@ public class Character : Unit
             GetAPHeal(set.Value[1]);
     }
 
-    public string CanUsePotion(int potionIdx)
-    {
-        Potion p = ItemManager.GetPotion(potionIdx);
-        if(potionIdx == 0)
-            return "포션이 없습니다.";
-        if(potionIdx == 10 || potionIdx == 17)
-            return p.effectRate[0] >= buffStat[(int)Obj.currHP] ? "체력 부족" : "";
-        else if(potionIdx == 18)
-            return p.effectRate[0] > buffStat[(int)Obj.currAP] ? "AP 부족" : "";
-        else
-            return "";
-    }
-    public void UsePotion(int potionIdx)
-    {
-        Potion p = ItemManager.GetPotion(potionIdx);
-
-        switch (potionIdx)
-        {
-            //회복 포션 - HP 회복
-            case 1:
-                {
-                    GetHeal(p.effectRate[0]);
-                    break;
-                }
-            //활력 포션 - AP 회복
-            case 2:
-                {
-                    GetAPHeal(p.effectRate[0]);
-                    break;
-                }
-            //정화 포션 - 모든 디버프 제거
-            case 3:
-                {
-                    RemoveDebuff(turnDebuffs.Count);
-                    break;
-                }
-            //분노 포션 - 2턴 ATK, CRB 버프
-            case 4:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.ATK, 1, p.effectRate[0], 1, 2, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.CRB, 1, p.effectRate[1], 1, 2, 0, 1));
-                    break;
-                }
-            //집중 포션 - 2턴 ACC, CRC 버프
-            case 5:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.ACC, 1, p.effectRate[0], 1, 2, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.CRC, 1, p.effectRate[1], 1, 2, 0, 1));
-                    break;
-                }
-            //신속 포션 - 2턴 DOG, SPD 버프
-            case 6:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.DOG, 1, p.effectRate[0], 1, 2, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.SPD, 1, p.effectRate[1], 1, 2, 0, 1));
-                    break;
-                }
-            //인내 포션 - 2턴 DEF 버프
-            case 7:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.DEF, 1, p.effectRate[0], 1, 2, 0, 1));
-                    break;
-                }
-            //관통 포션 - 2턴 PEN 버프
-            case 8:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.PEN, 1, p.effectRate[0], 1, 2, 0, 1));
-                    break;
-                }
-            //안정화 포션 - HP 회복, 디버프 1개 제거
-            case 9:
-                {
-                    GetHeal(p.effectRate[0]);
-                    RemoveDebuff(1);
-                    break;
-                }
-            //불안정 포션 - HP 소모, AP 회복
-            case 10:
-                {
-                    buffStat[(int)Obj.currHP] -= Mathf.RoundToInt(p.effectRate[0]);
-                    GetAPHeal(p.effectRate[1]);
-                    break;
-                }
-            //석화 포션 - 2턴 SPD 디버프, 이번 전투 DEF 버프
-            case 11:
-                {
-                    turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.SPD, 1, p.effectRate[0], 1, 2, 1, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.DEF, 1, p.effectRate[1], 1, 99, 0, 1));
-                    break;
-                }
-            //경화 포션 - 2턴 DEF 디버프, 이번 전투 SPD 버프
-            case 12:
-                {
-                    turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.DEF, 1, p.effectRate[0], 1, 2, 1, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.SPD, 1, p.effectRate[1], 1, 99, 0, 1));
-                    break;
-                }
-            //수호 포션 - 1턴 디버프 면역
-            case 14:
-                {
-                    immunePotion = true;
-                    break;
-                }
-            //각성 포션 - 1턴 ATK, ACC, CRC, CRB 버프
-            case 15:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.ATK, 1, p.effectRate[0], 1, 1, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.ACC, 1, p.effectRate[1], 1, 1, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.CRC, 1, p.effectRate[2], 1, 1, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.CRB, 1, p.effectRate[3], 1, 1, 0, 1));
-                    break;
-                }
-            //해방 포션 - 1턴 DOG, SPD 버프
-            case 16:
-                {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.DOG, 1, p.effectRate[0], 1, 1, 0, 1));
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), p.name, (int)Obj.SPD, 1, p.effectRate[1], 1, 1, 0, 1));
-                    break;
-                }
-            //최후의 포션 - 체력 소모, AP 전체 회복
-            case 17:
-                {
-                    buffStat[(int)Obj.currHP] -= Mathf.RoundToInt(p.effectRate[0]);
-                    GetAPHeal(buffStat[(int)Obj.AP]);
-                    break;
-                }
-            //활력 포션 - AP 소모, 체력 전체 회복
-            case 18:
-                {
-                    buffStat[(int)Obj.currAP] -= Mathf.RoundToInt(p.effectRate[0]);
-                    GetHeal(buffStat[(int)Obj.HP]);
-                    break;
-                }
-        }
-    }
-
     protected void OnCrit()
     {
         //행운의 클로버 3세트 - 치명타 시 디버프 1개 해제
@@ -292,7 +156,7 @@ public class Character : Unit
             for (int i = 0; i < 2; i++)
             {
                 int crit = Random.Range(0, 100) < buffStat[(int)Obj.CRC] ? buffStat[(int)Obj.CRB] : 100;
-                u.GetDamage(this, buffStat[(int)Obj.ATK] * set.Value[2], buffStat[(int)Obj.PEN], crit);
+                u.GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[2], buffStat[(int)Obj.PEN], crit);
             }
         }
 

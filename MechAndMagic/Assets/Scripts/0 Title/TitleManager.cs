@@ -10,20 +10,27 @@ public enum TitleState
 
 public class TitleManager : MonoBehaviour
 {
+    [Header("UI")]
     ///<summary> 0 Title, 1 SlotSelect, 2ClassSelect, 3 ClassInfo, 4 Option </summary>
     [SerializeField] GameObject[] uiPanels;
     ///<summary> option - credit 시 표시할 판넬 </summary>
     [SerializeField] GameObject creditPanel;
 
     #region Option
+    [Header("Option")]
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider txtSpdSlider;
     #endregion
 
     #region GameSlot
+    [Header("Slot")]
     ///<summary> 슬롯 정보 판넬 </summary>
     [SerializeField] GameSlot[] slots;
+    ///<summary> 슬롯 클래스 아이콘 </summary>
+    [SerializeField] Sprite[] slotClassIcons;
+    ///<summary> 슬롯 신영 프레임 </summary>
+    [SerializeField] Sprite[] slotFrames;
 
     ///<summary> 현재 선택 중인 슬롯 </summary>
     int currSlot = -1;
@@ -38,7 +45,7 @@ public class TitleManager : MonoBehaviour
     TitleState state;
 
     private void Start()
-    {
+    { 
         state = TitleState.Title;
         bgmSlider.value = (float)SoundManager.instance.option.bgm;
         sfxSlider.value = (float)SoundManager.instance.option.sfx;
@@ -47,7 +54,7 @@ public class TitleManager : MonoBehaviour
         PanelSet();
         SlotUpdate();
         SoundManager.instance.PlayBGM(BGM.Title);
-    }
+    }   
 
     #region Option
     public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
@@ -70,24 +77,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_LoadSlot(int slot)
     {
         GameManager.instance.LoadSlotData(slot);
-
-        string name = "1 Town";
-        switch(GameManager.instance.slotData.nowScene)
-        {
-            case SceneKind.Dungeon:
-                name = "2_0 Dungeon";
-                break;
-            case SceneKind.Battle:
-                name = "2_1 Battle";
-                break;
-            case SceneKind.Event:
-                name = "2_2 Event";
-                break;
-            case SceneKind.Outbreak:
-                name = "2_3 Outbreak";
-                break;
-        }
-        UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+        UnityEngine.SceneManagement.SceneManager.LoadScene((int)GameManager.instance.slotData.nowScene);
     }
 
     #region start_New
@@ -119,7 +109,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_ConfirmClassSelect()
     {
         GameManager.instance.CreateNewSlot(currSlot, currClass);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
+        UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Town);
     }
     ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>
     public void Btn_CancelClassSelect()
@@ -157,7 +147,13 @@ public class TitleManager : MonoBehaviour
     private void SlotUpdate()
     {
         for (int i = 0; i < GameManager.SLOTMAX; i++)
-            slots[i].SlotUpdate(GameManager.HexToObj<SlotData>(PlayerPrefs.GetString(string.Concat("Slot", i))));
+        {
+            SlotData slotData = GameManager.HexToObj<SlotData>(PlayerPrefs.GetString($"Slot{i}"));
+            if(slotData != null)
+                slots[i].SlotUpdate(slotData, slotClassIcons[slotData.slotClass], slotFrames[slotData.region - 10]);
+            else
+                slots[i].SlotUpdate();
+        }
     }
     #endregion Start
 

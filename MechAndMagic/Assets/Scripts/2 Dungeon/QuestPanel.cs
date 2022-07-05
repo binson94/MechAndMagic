@@ -8,9 +8,9 @@ public class QuestPanel : MonoBehaviour
     [SerializeField] Text questScript;
     [SerializeField] Text questProceed;
 
-    public void SetQuestProceed(KeyValuePair<QuestBlueprint, int> value)
+    public void SetQuestProceed(KeyValuePair<QuestBlueprint, int> proceed)
     {
-        questScript.text = value.Key.script;
-        questProceed.text = string.Concat(value.Value, "/", value.Key.objectAmt);
+        questScript.text = proceed.Key.script;
+        questProceed.text = $"{proceed.Value}/{proceed.Key.objectAmt}";
     }
 }

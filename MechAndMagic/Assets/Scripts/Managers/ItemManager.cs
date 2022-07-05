@@ -9,19 +9,15 @@ public class ItemManager : MonoBehaviour
 {
     static SetOptionManager setManager;
 
-    public const int EQUIP_COUNT = 567;
+    public const int EQUIP_COUNT = 521;
 
     ///<summary> 모든 장비 정보 </summary>
     static EquipBluePrint[] bluePrints = new EquipBluePrint[EQUIP_COUNT];
-    static Potion[] potions = new Potion[4];
 
     public static void LoadData()
     {
         for (int i = 0; i < EQUIP_COUNT; i++)
             bluePrints[i] = new EquipBluePrint(i);
-
-        for (int i = 0; i < 4; i++)
-            potions[i] = new Potion(i + 1);
 
         setManager = new SetOptionManager();
     }
@@ -51,15 +47,17 @@ public class ItemManager : MonoBehaviour
                 AddNewSkillBook(category);
             //장비
             else if (category <= 86)
-                AddNewEquip(GameManager.instance.slotData.slotClass, category);
+                AddNewEquip(category);
             //제작법
             else if (category <= 149)
-                AddNewEquipRecipe(GameManager.instance.slotData.slotClass, category);
+                AddNewEquipRecipe(category);
         }
     }
-    static void AddNewEquip(int classIdx, int category)
+    static void AddNewEquip(int category)
     {
-        int region = (classIdx < 5) ? 10 : 11;
+        int classIdx = GameManager.instance.slotData.slotClass;
+        int region = GameManager.instance.slotData.region;
+
         var possibleList = (from token in bluePrints
                             where (token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0)
                             select token);
@@ -97,10 +95,11 @@ public class ItemManager : MonoBehaviour
         GameManager.instance.DropSave(DropType.Skillbook, skillbookIdx);
         GameManager.instance.SaveSlotData();
     }
-    static void AddNewEquipRecipe(int classIdx, int category)
+    static void AddNewEquipRecipe(int category)
     {
         category -= 63;
-        int region = (classIdx < 5) ? 10 : 11;
+        int classIdx = GameManager.instance.slotData.slotClass;
+        int region = GameManager.instance.slotData.region;
         var possibleList = (from token in bluePrints
                             where (token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0)
                             select token);
@@ -228,11 +227,26 @@ public class ItemManager : MonoBehaviour
 
         return ret;
     }
-    public static void EquipPotion(int slot, int idx)
+    ///<summary> 포션 장착 </summary>
+    ///<param name="potionIdx"> 1 활력, 2 정화, 3 회복, 4 재활용 </param>
+    public static void EquipPotion(int potionIdx)
     {
-        GameManager.instance.slotData.potionSlot[slot] = idx;
-        if (GameManager.instance.slotData.potionSlot[(slot + 1) % 2] == idx)
-            GameManager.instance.slotData.potionSlot[(slot + 1) % 2] = 0;
+        if(potionIdx <= 0) return;
+
+        //1번 슬롯 빔 -> 1번 슬롯에 채움
+        if(GameManager.instance.slotData.potionSlot[0] == 0)
+            GameManager.instance.slotData.potionSlot[0] = potionIdx;
+        //2번 슬롯 빔 -> 2번 슬롯에 채움
+        else if(GameManager.instance.slotData.potionSlot[1] == 0)
+            GameManager.instance.slotData.potionSlot[1] = potionIdx;
+        //슬롯 가득참 -> 1번 슬롯 밀어냄
+        else
+        {
+            GameManager.instance.slotData.potionSlot[0] = GameManager.instance.slotData.potionSlot[1];
+            GameManager.instance.slotData.potionSlot[1] = potionIdx;
+        }  
+
+        GameManager.instance.SaveSlotData();
     }
     #endregion
 
@@ -260,22 +274,23 @@ public class ItemManager : MonoBehaviour
                 select x).ToList();
     }
     ///<summary> 현재 보유 중인 스킬북 중 태그에 맞는 리스트 반환 </summary>
+    ///<param name="skillType"> -1 전체, 0 액티브, 1 패시브 </param>
     public static List<Skillbook> GetSkillbookData(int skillType, int lvl)
     {
-        List<Skillbook> suitableList = new List<Skillbook>();
+        List<Skillbook> categorizedList = new List<Skillbook>();
         foreach (Skillbook sb in GameManager.instance.slotData.itemData.skillbooks)
         {
             Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, sb.idx);
             if (sb.count > 0 && (skillType == -1 || s.useType == skillType) && (lvl == 0 || s.reqLvl == lvl))
-                suitableList.Add(sb);
+                categorizedList.Add(sb);
         }
 
-        return suitableList;
+        return categorizedList;
     }
     ///<summary> 현재 보유 중인 장비 레시피 중 태그에 맞는 리스트 반환 </summary>
     public static List<EquipBluePrint> GetRecipeData(Rarity rarity, int lvl)
     {
-        int region = (GameManager.instance.slotData.slotClass < 5) ? 10 : 11;
+        int region = GameManager.instance.slotData.region;
         List<EquipBluePrint> ebps = new List<EquipBluePrint>();
 
         foreach (int equipIdx in GameManager.instance.slotData.itemData.equipRecipes)
@@ -293,13 +308,10 @@ public class ItemManager : MonoBehaviour
 
     ///<summary> 현재 장착 중인 장비 반환 </summary>
     public static Equipment GetEquipment(EquipPart p) => GameManager.instance.slotData.itemData.equipmentSlots[(int)p];
-    ///<summary> 스킬북 정보 반환 </summary>
-    public static int[] GetSkillbookData() => (from a in GameManager.instance.slotData.itemData.skillbooks select a.count).ToArray();
     ///<summary> 세트 정보 반환 </summary>
     public static KeyValuePair<string, float[]> GetSetData(int set) => setManager.GetSetData(set);
-
-    ///<summary> 포션 정보 반환 </summary>
-    public static Potion GetPotion(int potionIdx) => potions[Mathf.Max(0, potionIdx - 1)];
+    ///<summary> 현재 발동 중인 모든 세트효과 반환 </summary>
+    public static List<KeyValuePair<string, int>> GetSetList() => setManager.GetSetList();
     #endregion
 }
 
@@ -350,6 +362,7 @@ public class SetOptionManager
             }
         }
 
+        //token.Key : set idx, token.Value : set 장비 수
         foreach (KeyValuePair<int, int> token in count)
             if (token.Value >= 2)
                 setList.Add(token.Key, token.Value);
@@ -366,7 +379,17 @@ public class SetOptionManager
 
         return new KeyValuePair<string, float[]>(options[set].name, tmp);
     }
+    public List<KeyValuePair<string, int>> GetSetList()
+    {
+        List<KeyValuePair<string, int>> list = new List<KeyValuePair<string, int>>();
+        foreach(KeyValuePair<int, int> token in setList)
 
+            for (int optionIdx = 0; optionIdx < options[token.Key].count; optionIdx++)
+                if(token.Value <= options[token.Key].reqPart[optionIdx])
+                    list.Add(new KeyValuePair<string, int>(options[token.Key].name, options[token.Key].reqPart[optionIdx]));
+
+        return list;
+    }
     class SetOption
     {
         public string name;

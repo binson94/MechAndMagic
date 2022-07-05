@@ -1,0 +1,29 @@
+[
+  {
+    "name": "항상 대화",
+    "idx": 1,
+    "kind": 0,
+    "chapter": 1,
+    "lvl": 1,
+    "reqQuest": 0,
+    "linkedQuest": 0
+  },
+  {
+    "name": "퀘스트 대화",
+    "idx": 2,
+    "kind": 1,
+    "chapter": 1,
+    "lvl": 1,
+    "reqQuest": 0,
+    "linkedQuest": 1
+  },
+  {
+    "name": "분기 대화",
+    "idx": 3,
+    "kind": 0,
+    "chapter": 1,
+    "lvl": 1,
+    "reqQuest": 0,
+    "linkedQuest": 0
+  }
+ ]

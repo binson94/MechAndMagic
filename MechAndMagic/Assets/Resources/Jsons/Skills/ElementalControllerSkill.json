@@ -1,5282 +1,4242 @@
 ﻿[
-  {
-    "name": "파이어볼",
-    "script": "단일 데미지+",
-    "idx": 173,
-    "class": 5,
-    "category": 1007,
-    "usetype": 0,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 2,
-    "cool": 0,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 1,
-    "effectType": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "파이어스피어",
-    "script": "단일 치명확률+ 치명데미지+",
-    "idx": 174,
-    "class": 5,
-    "category": 1007,
-    "usetype": 0,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 3,
-    "cool": 1,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 2,
-    "effectType": [
-       3,
-       3,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       9,
-       10,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       20,
-       20,
-       0.85,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       -1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "버블 샷",
-    "script": "단일 데미지X 명중률- 기절",
-    "idx": 175,
-    "class": 5,
-    "category": 1008,
-    "usetype": 0,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 2,
-    "cool": 0,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 3,
-    "effectType": [
-       4,
-       1,
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       1,
-       13,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       20,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "파도",
-    "script": "지정 적 1타 후 랜덤 적 1타 후속타 (후속타는 명중률 -)",
-    "idx": 176,
-    "class": 5,
-    "category": 1008,
-    "usetype": 0,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 3,
-    "cool": 1,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 3,
-    "effectType": [
-       1,
-       4,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       7,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.8,
-       20,
-       0.8,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       -1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "순풍",
-    "script": "단일 데미지- 본인 속도 상승",
-    "idx": 177,
-    "class": 5,
-    "category": 1009,
-    "usetype": 0,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 2,
-    "cool": 0,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 2,
-    "effectType": [
-       1,
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.9,
-       20,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "역풍",
-    "script": "단일 데미지- 상대 속도 하락",
-    "idx": 178,
-    "class": 5,
-    "category": 1009,
-    "usetype": 0,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 2,
-    "cool": 0,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 2,
-    "effectType": [
-       1,
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.9,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "마력 증폭",
-    "script": "공격력 향상",
-    "idx": 179,
-    "class": 5,
-    "category": 1015,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       9,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.05,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "마법 정밀화",
-    "script": "명중률 향상",
-    "idx": 180,
-    "class": 5,
-    "category": 1015,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       9,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.05,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "마력 활성화",
-    "script": "최대 행동력 상승",
-    "idx": 181,
-    "class": 5,
-    "category": 1015,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       9,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "작은 불 정령",
-    "script": "불요미 (불 하급 정령 소환)",
-    "idx": 182,
-    "class": 5,
-    "category": 1007,
-    "usetype": 0,
-    "reqlvl": 3,
-    "reqskill": [
-       85,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       17,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "작은 물 정령",
-    "script": "물요미 (물 하급 정령 소환)",
-    "idx": 183,
-    "class": 5,
-    "category": 1008,
-    "usetype": 0,
-    "reqlvl": 3,
-    "reqskill": [
-       87,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       17,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "작은 바람 정령",
-    "script": "풍요미 (풍 하급 정령 소환)",
-    "idx": 184,
-    "class": 5,
-    "category": 1009,
-    "usetype": 0,
-    "reqlvl": 3,
-    "reqskill": [
-       89,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       17,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "고도의 집중",
-    "script": "일정 턴 행동력 더 소비하는 대신 공격력 상승",
-    "idx": 185,
-    "class": 5,
-    "category": 1010,
-    "usetype": 0,
-    "reqlvl": 3,
-    "reqskill": [
-       91,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 3,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 2,
-    "effectType": [
-       13,
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       -0.2,
-       0.2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       2,
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "맑아진 정신",
-    "script": "일정 턴 최대 행동력 상승",
-    "idx": 186,
-    "class": 5,
-    "category": 1010,
-    "usetype": 0,
-    "reqlvl": 3,
-    "reqskill": [
-       93,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 3,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "화염 초급 숙달",
-    "script": "불 마법 치명 확률 상승",
-    "idx": 187,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 3,
-    "reqskill": [
-       86,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1007,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       9,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "물 초급 숙달",
-    "script": "물 마법 명중률 상승",
-    "idx": 188,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 3,
-    "reqskill": [
-       88,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1008,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "바람 초급 숙달",
-    "script": "바람 마법 사용 시 본인에게 속도 상승 버프",
-    "idx": 189,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 3,
-    "reqskill": [
-       90,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1009,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "작렬하는 화염",
-    "script": "단일 데미지+ 최대체력 비례 데미지+ 치명 데미지+",
-    "idx": 190,
-    "class": 5,
-    "category": 1007,
-    "usetype": 0,
-    "reqlvl": 5,
-    "reqskill": [
-       99,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 5,
-    "cool": 1,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 3,
-    "effectType": [
-       3,
-       3,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       10,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       21,
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0.4,
-       1.2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       -1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "고드름",
-    "script": "단일 데미지+ 명중률- 기절",
-    "idx": 191,
-    "class": 5,
-    "category": 1008,
-    "usetype": 0,
-    "reqlvl": 5,
-    "reqskill": [
-       100,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 1,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 3,
-    "effectType": [
-       4,
-       1,
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       1,
-       13,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       30,
-       1.2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "태풍",
-    "script": "모든 적에게 데미지- 상대 속도 하락",
-    "idx": 192,
-    "class": 5,
-    "category": 1009,
-    "usetype": 0,
-    "reqlvl": 5,
-    "reqskill": [
-       101,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 5,
-    "cool": 1,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 2,
-    "effectType": [
-       1,
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       6,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.4,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "원소 결합",
-    "script": "단일 데미지 * (0.5+{(0.5*이번 턴 앞서 사용한 불/물/풍 (1/2/3) 스킬 종류 개수)} // 최소 0.5배 최대 2배",
-    "idx": 193,
-    "class": 5,
-    "category": 1011,
-    "usetype": 0,
-    "reqlvl": 5,
-    "reqskill": [
-       85,
-       87,
-       89,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 1,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 1,
-    "effectType": [
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "정령 힘 부여",
-    "script": "정령 공격력 대폭 상승",
-    "idx": 194,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 5,
-    "reqskill": [
-       97,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 0,
-    "effectType": [
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "정령 생명 부여",
-    "script": "정령 방어력 대폭 상승",
-    "idx": 195,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 5,
-    "reqskill": [
-       98,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 0,
-    "effectType": [
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       6,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "원소 활용",
-    "script": "각 속성의 스킬을 장착하고 있을 때 속성별 스텟 강화 (불-치명확률, 물-명중률, 바람-속도)",
-    "idx": 196,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 5,
-    "reqskill": [
-       92,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 3,
-    "effectType": [
-       5,
-       5,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1007,
-       1008,
-       1009,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       9,
-       7,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.05,
-       0.05,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "큰 불 정령",
-    "script": "불요미를 불의 정령으로 진화",
-    "idx": 197,
-    "class": 5,
-    "category": 1007,
-    "usetype": 0,
-    "reqlvl": 7,
-    "reqskill": [
-       94,
-       107,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 4,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       18,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "큰 물 정령",
-    "script": "물요미를 물의 정령으로 진화",
-    "idx": 198,
-    "class": 5,
-    "category": 1008,
-    "usetype": 0,
-    "reqlvl": 7,
-    "reqskill": [
-       95,
-       107,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 4,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       18,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "큰 바람 정령",
-    "script": "풍요미를 바람의 정령으로 진화",
-    "idx": 199,
-    "class": 5,
-    "category": 1009,
-    "usetype": 0,
-    "reqlvl": 7,
-    "reqskill": [
-       96,
-       107,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 4,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       18,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "불안정한 마법",
-    "script": "전에 사용한 스킬에 따라 효과 달라지는 스킬 (불-무조건 치명 공격, 물-무조건 적중 공격, 바람-사용한 행동력 반환)",
-    "idx": 200,
-    "class": 5,
-    "category": 1011,
-    "usetype": 0,
-    "reqlvl": 7,
-    "reqskill": [
-       105,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 6,
-    "cool": 1,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 1,
-    "effectType": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "삼원소 타격",
-    "script": "랜덤 적에게 3타. 각 타격은 각자 다른 효과 (1타 : 공격력+ / 2타 : 명중률+ / 3타 : 적 슬로우)",
-    "idx": 201,
-    "class": 5,
-    "category": 1011,
-    "usetype": 0,
-    "reqlvl": 7,
-    "reqskill": [
-       108,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 4,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 6,
-    "effectType": [
-       3,
-       1,
-       3,
-       1,
-       1,
-       4,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       4,
-       0,
-       4,
-       4,
-       12,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       1,
-       7,
-       1,
-       1,
-       12,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       5,
-       0,
-       5,
-       5,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0.8,
-       30,
-       0.8,
-       0.8,
-       0.2,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       1,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -2,
-       0,
-       -2,
-       0,
-       0,
-       1,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       1,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       1,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "화염 고급 숙달",
-    "script": "불 마법과 불 정령 치명 데미지 상승 // 정령만의 스텟 상승이 이슈",
-    "idx": 202,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 7,
-    "reqskill": [
-       99,
-       106,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       7,
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1007,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       10,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "물 고급 숙달",
-    "script": "물 마법과 물 정령 명중률 상승.",
-    "idx": 203,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 7,
-    "reqskill": [
-       100,
-       106,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       7,
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1008,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "바람 고급 숙달",
-    "script": "바람 마법과 바람 정령 플레이어 속도에 비례해 공격력 상승.",
-    "idx": 204,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 7,
-    "reqskill": [
-       101,
-       106,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       7,
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1009,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       12,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.1,
-       0.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "불기둥",
-    "script": "모든 적에게 높은 데미지 피해. 적중한 적은 점화로 인한 일정 턴 간 지속 피해.",
-    "idx": 205,
-    "class": 5,
-    "category": 1007,
-    "usetype": 0,
-    "reqlvl": 9,
-    "reqskill": [
-       114,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 8,
-    "cool": 3,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 2,
-    "effectType": [
-       1,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       6,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       25,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1.1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "해일",
-    "script": "모든 적에게 낮은 데미지 피해. 명중률 - 기절",
-    "idx": 206,
-    "class": 5,
-    "category": 1008,
-    "usetype": 0,
-    "reqlvl": 9,
-    "reqskill": [
-       115,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 6,
-    "cool": 3,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 3,
-    "effectType": [
-       4,
-       1,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       6,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       1,
-       13,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       40,
-       0.85,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "사이클론",
-    "script": "단일 적에게 매우 높은 피해. 적중당한 적은 다음 턴 오기까지 속도가 1이 되는 디버프.",
-    "idx": 207,
-    "class": 5,
-    "category": 1009,
-    "usetype": 0,
-    "reqlvl": 9,
-    "reqskill": [
-       116,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 7,
-    "cool": 2,
-    "targetSelect": 1,
-    "targetSide": 1,
-    "targetCount": 1,
-    "effectCount": 2,
-    "effectType": [
-       1,
-       10,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1.4,
-       999,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "응축된 조화",
-    "script": "이번 전투에서 사용한 불/물/풍 (1/2/3) 스킬에 소모된 AP값의 합에 비례하여 모든 적에게 데미지 입힘.",
-    "idx": 208,
-    "class": 5,
-    "category": 1011,
-    "usetype": 0,
-    "reqlvl": 9,
-    "reqskill": [
-       112,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 8,
-    "cool": 4,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       6,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "숭고한 폭발",
-    "script": "상급 정령을 희생하여 폭발을 일으킵니다. 정령 속성에 따라 효과 다름. (불:랜덤 적 처치 (보스는 처치 대신 높은 피해) / 물:플레이어 2턴 피해 면역 / 바람: 모든 적에게 데미지, 적중당한 적 TP 0으로)",
-    "idx": 209,
-    "class": 5,
-    "category": 1010,
-    "usetype": 0,
-    "reqlvl": 9,
-    "reqskill": [
-       106,
-       107,
-       108,
-       0,
-       0
-    ],
-    "apCost": 5,
-    "cool": 2,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 3,
-    "effectType": [
-       19,
-       16,
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       1,
-       6,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       5,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       3,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "순수한 원소",
-    "script": "액티브 스킬의 공격 마법과 정령 마법을 한 속성으로 통일했다면 공격력 대폭 상승",
-    "idx": 210,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 9,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "통달의 경지",
-    "script": "다중원소 스킬을 사용하면 다음에 사용하는 다중원소 스킬의 행동력 소모량을 감소시킵니다. (턴 구분 없음)",
-    "idx": 211,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 9,
-    "reqskill": [
-       113,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       1011,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       31,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "정령왕의 계약",
-    "script": "정령 소환 및 진화 스킬의 쿨타임이 절반으로 감소합니다.",
-    "idx": 212,
-    "class": 5,
-    "category": 1012,
-    "usetype": 1,
-    "reqlvl": 9,
-    "reqskill": [
-       106,
-       107,
-       108,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 0,
-    "effectType": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- }
- ]
+   {
+     "name": "파이어볼",
+     "script": "[불 계열] 강한 기본 공격",
+     "script_pos": "적 1개체\n공격력의 110% 데미지",
+     "script_neg": "",
+     "idx": 173,
+     "icon": 1,
+     "class": 5,
+     "category": 1007,
+     "usetype": 0,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 3,
+     "cool": 0,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 1,
+     "sfx": 15,
+     "effectType": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1.1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "파이어스피어",
+     "script": "[불 계열] 치명적인 기본 공격",
+     "script_pos": "적 1개체\n공격력의 110% 데미지\n치명타 확률, 피해 +20%",
+     "script_neg": "",
+     "idx": 174,
+     "icon": 1,
+     "class": 5,
+     "category": 1007,
+     "usetype": 0,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 3,
+     "cool": 1,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 2,
+     "sfx": 15,
+     "effectType": [
+        3,
+        3,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        9,
+        10,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        20,
+        20,
+        1.1,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "버블 샷",
+     "script": "[물 계열] 명중률 낮고 약한 기절시키는 공격",
+     "script_pos": "적 1개체\n공격력의 50% 데미지\n적중시 적 기절 상태",
+     "script_neg": "명중률 50%",
+     "idx": 175,
+     "icon": 5,
+     "class": 5,
+     "category": 1008,
+     "usetype": 0,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 2,
+     "cool": 0,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 3,
+     "sfx": 16,
+     "effectType": [
+        4,
+        1,
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        1,
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        1,
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.5,
+        0.5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "파도",
+     "script": "[물 계열] 2타 기본 공격. 2번째 공격은 부정확한 무작위 적 공격",
+     "script_pos": "적 1개체\n공격력의 160% 데미지",
+     "script_neg": "2타는 무작위 대상\n2타 명중률 -15%",
+     "idx": 176,
+     "icon": 1,
+     "class": 5,
+     "category": 1008,
+     "usetype": 0,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 3,
+     "cool": 1,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 3,
+     "sfx": 16,
+     "effectType": [
+        1,
+        4,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        0,
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        7,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.7,
+        0.15,
+        0.9,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "순풍",
+     "script": "[바람 계열] 약한 공격, 속도 상승",
+     "script_pos": "적 1개체\n공격력의 70% 데미지\n1턴간 속도 +10%",
+     "script_neg": "",
+     "idx": 177,
+     "icon": 1,
+     "class": 5,
+     "category": 1009,
+     "usetype": 0,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 2,
+     "cool": 0,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 2,
+     "sfx": 17,
+     "effectType": [
+        1,
+        3,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.7,
+        0.1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "역풍",
+     "script": "[바람 계열] 약한 공격, 적중한 적 속도 감소",
+     "script_pos": "적 1개체\n공격력의 70% 데미지\n적중한 적 2턴간 속도 -6%",
+     "script_neg": "",
+     "idx": 178,
+     "icon": 1,
+     "class": 5,
+     "category": 1009,
+     "usetype": 0,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 2,
+     "cool": 0,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 2,
+     "sfx": 17,
+     "effectType": [
+        1,
+        4,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.7,
+        0.06,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마력 증폭",
+     "script": "공격력 상승",
+     "script_pos": "공격력 +15%",
+     "script_neg": "",
+     "idx": 179,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        9,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.15,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마법 정밀화",
+     "script": "명중률 상승",
+     "script_pos": "명중률 +15%",
+     "script_neg": "",
+     "idx": 180,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        9,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.15,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마력 활성화",
+     "script": "행동력 상승",
+     "script_pos": "최대 행동력 +2",
+     "script_neg": "",
+     "idx": 181,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        9,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "작은 불 정령",
+     "script": "[불 계열] [정령 소환] 작은 불 정령을 소환",
+     "script_pos": "작은 불 정령 소환",
+     "script_neg": "",
+     "idx": 182,
+     "icon": 7,
+     "class": 5,
+     "category": 1007,
+     "usetype": 0,
+     "reqlvl": 3,
+     "reqskill": [
+        173,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 2,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 15,
+     "effectType": [
+        17,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "작은 물 정령",
+     "script": "[물 계열] [정령 소환] 작은 물 정령을 소환",
+     "script_pos": "작은 물 정령 소환",
+     "script_neg": "",
+     "idx": 183,
+     "icon": 7,
+     "class": 5,
+     "category": 1008,
+     "usetype": 0,
+     "reqlvl": 3,
+     "reqskill": [
+        175,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 2,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 16,
+     "effectType": [
+        17,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "작은 바람 정령",
+     "script": "[바람 계열] [정령 소환] 작은 바람 정령을 소환",
+     "script_pos": "작은 바람 정령 소환",
+     "script_neg": "",
+     "idx": 184,
+     "icon": 7,
+     "class": 5,
+     "category": 1009,
+     "usetype": 0,
+     "reqlvl": 3,
+     "reqskill": [
+        177,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 2,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 17,
+     "effectType": [
+        17,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "고도의 집중",
+     "script": "행동력 소모량 상승, 공격력 상승",
+     "script_pos": "자신\n2턴간 공격력 +30%",
+     "script_neg": "2턴간 추가 행동력 소모 +2",
+     "idx": 185,
+     "icon": 4,
+     "class": 5,
+     "category": 1010,
+     "usetype": 0,
+     "reqlvl": 3,
+     "reqskill": [
+        179,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 3,
+     "cool": 2,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 2,
+     "sfx": 3,
+     "effectType": [
+        13,
+        3,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        -2,
+        0.25,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        2,
+        2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "맑아진 정신",
+     "script": "최대 행동력 상승",
+     "script_pos": "자신\n2턴간 추가 행동력 +3",
+     "script_neg": "",
+     "idx": 186,
+     "icon": 4,
+     "class": 5,
+     "category": 1010,
+     "usetype": 0,
+     "reqlvl": 3,
+     "reqskill": [
+        181,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 3,
+     "cool": 2,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 3,
+     "effectType": [
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "화염 초급 숙달",
+     "script": "불 계열 스킬 치명타 확률 상승",
+     "script_pos": "불 계열 치명타 확률 +25%",
+     "script_neg": "",
+     "idx": 187,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 3,
+     "reqskill": [
+        174,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1007,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        9,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        25,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "물 초급 숙달",
+     "script": "물 계열 스킬 명중률 상승",
+     "script_pos": "물 계열 명중률 +20%",
+     "script_neg": "",
+     "idx": 188,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 3,
+     "reqskill": [
+        176,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1008,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.2,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "바람 초급 숙달",
+     "script": "바람 계열 스킬 사용 시, 속도 상승 버프",
+     "script_pos": "자신\n바람 계열 사용시 2턴간 속도 +10%",
+     "script_neg": "",
+     "idx": 189,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 3,
+     "reqskill": [
+        178,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1009,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        12,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "작렬하는 화염",
+     "script": "[불 계열] 적 최대체력에 비례하여 강해지는 치명적인 공격",
+     "script_pos": "적 1개체\n공격력의 160% 데미지\n적 최대체력에 비례 추가피해\n치명타 확률 +30%",
+     "script_neg": "",
+     "idx": 190,
+     "icon": 1,
+     "class": 5,
+     "category": 1007,
+     "usetype": 0,
+     "reqlvl": 5,
+     "reqskill": [
+        187,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 5,
+     "cool": 1,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 3,
+     "sfx": 15,
+     "effectType": [
+        3,
+        3,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        5,
+        10,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        20,
+        0,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        7,
+        30,
+        1.6,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "고드름",
+     "script": "[물 계열] 명중률 낮고 기절시키는 공격",
+     "script_pos": "적 1개체\n공격력의 150% 데미지\n적중시 적 기절 상태",
+     "script_neg": "명중률 65%",
+     "idx": 191,
+     "icon": 1,
+     "class": 5,
+     "category": 1008,
+     "usetype": 0,
+     "reqlvl": 5,
+     "reqskill": [
+        188,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 1,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 3,
+     "sfx": 16,
+     "effectType": [
+        4,
+        1,
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        1,
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        1,
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.35,
+        1.5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "태풍",
+     "script": "[바람 계열] 적중한 적 느려지는 전체 공격",
+     "script_pos": "적 전체\n공격력의 80% 데미지\n적중시 적 2턴간 속도 -18%",
+     "script_neg": "",
+     "idx": 192,
+     "icon": 2,
+     "class": 5,
+     "category": 1009,
+     "usetype": 0,
+     "reqlvl": 5,
+     "reqskill": [
+        189,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 5,
+     "cool": 1,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 2,
+     "sfx": 17,
+     "effectType": [
+        1,
+        4,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        6,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.8,
+        0.18,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "원소 결합",
+     "script": "[다중원소 계열] 이번 턴에 사용한 원소 계열 수만큼 피해가 배가 되는 공격",
+     "script_pos": "적 1개체\n공격력의 75% 데미지\n사용한 원소만큼 데미지 상승",
+     "script_neg": "",
+     "idx": 193,
+     "icon": 1,
+     "class": 5,
+     "category": 1011,
+     "usetype": 0,
+     "reqlvl": 5,
+     "reqskill": [
+        173,
+        175,
+        5,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 1,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 1,
+     "sfx": 18,
+     "effectType": [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1.5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "정령 힘 부여",
+     "script": "정령 공격력 대폭 상승",
+     "script_pos": "정령의 공격력 +40%",
+     "script_neg": "",
+     "idx": 194,
+     "icon": 7,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 5,
+     "reqskill": [
+        185,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 0,
+     "sfx": 0,
+     "effectType": [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.4,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        99,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "정령 생명 부여",
+     "script": "정령 방어력 대폭 상승",
+     "script_pos": "정령의 방어력 +40%",
+     "script_neg": "",
+     "idx": 195,
+     "icon": 7,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 5,
+     "reqskill": [
+        186,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 0,
+     "sfx": 0,
+     "effectType": [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.4,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        99,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "원소 활용",
+     "script": "불, 물, 바람 계열 장착 시, 장착한 속성별로 스텟 상승",
+     "script_pos": "불 장착시 치명타 확률 +10%\n물 장착시 명중률 +10%\n바람 장착시 속도 +10%",
+     "script_neg": "",
+     "idx": 196,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 5,
+     "reqskill": [
+        180,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 3,
+     "sfx": 0,
+     "effectType": [
+        5,
+        5,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1007,
+        1008,
+        1009,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        9,
+        7,
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        10,
+        0.1,
+        0.1,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "큰 불 정령",
+     "script": "[불 계열] [정령 강화] 작은 불 정령을 큰 불 정령으로 강화",
+     "script_pos": "큰 불 정령으로 진화",
+     "script_neg": "작은 불 정령 필요",
+     "idx": 197,
+     "icon": 7,
+     "class": 5,
+     "category": 1007,
+     "usetype": 0,
+     "reqlvl": 7,
+     "reqskill": [
+        182,
+        195,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 4,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 15,
+     "effectType": [
+        18,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "큰 물 정령",
+     "script": "[불 계열] [정령 강화] 작은 물 정령을 큰 물 정령으로 강화",
+     "script_pos": "큰 물 정령으로 진화",
+     "script_neg": "작은 물 정령 필요",
+     "idx": 198,
+     "icon": 7,
+     "class": 5,
+     "category": 1008,
+     "usetype": 0,
+     "reqlvl": 7,
+     "reqskill": [
+        183,
+        195,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 4,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 16,
+     "effectType": [
+        18,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "큰 바람 정령",
+     "script": "[바람 계열] [정령 강화] 작은 바람 정령을 큰 바람 정령으로 강화",
+     "script_pos": "큰 바람 정령으로 진화",
+     "script_neg": "작은 바람 정령 필요",
+     "idx": 199,
+     "icon": 7,
+     "class": 5,
+     "category": 1009,
+     "usetype": 0,
+     "reqlvl": 7,
+     "reqskill": [
+        184,
+        195,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 4,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 17,
+     "effectType": [
+        18,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "불안정한 마법",
+     "script": "[다중원소 계열] 직전에 사용한 스킬의 원소 계열에 따라 효과가 달라지는 공격",
+     "script_pos": "적 1개체\n공격력의 180% 데미지",
+     "script_neg": "직전 불 사용시 치명타\n직전 물 사용시 무조건 명중\n직전 바람 사용시 사용 행동력 반환",
+     "idx": 200,
+     "icon": 1,
+     "class": 5,
+     "category": 1011,
+     "usetype": 0,
+     "reqlvl": 7,
+     "reqskill": [
+        193,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 6,
+     "cool": 1,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 1,
+     "sfx": 18,
+     "effectType": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1.8,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "삼원소 타격",
+     "script": "[다중원소 계열] 무작위 적 3타. 1타는 강하고, 2타는 정확하며, 3타는 적을 느리게 함",
+     "script_pos": "무작위 적\n공격력의 165% 데미지\n타격 순서에 따라 추가 효과",
+     "script_neg": "",
+     "idx": 201,
+     "icon": 1,
+     "class": 5,
+     "category": 1011,
+     "usetype": 0,
+     "reqlvl": 7,
+     "reqskill": [
+        196,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 4,
+     "cool": 1,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 6,
+     "sfx": 18,
+     "effectType": [
+        3,
+        1,
+        3,
+        1,
+        1,
+        4
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        4,
+        0,
+        4,
+        4,
+        12
+     ],
+     "effectObject": [
+        5,
+        1,
+        7,
+        1,
+        1,
+        12
+     ],
+     "effectStat": [
+        0,
+        5,
+        0,
+        5,
+        5,
+        0
+     ],
+     "effectRate": [
+        0.3,
+        0.5,
+        0.2,
+        0.5,
+        0.5,
+        0.2
+     ],
+     "effectCalc": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        1
+     ],
+     "effectTurn": [
+        -2,
+        0,
+        -2,
+        0,
+        0,
+        1
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+     ]
+  },
+   {
+     "name": "화염 고급 숙달",
+     "script": "불 계열 스킬 치명타 피해량 상승, 불 정령 치명타 피해량 상승",
+     "script_pos": "불 계열 및 불 정령 치명타 피해 +15%",
+     "script_neg": "",
+     "idx": 202,
+     "icon": 7,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 7,
+     "reqskill": [
+        187,
+        194,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        7,
+        16,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1007,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        10,
+        10,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        15,
+        15,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        99,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "물 고급 숙달",
+     "script": "물 계열 스킬 명중률 상승, 물 정령 명중률 상승",
+     "script_pos": "물 계열 및 물 정령 명중률 +10%",
+     "script_neg": "",
+     "idx": 203,
+     "icon": 7,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 7,
+     "reqskill": [
+        188,
+        194,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        7,
+        16,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1008,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        7,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.1,
+        0.1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        99,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "바람 고급 숙달",
+     "script": "바람 계열 스킬과 바람 정령의 공격력이 속도에 비례하여 상승",
+     "script_pos": "바람 계열 및 바람 정령\n속도의 25%만큼 공격력 상승",
+     "script_neg": "",
+     "idx": 204,
+     "icon": 7,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 7,
+     "reqskill": [
+        189,
+        194,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        7,
+        16,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1009,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        5,
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        12,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.25,
+        0.25,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        99,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "불기둥",
+     "script": "[불 계열] 전체 강한 공격, 적중한 적은 점화 상태가 됨",
+     "script_pos": "적 전체\n공격력의 130% 데미지\n적중한 적은 화상 상태",
+     "script_neg": "",
+     "idx": 205,
+     "icon": 2,
+     "class": 5,
+     "category": 1007,
+     "usetype": 0,
+     "reqlvl": 9,
+     "reqskill": [
+        202,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 7,
+     "cool": 3,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 2,
+     "sfx": 15,
+     "effectType": [
+        1,
+        10,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        6,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        25,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1.3,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "해일",
+     "script": "[물 계열] 전체 부정확하고 약한 공격, 적중한 적은 기절",
+     "script_pos": "적 전체\n공격력의 60% 데미지\n적중한 적은 기절 상태",
+     "script_neg": "명중률 75%",
+     "idx": 206,
+     "icon": 5,
+     "class": 5,
+     "category": 1008,
+     "usetype": 0,
+     "reqlvl": 9,
+     "reqskill": [
+        203,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 6,
+     "cool": 3,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 3,
+     "sfx": 16,
+     "effectType": [
+        4,
+        1,
+        10,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        6,
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        1,
+        13,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.25,
+        0.6,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "사이클론",
+     "script": "[바람 계열] 매우 강한 공격, 적중한 적은 속도 1로 감소",
+     "script_pos": "적 1개체\n공격력의 220% 데미지\n적중한 적은 1턴 속도 1",
+     "script_neg": "",
+     "idx": 207,
+     "icon": 1,
+     "class": 5,
+     "category": 1009,
+     "usetype": 0,
+     "reqlvl": 9,
+     "reqskill": [
+        204,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 6,
+     "cool": 2,
+     "targetSelect": 1,
+     "targetSide": 1,
+     "targetCount": 1,
+     "effectCount": 2,
+     "sfx": 17,
+     "effectType": [
+        1,
+        10,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        12,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        2.2,
+        999,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "응축된 조화",
+     "script": "[다중원소 계열] 이번 전투동안 사용한 불, 물, 바람 계열 스킬만큼 강해지는 전체 공격",
+     "script_pos": "적 전체\n공격력의 120% 데미지\n소모한 행동력에 따라 추가 피해",
+     "script_neg": "",
+     "idx": 208,
+     "icon": 2,
+     "class": 5,
+     "category": 1011,
+     "usetype": 0,
+     "reqlvl": 9,
+     "reqskill": [
+        200,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 8,
+     "cool": 4,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 18,
+     "effectType": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1.2,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "숭고한 폭발",
+     "script": "[다중원소 계열] 큰 원소 정령을 희생하여 폭발 일으킴. 정령 원소별로 효과가 다름",
+     "script_pos": "불 : 무작위 적 처치(보스는 250% 피해)\n물 : 2턴간 자신 무적\n바람 : 공격력의 100% 데미지\n바람 : 적 턴 게이지 리셋",
+     "script_neg": "정령 희생 필요\n",
+     "idx": 209,
+     "icon": 7,
+     "class": 5,
+     "category": 1010,
+     "usetype": 0,
+     "reqlvl": 9,
+     "reqskill": [
+        194,
+        195,
+        196,
+        0,
+        0
+     ],
+     "apCost": 5,
+     "cool": 2,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 3,
+     "sfx": 18,
+     "effectType": [
+        19,
+        16,
+        16,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        4,
+        6,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        5,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        2.5,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "순수한 원소",
+     "script": "한 원소 계열의 스킬만 장착 시, 공격력 대폭 상승",
+     "script_pos": "하나로 통일시 공격력 + 35%",
+     "script_neg": "",
+     "idx": 210,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 9,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.35,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        99,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "통달의 경지",
+     "script": "다중원소 계열 스킬 사용 시, 다음 다중원소 계열 스킬의 행동력 소모량 감소",
+     "script_pos": "다음 다중원소 행동력 소모 -2\n(턴 이월됨)",
+     "script_neg": "",
+     "idx": 211,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 9,
+     "reqskill": [
+        201,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        16,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        1011,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        31,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        99,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "정령왕의 계약",
+     "script": "정령 소환 및 정령 강화 스킬의 쿨타임 절반으로 감소",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 212,
+     "icon": 4,
+     "class": 5,
+     "category": 1012,
+     "usetype": 1,
+     "reqlvl": 9,
+     "reqskill": [
+        194,
+        195,
+        196,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 0,
+     "sfx": 0,
+     "effectType": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  }
+  ]

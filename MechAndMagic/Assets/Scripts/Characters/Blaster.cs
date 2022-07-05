@@ -30,7 +30,7 @@ public class Blaster : Character
         //혹한기 작전 4세트 - 이전 턴에 쿨링 히트 시 ATK, ACC, CRC 상승
         if(set.Value[2] > 0 && beforeCool)
         {
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.ATK, 1, set.Value[2], 1, 1, 1, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 1, 1, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.ACC, 1, set.Value[2], 1, 1, 1, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.CRC, 1, set.Value[2], 1, 1, 1, 1));
         }
@@ -70,10 +70,16 @@ public class Blaster : Character
         if (HasSkill(109) && currHeat > 0)
         {
             Skill tmp = SkillManager.GetSkill(3, 109);
+            LoseHeat(1);
+            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], 1, tmp.effectRate[0], tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            
             //무한동력 2세트 - 캐논 예열이 모든 열기 소모
-            int count = ItemManager.GetSetData(7).Value[0] > 0 ? currHeat : 1;
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], count, tmp.effectRate[0], tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            LoseHeat(count);
+            set = ItemManager.GetSetData(7);
+            if(currHeat > 0 && set.Value[0] > 0)
+            {
+                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, currHeat, set.Value[0], 1, 1, 1, 1));
+                LoseHeat(currHeat);
+            }
         }
         //125 극도로 정밀한 계산
         if (HasSkill(125))
@@ -178,7 +184,7 @@ public class Blaster : Character
 
                                 //112 임플란트 봄
                                 if (skill.idx == 112)
-                                    u.implantBomb = new ImplantBomb(this, buffStat[(int)Obj.ATK] * 1.5f, buffStat[(int)Obj.PEN]);
+                                    u.implantBomb = new ImplantBomb(this, buffStat[(int)Obj.공격력] * 1.5f, buffStat[(int)Obj.PEN]);
                                 damaged.Add(u);
 
                                 Passive_SkillHit(skill);

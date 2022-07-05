@@ -23,7 +23,7 @@ public class BattleManager : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] GameObject[] alliePrefabs;
     [SerializeField] Transform alliePos;
-    [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] GameObject enemyPrefab;
     [SerializeField] Unit DummyUnit;
     RoomInfo roomInfo;
     #endregion
@@ -77,16 +77,11 @@ public class BattleManager : MonoBehaviour
 
     #region Function_Start
     //BGM 재생, 몬스터 및 캐릭터 생성
-    public void OnStart()
+    private void Start()
     {
-        Debug.Log("aa" + GameManager.instance.slotData.dungeonData.currRoomEvent);
-
         //
         SoundManager.instance.PlayBGM(BGM.Battle1);
-        if (GameManager.instance.slotData.dungeonData.currRoomEvent > 100)
-            roomInfo = new RoomInfo(1);
-        else
-            roomInfo = new RoomInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
+        roomInfo = new RoomInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
 
         Spawn();
 
@@ -99,6 +94,8 @@ public class BattleManager : MonoBehaviour
 
             //아군 캐릭터 생성
             Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass], alliePos.position, Quaternion.identity).GetComponent<Character>();
+            c.name = GameManager.instance.slotData.className;
+            
             for (i = 0; i < c.activeIdxs.Length; i++)
                 c.activeIdxs[i] = GameManager.instance.slotData.activeSkills[i];
             for (i = 0; i < c.passiveIdxs.Length; i++)
@@ -119,7 +116,8 @@ public class BattleManager : MonoBehaviour
             //던전 풀에 따른 적 캐릭터 생성
             for (i = 0; i < roomInfo.monsterCount; i++)
             {
-                Monster mon = Instantiate(enemyPrefabs[roomInfo.monsterIdx[i]], alliePos.position, Quaternion.identity).GetComponent<Monster>();
+                Monster mon = Instantiate(enemyPrefab, alliePos.position, Quaternion.identity).GetComponent<Monster>();
+                mon.monsterIdx = roomInfo.monsterIdx[i];
                 allCharList.Add(mon);
             }
             for (; i < 3; i++) { allCharList.Add(DummyUnit); unitStatus[i + 1].gameObject.SetActive(false); }
@@ -307,8 +305,8 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < 8; i++)
                 statusTxts[i].text = allCharList[0].buffStat[i + 5].ToString();
 
-            statusTxts[5].text = string.Concat(statusTxts[5].text, "%");
-            statusTxts[6].text = string.Concat(statusTxts[6].text, "%");
+            statusTxts[5].text = $"{statusTxts[5].text}%";
+            statusTxts[6].text = $"{statusTxts[6].text}%";
         }
     }
     void SkillBtnInit()
@@ -620,22 +618,52 @@ public class BattleManager : MonoBehaviour
                 Win();
         }
     }
-    public void Btn_UsePotion(int idx)
+    public void Btn_UsePotion(int slotIdx)
     {
-        if (GameManager.instance.slotData.dungeonData.potionUse[idx])
+        if(GameManager.instance.slotData.potionSlot[slotIdx] == 0)
+            LogManager.instance.AddLog("착용한 포션이 없습니다.");
+        else if (GameManager.instance.slotData.dungeonData.potionUse[slotIdx])
             LogManager.instance.AddLog("이미 사용했습니다.");
+        else if(GameManager.instance.slotData.potionSlot[slotIdx] == 4 && !GameManager.instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2])
+            LogManager.instance.AddLog("다른 포션을 아직 사용할 수 있습니다.");
         else
         {
-            //재활용 포션
-            int potionIdx = GameManager.instance.slotData.potionSlot[idx] == 13 ? GameManager.instance.slotData.potionSlot[(idx + 1) % 2] : GameManager.instance.slotData.potionSlot[idx];
+            switch(GameManager.instance.slotData.potionSlot[slotIdx])
+            {
+                //행동력 포션 - 행동력 최대로 회복
+                case 1:
+                    if(allCharList[0].buffStat[(int)Obj.currAP] >= allCharList[0].buffStat[(int)Obj.AP])
+                    {
+                        LogManager.instance.AddLog("행동력이 최대치입니다.");
+                        return;
+                    }
+                    allCharList[0].GetAPHeal(allCharList[0].buffStat[(int)Obj.AP]);
+                    break;
+                //정화 포션 - 모든 디버프 제거
+                case 2:
+                    if (!allCharList[0].turnDebuffs.buffs.Any(x => x.isDispel))
+                    {
+                        LogManager.instance.AddLog("해제 가능한 디버프가 없습니다.");
+                        return;
+                    }
+                    allCharList[0].RemoveDebuff(allCharList[0].turnDebuffs.Count);
+                    break;
+                //회복 포션 - 체력 최대로 회복
+                case 3:
+                    if(allCharList[0].buffStat[(int)Obj.currHP] >= allCharList[0].buffStat[(int)Obj.HP])
+                    {
+                        LogManager.instance.AddLog("체력이 최대치입니다.");
+                        return;
+                    }
+                    allCharList[0].GetHeal(allCharList[0].buffStat[(int)Obj.HP]);
+                    break;
+                //재활용 포션 - 다른 포션 재사용 가능
+                case 4:
+                    GameManager.instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2] = false;
+                    break;
+            }
 
-            string potionLog = allCharList[0].GetComponent<Character>().CanUsePotion(potionIdx);
-
-            if (potionLog != "")
-                LogManager.instance.AddLog(potionLog);
-            else
-                allCharList[0].GetComponent<Character>().UsePotion(potionIdx);
-
+            GameManager.instance.slotData.dungeonData.potionUse[slotIdx] = true;
             StatusUpdate();
         }
     }
@@ -737,12 +765,14 @@ public class BattleManager : MonoBehaviour
         //체력 유지 퀘스트 업데이트
         QuestManager.DiehardUpdate((float)allCharList[0].buffStat[(int)Obj.currHP] / allCharList[0].buffStat[(int)Obj.HP]);
 
-        if (GameManager.instance.slotData.dungeonData.currRoomEvent > 100)
+        if (GameManager.instance.slotData.dungeonData.currPos[0] == GameManager.instance.slotData.dungeonData.currDungeon.floorCount - 1)
         {
             string drops = "드랍 목록\n";
             bossWinUI.SetActive(true);
             foreach (Triplet<DropType, int, int> token in GameManager.instance.slotData.dungeonData.dropList)
                 drops = string.Concat(drops, token.first, " ", token.second, " ", token.third, "\n");
+
+            QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.instance.slotData.dungeonIdx, 1);
 
             Debug.Log(drops);
         }
@@ -753,8 +783,8 @@ public class BattleManager : MonoBehaviour
     {
         GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
         GameManager.instance.UpdateDungeonBuff();
-        QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
+        QuestManager.QuestUpdate(QuestType.Battle, GameManager.instance.slotData.dungeonIdx, 1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Dungeon);
     }
 
     //패배, 현재까지의 보상만 가진 채 마을로 귀환
@@ -763,7 +793,7 @@ public class BattleManager : MonoBehaviour
         skillBtnPanel.SetActive(false);
         targetBtnPanel.SetActive(false);
         LogManager.instance.AddLog("Lose");
-        loseUI.SetActive(false);
+        loseUI.SetActive(true);
     }
 
     public void Btn_BackToTown()
@@ -771,7 +801,7 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.GetExp(roomInfo.roomExp);
         GameManager.instance.RemoveDungeonData();
         GameManager.instance.SwitchSceneData(SceneKind.Town);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("1 Town");
+        UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Town);
     }
     #endregion
 
@@ -956,9 +986,6 @@ public class BattleManager : MonoBehaviour
                     for (int i = 0; i < 5; i++) if (allCharList[i].isActiveAndEnabled) baseList.Add(allCharList[i]);
                     break;
             }
-
-            for (int i = 0; i < baseList.Count; i++)
-            Debug.Log(baseList[i].name);
 
             if (baseList.Count <= count)
                 return baseList;

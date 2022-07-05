@@ -9,8 +9,6 @@ public class Monster : Unit
     static JsonData json = null;
 
     public bool isBoss;
-
-    public string monsterName;
     public int monsterIdx;
     public int region;
 
@@ -68,7 +66,7 @@ public class Monster : Unit
         }
         else
         {
-            ActiveSkill(activeIdxs[pattern[currSkillIdx] - '0'], new List<Unit>());
+            ActiveSkill(pattern[currSkillIdx] - '1', new List<Unit>());
             currSkillIdx = (currSkillIdx + 1) % maxSkillIdx;
         }
     }
@@ -113,7 +111,7 @@ public class Monster : Unit
             }
 
             Skill tmp = SkillManager.GetSkill(classIdx, 30);
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, cnt, tmp.effectRate[0], tmp.effectCalc[0], -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, cnt, tmp.effectRate[0], tmp.effectCalc[0], -1));
         }
         //32 만년설
         else if(skill.idx == 32)
@@ -257,7 +255,7 @@ public class Monster : Unit
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
         //90 전류 방출
-        if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 90).name)) caster.GetDamage(this, buffStat[(int)Obj.ATK], buffStat[(int)Obj.PEN], 100);
+        if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 90).name)) caster.GetDamage(this, buffStat[(int)Obj.공격력], buffStat[(int)Obj.PEN], 100);
         //44 플레임
         if(turnBuffs.buffs.Any(x=>x.name == SkillManager.GetSkill(classIdx, 44).name))
         {
@@ -267,7 +265,7 @@ public class Monster : Unit
         }
 
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
-        int finalDmg = Mathf.RoundToInt(-dmg / Mathf.Max(1, Mathf.Log(finalDEF, caster.LVL + 1)));
+        int finalDmg = Mathf.RoundToInt(-dmg / (1 + 0.1f * finalDEF) * crb / 100);
 
         if (shieldAmount + finalDmg >= 0)
             shieldAmount += finalDmg;
@@ -413,11 +411,11 @@ public class Monster : Unit
             json = JsonMapper.ToObject(loadStr);
         }
 
-        monsterName = json[monsterIdx]["name"].ToString();
+        name = json[monsterIdx]["name"].ToString();
         region = (int)json[monsterIdx]["region"];
         LVL = (int)json[monsterIdx]["lvl"];
         dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.HP] = (int)json[monsterIdx]["HP"];
-        dungeonStat[(int)Obj.ATK] = (int)json[monsterIdx]["ATK"];
+        dungeonStat[(int)Obj.공격력] = (int)json[monsterIdx]["ATK"];
         dungeonStat[(int)Obj.DEF] = (int)json[monsterIdx]["DEF"];
         dungeonStat[(int)Obj.ACC] = (int)json[monsterIdx]["ACC"];
         dungeonStat[(int)Obj.DOG] = (int)json[monsterIdx]["DOG"];

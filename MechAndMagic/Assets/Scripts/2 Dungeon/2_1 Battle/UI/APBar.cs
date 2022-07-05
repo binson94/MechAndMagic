@@ -35,21 +35,44 @@ public class APBar : MonoBehaviour
             barImages.Add(go);
         }
 
-        apTxt.text = string.Concat(currAP, "/", maxAP);
+        apTxt.text = $"{currAP}/{maxAP}";
     }
 
     void Reset()
     {
-        while(barImages.Count > 0)
+        foreach(GameObject token in barImages)
         {
-            barImages[0].SetActive(false);
-            pool.Enqueue(barImages[0]);
-            barImages.RemoveAt(0);
+            token.SetActive(false);
+            pool.Enqueue(token);
         }
+       
+        barImages.Clear();
     }
     GameObject NewBarToken()
     {
-        if (pool.Count > 0) return pool.Dequeue();
-        else return Instantiate(barPrefab);
+        GameObject token;
+        if(pool.Count > 0)
+        {
+            token = pool.Dequeue();
+            token.transform.SetParent(barParent);
+        }
+        else
+        {
+            token = Instantiate(barPrefab);
+            token.transform.SetParent(barParent);
+
+            //해상도에 맞게 사이즈 조절
+            RectTransform newRect = token.transform as RectTransform;
+            RectTransform prefabRect = barPrefab.GetComponent<RectTransform>();
+            newRect.anchoredPosition = prefabRect.anchoredPosition;
+            newRect.anchorMax = prefabRect.anchorMax;
+            newRect.anchorMin = prefabRect.anchorMin;
+            newRect.localRotation = prefabRect.localRotation;
+            newRect.localScale = prefabRect.localScale; ;
+            newRect.pivot = prefabRect.pivot;
+            newRect.sizeDelta = prefabRect.sizeDelta;
+        }
+
+        return token;
     }
 }

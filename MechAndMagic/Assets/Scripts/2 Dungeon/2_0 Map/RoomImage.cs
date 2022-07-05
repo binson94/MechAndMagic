@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class RoomImage : MonoBehaviour
 {
     Room room;
-    public RectTransform rect;
+    public RectTransform rectTransform;
 
     [SerializeField] Image bgImage;
     [SerializeField] Image roomImage;
@@ -20,7 +20,7 @@ public class RoomImage : MonoBehaviour
         room = r;
         dungeonMgr = dmgr;
 
-        rect = GetComponent<RectTransform>();
+        rectTransform = GetComponent<RectTransform>();
         GetComponent<Button>().onClick.AddListener(Btn_Select);
         LoadSprite();
     }
@@ -37,8 +37,8 @@ public class RoomImage : MonoBehaviour
 
     public void SetPosition(Vector3 vec)
     {
-        vec += new Vector3(Random.Range(-randomRange, randomRange), Random.Range(-randomRange, randomRange), 0);
-        rect.transform.position = vec;
+        //vec += new Vector3(Random.Range(-randomRange, randomRange), Random.Range(-randomRange, randomRange), 0);
+        rectTransform.anchoredPosition = vec;
     }
 
     void Btn_Select() => dungeonMgr.Btn_RoomSelect(room.floor, room.roomNumber);

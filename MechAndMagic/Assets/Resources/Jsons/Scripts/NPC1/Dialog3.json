@@ -1,0 +1,46 @@
+[
+    {
+      "code": 0,
+      "script": "설명"
+    },
+    {
+      "code": 5,
+      "script": "조합^옵션 변경^테스트"
+    },
+    {
+      "code": 6,
+      "script": "3^6^9"
+    },
+    {
+      "code": 0,
+      "script": "조합 설명 1"
+    },
+    {
+      "code": 0,
+      "script": "조합 설명 2"
+    },
+    {
+      "code": 7,
+      "script": ""
+    },
+    {
+      "code": 0,
+      "script": "옵션 설명 1"
+    },
+    {
+      "code": 0,
+      "script": "옵션 설명 2"
+    },
+    {
+      "code": 7,
+      "script": ""
+    },
+    {
+      "code": 0,
+      "script": "테스트 설명 1"
+    },
+    {
+      "code": 0,
+      "script": "테스트 설명 2"
+    }
+   ]

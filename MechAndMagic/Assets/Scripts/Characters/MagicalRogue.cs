@@ -61,7 +61,7 @@ public class MagicalRogue : Character
         //콤비네이션 5세트 - 잔인한 난도질, 공허의 타격 강화
         if (set.Value[2] > 0 && (skill.idx == 347 || skill.idx == 349))
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ACC, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRB, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.SPD, 1, set.Value[2], 1, -1));
@@ -76,7 +76,7 @@ public class MagicalRogue : Character
         }
         //기민한 맹공 4세트 - 가로 베기 공격력 상승, 적 잃은 체력 비례 추가 피해
         if (set.Value[2] > 0 && skill.idx == 311)
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, GetEffectStat(selects, (int)Obj.LossPer), set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, GetEffectStat(selects, (int)Obj.LossPer), set.Value[2], 1, -1));
 
 
         Passive_SkillCast(skill);
@@ -208,7 +208,7 @@ public class MagicalRogue : Character
                                     GetHeal(kill.Value * 0.1f);
                                 //321 맹독 부여
                                 if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 321).name))
-                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "맹독", (int)Obj.Venom, buffStat[(int)Obj.ATK], 0.6f, 0, 2, 1, 1));
+                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "맹독", (int)Obj.Venom, buffStat[(int)Obj.공격력], 0.6f, 0, 2, 1, 1));
 
                                 damaged.Add(u);
                                 
@@ -302,7 +302,7 @@ public class MagicalRogue : Character
                                     GetHeal(heal * 0.1f);
                                 //321 맹독 부여
                                 if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 321).name))
-                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "맹독", (int)Obj.Venom, buffStat[(int)Obj.ATK], 0.6f, 0, 2, 1, 1));
+                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "맹독", (int)Obj.Venom, buffStat[(int)Obj.공격력], 0.6f, 0, 2, 1, 1));
 
                                 damaged.Add(u);
 

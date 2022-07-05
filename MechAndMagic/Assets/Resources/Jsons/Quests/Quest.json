@@ -613,7 +613,7 @@
      "idx": 29,
      "script": " '탈리아' '트리샤' '트루디' 중 30개체 처치",
      "type": 1,
-     "objectIdx": -1,
+     "objectIdx": 83,
      "objectAmt": 30,
      "rewardCount": 1,
      "rewardIdx": [
@@ -653,6 +653,657 @@
    {
      "name": "궁극의 장비",
      "idx": 31,
+     "script": "10레벨 달성",
+     "type": 7,
+     "objectIdx": 0,
+     "objectAmt": 10,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "주변을 둘러봐",
+     "idx": 32,
+     "script": "던전 '불타는 숲' 1회 클리어",
+     "type": 6,
+     "objectIdx": 26,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "어두운 곳으로",
+     "idx": 33,
+     "script": "던전 '몰락한 골짜기' 1회 클리어",
+     "type": 6,
+     "objectIdx": 27,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "급한 발걸음",
+     "idx": 34,
+     "script": "던전 '이장님 댁' 1회 클리어",
+     "type": 6,
+     "objectIdx": 28,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "숲속의 친구",
+     "idx": 35,
+     "script": "던전 '다람이의 은신처' 1회 클리어",
+     "type": 6,
+     "objectIdx": 29,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "칙칙한 하수도",
+     "idx": 36,
+     "script": "던전 '하수도 입구' 1회 클리어",
+     "type": 6,
+     "objectIdx": 30,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "섬뜩한 통제실",
+     "idx": 37,
+     "script": "던전 '통제실 A-3842' 1회 클리어",
+     "type": 6,
+     "objectIdx": 32,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "A 지역",
+     "idx": 38,
+     "script": "던전 '인스네어 연구실 지하' 1회 클리어",
+     "type": 6,
+     "objectIdx": 33,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "만악의 근원 조사",
+     "idx": 39,
+     "script": "던전 '오수처리장' 1회 클리어",
+     "type": 6,
+     "objectIdx": 36,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "황소 처리",
+     "idx": 40,
+     "script": "던전 '어둠의 골짜기' 1회 클리어",
+     "type": 6,
+     "objectIdx": 37,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "다치지말기",
+     "idx": 41,
+     "script": "체력 70% 이상 남기고 아무 던전 클리어",
+     "type": 8,
+     "objectIdx": 0,
+     "objectAmt": 70,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "혼내주기",
+     "idx": 42,
+     "script": "아무 적 40개체 처치",
+     "type": 1,
+     "objectIdx": 0,
+     "objectAmt": 40,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "재밌는 이야기 해주기",
+     "idx": 43,
+     "script": "아무 방 30개 진입",
+     "type": 5,
+     "objectIdx": 0,
+     "objectAmt": 30,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "돌아올거라 약속하기",
+     "idx": 44,
+     "script": "세계수를 떠날 준비하고 5레벨 달성",
+     "type": 7,
+     "objectIdx": 0,
+     "objectAmt": 5,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "리겐과의 탐험 1",
+     "idx": 45,
+     "script": "던전 '연구소 지하실' 1회 클리어",
+     "type": 6,
+     "objectIdx": 38,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "리겐과의 탐험 2",
+     "idx": 46,
+     "script": "던전 '인스네어 실험체 수용소 A동' 1회 클리어",
+     "type": 6,
+     "objectIdx": 39,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "리겐과의 탐험 3",
+     "idx": 47,
+     "script": "던전 '인스네어 폭주' 1회 클리어",
+     "type": 6,
+     "objectIdx": 41,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "만악의 근원의 근원",
+     "idx": 48,
+     "script": "던전 '하수도 처리 시설' 2회 클리어",
+     "type": 6,
+     "objectIdx": 43,
+     "objectAmt": 2,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "새로운 경험",
+     "idx": 49,
+     "script": "이벤트 20회 발생",
+     "type": 3,
+     "objectIdx": 0,
+     "objectAmt": 20,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "학구열 넘치는 그녀",
+     "idx": 50,
+     "script": "아무 던전 5회 클리어",
+     "type": 6,
+     "objectIdx": 0,
+     "objectAmt": 5,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "루시는 누굴까?",
+     "idx": 51,
+     "script": "던전 '실험소 X-1022' 1회 클리어",
+     "type": 6,
+     "objectIdx": 45,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "불안정한 원소 모으기",
+     "idx": 52,
+     "script": "돌발 퀘스트 3회 성공",
+     "type": 4,
+     "objectIdx": 0,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "홀로서기",
+     "idx": 53,
+     "script": "던전 '시계 태엽' 1회 클리어",
+     "type": 6,
+     "objectIdx": 46,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "열린 마음으로",
+     "idx": 54,
+     "script": "던전 '증기기관 관리소' 4회 클리어",
+     "type": 6,
+     "objectIdx": 47,
+     "objectAmt": 4,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "마지막 관문",
+     "idx": 55,
+     "script": "던전 '오르간' 1회 클리어",
+     "type": 6,
+     "objectIdx": 48,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "그들의 대화",
+     "idx": 56,
+     "script": "던전 '전보 통신소' 3회 클리어",
+     "type": 6,
+     "objectIdx": 49,
+     "objectAmt": 3,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "선제 공격",
+     "idx": 57,
+     "script": "원숭이 로봇' 중 30개체 처치",
+     "type": 1,
+     "objectIdx": 72,
+     "objectAmt": 30,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "원기 흡수",
+     "idx": 58,
+     "script": "아무 적 40개체 처치",
+     "type": 1,
+     "objectIdx": 0,
+     "objectAmt": 40,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "무에서 유로",
+     "idx": 59,
+     "script": "아무 전투 30회 승리",
+     "type": 2,
+     "objectIdx": 0,
+     "objectAmt": 30,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "쇠약해진 세계수",
+     "idx": 60,
+     "script": "아무 방 40개 진입",
+     "type": 5,
+     "objectIdx": 0,
+     "objectAmt": 40,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "보고싶은 언니",
+     "idx": 61,
+     "script": "던전 '오르간 파이프방' 1회 클리어",
+     "type": 6,
+     "objectIdx": 50,
+     "objectAmt": 1,
+     "rewardCount": 1,
+     "rewardIdx": [
+        0,
+        0,
+        0,
+        0
+     ],
+     "rewardAmt": [
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "찬란한 장비",
+     "idx": 62,
      "script": "10레벨 달성",
      "type": 7,
      "objectIdx": 0,

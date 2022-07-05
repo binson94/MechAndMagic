@@ -5,14 +5,18 @@ using LitJson;
 using System.Linq;
 
 
-public enum EquipPart
-{
-    None, Weapon, Top, Pants, Gloves, Shoes, Ring, Necklace
-}
+
+///<summary> 아이템 분류 </summary>
 public enum ItemCategory
 {
     None, Weapon, Armor, Accessory, Recipe, Skillbook, Resource
 }
+///<summary> 장비 부위 지정 </summary>
+public enum EquipPart
+{
+    None, Weapon, Top, Pants, Gloves, Shoes, Ring, Necklace
+}
+///<summary> 장비 등급 </summary>
 public enum Rarity
 {
     None, Common, Uncommon, Rare, Unique, Legendary
@@ -20,69 +24,78 @@ public enum Rarity
 
 public class EquipBluePrint
 {
+    ///<summary> 장비 인덱스 </summary>
     public int idx;
+    ///<summary> 장비 이름 </summary>
     public string name;
 
+    ///<summary> 장비 사용 클래스, 0 공용, 10 기계, 11 마법 </summary> 
     public int useClass;
+    ///<summary> 장비 부위 </summary>
     public EquipPart part;
-    public string script;
+    ///<summary> 장비 카테고리, 드랍용 </summary>
     public int category;
+    ///<summary> 장비 세트 </summary>
     public int set;
+    ///<summary> 장비 요구 레벨 </summary>
     public int reqlvl;
+    ///<summary> 장비 등급 </summary>
     public Rarity rarity;
-    public int[] equipOption;
 
+    ///<summary> 제작에 필요한 재료
+    ///<para> Key : 재료 idx, Value : 재료 요구 갯수 </para> </summary>
     public List<KeyValuePair<int, int>> requireResources = new List<KeyValuePair<int, int>>();
 
-    //0인 경우, 장비에 뜰 수 있는 범위 내 랜덤
-    public Obj mainStat;
+    ///<summary> 0인 경우 보조 스텟이 없는 장비거나 범위 내 랜덤, 그 외엔 지정 </summary>
     public Obj subStat;
+    ///<summary> 0이면 없음, 13이면 랜덤, 그 외엔 지정 </summary>
+    public int[] commonStats;
 
-    static JsonData json = null;
+    static JsonData equipJson = null;
+    ///<summary> 자원 소비량 저장 json
+    ///<para> 각 토큰마다 6개 항목(상중하 특수, 상중하 일반 순) </para> </summary>
     static JsonData resourceJson = null;
 
     static EquipBluePrint()
     {
-        TextAsset loadStr = Resources.Load<TextAsset>("Jsons/Items/Equip");
-        string txt = loadStr.text;
-        json = JsonMapper.ToObject(txt);
-
-        loadStr = Resources.Load<TextAsset>("Jsons/Items/EquipResource");
-        txt = loadStr.text;
-        resourceJson = JsonMapper.ToObject(txt);
+        equipJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/Equip").text);
+        resourceJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/EquipResource").text);
     }
     public EquipBluePrint() { }
     public EquipBluePrint(int idx)
     {
-        this.idx = (int)json[idx]["idx"];
-        name = json[idx]["name"].ToString();
-        useClass = (int)json[idx]["class"];
-        part = (EquipPart)(int)json[idx]["part"];
-        script = json[idx]["script"].ToString();
-        category = (int)json[idx]["category"];
-        set = (int)json[idx]["set"];
-        reqlvl = (int)json[idx]["reqlvl"];
-        rarity = (Rarity)(int)json[idx]["rarity"];
-        mainStat = (Obj)(int)json[idx]["mainStat"];
-        subStat = (Obj)(int)json[idx]["subStat"];
-
-        equipOption = new int[4];
-        for (int i = 0; i < 4; i++)
-            equipOption[i] = (int)json[idx]["equipOption"][i];
-
         if (idx == 0)
             return;
+            
+        this.idx = (int)equipJson[idx]["idx"];
+        name = equipJson[idx]["name"].ToString();
+        useClass = (int)equipJson[idx]["class"];
+        part = (EquipPart)(int)equipJson[idx]["part"];
+        category = (int)equipJson[idx]["category"];
+        set = (int)equipJson[idx]["set"];
+        reqlvl = (int)equipJson[idx]["reqlvl"];
+        rarity = (Rarity)(int)equipJson[idx]["rarity"];
+        subStat = (Obj)(int)equipJson[idx]["subStat"];
 
-        int pos = (reqlvl / 2) * 5 + (rarity - Rarity.Common);
-
-        int type = (part <= EquipPart.Weapon) ? 0 : (part <= EquipPart.Shoes ? 1 : 2);
-        int require;
+        commonStats = new int[3];
         for (int i = 0; i < 3; i++)
-            if ((require = (int)resourceJson[pos]["resource"][i]) != 0)
-                requireResources.Add(new KeyValuePair<int, int>(4 + 3 * i + type, require));
+            commonStats[i] = (int)equipJson[idx]["commonStat"][i];
+
+
+        int resourceIdx = (reqlvl / 2) * 5 + (rarity - Rarity.Common);
+        int type = (part <= EquipPart.Weapon) ? 0 : (part <= EquipPart.Shoes ? 1 : 2);
+
+        int amount;
+        //특수 재화 소비량 읽기
+        //idx 4 ~ 12, 상 무기,방어구,장신구, 중 무기,방어구,장신구, 하 무기,방어구,장신구 순
+        for (int i = 0; i < 3; i++)
+            if ((amount = (int)resourceJson[resourceIdx]["resource"][i]) != 0)
+                requireResources.Add(new KeyValuePair<int, int>(4 + 3 * i + type, amount));
+        //기본 재화 소비량 읽기
+        //idx 13 ~ 15, 상중하 순
         for (int i = 3; i < 6; i++)
-            if ((require = (int)resourceJson[pos]["resource"][i]) != 0)
-                requireResources.Add(new KeyValuePair<int, int>(10 + i, require));
+            if ((amount = (int)resourceJson[resourceIdx]["resource"][i]) != 0)
+                requireResources.Add(new KeyValuePair<int, int>(10 + i, amount));
     }
 }
 
@@ -90,169 +103,101 @@ public class Equipment
 {
     public readonly EquipBluePrint ebp;
 
+    ///<summary> 장비 성급, 1성 시작, 융합 시 최대 3성 </summary>
     public int star;
 
+    ///<summary> 주 스텟 </summary>
     public Obj mainStat;
+    ///<summary> 주 스텟 값 </summary>
     public int mainStatValue;
+    ///<summary> 보조 스텟 </summary>
     public Obj subStat;
+    ///<summary> 보조 스텟 값 </summary>
     public int subStatValue;
-
+    ///<summary> 공통 옵션 값 </summary>
     public List<KeyValuePair<Obj, int>> commonStatValue = new List<KeyValuePair<Obj, int>>();
 
-    /* #region Static Part */
-    static readonly Obj[] weaponObjs = new Obj[6];
-    static readonly Obj[] neckObjs = new Obj[4];
-    static readonly Obj[] ringObjs = new Obj[4];
+    #region StatPool
+    ///<summary> 무기 보조 스텟 가능 풀 </summary>
+    static readonly Obj[] weaponSubstatKindPool = new Obj[6];
+    ///<summary> 목걸이 스텟 가능 풀, 장신구는 메인, 서브 스텟 풀 같음 </summary>
+    static readonly Obj[] necklaceStatKindPool = new Obj[4];
+    ///<summary> 반지 스텟 가능 풀, 장신구는 메인, 서브 스텟 풀 같음 </summary>
+    static readonly Obj[] ringStatKindPool = new Obj[4];
 
-    static readonly Dictionary<KeyValuePair<EquipPart, Obj>, int> statIdx = new Dictionary<KeyValuePair<EquipPart, Obj>, int>();
-    static readonly Dictionary<EquipPart, Dictionary<KeyValuePair<int, Rarity>, int[]>> equipStats = new Dictionary<EquipPart, Dictionary<KeyValuePair<int, Rarity>, int[]>>();
-    static readonly Dictionary<int, int[]> allCommonStats = new Dictionary<int, int[]>();
-    /* #endregion Static Part */
+    static readonly JsonData weaponStatJson;
+    static readonly JsonData armorStatJson;
+    static readonly JsonData accessoryStatJson;
+    static readonly JsonData commonStatJson;
+    #endregion StatPool
 
+    ///<summary> 장비 정렬을 위한 비교 함수 
+    ///<para> idx major(오름차순), star minor(내림차순) </para> </summary>
+    public int CompareTo(Equipment e)
+    {
+        if (ebp.idx < e.ebp.idx)
+            return -1;
+        else if (ebp.idx > e.ebp.idx)
+            return 1;
+        else
+            return star.CompareTo(e.star);
+    }
+    ///<summary> 데이터 로드를 위한 빈 생성자 </summary>
     public Equipment() { }
+    ///<summary> json 데이터 로드 </summary>
     static Equipment()
     {
-        TextAsset jsonTxt;
-        string loadStr;
-        JsonData wepJson;
-        JsonData amrJson;
-        JsonData acceJson;
+        weaponSubstatKindPool[0] = Obj.AP; weaponSubstatKindPool[1] = Obj.공격력; weaponSubstatKindPool[2] = Obj.ACC;
+        weaponSubstatKindPool[3] = Obj.CRC; weaponSubstatKindPool[4] = Obj.PEN; weaponSubstatKindPool[5] = Obj.SPD;
 
-        weaponObjs[0] = Obj.AP; weaponObjs[1] = Obj.ATK; weaponObjs[2] = Obj.ACC;
-        weaponObjs[3] = Obj.CRC; weaponObjs[4] = Obj.PEN; weaponObjs[5] = Obj.SPD;
+        necklaceStatKindPool[0] = Obj.HP; necklaceStatKindPool[1] = Obj.DEF; necklaceStatKindPool[2] = Obj.DOG; necklaceStatKindPool[3] = Obj.SPD;
+        ringStatKindPool[0] = Obj.공격력; ringStatKindPool[1] = Obj.ACC; ringStatKindPool[2] = Obj.CRC; ringStatKindPool[3] = Obj.PEN;
 
-        neckObjs[0] = Obj.HP; neckObjs[1] = Obj.DEF; neckObjs[2] = Obj.DOG; neckObjs[3] = Obj.SPD;
-        ringObjs[0] = Obj.ATK; ringObjs[1] = Obj.ACC; ringObjs[2] = Obj.CRC; ringObjs[3] = Obj.PEN;
-
-        for (int i = 0; i < 6; i++)
-        {
-            statIdx.Add(new KeyValuePair<EquipPart, Obj>(EquipPart.Weapon, weaponObjs[i]), i);
-
-            if (i < 4)
-            {
-                statIdx.Add(new KeyValuePair<EquipPart, Obj>(EquipPart.Necklace, neckObjs[i]), i);
-                statIdx.Add(new KeyValuePair<EquipPart, Obj>(EquipPart.Ring, ringObjs[i]), i);
-            }
-        }
-
-        equipStats.Add(EquipPart.Weapon, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-        equipStats.Add(EquipPart.Top, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-        equipStats.Add(EquipPart.Pants, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-        equipStats.Add(EquipPart.Gloves, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-        equipStats.Add(EquipPart.Shoes, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-        equipStats.Add(EquipPart.Necklace, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-        equipStats.Add(EquipPart.Ring, new Dictionary<KeyValuePair<int, Rarity>, int[]>());
-
-        for (int lvl = 1; lvl <= 9; lvl += 2)
-        {
-            Rarity maxR = (Rarity)Mathf.Min(lvl + 1, 5);
-
-            for (Rarity r = Rarity.Common; r <= maxR; r++)
-            {
-                equipStats[EquipPart.Weapon].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[6]);
-
-                equipStats[EquipPart.Top].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
-                equipStats[EquipPart.Pants].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
-                equipStats[EquipPart.Gloves].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
-                equipStats[EquipPart.Shoes].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[2]);
-
-                equipStats[EquipPart.Ring].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[4]);
-                equipStats[EquipPart.Necklace].Add(new KeyValuePair<int, Rarity>(lvl, r), new int[4]);
-            }
-        }
-
-        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/WeaponStat");
-        loadStr = jsonTxt.text;
-        wepJson = JsonMapper.ToObject(loadStr);
-
-        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/ArmorStat");
-        loadStr = jsonTxt.text;
-        amrJson = JsonMapper.ToObject(loadStr);
-
-        jsonTxt = Resources.Load<TextAsset>("Jsons/Items/AccessoryStat");
-        loadStr = jsonTxt.text;
-        acceJson = JsonMapper.ToObject(loadStr);
-
-        for (int lvl = 1; lvl <= 9; lvl += 2)
-        {
-            Rarity maxR = (Rarity)Mathf.Min(lvl + 1, 5);
-
-            for (Rarity r = Rarity.Common; r <= maxR; r++)
-            {
-                for (int i = 0; i < 6; i++)
-                    equipStats[EquipPart.Weapon][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)wepJson[(lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-
-                for (int i = 0; i < 2; i++)
-                {
-                    equipStats[EquipPart.Top][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[(lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-                    equipStats[EquipPart.Pants][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[25 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-                    equipStats[EquipPart.Gloves][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[50 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-                    equipStats[EquipPart.Shoes][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)amrJson[75 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-                }
-
-                for (int i = 0; i < 4; i++)
-                {
-                    equipStats[EquipPart.Ring][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)acceJson[(lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-                    equipStats[EquipPart.Necklace][new KeyValuePair<int, Rarity>(lvl, r)][i] = (int)acceJson[25 + (lvl - 1) / 2 * 5 + (int)(r - Rarity.Common)]["stat"][i];
-                }
-            }
-        }
+        weaponStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/WeaponStat").text);
+        armorStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/ArmorStat").text);
+        accessoryStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/AccessoryStat").text);
+        commonStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/CommonStat").text);
     }
-
-
+    ///<summary> 새로운 장비 생성 </summary>
     public Equipment(EquipBluePrint ebp)
     {
         this.ebp = ebp;
         star = 1;
 
-        SetMainStat();
-        SetSubStat();
+        SetMainStatKind();
+        SetSubStatKind();
         SetCommonStat();
 
-        StatValueSet();
+        SetStatValue();
     }
 
-    public int CompareTo(Equipment e)
+    ///<summary> 메인 스텟 종류 결정
+    ///<para> 무기, 방어구는 결정되어있음, 장신구는 풀에서 랜덤 결정 </para> </summary>
+    void SetMainStatKind()
     {
-        int ret = ebp.idx.CompareTo(ebp.idx);
-        if (ret == 0)
-            return star.CompareTo(star);
-
-        return ret;
-    }
-
-    void SetMainStat()
-    {
-        //메인 스텟 결정
-        if (ebp.mainStat == Obj.None)
+        switch (ebp.part)
         {
-            switch (ebp.part)
-            {
-                case EquipPart.Weapon:
-                    mainStat = Obj.ATK;
-                    break;
-                case EquipPart.Top:
-                case EquipPart.Pants:
-                case EquipPart.Gloves:
-                case EquipPart.Shoes:
-                    mainStat = Obj.DEF;
-                    break;
-                case EquipPart.Ring:
-                    mainStat = ringObjs[Random.Range(0, 4)];
-                    break;
-                case EquipPart.Necklace:
-                    mainStat = neckObjs[Random.Range(0, 4)];
-                    break;
-            }
-        }
-        else
-        {
-            mainStat = ebp.mainStat;
+            case EquipPart.Weapon:
+                mainStat = Obj.공격력;
+                break;
+            case EquipPart.Top:
+            case EquipPart.Pants:
+            case EquipPart.Gloves:
+            case EquipPart.Shoes:
+                mainStat = Obj.DEF;
+                break;
+            case EquipPart.Ring:
+                mainStat = ringStatKindPool[Random.Range(0, 4)];
+                break;
+            case EquipPart.Necklace:
+                mainStat = necklaceStatKindPool[Random.Range(0, 4)];
+                break;
         }
     }
-    void SetSubStat()
+    ///<summary> 서브 스텟 종류 결정
+    ///<para> 언커먼 이상에서만 작동, 방어구는 결정되어 있음, 장신구는 메인 스텟과 겹치지 않음 </summary>
+    void SetSubStatKind()
     {
-        //언커먼 이상 장비일 경우, 서브 스텟 결정
         if (ebp.rarity >= Rarity.Uncommon)
         {
             if (ebp.subStat == Obj.None)
@@ -261,8 +206,8 @@ public class Equipment
                 {
                     case EquipPart.Weapon:
                         do
-                            subStat = weaponObjs[Random.Range(0, 6)];
-                        while (subStat == Obj.ATK);
+                            subStat = weaponSubstatKindPool[Random.Range(0, 6)];
+                        while (subStat == Obj.공격력);
                         break;
                     case EquipPart.Top:
                         subStat = Obj.HP;
@@ -278,13 +223,13 @@ public class Equipment
                         break;
                     case EquipPart.Ring:
                         do
-                            subStat = ringObjs[Random.Range(0, 4)];
+                            subStat = ringStatKindPool[Random.Range(0, 4)];
                         while (mainStat == subStat);
                         break;
                     case EquipPart.Necklace:
                         do
 
-                            subStat = neckObjs[Random.Range(0, 4)];
+                            subStat = necklaceStatKindPool[Random.Range(0, 4)];
                         while (mainStat == subStat);
                         break;
                 }
@@ -299,69 +244,93 @@ public class Equipment
             subStat = Obj.None;
         }
     }
+    ///<summary> 공통 옵션 종류 결정
+    ///<para> 레어 이상에서만 작동 </summary>
     void SetCommonStat()
     {
+        if (ebp.rarity < Rarity.Rare) return;
+        
         commonStatValue.Clear();
-        if (ebp.rarity < Rarity.Rare)
-        {
-            return;
-        }
-
-        int[] objs = new int[ebp.equipOption.Count(x => x > 0)];
+        int[] commonStatObjs = new int[ebp.commonStats.Count(x => x > 0)];
         ResetCommonStat();
 
-        for (int i = 0; i < objs.Length; i++)
-            commonStatValue.Add(new KeyValuePair<Obj, int>((Obj)objs[i], allCommonStats[ebp.reqlvl][objs[i]]));
+        for (int i = 0; i < commonStatObjs.Length; i++)
+            commonStatValue.Add(new KeyValuePair<Obj, int>((Obj)commonStatObjs[i], (int)commonStatJson[ebp.reqlvl / 2]["stat"][commonStatObjs[i]]));
 
         void ResetCommonStat()
         {
-            if (ebp.equipOption[0] != 13)
-                objs[0] = ebp.equipOption[0];
-            else
+            for (int i = 0; i < commonStatObjs.Length; i++)
             {
-                do
-                    objs[0] = Random.Range(1, 13);
-                while (objs[0] == 1 || objs[0] == 3);
+                if(ebp.commonStats[i] != 13)
+                    commonStatObjs[i] = ebp.commonStats[i];
+                else
+                {
+                    commonStatObjs[i] = Random.Range(1, 13);
+                    bool isOverlap;
+                    do
+                    {
+                        isOverlap = commonStatObjs[i] == 1 || commonStatObjs[i] == 3;
+                        for(int j = i -1; !isOverlap && j < i;j++)
+                            isOverlap |= commonStatObjs[i] == commonStatObjs[j];
+                    } while(isOverlap);
+                }
             }
-
-            if (objs.Length >= 2)
-                if (ebp.equipOption[1] != 13)
-                    objs[1] = ebp.equipOption[1];
-                else
-                {
-                    do
-                        objs[1] = Random.Range(1, 13);
-                    while (objs[1] == 1 || objs[1] == 3 || objs[1] == objs[0]);
-                }
-
-            if(objs.Length >= 3)
-                if (ebp.equipOption[2] != 13)
-                    objs[2] = ebp.equipOption[2];
-                else
-                {
-                    do
-                        objs[2] = Random.Range(1, 13);
-                    while (objs[2] == 1 || objs[2] == 3 || objs[2] == objs[0] || objs[2] == objs[1]);
-                }
         }
     }
 
-
-    void StatValueSet()
+    ///<summary> 아이템 메인 및 서브 스텟 값 불러오기 </summary>
+    void SetStatValue()
     {
+        JsonData json = weaponStatJson;
+        int jsonIdx = (ebp.reqlvl - 1) / 2 * 5 + (ebp.rarity - Rarity.Common);
         if (EquipPart.Top <= ebp.part && ebp.part <= EquipPart.Shoes)
         {
-            mainStatValue = star * equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][0];
-            if (subStat != Obj.None) subStatValue = star * equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][1];
+            json = armorStatJson;
+            jsonIdx += (ebp.part - EquipPart.Top) * 25;
         }
-        else
+        else if (EquipPart.Ring <= ebp.part)
         {
-            mainStatValue = star *equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, mainStat)]];
-            if (subStat != Obj.None) subStatValue = star * equipStats[ebp.part][new KeyValuePair<int, Rarity>(ebp.reqlvl, ebp.rarity)][statIdx[new KeyValuePair<EquipPart, Obj>(ebp.part, subStat)]];
+            json = accessoryStatJson;
+            jsonIdx += (ebp.part - EquipPart.Ring) * 25;
+        }
+
+        mainStatValue = (int)json[jsonIdx]["stat"][GetStatIdx(ebp.part, mainStat)];
+        if (subStat != Obj.None) subStatValue = star * (int)json[jsonIdx]["stat"][GetStatIdx(ebp.part, subStat)];
+
+        //
+        int GetStatIdx(EquipPart part, Obj stat)
+        {
+            switch (part)
+            {
+                case EquipPart.Weapon:
+                    for (int i = 0; i < 6; i++)
+                        if (weaponSubstatKindPool[i] == stat)
+                            return i;
+                    break;
+                case EquipPart.Ring:
+                    for (int i = 0; i < 4; i++)
+                        if (ringStatKindPool[i] == stat)
+                            return i;
+                    break;
+                case EquipPart.Necklace:
+                    for (int i = 0; i < 4; i++)
+                        if (necklaceStatKindPool[i] == stat)
+                            return i;
+                    break;
+                //방어구 - 서브 스텟이 1종류만 있음, 방어력이면 메인 스텟, 그 외는 서브 스텟임
+                default:
+                    if (stat == Obj.DEF)
+                        return 0;
+                    else
+                        return 1;
+            }
+            return 0;
         }
     }
 
+    ///<summary> 옵션 변환 가능 여부 - 레어 이상 장비 </summary>
     public bool CanSwitchCommonStat() => ebp.rarity >= Rarity.Rare;
+    ///<summary> 공통 옵션 변환 </summary>
     public void SwitchCommonStat()
     {
         if (!CanSwitchCommonStat())
@@ -369,10 +338,11 @@ public class Equipment
 
         SetCommonStat();
     }
+    ///<summary> 장비 융합 </summary>
     public void Fusion()
     {
         star = Mathf.Min(star + 1, 3);
-        StatValueSet();
+        SetStatValue();
     }
 }
 
@@ -381,7 +351,7 @@ public class Skillbook
     public int idx;
     public int count;
 
-    public Skillbook() {}
+    public Skillbook() { }
     public Skillbook(int idx, int count)
     {
         this.idx = idx; this.count = count;
@@ -390,28 +360,20 @@ public class Skillbook
 
 public class Potion
 {
+    static JsonData json;
+
     public int idx;
     public string name;
-    public int effectCount;
-    public float[] effectRate;
-
-    static JsonData json;
-    static int startIdx;
+    public string script;
 
     static Potion()
     {
-        TextAsset jsonTxt = Resources.Load<TextAsset>("Jsons/Items/Potion");
-        json = JsonMapper.ToObject(jsonTxt.text);
-        startIdx = (int)json[0]["idx"];
+        json = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/Potion").text);
     }
-    public Potion(){}
-    public Potion(int idx)
+    public Potion(int potionIdx)
     {
-        this.idx = idx;
-        name = json[idx - startIdx]["name"].ToString();
-        effectCount = (int)json[idx - startIdx]["count"];
-        effectRate = new float[effectCount];
-        for(int i = 0;i < effectCount;i++)
-            effectRate[i] = float.Parse(json[idx - startIdx]["rate"][i].ToString());
+        idx = potionIdx;
+        name = json[potionIdx]["name"].ToString();
+        script = json[potionIdx]["script"].ToString();
     }
 }

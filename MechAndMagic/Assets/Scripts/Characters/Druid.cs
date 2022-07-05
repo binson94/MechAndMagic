@@ -140,12 +140,12 @@ public class Druid : Character
         if (skill.idx == 225 && set.Value[0] > 0 && cycleSet[0])
         {
             cycleSet[0] = false;
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
         }
         if (skill.idx == 229 && set.Value[1] > 0 && cycleSet[1])
         {
             cycleSet[1] = false;
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[1], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[1], 1, -1));
         }
 
 
@@ -153,7 +153,7 @@ public class Druid : Character
         //자연의 응징 2세트 - 전체 공격 스킬 ATK, ACC 상승
         if (skill.category == 1014 && set.Value[0] > 0)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ACC, 1, set.Value[0], 1, -1));
         }
 

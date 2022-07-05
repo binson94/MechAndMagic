@@ -55,7 +55,7 @@ public class QuestProceed
 //퀘스트 정보 관리
 public class QuestManager : MonoBehaviour
 {
-    const int QUEST_AMT = 10;
+    const int QUEST_AMT = 63;
     const int OUTBREAK_AMT = 23;
     static QuestBlueprint[] questData = new QuestBlueprint[QUEST_AMT];
     static QuestBlueprint[] outbreakData = new QuestBlueprint[OUTBREAK_AMT];

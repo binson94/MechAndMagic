@@ -338,6 +338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonIdx: 0
   lockImage: {fileID: 7269206455122645977}
+  dungeonIconImage: {fileID: 4875061918444361222}
+  dungeonFrameImage: {fileID: 4821456832438390934}
   nameTxt: {fileID: 4405468062117175451}
   recLvlTxt: {fileID: 8727909069413586045}
   lockReasonTxt: {fileID: 1962637048665393470}

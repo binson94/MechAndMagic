@@ -1,1190 +1,866 @@
 ﻿[
-  {
-    "name": "호밍 킥",
-    "script": "명중률 높은 방어력 관통 높은 1타 단일 공격",
-    "idx": 1,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       3,
-       3,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       7,
-       11,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       40,
-       20,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       -2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "건 샷",
-    "script": "치명타 확률 높은 치명타 피해 높은 3타 단일 공격",
-    "idx": 2,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       3,
-       3,
-       1,
-       1,
-       1,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       4,
-       4,
-       4,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       9,
-       10,
-       1,
-       1,
-       1,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       5,
-       5,
-       5,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       20,
-       25,
-       0.6,
-       0.6,
-       0.6,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       -1,
-       -2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "닷지",
-    "script": "회피율 상승하는 자가버프",
-    "idx": 3,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       8,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       40,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "체인소우",
-    "script": "대상의 방어력 깎는 디버프를 부여하는 1타 단일 공격",
-    "idx": 4,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       1,
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       1,
-       12,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       6,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1.2,
-       0.3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "가디언",
-    "script": "방어력 상승 및 보호막 생성되는 자가버프",
-    "idx": 5,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 2,
-    "effectType": [
-       3,
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       6,
-       27,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.2,
-       0.7,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       2,
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "부스터",
-    "script": "속도 상승 및 다음 1회 공격에 공격력 향상 버프",
-    "idx": 6,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       3,
-       16,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       12,
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.2,
-       0.3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       2,
-       99,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       1,
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "유토피아",
-    "script": "모든 아군 최대체력 비례 회복",
-    "idx": 7,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 4,
-    "effectType": [
-       2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       3,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       20,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.25,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "디스토피아",
-    "script": "모든 적군 최대체력 비례 피해",
-    "idx": 8,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       6,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       20,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       0.2,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- },
-  {
-    "name": "기본 공격",
-    "script": "기본 공격",
-    "idx": 9,
-    "class": 12,
-    "category": 1028,
-    "usetype": 1,
-    "reqlvl": 1,
-    "reqskill": [
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "apCost": 0,
-    "cool": 0,
-    "targetSelect": 0,
-    "targetSide": 0,
-    "targetCount": 0,
-    "effectCount": 1,
-    "effectType": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCond": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTarget": [
-       4,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectObject": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectStat": [
-       5,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectRate": [
-       1,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectCalc": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectTurn": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectDispel": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ],
-    "effectVisible": [
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0,
-       0
-    ]
- }
- ]
+   {
+     "name": "호밍 킥",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 1,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        3,
+        1,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        1,
+        0,
+        0
+     ],
+     "effectObject": [
+        7,
+        11,
+        1,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        5,
+        0,
+        0
+     ],
+     "effectRate": [
+        40,
+        20,
+        0.9,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        -2,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "건 샷",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 2,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        3,
+        1,
+        1,
+        1
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        4,
+        4,
+        4
+     ],
+     "effectObject": [
+        9,
+        10,
+        1,
+        1,
+        1
+     ],
+     "effectStat": [
+        0,
+        0,
+        5,
+        5,
+        5
+     ],
+     "effectRate": [
+        20,
+        20,
+        0.4,
+        0.4,
+        0.4
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        -1,
+        -2,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "닷지",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 3,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        8,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        40,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "체인소우",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 4,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        1,
+        4,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        1,
+        12,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        6,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1.4,
+        0.25,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        2,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        1,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "가디언",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 5,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 2,
+     "sfx": 0,
+     "effectType": [
+        3,
+        3,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        6,
+        27,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.2,
+        0.3,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        2,
+        2,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        1,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "부스터",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 6,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        3,
+        16,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        12,
+        5,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.25,
+        0.6,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        1,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        2,
+        99,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        1,
+        1,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        1,
+        1,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "유토피아",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 7,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 4,
+     "sfx": 0,
+     "effectType": [
+        2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        3,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        20,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.25,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "디스토피아",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 8,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        6,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        20,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        0.2,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "기본 공격",
+     "script": "",
+     "script_pos": "",
+     "script_neg": "",
+     "idx": 9,
+     "icon": "",
+     "class": 12,
+     "category": 1028,
+     "usetype": 1,
+     "reqlvl": 1,
+     "reqskill": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "apCost": 0,
+     "cool": 0,
+     "targetSelect": 0,
+     "targetSide": 0,
+     "targetCount": 0,
+     "effectCount": 1,
+     "sfx": 0,
+     "effectType": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCond": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTarget": [
+        4,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectObject": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectStat": [
+        5,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectRate": [
+        1,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectCalc": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectTurn": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectDispel": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ],
+     "effectVisible": [
+        0,
+        0,
+        0,
+        0,
+        0
+     ]
+  }
+  ]

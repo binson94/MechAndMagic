@@ -25,6 +25,6 @@ public class OutbreakManager : MonoBehaviour
 
     public void Btn_Back()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("2_0 Dungeon");
+        UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Dungeon);
     }
 }

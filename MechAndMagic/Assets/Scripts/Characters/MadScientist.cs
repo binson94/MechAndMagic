@@ -82,7 +82,7 @@ public class MadScientist : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(12);
         if (set.Value[2] > 0 && skill.category == 1026)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ACC, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRC, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRB, 1, set.Value[2], 1, -1));

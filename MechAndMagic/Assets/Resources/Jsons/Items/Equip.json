@@ -4,18 +4,15 @@
      "idx": 1,
      "class": 1,
      "part": 1,
-     "script": "최상의 스팀코어 건틀릿",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -23,18 +20,15 @@
      "idx": 2,
      "class": 2,
      "part": 1,
-     "script": "최상의 스팀코어 총검",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -42,18 +36,15 @@
      "idx": 3,
      "class": 3,
      "part": 1,
-     "script": "최상의 스팀코어 거대포",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -61,18 +52,15 @@
      "idx": 4,
      "class": 4,
      "part": 1,
-     "script": "최상의 스팀코어 컨트롤러",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -80,18 +68,15 @@
      "idx": 5,
      "class": 10,
      "part": 2,
-     "script": "최상의 스팀코어 갑옷",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -99,18 +84,15 @@
      "idx": 6,
      "class": 10,
      "part": 3,
-     "script": "최상의 스팀코어 바지",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -118,18 +100,15 @@
      "idx": 7,
      "class": 10,
      "part": 4,
-     "script": "최상의 스팀코어 장갑",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -137,18 +116,15 @@
      "idx": 8,
      "class": 10,
      "part": 5,
-     "script": "최상의 스팀코어 신발",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -156,18 +132,15 @@
      "idx": 9,
      "class": 5,
      "part": 1,
-     "script": "기적의 세계수 원소 지팡이",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -175,18 +148,15 @@
      "idx": 10,
      "class": 6,
      "part": 1,
-     "script": "기적의 세계수 덩굴 플레일",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -194,18 +164,15 @@
      "idx": 11,
      "class": 7,
      "part": 1,
-     "script": "기적의 세계수 비전 마법봉",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -213,18 +180,15 @@
      "idx": 12,
      "class": 8,
      "part": 1,
-     "script": "기적의 세계수 쌍단검",
      "category": 24,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -232,18 +196,15 @@
      "idx": 13,
      "class": 11,
      "part": 2,
-     "script": "기적의 세계수 갑옷",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -251,18 +212,15 @@
      "idx": 14,
      "class": 11,
      "part": 3,
-     "script": "기적의 세계수 바지",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -270,18 +228,15 @@
      "idx": 15,
      "class": 11,
      "part": 4,
-     "script": "기적의 세계수 장갑",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -289,18 +244,15 @@
      "idx": 16,
      "class": 11,
      "part": 5,
-     "script": "기적의 세계수 신발",
      "category": 25,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -308,18 +260,15 @@
      "idx": 17,
      "class": 0,
      "part": 6,
-     "script": "유일한 다이아몬드 반지",
      "category": 26,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -327,18 +276,15 @@
      "idx": 18,
      "class": 0,
      "part": 7,
-     "script": "유일한 다이아몬드 목걸이",
      "category": 26,
      "set": 0,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -346,17 +292,14 @@
      "idx": 19,
      "class": 1,
      "part": 1,
-     "script": "개선된 스팀코어 건틀릿",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -365,17 +308,14 @@
      "idx": 20,
      "class": 2,
      "part": 1,
-     "script": "개선된 스팀코어 총검",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -384,17 +324,14 @@
      "idx": 21,
      "class": 3,
      "part": 1,
-     "script": "개선된 스팀코어 거대포",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -403,17 +340,14 @@
      "idx": 22,
      "class": 4,
      "part": 1,
-     "script": "개선된 스팀코어 컨트롤러",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -422,17 +356,14 @@
      "idx": 23,
      "class": 10,
      "part": 2,
-     "script": "개선된 스팀코어 갑옷",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -441,17 +372,14 @@
      "idx": 24,
      "class": 10,
      "part": 3,
-     "script": "개선된 스팀코어 바지",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -460,17 +388,14 @@
      "idx": 25,
      "class": 10,
      "part": 4,
-     "script": "개선된 스팀코어 장갑",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -479,17 +404,14 @@
      "idx": 26,
      "class": 10,
      "part": 5,
-     "script": "개선된 스팀코어 신발",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -498,17 +420,14 @@
      "idx": 27,
      "class": 5,
      "part": 1,
-     "script": "특별한 세계수 원소 지팡이",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -517,17 +436,14 @@
      "idx": 28,
      "class": 6,
      "part": 1,
-     "script": "특별한 세계수 덩굴 플레일",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -536,17 +452,14 @@
      "idx": 29,
      "class": 7,
      "part": 1,
-     "script": "특별한 세계수 비전 마법봉",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -555,17 +468,14 @@
      "idx": 30,
      "class": 8,
      "part": 1,
-     "script": "특별한 세계수 쌍단검",
      "category": 27,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -574,17 +484,14 @@
      "idx": 31,
      "class": 11,
      "part": 2,
-     "script": "특별한 세계수 갑옷",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -593,17 +500,14 @@
      "idx": 32,
      "class": 11,
      "part": 3,
-     "script": "특별한 세계수 바지",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -612,17 +516,14 @@
      "idx": 33,
      "class": 11,
      "part": 4,
-     "script": "특별한 세계수 장갑",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -631,17 +532,14 @@
      "idx": 34,
      "class": 11,
      "part": 5,
-     "script": "특별한 세계수 신발",
      "category": 28,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -650,17 +548,14 @@
      "idx": 35,
      "class": 0,
      "part": 6,
-     "script": "소중한 다이아몬드 반지",
      "category": 29,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -669,17 +564,14 @@
      "idx": 36,
      "class": 0,
      "part": 7,
-     "script": "소중한 다이아몬드 목걸이",
      "category": 29,
      "set": 0,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -688,16 +580,13 @@
      "idx": 37,
      "class": 1,
      "part": 1,
-     "script": "희귀한 스팀코어 건틀릿",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -707,16 +596,13 @@
      "idx": 38,
      "class": 2,
      "part": 1,
-     "script": "희귀한 스팀코어 총검",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -726,16 +612,13 @@
      "idx": 39,
      "class": 3,
      "part": 1,
-     "script": "희귀한 스팀코어 거대포",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -745,16 +628,13 @@
      "idx": 40,
      "class": 4,
      "part": 1,
-     "script": "희귀한 스팀코어 컨트롤러",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -764,16 +644,13 @@
      "idx": 41,
      "class": 10,
      "part": 2,
-     "script": "희귀한 스팀코어 갑옷",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -783,16 +660,13 @@
      "idx": 42,
      "class": 10,
      "part": 3,
-     "script": "희귀한 스팀코어 바지",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -802,16 +676,13 @@
      "idx": 43,
      "class": 10,
      "part": 4,
-     "script": "희귀한 스팀코어 장갑",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -821,16 +692,13 @@
      "idx": 44,
      "class": 10,
      "part": 5,
-     "script": "희귀한 스팀코어 신발",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -840,16 +708,13 @@
      "idx": 45,
      "class": 5,
      "part": 1,
-     "script": "희귀한 세계수 원소 지팡이",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -859,16 +724,13 @@
      "idx": 46,
      "class": 6,
      "part": 1,
-     "script": "희귀한 세계수 덩굴 플레일",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -878,16 +740,13 @@
      "idx": 47,
      "class": 7,
      "part": 1,
-     "script": "희귀한 세계수 비전 마법봉",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -897,16 +756,13 @@
      "idx": 48,
      "class": 8,
      "part": 1,
-     "script": "희귀한 세계수 쌍단검",
      "category": 30,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -916,16 +772,13 @@
      "idx": 49,
      "class": 11,
      "part": 2,
-     "script": "희귀한 세계수 갑옷",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -935,16 +788,13 @@
      "idx": 50,
      "class": 11,
      "part": 3,
-     "script": "희귀한 세계수 바지",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -954,16 +804,13 @@
      "idx": 51,
      "class": 11,
      "part": 4,
-     "script": "희귀한 세계수 장갑",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -973,16 +820,13 @@
      "idx": 52,
      "class": 11,
      "part": 5,
-     "script": "희귀한 세계수 신발",
      "category": 31,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -992,16 +836,13 @@
      "idx": 53,
      "class": 0,
      "part": 6,
-     "script": "귀중한 다이아몬드 반지",
      "category": 32,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -1011,16 +852,13 @@
      "idx": 54,
      "class": 0,
      "part": 7,
-     "script": "귀중한 다이아몬드 목걸이",
      "category": 32,
      "set": 0,
      "reqlvl": 9,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -1030,15 +868,12 @@
      "idx": 55,
      "class": 1,
      "part": 1,
-     "script": "좋은 스팀코어 건틀릿",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1049,15 +884,12 @@
      "idx": 56,
      "class": 2,
      "part": 1,
-     "script": "좋은 스팀코어 총검",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1068,15 +900,12 @@
      "idx": 57,
      "class": 3,
      "part": 1,
-     "script": "좋은 스팀코어 거대포",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1087,15 +916,12 @@
      "idx": 58,
      "class": 4,
      "part": 1,
-     "script": "좋은 스팀코어 컨트롤러",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1106,15 +932,12 @@
      "idx": 59,
      "class": 10,
      "part": 2,
-     "script": "좋은 스팀코어 갑옷",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1125,15 +948,12 @@
      "idx": 60,
      "class": 10,
      "part": 3,
-     "script": "좋은 스팀코어 바지",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1144,15 +964,12 @@
      "idx": 61,
      "class": 10,
      "part": 4,
-     "script": "좋은 스팀코어 장갑",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1163,15 +980,12 @@
      "idx": 62,
      "class": 10,
      "part": 5,
-     "script": "좋은 스팀코어 신발",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1182,15 +996,12 @@
      "idx": 63,
      "class": 5,
      "part": 1,
-     "script": "좋은 세계수 원소 지팡이",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1201,15 +1012,12 @@
      "idx": 64,
      "class": 6,
      "part": 1,
-     "script": "좋은 세계수 덩굴 플레일",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1220,15 +1028,12 @@
      "idx": 65,
      "class": 7,
      "part": 1,
-     "script": "좋은 세계수 비전 마법봉",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1239,15 +1044,12 @@
      "idx": 66,
      "class": 8,
      "part": 1,
-     "script": "좋은 세계수 쌍단검",
      "category": 33,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1258,15 +1060,12 @@
      "idx": 67,
      "class": 11,
      "part": 2,
-     "script": "좋은 세계수 갑옷",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1277,15 +1076,12 @@
      "idx": 68,
      "class": 11,
      "part": 3,
-     "script": "좋은 세계수 바지",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1296,15 +1092,12 @@
      "idx": 69,
      "class": 11,
      "part": 4,
-     "script": "좋은 세계수 장갑",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1315,15 +1108,12 @@
      "idx": 70,
      "class": 11,
      "part": 5,
-     "script": "좋은 세계수 신발",
      "category": 34,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1334,15 +1124,12 @@
      "idx": 71,
      "class": 0,
      "part": 6,
-     "script": "예쁜 다이아몬드 반지",
      "category": 35,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1353,15 +1140,12 @@
      "idx": 72,
      "class": 0,
      "part": 7,
-     "script": "예쁜 다이아몬드 목걸이",
      "category": 35,
      "set": 0,
      "reqlvl": 9,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1372,15 +1156,12 @@
      "idx": 73,
      "class": 1,
      "part": 1,
-     "script": "스팀코어 건틀릿",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1391,15 +1172,12 @@
      "idx": 74,
      "class": 2,
      "part": 1,
-     "script": "스팀코어 총검",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1410,15 +1188,12 @@
      "idx": 75,
      "class": 3,
      "part": 1,
-     "script": "스팀코어 거대포",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1429,15 +1204,12 @@
      "idx": 76,
      "class": 4,
      "part": 1,
-     "script": "스팀코어 컨트롤러",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1448,15 +1220,12 @@
      "idx": 77,
      "class": 10,
      "part": 2,
-     "script": "스팀코어 갑옷",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1467,15 +1236,12 @@
      "idx": 78,
      "class": 10,
      "part": 3,
-     "script": "스팀코어 바지",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1486,15 +1252,12 @@
      "idx": 79,
      "class": 10,
      "part": 4,
-     "script": "스팀코어 장갑",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1505,15 +1268,12 @@
      "idx": 80,
      "class": 10,
      "part": 5,
-     "script": "스팀코어 신발",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1524,15 +1284,12 @@
      "idx": 81,
      "class": 5,
      "part": 1,
-     "script": "세계수 원소 지팡이",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1543,15 +1300,12 @@
      "idx": 82,
      "class": 6,
      "part": 1,
-     "script": "세계수 덩굴 플레일",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1562,15 +1316,12 @@
      "idx": 83,
      "class": 7,
      "part": 1,
-     "script": "세계수 비전 마법봉",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1581,15 +1332,12 @@
      "idx": 84,
      "class": 8,
      "part": 1,
-     "script": "세계수 쌍단검",
      "category": 36,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1600,15 +1348,12 @@
      "idx": 85,
      "class": 11,
      "part": 2,
-     "script": "세계수 갑옷",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1619,15 +1364,12 @@
      "idx": 86,
      "class": 11,
      "part": 3,
-     "script": "세계수 바지",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1638,15 +1380,12 @@
      "idx": 87,
      "class": 11,
      "part": 4,
-     "script": "세계수 장갑",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1657,15 +1396,12 @@
      "idx": 88,
      "class": 11,
      "part": 5,
-     "script": "세계수 신발",
      "category": 37,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1676,15 +1412,12 @@
      "idx": 89,
      "class": 0,
      "part": 6,
-     "script": "다이아몬드 반지",
      "category": 38,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1695,15 +1428,12 @@
      "idx": 90,
      "class": 0,
      "part": 7,
-     "script": "다이아몬드 목걸이",
      "category": 38,
      "set": 0,
      "reqlvl": 9,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -1714,18 +1444,15 @@
      "idx": 91,
      "class": 1,
      "part": 1,
-     "script": "최상의 플레티넘 건틀릿",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1733,18 +1460,15 @@
      "idx": 92,
      "class": 2,
      "part": 1,
-     "script": "최상의 플레티넘 총검",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1752,18 +1476,15 @@
      "idx": 93,
      "class": 3,
      "part": 1,
-     "script": "최상의 플레티넘 거대포",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1771,18 +1492,15 @@
      "idx": 94,
      "class": 4,
      "part": 1,
-     "script": "최상의 플레티넘 컨트롤러",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1790,18 +1508,15 @@
      "idx": 95,
      "class": 10,
      "part": 2,
-     "script": "최상의 플레티넘 갑옷",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1809,18 +1524,15 @@
      "idx": 96,
      "class": 10,
      "part": 3,
-     "script": "최상의 플레티넘 바지",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1828,18 +1540,15 @@
      "idx": 97,
      "class": 10,
      "part": 4,
-     "script": "최상의 플레티넘 장갑",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1847,18 +1556,15 @@
      "idx": 98,
      "class": 10,
      "part": 5,
-     "script": "최상의 플레티넘 신발",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1866,18 +1572,15 @@
      "idx": 99,
      "class": 5,
      "part": 1,
-     "script": "기적의 거대나무 원소 지팡이",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1885,18 +1588,15 @@
      "idx": 100,
      "class": 6,
      "part": 1,
-     "script": "기적의 거대나무 덩굴 플레일",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1904,18 +1604,15 @@
      "idx": 101,
      "class": 7,
      "part": 1,
-     "script": "기적의 거대나무 비전 마법봉",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1923,18 +1620,15 @@
      "idx": 102,
      "class": 8,
      "part": 1,
-     "script": "기적의 거대나무 쌍단검",
      "category": 39,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1942,18 +1636,15 @@
      "idx": 103,
      "class": 11,
      "part": 2,
-     "script": "기적의 거대나무 갑옷",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1961,18 +1652,15 @@
      "idx": 104,
      "class": 11,
      "part": 3,
-     "script": "기적의 거대나무 바지",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1980,18 +1668,15 @@
      "idx": 105,
      "class": 11,
      "part": 4,
-     "script": "기적의 거대나무 장갑",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -1999,18 +1684,15 @@
      "idx": 106,
      "class": 11,
      "part": 5,
-     "script": "기적의 거대나무 신발",
      "category": 40,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -2018,18 +1700,15 @@
      "idx": 107,
      "class": 0,
      "part": 6,
-     "script": "유일한 순금 반지",
      "category": 41,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -2037,18 +1716,15 @@
      "idx": 108,
      "class": 0,
      "part": 7,
-     "script": "유일한 순금 목걸이",
      "category": 41,
      "set": 0,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -2056,17 +1732,14 @@
      "idx": 109,
      "class": 1,
      "part": 1,
-     "script": "개선된 플레티넘 건틀릿",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2075,17 +1748,14 @@
      "idx": 110,
      "class": 2,
      "part": 1,
-     "script": "개선된 플레티넘 총검",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2094,17 +1764,14 @@
      "idx": 111,
      "class": 3,
      "part": 1,
-     "script": "개선된 플레티넘 거대포",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2113,17 +1780,14 @@
      "idx": 112,
      "class": 4,
      "part": 1,
-     "script": "개선된 플레티넘 컨트롤러",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2132,17 +1796,14 @@
      "idx": 113,
      "class": 10,
      "part": 2,
-     "script": "개선된 플레티넘 갑옷",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2151,17 +1812,14 @@
      "idx": 114,
      "class": 10,
      "part": 3,
-     "script": "개선된 플레티넘 바지",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2170,17 +1828,14 @@
      "idx": 115,
      "class": 10,
      "part": 4,
-     "script": "개선된 플레티넘 장갑",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2189,17 +1844,14 @@
      "idx": 116,
      "class": 10,
      "part": 5,
-     "script": "개선된 플레티넘 신발",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2208,17 +1860,14 @@
      "idx": 117,
      "class": 5,
      "part": 1,
-     "script": "특별한 거대나무 원소 지팡이",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2227,17 +1876,14 @@
      "idx": 118,
      "class": 6,
      "part": 1,
-     "script": "특별한 거대나무 덩굴 플레일",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2246,17 +1892,14 @@
      "idx": 119,
      "class": 7,
      "part": 1,
-     "script": "특별한 거대나무 비전 마법봉",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2265,17 +1908,14 @@
      "idx": 120,
      "class": 8,
      "part": 1,
-     "script": "특별한 거대나무 쌍단검",
      "category": 42,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2284,17 +1924,14 @@
      "idx": 121,
      "class": 11,
      "part": 2,
-     "script": "특별한 거대나무 갑옷",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2303,17 +1940,14 @@
      "idx": 122,
      "class": 11,
      "part": 3,
-     "script": "특별한 거대나무 바지",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2322,17 +1956,14 @@
      "idx": 123,
      "class": 11,
      "part": 4,
-     "script": "특별한 거대나무 장갑",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2341,17 +1972,14 @@
      "idx": 124,
      "class": 11,
      "part": 5,
-     "script": "특별한 거대나무 신발",
      "category": 43,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2360,17 +1988,14 @@
      "idx": 125,
      "class": 0,
      "part": 6,
-     "script": "소중한 순금 반지",
      "category": 44,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2379,17 +2004,14 @@
      "idx": 126,
      "class": 0,
      "part": 7,
-     "script": "소중한 순금 목걸이",
      "category": 44,
      "set": 0,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -2398,16 +2020,13 @@
      "idx": 127,
      "class": 1,
      "part": 1,
-     "script": "희귀한 플레티넘 건틀릿",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2417,16 +2036,13 @@
      "idx": 128,
      "class": 2,
      "part": 1,
-     "script": "희귀한 플레티넘 총검",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2436,16 +2052,13 @@
      "idx": 129,
      "class": 3,
      "part": 1,
-     "script": "희귀한 플레티넘 거대포",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2455,16 +2068,13 @@
      "idx": 130,
      "class": 4,
      "part": 1,
-     "script": "희귀한 플레티넘 컨트롤러",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2474,16 +2084,13 @@
      "idx": 131,
      "class": 10,
      "part": 2,
-     "script": "희귀한 플레티넘 갑옷",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2493,16 +2100,13 @@
      "idx": 132,
      "class": 10,
      "part": 3,
-     "script": "희귀한 플레티넘 바지",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2512,16 +2116,13 @@
      "idx": 133,
      "class": 10,
      "part": 4,
-     "script": "희귀한 플레티넘 장갑",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2531,16 +2132,13 @@
      "idx": 134,
      "class": 10,
      "part": 5,
-     "script": "희귀한 플레티넘 신발",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2550,16 +2148,13 @@
      "idx": 135,
      "class": 5,
      "part": 1,
-     "script": "희귀한 거대나무 원소 지팡이",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2569,16 +2164,13 @@
      "idx": 136,
      "class": 6,
      "part": 1,
-     "script": "희귀한 거대나무 덩굴 플레일",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2588,16 +2180,13 @@
      "idx": 137,
      "class": 7,
      "part": 1,
-     "script": "희귀한 거대나무 비전 마법봉",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2607,16 +2196,13 @@
      "idx": 138,
      "class": 8,
      "part": 1,
-     "script": "희귀한 거대나무 쌍단검",
      "category": 45,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2626,16 +2212,13 @@
      "idx": 139,
      "class": 11,
      "part": 2,
-     "script": "희귀한 거대나무 갑옷",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2645,16 +2228,13 @@
      "idx": 140,
      "class": 11,
      "part": 3,
-     "script": "희귀한 거대나무 바지",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2664,16 +2244,13 @@
      "idx": 141,
      "class": 11,
      "part": 4,
-     "script": "희귀한 거대나무 장갑",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2683,16 +2260,13 @@
      "idx": 142,
      "class": 11,
      "part": 5,
-     "script": "희귀한 거대나무 신발",
      "category": 46,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2702,16 +2276,13 @@
      "idx": 143,
      "class": 0,
      "part": 6,
-     "script": "귀중한 순금 반지",
      "category": 47,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2721,16 +2292,13 @@
      "idx": 144,
      "class": 0,
      "part": 7,
-     "script": "귀중한 순금 목걸이",
      "category": 47,
      "set": 0,
      "reqlvl": 7,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -2740,15 +2308,12 @@
      "idx": 145,
      "class": 1,
      "part": 1,
-     "script": "좋은 플레티넘 건틀릿",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2759,15 +2324,12 @@
      "idx": 146,
      "class": 2,
      "part": 1,
-     "script": "좋은 플레티넘 총검",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2778,15 +2340,12 @@
      "idx": 147,
      "class": 3,
      "part": 1,
-     "script": "좋은 플레티넘 거대포",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2797,15 +2356,12 @@
      "idx": 148,
      "class": 4,
      "part": 1,
-     "script": "좋은 플레티넘 컨트롤러",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2816,15 +2372,12 @@
      "idx": 149,
      "class": 10,
      "part": 2,
-     "script": "좋은 플레티넘 갑옷",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2835,15 +2388,12 @@
      "idx": 150,
      "class": 10,
      "part": 3,
-     "script": "좋은 플레티넘 바지",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2854,15 +2404,12 @@
      "idx": 151,
      "class": 10,
      "part": 4,
-     "script": "좋은 플레티넘 장갑",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2873,15 +2420,12 @@
      "idx": 152,
      "class": 10,
      "part": 5,
-     "script": "좋은 플레티넘 신발",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2892,15 +2436,12 @@
      "idx": 153,
      "class": 5,
      "part": 1,
-     "script": "좋은 거대나무 원소 지팡이",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2911,15 +2452,12 @@
      "idx": 154,
      "class": 6,
      "part": 1,
-     "script": "좋은 거대나무 덩굴 플레일",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2930,15 +2468,12 @@
      "idx": 155,
      "class": 7,
      "part": 1,
-     "script": "좋은 거대나무 비전 마법봉",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2949,15 +2484,12 @@
      "idx": 156,
      "class": 8,
      "part": 1,
-     "script": "좋은 거대나무 쌍단검",
      "category": 48,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2968,15 +2500,12 @@
      "idx": 157,
      "class": 11,
      "part": 2,
-     "script": "좋은 거대나무 갑옷",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -2987,15 +2516,12 @@
      "idx": 158,
      "class": 11,
      "part": 3,
-     "script": "좋은 거대나무 바지",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3006,15 +2532,12 @@
      "idx": 159,
      "class": 11,
      "part": 4,
-     "script": "좋은 거대나무 장갑",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3025,15 +2548,12 @@
      "idx": 160,
      "class": 11,
      "part": 5,
-     "script": "좋은 거대나무 신발",
      "category": 49,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3044,15 +2564,12 @@
      "idx": 161,
      "class": 0,
      "part": 6,
-     "script": "예쁜 순금 반지",
      "category": 50,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3063,15 +2580,12 @@
      "idx": 162,
      "class": 0,
      "part": 7,
-     "script": "예쁜 순금 목걸이",
      "category": 50,
      "set": 0,
      "reqlvl": 7,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3082,15 +2596,12 @@
      "idx": 163,
      "class": 1,
      "part": 1,
-     "script": "플레티넘 건틀릿",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3101,15 +2612,12 @@
      "idx": 164,
      "class": 2,
      "part": 1,
-     "script": "플레티넘 총검",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3120,15 +2628,12 @@
      "idx": 165,
      "class": 3,
      "part": 1,
-     "script": "플레티넘 거대포",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3139,15 +2644,12 @@
      "idx": 166,
      "class": 4,
      "part": 1,
-     "script": "플레티넘 컨트롤러",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3158,15 +2660,12 @@
      "idx": 167,
      "class": 10,
      "part": 2,
-     "script": "플레티넘 갑옷",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3177,15 +2676,12 @@
      "idx": 168,
      "class": 10,
      "part": 3,
-     "script": "플레티넘 바지",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3196,15 +2692,12 @@
      "idx": 169,
      "class": 10,
      "part": 4,
-     "script": "플레티넘 장갑",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3215,15 +2708,12 @@
      "idx": 170,
      "class": 10,
      "part": 5,
-     "script": "플레티넘 신발",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3234,15 +2724,12 @@
      "idx": 171,
      "class": 5,
      "part": 1,
-     "script": "거대나무 원소 지팡이",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3253,15 +2740,12 @@
      "idx": 172,
      "class": 6,
      "part": 1,
-     "script": "거대나무 덩굴 플레일",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3272,15 +2756,12 @@
      "idx": 173,
      "class": 7,
      "part": 1,
-     "script": "거대나무 비전 마법봉",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3291,15 +2772,12 @@
      "idx": 174,
      "class": 8,
      "part": 1,
-     "script": "거대나무 쌍단검",
      "category": 51,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3310,15 +2788,12 @@
      "idx": 175,
      "class": 11,
      "part": 2,
-     "script": "거대나무 갑옷",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3329,15 +2804,12 @@
      "idx": 176,
      "class": 11,
      "part": 3,
-     "script": "거대나무 바지",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3348,15 +2820,12 @@
      "idx": 177,
      "class": 11,
      "part": 4,
-     "script": "거대나무 장갑",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3367,15 +2836,12 @@
      "idx": 178,
      "class": 11,
      "part": 5,
-     "script": "거대나무 신발",
      "category": 52,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3386,15 +2852,12 @@
      "idx": 179,
      "class": 0,
      "part": 6,
-     "script": "순금 반지",
      "category": 53,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3405,15 +2868,12 @@
      "idx": 180,
      "class": 0,
      "part": 7,
-     "script": "순금 목걸이",
      "category": 53,
      "set": 0,
      "reqlvl": 7,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -3424,18 +2884,15 @@
      "idx": 181,
      "class": 1,
      "part": 1,
-     "script": "최상의 강철 건틀릿",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3443,18 +2900,15 @@
      "idx": 182,
      "class": 2,
      "part": 1,
-     "script": "최상의 강철 총검",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3462,18 +2916,15 @@
      "idx": 183,
      "class": 3,
      "part": 1,
-     "script": "최상의 강철 거대포",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3481,18 +2932,15 @@
      "idx": 184,
      "class": 4,
      "part": 1,
-     "script": "최상의 강철 컨트롤러",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3500,18 +2948,15 @@
      "idx": 185,
      "class": 10,
      "part": 2,
-     "script": "최상의 강철 갑옷",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3519,18 +2964,15 @@
      "idx": 186,
      "class": 10,
      "part": 3,
-     "script": "최상의 강철 바지",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3538,18 +2980,15 @@
      "idx": 187,
      "class": 10,
      "part": 4,
-     "script": "최상의 강철 장갑",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3557,18 +2996,15 @@
      "idx": 188,
      "class": 10,
      "part": 5,
-     "script": "최상의 강철 신발",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3576,18 +3012,15 @@
      "idx": 189,
      "class": 5,
      "part": 1,
-     "script": "기적의 고목나무 원소 지팡이",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3595,18 +3028,15 @@
      "idx": 190,
      "class": 6,
      "part": 1,
-     "script": "기적의 고목나무 덩굴 플레일",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3614,18 +3044,15 @@
      "idx": 191,
      "class": 7,
      "part": 1,
-     "script": "기적의 고목나무 비전 마법봉",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3633,18 +3060,15 @@
      "idx": 192,
      "class": 8,
      "part": 1,
-     "script": "기적의 고목나무 쌍단검",
      "category": 54,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3652,18 +3076,15 @@
      "idx": 193,
      "class": 11,
      "part": 2,
-     "script": "기적의 고목나무 갑옷",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3671,18 +3092,15 @@
      "idx": 194,
      "class": 11,
      "part": 3,
-     "script": "기적의 고목나무 바지",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3690,18 +3108,15 @@
      "idx": 195,
      "class": 11,
      "part": 4,
-     "script": "기적의 고목나무 장갑",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3709,18 +3124,15 @@
      "idx": 196,
      "class": 11,
      "part": 5,
-     "script": "기적의 고목나무 신발",
      "category": 55,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3728,18 +3140,15 @@
      "idx": 197,
      "class": 0,
      "part": 6,
-     "script": "유일한 은반지",
      "category": 56,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3747,18 +3156,15 @@
      "idx": 198,
      "class": 0,
      "part": 7,
-     "script": "유일한 은목걸이",
      "category": 56,
      "set": 0,
      "reqlvl": 5,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -3766,17 +3172,14 @@
      "idx": 199,
      "class": 1,
      "part": 1,
-     "script": "개선된 강철 건틀릿",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3785,17 +3188,14 @@
      "idx": 200,
      "class": 2,
      "part": 1,
-     "script": "개선된 강철 총검",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3804,17 +3204,14 @@
      "idx": 201,
      "class": 3,
      "part": 1,
-     "script": "개선된 강철 거대포",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3823,17 +3220,14 @@
      "idx": 202,
      "class": 4,
      "part": 1,
-     "script": "개선된 강철 컨트롤러",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3842,17 +3236,14 @@
      "idx": 203,
      "class": 10,
      "part": 2,
-     "script": "개선된 강철 갑옷",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3861,17 +3252,14 @@
      "idx": 204,
      "class": 10,
      "part": 3,
-     "script": "개선된 강철 바지",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3880,17 +3268,14 @@
      "idx": 205,
      "class": 10,
      "part": 4,
-     "script": "개선된 강철 장갑",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3899,17 +3284,14 @@
      "idx": 206,
      "class": 10,
      "part": 5,
-     "script": "개선된 강철 신발",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3918,17 +3300,14 @@
      "idx": 207,
      "class": 5,
      "part": 1,
-     "script": "특별한 고목나무 원소 지팡이",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3937,17 +3316,14 @@
      "idx": 208,
      "class": 6,
      "part": 1,
-     "script": "특별한 고목나무 덩굴 플레일",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3956,17 +3332,14 @@
      "idx": 209,
      "class": 7,
      "part": 1,
-     "script": "특별한 고목나무 비전 마법봉",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3975,17 +3348,14 @@
      "idx": 210,
      "class": 8,
      "part": 1,
-     "script": "특별한 고목나무 쌍단검",
      "category": 57,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -3994,17 +3364,14 @@
      "idx": 211,
      "class": 11,
      "part": 2,
-     "script": "특별한 고목나무 갑옷",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -4013,17 +3380,14 @@
      "idx": 212,
      "class": 11,
      "part": 3,
-     "script": "특별한 고목나무 바지",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -4032,17 +3396,14 @@
      "idx": 213,
      "class": 11,
      "part": 4,
-     "script": "특별한 고목나무 장갑",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -4051,17 +3412,14 @@
      "idx": 214,
      "class": 11,
      "part": 5,
-     "script": "특별한 고목나무 신발",
      "category": 58,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -4070,17 +3428,14 @@
      "idx": 215,
      "class": 0,
      "part": 6,
-     "script": "소중한 은반지",
      "category": 59,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -4089,17 +3444,14 @@
      "idx": 216,
      "class": 0,
      "part": 7,
-     "script": "소중한 은목걸이",
      "category": 59,
      "set": 0,
      "reqlvl": 5,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -4108,16 +3460,13 @@
      "idx": 217,
      "class": 1,
      "part": 1,
-     "script": "희귀한 강철 건틀릿",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4127,16 +3476,13 @@
      "idx": 218,
      "class": 2,
      "part": 1,
-     "script": "희귀한 강철 총검",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4146,16 +3492,13 @@
      "idx": 219,
      "class": 3,
      "part": 1,
-     "script": "희귀한 강철 거대포",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4165,16 +3508,13 @@
      "idx": 220,
      "class": 4,
      "part": 1,
-     "script": "희귀한 강철 컨트롤러",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4184,16 +3524,13 @@
      "idx": 221,
      "class": 10,
      "part": 2,
-     "script": "희귀한 강철 갑옷",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4203,16 +3540,13 @@
      "idx": 222,
      "class": 10,
      "part": 3,
-     "script": "희귀한 강철 바지",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4222,16 +3556,13 @@
      "idx": 223,
      "class": 10,
      "part": 4,
-     "script": "희귀한 강철 장갑",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4241,16 +3572,13 @@
      "idx": 224,
      "class": 10,
      "part": 5,
-     "script": "희귀한 강철 신발",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4260,16 +3588,13 @@
      "idx": 225,
      "class": 5,
      "part": 1,
-     "script": "희귀한 고목나무 원소 지팡이",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4279,16 +3604,13 @@
      "idx": 226,
      "class": 6,
      "part": 1,
-     "script": "희귀한 고목나무 덩굴 플레일",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4298,16 +3620,13 @@
      "idx": 227,
      "class": 7,
      "part": 1,
-     "script": "희귀한 고목나무 비전 마법봉",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4317,16 +3636,13 @@
      "idx": 228,
      "class": 8,
      "part": 1,
-     "script": "희귀한 고목나무 쌍단검",
      "category": 60,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4336,16 +3652,13 @@
      "idx": 229,
      "class": 11,
      "part": 2,
-     "script": "희귀한 고목나무 갑옷",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4355,16 +3668,13 @@
      "idx": 230,
      "class": 11,
      "part": 3,
-     "script": "희귀한 고목나무 바지",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4374,16 +3684,13 @@
      "idx": 231,
      "class": 11,
      "part": 4,
-     "script": "희귀한 고목나무 장갑",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4393,16 +3700,13 @@
      "idx": 232,
      "class": 11,
      "part": 5,
-     "script": "희귀한 고목나무 신발",
      "category": 61,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4412,16 +3716,13 @@
      "idx": 233,
      "class": 0,
      "part": 6,
-     "script": "귀중한 은반지",
      "category": 62,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4431,16 +3732,13 @@
      "idx": 234,
      "class": 0,
      "part": 7,
-     "script": "귀중한 은목걸이",
      "category": 62,
      "set": 0,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -4450,15 +3748,12 @@
      "idx": 235,
      "class": 1,
      "part": 1,
-     "script": "좋은 강철 건틀릿",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4469,15 +3764,12 @@
      "idx": 236,
      "class": 2,
      "part": 1,
-     "script": "좋은 강철 총검",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4488,15 +3780,12 @@
      "idx": 237,
      "class": 3,
      "part": 1,
-     "script": "좋은 강철 거대포",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4507,15 +3796,12 @@
      "idx": 238,
      "class": 4,
      "part": 1,
-     "script": "좋은 강철 컨트롤러",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4526,15 +3812,12 @@
      "idx": 239,
      "class": 10,
      "part": 2,
-     "script": "좋은 강철 갑옷",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4545,15 +3828,12 @@
      "idx": 240,
      "class": 10,
      "part": 3,
-     "script": "좋은 강철 바지",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4564,15 +3844,12 @@
      "idx": 241,
      "class": 10,
      "part": 4,
-     "script": "좋은 강철 장갑",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4583,15 +3860,12 @@
      "idx": 242,
      "class": 10,
      "part": 5,
-     "script": "좋은 강철 신발",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4602,15 +3876,12 @@
      "idx": 243,
      "class": 5,
      "part": 1,
-     "script": "좋은 고목나무 원소 지팡이",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4621,15 +3892,12 @@
      "idx": 244,
      "class": 6,
      "part": 1,
-     "script": "좋은 고목나무 덩굴 플레일",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4640,15 +3908,12 @@
      "idx": 245,
      "class": 7,
      "part": 1,
-     "script": "좋은 고목나무 비전 마법봉",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4659,15 +3924,12 @@
      "idx": 246,
      "class": 8,
      "part": 1,
-     "script": "좋은 고목나무 쌍단검",
      "category": 63,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4678,15 +3940,12 @@
      "idx": 247,
      "class": 11,
      "part": 2,
-     "script": "좋은 고목나무 갑옷",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4697,15 +3956,12 @@
      "idx": 248,
      "class": 11,
      "part": 3,
-     "script": "좋은 고목나무 바지",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4716,15 +3972,12 @@
      "idx": 249,
      "class": 11,
      "part": 4,
-     "script": "좋은 고목나무 장갑",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4735,15 +3988,12 @@
      "idx": 250,
      "class": 11,
      "part": 5,
-     "script": "좋은 고목나무 신발",
      "category": 64,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4754,15 +4004,12 @@
      "idx": 251,
      "class": 0,
      "part": 6,
-     "script": "예쁜 은반지",
      "category": 65,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4773,15 +4020,12 @@
      "idx": 252,
      "class": 0,
      "part": 7,
-     "script": "예쁜 은목걸이",
      "category": 65,
      "set": 0,
      "reqlvl": 5,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4792,15 +4036,12 @@
      "idx": 253,
      "class": 1,
      "part": 1,
-     "script": "강철 건틀릿",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4811,15 +4052,12 @@
      "idx": 254,
      "class": 2,
      "part": 1,
-     "script": "강철 총검",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4830,15 +4068,12 @@
      "idx": 255,
      "class": 3,
      "part": 1,
-     "script": "강철 거대포",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4849,15 +4084,12 @@
      "idx": 256,
      "class": 4,
      "part": 1,
-     "script": "강철 컨트롤러",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4868,15 +4100,12 @@
      "idx": 257,
      "class": 10,
      "part": 2,
-     "script": "강철 갑옷",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4887,15 +4116,12 @@
      "idx": 258,
      "class": 10,
      "part": 3,
-     "script": "강철 바지",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4906,15 +4132,12 @@
      "idx": 259,
      "class": 10,
      "part": 4,
-     "script": "강철 장갑",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4925,15 +4148,12 @@
      "idx": 260,
      "class": 10,
      "part": 5,
-     "script": "강철 신발",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4944,15 +4164,12 @@
      "idx": 261,
      "class": 5,
      "part": 1,
-     "script": "고목나무 원소 지팡이",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4963,15 +4180,12 @@
      "idx": 262,
      "class": 6,
      "part": 1,
-     "script": "고목나무 덩굴 플레일",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -4982,15 +4196,12 @@
      "idx": 263,
      "class": 7,
      "part": 1,
-     "script": "고목나무 비전 마법봉",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5001,15 +4212,12 @@
      "idx": 264,
      "class": 8,
      "part": 1,
-     "script": "고목나무 쌍단검",
      "category": 66,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5020,15 +4228,12 @@
      "idx": 265,
      "class": 11,
      "part": 2,
-     "script": "고목나무 갑옷",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5039,15 +4244,12 @@
      "idx": 266,
      "class": 11,
      "part": 3,
-     "script": "고목나무 바지",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5058,15 +4260,12 @@
      "idx": 267,
      "class": 11,
      "part": 4,
-     "script": "고목나무 장갑",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5077,15 +4276,12 @@
      "idx": 268,
      "class": 11,
      "part": 5,
-     "script": "고목나무 신발",
      "category": 67,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5096,15 +4292,12 @@
      "idx": 269,
      "class": 0,
      "part": 6,
-     "script": "은반지",
      "category": 68,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5115,15 +4308,12 @@
      "idx": 270,
      "class": 0,
      "part": 7,
-     "script": "은목걸이",
      "category": 68,
      "set": 0,
      "reqlvl": 5,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5134,17 +4324,14 @@
      "idx": 271,
      "class": 1,
      "part": 1,
-     "script": "개선된 청동 건틀릿",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5153,17 +4340,14 @@
      "idx": 272,
      "class": 2,
      "part": 1,
-     "script": "개선된 청동 총검",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5172,17 +4356,14 @@
      "idx": 273,
      "class": 3,
      "part": 1,
-     "script": "개선된 청동 거대포",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5191,17 +4372,14 @@
      "idx": 274,
      "class": 4,
      "part": 1,
-     "script": "개선된 청동 컨트롤러",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5210,17 +4388,14 @@
      "idx": 275,
      "class": 10,
      "part": 2,
-     "script": "개선된 청동 갑옷",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5229,17 +4404,14 @@
      "idx": 276,
      "class": 10,
      "part": 3,
-     "script": "개선된 청동 바지",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5248,17 +4420,14 @@
      "idx": 277,
      "class": 10,
      "part": 4,
-     "script": "개선된 청동 장갑",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5267,17 +4436,14 @@
      "idx": 278,
      "class": 10,
      "part": 5,
-     "script": "개선된 청동 신발",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5286,17 +4452,14 @@
      "idx": 279,
      "class": 5,
      "part": 1,
-     "script": "특별한 나무 원소 지팡이",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5305,17 +4468,14 @@
      "idx": 280,
      "class": 6,
      "part": 1,
-     "script": "특별한 나무 덩굴 플레일",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5324,17 +4484,14 @@
      "idx": 281,
      "class": 7,
      "part": 1,
-     "script": "특별한 나무 비전 마법봉",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5343,17 +4500,14 @@
      "idx": 282,
      "class": 8,
      "part": 1,
-     "script": "특별한 나무 쌍단검",
      "category": 69,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5362,17 +4516,14 @@
      "idx": 283,
      "class": 11,
      "part": 2,
-     "script": "특별한 나무 갑옷",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5381,17 +4532,14 @@
      "idx": 284,
      "class": 11,
      "part": 3,
-     "script": "특별한 나무 바지",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5400,17 +4548,14 @@
      "idx": 285,
      "class": 11,
      "part": 4,
-     "script": "특별한 나무 장갑",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5419,17 +4564,14 @@
      "idx": 286,
      "class": 11,
      "part": 5,
-     "script": "특별한 나무 신발",
      "category": 70,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5438,17 +4580,14 @@
      "idx": 287,
      "class": 0,
      "part": 6,
-     "script": "소중한 동반지",
      "category": 71,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5457,17 +4596,14 @@
      "idx": 288,
      "class": 0,
      "part": 7,
-     "script": "소중한 동목걸이",
      "category": 71,
      "set": 0,
      "reqlvl": 3,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
         13,
-        0,
         0
      ]
   },
@@ -5476,16 +4612,13 @@
      "idx": 289,
      "class": 1,
      "part": 1,
-     "script": "희귀한 청동 건틀릿",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5495,16 +4628,13 @@
      "idx": 290,
      "class": 2,
      "part": 1,
-     "script": "희귀한 청동 총검",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5514,16 +4644,13 @@
      "idx": 291,
      "class": 3,
      "part": 1,
-     "script": "희귀한 청동 거대포",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5533,16 +4660,13 @@
      "idx": 292,
      "class": 4,
      "part": 1,
-     "script": "희귀한 청동 컨트롤러",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5552,16 +4676,13 @@
      "idx": 293,
      "class": 10,
      "part": 2,
-     "script": "희귀한 청동 갑옷",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5571,16 +4692,13 @@
      "idx": 294,
      "class": 10,
      "part": 3,
-     "script": "희귀한 청동 바지",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5590,16 +4708,13 @@
      "idx": 295,
      "class": 10,
      "part": 4,
-     "script": "희귀한 청동 장갑",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5609,16 +4724,13 @@
      "idx": 296,
      "class": 10,
      "part": 5,
-     "script": "희귀한 청동 신발",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5628,16 +4740,13 @@
      "idx": 297,
      "class": 5,
      "part": 1,
-     "script": "희귀한 나무 원소 지팡이",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5647,16 +4756,13 @@
      "idx": 298,
      "class": 6,
      "part": 1,
-     "script": "희귀한 나무 덩굴 플레일",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5666,16 +4772,13 @@
      "idx": 299,
      "class": 7,
      "part": 1,
-     "script": "희귀한 나무 비전 마법봉",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5685,16 +4788,13 @@
      "idx": 300,
      "class": 8,
      "part": 1,
-     "script": "희귀한 나무 쌍단검",
      "category": 72,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5704,16 +4804,13 @@
      "idx": 301,
      "class": 11,
      "part": 2,
-     "script": "희귀한 나무 갑옷",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5723,16 +4820,13 @@
      "idx": 302,
      "class": 11,
      "part": 3,
-     "script": "희귀한 나무 바지",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5742,16 +4836,13 @@
      "idx": 303,
      "class": 11,
      "part": 4,
-     "script": "희귀한 나무 장갑",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5761,16 +4852,13 @@
      "idx": 304,
      "class": 11,
      "part": 5,
-     "script": "희귀한 나무 신발",
      "category": 73,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5780,16 +4868,13 @@
      "idx": 305,
      "class": 0,
      "part": 6,
-     "script": "귀중한 동반지",
      "category": 74,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5799,16 +4884,13 @@
      "idx": 306,
      "class": 0,
      "part": 7,
-     "script": "귀중한 동목걸이",
      "category": 74,
      "set": 0,
      "reqlvl": 3,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         13,
-        0,
         0,
         0
      ]
@@ -5818,15 +4900,12 @@
      "idx": 307,
      "class": 1,
      "part": 1,
-     "script": "좋은 청동 건틀릿",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5837,15 +4916,12 @@
      "idx": 308,
      "class": 2,
      "part": 1,
-     "script": "좋은 청동 총검",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5856,15 +4932,12 @@
      "idx": 309,
      "class": 3,
      "part": 1,
-     "script": "좋은 청동 거대포",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5875,15 +4948,12 @@
      "idx": 310,
      "class": 4,
      "part": 1,
-     "script": "좋은 청동 컨트롤러",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5894,15 +4964,12 @@
      "idx": 311,
      "class": 10,
      "part": 2,
-     "script": "좋은 청동 갑옷",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5913,15 +4980,12 @@
      "idx": 312,
      "class": 10,
      "part": 3,
-     "script": "좋은 청동 바지",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5932,15 +4996,12 @@
      "idx": 313,
      "class": 10,
      "part": 4,
-     "script": "좋은 청동 장갑",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5951,15 +5012,12 @@
      "idx": 314,
      "class": 10,
      "part": 5,
-     "script": "좋은 청동 신발",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5970,15 +5028,12 @@
      "idx": 315,
      "class": 5,
      "part": 1,
-     "script": "좋은 나무 원소 지팡이",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -5989,15 +5044,12 @@
      "idx": 316,
      "class": 6,
      "part": 1,
-     "script": "좋은 나무 덩굴 플레일",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6008,15 +5060,12 @@
      "idx": 317,
      "class": 7,
      "part": 1,
-     "script": "좋은 나무 비전 마법봉",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6027,15 +5076,12 @@
      "idx": 318,
      "class": 8,
      "part": 1,
-     "script": "좋은 나무 쌍단검",
      "category": 75,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6046,15 +5092,12 @@
      "idx": 319,
      "class": 11,
      "part": 2,
-     "script": "좋은 나무 갑옷",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6065,15 +5108,12 @@
      "idx": 320,
      "class": 11,
      "part": 3,
-     "script": "좋은 나무 바지",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6084,15 +5124,12 @@
      "idx": 321,
      "class": 11,
      "part": 4,
-     "script": "좋은 나무 장갑",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6103,15 +5140,12 @@
      "idx": 322,
      "class": 11,
      "part": 5,
-     "script": "좋은 나무 신발",
      "category": 76,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6122,15 +5156,12 @@
      "idx": 323,
      "class": 0,
      "part": 6,
-     "script": "예쁜 동반지",
      "category": 77,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6141,15 +5172,12 @@
      "idx": 324,
      "class": 0,
      "part": 7,
-     "script": "예쁜 동목걸이",
      "category": 77,
      "set": 0,
      "reqlvl": 3,
      "rarity": 2,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6160,15 +5188,12 @@
      "idx": 325,
      "class": 1,
      "part": 1,
-     "script": "청동 건틀릿",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6179,15 +5204,12 @@
      "idx": 326,
      "class": 2,
      "part": 1,
-     "script": "청동 총검",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6198,15 +5220,12 @@
      "idx": 327,
      "class": 3,
      "part": 1,
-     "script": "청동 거대포",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6217,15 +5236,12 @@
      "idx": 328,
      "class": 4,
      "part": 1,
-     "script": "청동 컨트롤러",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6236,15 +5252,12 @@
      "idx": 329,
      "class": 10,
      "part": 2,
-     "script": "청동 갑옷",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6255,15 +5268,12 @@
      "idx": 330,
      "class": 10,
      "part": 3,
-     "script": "청동 바지",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6274,15 +5284,12 @@
      "idx": 331,
      "class": 10,
      "part": 4,
-     "script": "청동 장갑",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6293,15 +5300,12 @@
      "idx": 332,
      "class": 10,
      "part": 5,
-     "script": "청동 신발",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6312,15 +5316,12 @@
      "idx": 333,
      "class": 5,
      "part": 1,
-     "script": "나무 원소 지팡이",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6331,15 +5332,12 @@
      "idx": 334,
      "class": 6,
      "part": 1,
-     "script": "나무 덩굴 플레일",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6350,15 +5348,12 @@
      "idx": 335,
      "class": 7,
      "part": 1,
-     "script": "나무 비전 마법봉",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6369,15 +5364,12 @@
      "idx": 336,
      "class": 8,
      "part": 1,
-     "script": "나무 쌍단검",
      "category": 78,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6388,15 +5380,12 @@
      "idx": 337,
      "class": 11,
      "part": 2,
-     "script": "나무 갑옷",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6407,15 +5396,12 @@
      "idx": 338,
      "class": 11,
      "part": 3,
-     "script": "나무 바지",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6426,15 +5412,12 @@
      "idx": 339,
      "class": 11,
      "part": 4,
-     "script": "나무 장갑",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6445,15 +5428,12 @@
      "idx": 340,
      "class": 11,
      "part": 5,
-     "script": "나무 신발",
      "category": 79,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6464,15 +5444,12 @@
      "idx": 341,
      "class": 0,
      "part": 6,
-     "script": "동반지",
      "category": 80,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6483,15 +5460,300 @@
      "idx": 342,
      "class": 0,
      "part": 7,
-     "script": "동목걸이",
      "category": 80,
      "set": 0,
      "reqlvl": 3,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 건틀릿",
+     "idx": 343,
+     "class": 1,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 총검",
+     "idx": 344,
+     "class": 2,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 거대포",
+     "idx": 345,
+     "class": 3,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 컨트롤러",
+     "idx": 346,
+     "class": 4,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 갑옷",
+     "idx": 347,
+     "class": 10,
+     "part": 2,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 바지",
+     "idx": 348,
+     "class": 10,
+     "part": 3,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 장갑",
+     "idx": 349,
+     "class": 10,
+     "part": 4,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 고철 신발",
+     "idx": 350,
+     "class": 10,
+     "part": 5,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 원소 지팡이",
+     "idx": 351,
+     "class": 5,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 덩글 플레일",
+     "idx": 352,
+     "class": 6,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 비전 마법봉",
+     "idx": 353,
+     "class": 7,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 단검",
+     "idx": 354,
+     "class": 8,
+     "part": 1,
+     "category": 81,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 갑옷",
+     "idx": 355,
+     "class": 11,
+     "part": 2,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 바지",
+     "idx": 356,
+     "class": 11,
+     "part": 3,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 장갑",
+     "idx": 357,
+     "class": 11,
+     "part": 4,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "좋은 썩은나무 신발",
+     "idx": 358,
+     "class": 11,
+     "part": 5,
+     "category": 82,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "예쁜 부러진 반지",
+     "idx": 359,
+     "class": 0,
+     "part": 6,
+     "category": 83,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
+        0,
+        0,
+        0
+     ]
+  },
+   {
+     "name": "예쁜 부러진 목걸이",
+     "idx": 360,
+     "class": 0,
+     "part": 7,
+     "category": 83,
+     "set": 0,
+     "reqlvl": 1,
+     "rarity": 2,
+     "subStat": 0,
+     "commonStat": [
         0,
         0,
         0
@@ -6499,18 +5761,15 @@
   },
    {
      "name": "고철 건틀릿",
-     "idx": 343,
+     "idx": 361,
      "class": 1,
      "part": 1,
-     "script": "고철 건틀릿",
-     "category": 81,
+     "category": 84,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6518,18 +5777,15 @@
   },
    {
      "name": "고철 총검",
-     "idx": 344,
+     "idx": 362,
      "class": 2,
      "part": 1,
-     "script": "고철 총검",
-     "category": 81,
+     "category": 84,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6537,18 +5793,15 @@
   },
    {
      "name": "고철 거대포",
-     "idx": 345,
+     "idx": 363,
      "class": 3,
      "part": 1,
-     "script": "고철 거대포",
-     "category": 81,
+     "category": 84,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6556,18 +5809,15 @@
   },
    {
      "name": "고철 컨트롤러",
-     "idx": 346,
+     "idx": 364,
      "class": 4,
      "part": 1,
-     "script": "고철 컨트롤러",
-     "category": 81,
+     "category": 84,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6575,18 +5825,15 @@
   },
    {
      "name": "고철 갑옷",
-     "idx": 347,
+     "idx": 365,
      "class": 10,
      "part": 2,
-     "script": "고철 갑옷",
-     "category": 82,
+     "category": 85,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6594,18 +5841,15 @@
   },
    {
      "name": "고철 바지",
-     "idx": 348,
+     "idx": 366,
      "class": 10,
      "part": 3,
-     "script": "고철 바지",
-     "category": 82,
+     "category": 85,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6613,18 +5857,15 @@
   },
    {
      "name": "고철 장갑",
-     "idx": 349,
+     "idx": 367,
      "class": 10,
      "part": 4,
-     "script": "고철 장갑",
-     "category": 82,
+     "category": 85,
      "set": 0,
      "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
+     "rarity": 1,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6632,360 +5873,15 @@
   },
    {
      "name": "고철 신발",
-     "idx": 350,
-     "class": 10,
-     "part": 5,
-     "script": "고철 신발",
-     "category": 82,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 나무원소 지팡이",
-     "idx": 351,
-     "class": 5,
-     "part": 1,
-     "script": "낡은 나무원소 지팡이",
-     "category": 81,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 나무덩굴 플레일",
-     "idx": 352,
-     "class": 6,
-     "part": 1,
-     "script": "낡은 나무덩굴 플레일",
-     "category": 81,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 나무비전 마법봉",
-     "idx": 353,
-     "class": 7,
-     "part": 1,
-     "script": "낡은 나무비전 마법봉",
-     "category": 81,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 나무쌍단검",
-     "idx": 354,
-     "class": 8,
-     "part": 1,
-     "script": "낡은 나무쌍단검",
-     "category": 81,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 천갑옷",
-     "idx": 355,
-     "class": 11,
-     "part": 2,
-     "script": "낡은 천갑옷",
-     "category": 82,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 천바지",
-     "idx": 356,
-     "class": 11,
-     "part": 3,
-     "script": "낡은 천바지",
-     "category": 82,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 천장갑",
-     "idx": 357,
-     "class": 11,
-     "part": 4,
-     "script": "낡은 천장갑",
-     "category": 82,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "낡은 천신발",
-     "idx": 358,
-     "class": 11,
-     "part": 5,
-     "script": "낡은 천신발",
-     "category": 82,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "깨진 반지",
-     "idx": 359,
-     "class": 0,
-     "part": 6,
-     "script": "깨진 반지",
-     "category": 83,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "깨진 목걸이",
-     "idx": 360,
-     "class": 0,
-     "part": 7,
-     "script": "깨진 목걸이",
-     "category": 83,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 2,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 건틀릿",
-     "idx": 361,
-     "class": 1,
-     "part": 1,
-     "script": "녹슬은 고철 건틀릿",
-     "category": 84,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 총검",
-     "idx": 362,
-     "class": 2,
-     "part": 1,
-     "script": "녹슬은 고철 총검",
-     "category": 84,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 거대포",
-     "idx": 363,
-     "class": 3,
-     "part": 1,
-     "script": "녹슬은 고철 거대포",
-     "category": 84,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 컨트롤러",
-     "idx": 364,
-     "class": 4,
-     "part": 1,
-     "script": "녹슬은 고철 컨트롤러",
-     "category": 84,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 갑옷",
-     "idx": 365,
-     "class": 10,
-     "part": 2,
-     "script": "녹슬은 고철 갑옷",
-     "category": 85,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 바지",
-     "idx": 366,
-     "class": 10,
-     "part": 3,
-     "script": "녹슬은 고철 바지",
-     "category": 85,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 장갑",
-     "idx": 367,
-     "class": 10,
-     "part": 4,
-     "script": "녹슬은 고철 장갑",
-     "category": 85,
-     "set": 0,
-     "reqlvl": 1,
-     "rarity": 1,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "녹슬은 고철 신발",
      "idx": 368,
      "class": 10,
      "part": 5,
-     "script": "녹슬은 고철 신발",
      "category": 85,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -6996,15 +5892,12 @@
      "idx": 369,
      "class": 5,
      "part": 1,
-     "script": "썩은나무 원소 지팡이",
      "category": 84,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -7015,15 +5908,12 @@
      "idx": 370,
      "class": 6,
      "part": 1,
-     "script": "썩은나무 덩굴 플레일",
      "category": 84,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -7034,15 +5924,12 @@
      "idx": 371,
      "class": 7,
      "part": 1,
-     "script": "썩은나무 비전 마법봉",
      "category": 84,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -7053,91 +5940,76 @@
      "idx": 372,
      "class": 8,
      "part": 1,
-     "script": "썩은나무 쌍단검",
      "category": 84,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
      ]
   },
    {
-     "name": "썩어가는 천갑옷",
+     "name": "썩은나무 갑옷",
      "idx": 373,
      "class": 11,
      "part": 2,
-     "script": "썩어가는 천갑옷",
      "category": 85,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
      ]
   },
    {
-     "name": "썩어가는 천바지",
+     "name": "썩은나무 바지",
      "idx": 374,
      "class": 11,
      "part": 3,
-     "script": "썩어가는 천바지",
      "category": 85,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
      ]
   },
    {
-     "name": "썩어가는 천장갑",
+     "name": "썩은나무 장갑",
      "idx": 375,
      "class": 11,
      "part": 4,
-     "script": "썩어가는 천장갑",
      "category": 85,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
      ]
   },
    {
-     "name": "썩어가는 천신발",
+     "name": "썩은나무 신발",
      "idx": 376,
      "class": 11,
      "part": 5,
-     "script": "썩어가는 천신발",
      "category": 85,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -7148,15 +6020,12 @@
      "idx": 377,
      "class": 0,
      "part": 6,
-     "script": "부러진 반지",
      "category": 86,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -7167,15 +6036,12 @@
      "idx": 378,
      "class": 0,
      "part": 7,
-     "script": "부러진 목걸이",
      "category": 86,
      "set": 0,
      "reqlvl": 1,
      "rarity": 1,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
-        0,
+     "commonStat": [
         0,
         0,
         0
@@ -7186,18 +6052,15 @@
      "idx": 379,
      "class": 1,
      "part": 1,
-     "script": "종합타격의 건틀릿",
      "category": 24,
      "set": 1,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 4,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7205,18 +6068,15 @@
      "idx": 380,
      "class": 1,
      "part": 2,
-     "script": "종합타격의 갑옷",
      "category": 25,
      "set": 1,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7224,18 +6084,15 @@
      "idx": 381,
      "class": 1,
      "part": 3,
-     "script": "종합타격의 바지",
      "category": 25,
      "set": 1,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7243,18 +6100,15 @@
      "idx": 382,
      "class": 1,
      "part": 4,
-     "script": "종합타격의 장갑",
      "category": 25,
      "set": 1,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7262,18 +6116,15 @@
      "idx": 383,
      "class": 1,
      "part": 5,
-     "script": "종합타격의 신발",
      "category": 25,
      "set": 1,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7281,18 +6132,15 @@
      "idx": 384,
      "class": 1,
      "part": 1,
-     "script": "소닉붐 건틀릿",
      "category": 24,
      "set": 2,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 12,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7300,18 +6148,15 @@
      "idx": 385,
      "class": 1,
      "part": 3,
-     "script": "소닉붐 팬츠",
      "category": 25,
      "set": 2,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7319,18 +6164,15 @@
      "idx": 386,
      "class": 1,
      "part": 4,
-     "script": "소닉붐 글러브",
      "category": 25,
      "set": 2,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7338,18 +6180,15 @@
      "idx": 387,
      "class": 1,
      "part": 5,
-     "script": "소닉붐 부츠",
      "category": 25,
      "set": 2,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7357,17 +6196,14 @@
      "idx": 388,
      "class": 1,
      "part": 2,
-     "script": "자가개선의 갑옷",
      "category": 40,
      "set": 3,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -7376,17 +6212,14 @@
      "idx": 389,
      "class": 1,
      "part": 3,
-     "script": "자가개선의 바지",
      "category": 40,
      "set": 3,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -7395,17 +6228,14 @@
      "idx": 390,
      "class": 1,
      "part": 4,
-     "script": "자가개선의 장갑",
      "category": 40,
      "set": 3,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -7414,17 +6244,14 @@
      "idx": 391,
      "class": 1,
      "part": 5,
-     "script": "자가개선의 신발",
      "category": 40,
      "set": 3,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -7433,18 +6260,15 @@
      "idx": 392,
      "class": 2,
      "part": 1,
-     "script": "철벽의 총검",
      "category": 24,
      "set": 4,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 7,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7452,18 +6276,15 @@
      "idx": 393,
      "class": 2,
      "part": 2,
-     "script": "철벽의 갑옷",
      "category": 25,
      "set": 4,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7471,18 +6292,15 @@
      "idx": 394,
      "class": 2,
      "part": 3,
-     "script": "철벽의 바지",
      "category": 25,
      "set": 4,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7490,18 +6308,15 @@
      "idx": 395,
      "class": 2,
      "part": 4,
-     "script": "철벽의 장갑",
      "category": 25,
      "set": 4,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7509,18 +6324,15 @@
      "idx": 396,
      "class": 2,
      "part": 5,
-     "script": "철벽의 신발",
      "category": 25,
      "set": 4,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7528,18 +6340,15 @@
      "idx": 397,
      "class": 2,
      "part": 2,
-     "script": "엘리트 스나이퍼 갑옷",
      "category": 25,
      "set": 5,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7547,18 +6356,15 @@
      "idx": 398,
      "class": 2,
      "part": 3,
-     "script": "엘리트 스나이퍼 바지",
      "category": 25,
      "set": 5,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7566,18 +6372,15 @@
      "idx": 399,
      "class": 2,
      "part": 4,
-     "script": "엘리트 스나이퍼 장갑",
      "category": 25,
      "set": 5,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7585,18 +6388,15 @@
      "idx": 400,
      "class": 2,
      "part": 5,
-     "script": "엘리트 스나이퍼 신발",
      "category": 25,
      "set": 5,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7604,17 +6404,14 @@
      "idx": 401,
      "class": 2,
      "part": 1,
-     "script": "오버파워 건블레이드",
      "category": 39,
      "set": 6,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 9,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        0,
         0
      ]
   },
@@ -7623,17 +6420,14 @@
      "idx": 402,
      "class": 2,
      "part": 2,
-     "script": "오버파워 플레이트",
      "category": 40,
      "set": 6,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        0,
         0
      ]
   },
@@ -7642,17 +6436,14 @@
      "idx": 403,
      "class": 2,
      "part": 3,
-     "script": "오버파워 팬츠",
      "category": 40,
      "set": 6,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        0,
         0
      ]
   },
@@ -7661,17 +6452,14 @@
      "idx": 404,
      "class": 2,
      "part": 4,
-     "script": "오버파워 글러브",
      "category": 40,
      "set": 6,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        0,
         0
      ]
   },
@@ -7680,18 +6468,15 @@
      "idx": 405,
      "class": 3,
      "part": 1,
-     "script": "무한동력의 거대포",
      "category": 24,
      "set": 7,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 12,
-     "equipOption": [
+     "commonStat": [
         4,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7699,18 +6484,15 @@
      "idx": 406,
      "class": 3,
      "part": 2,
-     "script": "무한동력의 갑옷",
      "category": 25,
      "set": 7,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7718,18 +6500,15 @@
      "idx": 407,
      "class": 3,
      "part": 3,
-     "script": "무한동력의 바지",
      "category": 25,
      "set": 7,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7737,18 +6516,15 @@
      "idx": 408,
      "class": 3,
      "part": 4,
-     "script": "무한동력의 장갑",
      "category": 25,
      "set": 7,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7756,18 +6532,15 @@
      "idx": 409,
      "class": 3,
      "part": 1,
-     "script": "중화기 전문가의 거대포",
      "category": 24,
      "set": 8,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 11,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7775,18 +6548,15 @@
      "idx": 410,
      "class": 3,
      "part": 2,
-     "script": "중화기 전문가의 갑옷",
      "category": 25,
      "set": 8,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7794,18 +6564,15 @@
      "idx": 411,
      "class": 3,
      "part": 3,
-     "script": "중화기 전문가의 바지",
      "category": 25,
      "set": 8,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7813,18 +6580,15 @@
      "idx": 412,
      "class": 3,
      "part": 4,
-     "script": "중화기 전문가의 장갑",
      "category": 25,
      "set": 8,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7832,18 +6596,15 @@
      "idx": 413,
      "class": 3,
      "part": 5,
-     "script": "중화기 전문가의 신발",
      "category": 25,
      "set": 8,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7851,17 +6612,14 @@
      "idx": 414,
      "class": 3,
      "part": 2,
-     "script": "혹한기 작전 갑옷",
      "category": 40,
      "set": 9,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        0,
         0
      ]
   },
@@ -7870,17 +6628,14 @@
      "idx": 415,
      "class": 3,
      "part": 3,
-     "script": "혹한기 작전 바지",
      "category": 40,
      "set": 9,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        0,
         0
      ]
   },
@@ -7889,17 +6644,14 @@
      "idx": 416,
      "class": 3,
      "part": 4,
-     "script": "혹한기 작전 장갑",
      "category": 40,
      "set": 9,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        0,
         0
      ]
   },
@@ -7908,17 +6660,14 @@
      "idx": 417,
      "class": 3,
      "part": 5,
-     "script": "혹한기 작전 신발",
      "category": 40,
      "set": 9,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        0,
         0
      ]
   },
@@ -7927,18 +6676,15 @@
      "idx": 418,
      "class": 4,
      "part": 1,
-     "script": "카오스 패닉 컨트롤러",
      "category": 24,
      "set": 10,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 7,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7946,18 +6692,15 @@
      "idx": 419,
      "class": 4,
      "part": 2,
-     "script": "카오스 패닉 아머",
      "category": 25,
      "set": 10,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7965,18 +6708,15 @@
      "idx": 420,
      "class": 4,
      "part": 3,
-     "script": "카오스 패닉 팬츠",
      "category": 25,
      "set": 10,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -7984,18 +6724,15 @@
      "idx": 421,
      "class": 4,
      "part": 4,
-     "script": "카오스 패닉 글러브",
      "category": 25,
      "set": 10,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8003,18 +6740,15 @@
      "idx": 422,
      "class": 4,
      "part": 5,
-     "script": "카오스 패닉 부츠",
      "category": 25,
      "set": 10,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8022,18 +6756,15 @@
      "idx": 423,
      "class": 4,
      "part": 1,
-     "script": "궁극의 피조물 컨트롤러",
      "category": 24,
      "set": 11,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 4,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8041,18 +6772,15 @@
      "idx": 424,
      "class": 4,
      "part": 2,
-     "script": "궁극의 피조물 갑옷",
      "category": 25,
      "set": 11,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8060,18 +6788,15 @@
      "idx": 425,
      "class": 4,
      "part": 3,
-     "script": "궁극의 피조물 바지",
      "category": 25,
      "set": 11,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8079,18 +6804,15 @@
      "idx": 426,
      "class": 4,
      "part": 4,
-     "script": "궁극의 피조물 장갑",
      "category": 25,
      "set": 11,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8098,18 +6820,15 @@
      "idx": 427,
      "class": 4,
      "part": 5,
-     "script": "궁극의 피조물 신발",
      "category": 25,
      "set": 11,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8117,17 +6836,14 @@
      "idx": 428,
      "class": 4,
      "part": 1,
-     "script": "기초 과학자 컨트롤러",
      "category": 39,
      "set": 12,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 9,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8136,17 +6852,14 @@
      "idx": 429,
      "class": 4,
      "part": 2,
-     "script": "기초 과학자 갑옷",
      "category": 40,
      "set": 12,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8155,17 +6868,14 @@
      "idx": 430,
      "class": 4,
      "part": 4,
-     "script": "기초 과학자 장갑",
      "category": 40,
      "set": 12,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8174,17 +6884,14 @@
      "idx": 431,
      "class": 4,
      "part": 5,
-     "script": "기초 과학자 신발",
      "category": 40,
      "set": 12,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8193,18 +6900,15 @@
      "idx": 432,
      "class": 5,
      "part": 1,
-     "script": "정령의 대리인 원소 지팡이",
      "category": 24,
      "set": 13,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 4,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8212,18 +6916,15 @@
      "idx": 433,
      "class": 5,
      "part": 2,
-     "script": "정령의 대리인 로브",
      "category": 25,
      "set": 13,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8231,18 +6932,15 @@
      "idx": 434,
      "class": 5,
      "part": 3,
-     "script": "정령의 대리인 바지",
      "category": 25,
      "set": 13,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8250,18 +6948,15 @@
      "idx": 435,
      "class": 5,
      "part": 5,
-     "script": "정령의 대리인 신발",
      "category": 25,
      "set": 13,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8269,18 +6964,15 @@
      "idx": 436,
      "class": 5,
      "part": 1,
-     "script": "진정한 지배자 원소 지팡이",
      "category": 24,
      "set": 14,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 9,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8288,18 +6980,15 @@
      "idx": 437,
      "class": 5,
      "part": 2,
-     "script": "진정한 지배자 로브",
      "category": 25,
      "set": 14,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8307,18 +6996,15 @@
      "idx": 438,
      "class": 5,
      "part": 3,
-     "script": "진정한 지배자 바지",
      "category": 25,
      "set": 14,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8326,18 +7012,15 @@
      "idx": 439,
      "class": 5,
      "part": 4,
-     "script": "진정한 지배자 장갑",
      "category": 25,
      "set": 14,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8345,18 +7028,15 @@
      "idx": 440,
      "class": 5,
      "part": 5,
-     "script": "진정한 지배자 신발",
      "category": 25,
      "set": 14,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8364,17 +7044,14 @@
      "idx": 441,
      "class": 5,
      "part": 2,
-     "script": "삼위일체의 로브",
      "category": 40,
      "set": 15,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8383,17 +7060,14 @@
      "idx": 442,
      "class": 5,
      "part": 3,
-     "script": "삼위일체의 바지",
      "category": 40,
      "set": 15,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8402,17 +7076,14 @@
      "idx": 443,
      "class": 5,
      "part": 4,
-     "script": "삼위일체의 장갑",
      "category": 40,
      "set": 15,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        0,
         0
      ]
   },
@@ -8421,18 +7092,15 @@
      "idx": 444,
      "class": 5,
      "part": 5,
-     "script": "삼위일체의 신발",
      "category": 40,
      "set": 15,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8440,18 +7108,15 @@
      "idx": 445,
      "class": 6,
      "part": 1,
-     "script": "자연의 응징 덩굴 플레일",
      "category": 24,
      "set": 16,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 9,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8459,18 +7124,15 @@
      "idx": 446,
      "class": 6,
      "part": 2,
-     "script": "자연의 응징 갑옷",
      "category": 25,
      "set": 16,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8478,18 +7140,15 @@
      "idx": 447,
      "class": 6,
      "part": 3,
-     "script": "자연의 응징 바지",
      "category": 25,
      "set": 16,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8497,18 +7156,15 @@
      "idx": 448,
      "class": 6,
      "part": 4,
-     "script": "자연의 응징 장갑",
      "category": 25,
      "set": 16,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8516,18 +7172,15 @@
      "idx": 449,
      "class": 6,
      "part": 5,
-     "script": "자연의 응징 신발",
      "category": 25,
      "set": 16,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8535,18 +7188,15 @@
      "idx": 450,
      "class": 6,
      "part": 1,
-     "script": "자연의 선물 덩굴 플레일",
      "category": 24,
      "set": 17,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 7,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8554,18 +7204,15 @@
      "idx": 451,
      "class": 6,
      "part": 2,
-     "script": "자연의 선물 갑옷",
      "category": 25,
      "set": 17,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8573,18 +7220,15 @@
      "idx": 452,
      "class": 6,
      "part": 3,
-     "script": "자연의 선물 바지",
      "category": 25,
      "set": 17,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8592,18 +7236,15 @@
      "idx": 453,
      "class": 6,
      "part": 4,
-     "script": "자연의 선물 장갑",
      "category": 25,
      "set": 17,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8611,18 +7252,15 @@
      "idx": 454,
      "class": 6,
      "part": 5,
-     "script": "자연의 선물 신발",
      "category": 25,
      "set": 17,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8630,17 +7268,14 @@
      "idx": 455,
      "class": 6,
      "part": 1,
-     "script": "순환의 덩굴 플레일",
      "category": 39,
      "set": 18,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 4,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -8649,17 +7284,14 @@
      "idx": 456,
      "class": 6,
      "part": 2,
-     "script": "순환의 갑옷",
      "category": 40,
      "set": 18,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -8668,17 +7300,14 @@
      "idx": 457,
      "class": 6,
      "part": 3,
-     "script": "순환의 바지",
      "category": 40,
      "set": 18,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -8687,17 +7316,14 @@
      "idx": 458,
      "class": 6,
      "part": 5,
-     "script": "순환의 신발",
      "category": 40,
      "set": 18,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -8706,18 +7332,15 @@
      "idx": 459,
      "class": 7,
      "part": 1,
-     "script": "찬란한 태양의 비전 마법봉",
      "category": 24,
      "set": 19,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 9,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8725,18 +7348,15 @@
      "idx": 460,
      "class": 7,
      "part": 3,
-     "script": "찬란한 태양의 바지",
      "category": 25,
      "set": 19,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8744,18 +7364,15 @@
      "idx": 461,
      "class": 7,
      "part": 4,
-     "script": "찬란한 태양의 장갑",
      "category": 25,
      "set": 19,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8763,18 +7380,15 @@
      "idx": 462,
      "class": 7,
      "part": 5,
-     "script": "찬란한 태양의 신발",
      "category": 25,
      "set": 19,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8782,18 +7396,15 @@
      "idx": 463,
      "class": 7,
      "part": 1,
-     "script": "웅장한 월광의 비전 마법봉",
      "category": 24,
      "set": 20,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 7,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8801,18 +7412,15 @@
      "idx": 464,
      "class": 7,
      "part": 2,
-     "script": "웅장한 월광의 로브",
      "category": 25,
      "set": 20,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8820,18 +7428,15 @@
      "idx": 465,
      "class": 7,
      "part": 4,
-     "script": "웅장한 월광의 장갑",
      "category": 25,
      "set": 20,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8839,18 +7444,15 @@
      "idx": 466,
      "class": 7,
      "part": 5,
-     "script": "웅장한 월광의 신발",
      "category": 25,
      "set": 20,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         8,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8858,17 +7460,14 @@
      "idx": 467,
      "class": 7,
      "part": 1,
-     "script": "완벽한 균형의 비전 마법봉",
      "category": 39,
      "set": 21,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 4,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        0,
         0
      ]
   },
@@ -8877,17 +7476,14 @@
      "idx": 468,
      "class": 7,
      "part": 2,
-     "script": "완벽한 균형의 로브",
      "category": 40,
      "set": 21,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        0,
         0
      ]
   },
@@ -8896,17 +7492,14 @@
      "idx": 469,
      "class": 7,
      "part": 3,
-     "script": "완벽한 균형의 바지",
      "category": 40,
      "set": 21,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        0,
         0
      ]
   },
@@ -8915,17 +7508,14 @@
      "idx": 470,
      "class": 7,
      "part": 4,
-     "script": "완벽한 균형의 장갑",
      "category": 40,
      "set": 21,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        0,
         0
      ]
   },
@@ -8934,17 +7524,14 @@
      "idx": 471,
      "class": 7,
      "part": 5,
-     "script": "완벽한 균형의 신발",
      "category": 40,
      "set": 21,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        0,
         0
      ]
   },
@@ -8953,18 +7540,15 @@
      "idx": 472,
      "class": 8,
      "part": 1,
-     "script": "콤비네이션 대거",
      "category": 24,
      "set": 22,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 12,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8972,18 +7556,15 @@
      "idx": 473,
      "class": 8,
      "part": 2,
-     "script": "콤비네이션 갑옷",
      "category": 25,
      "set": 22,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -8991,18 +7572,15 @@
      "idx": 474,
      "class": 8,
      "part": 3,
-     "script": "콤비네이션 바지",
      "category": 25,
      "set": 22,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9010,18 +7588,15 @@
      "idx": 475,
      "class": 8,
      "part": 4,
-     "script": "콤비네이션 장갑",
      "category": 25,
      "set": 22,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9029,18 +7604,15 @@
      "idx": 476,
      "class": 8,
      "part": 5,
-     "script": "콤비네이션 신발",
      "category": 25,
      "set": 22,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9048,18 +7620,15 @@
      "idx": 477,
      "class": 8,
      "part": 2,
-     "script": "두려운 악마의 갑옷",
      "category": 25,
      "set": 23,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9067,18 +7636,15 @@
      "idx": 478,
      "class": 8,
      "part": 3,
-     "script": "두려운 악마의 바지",
      "category": 25,
      "set": 23,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9086,18 +7652,15 @@
      "idx": 479,
      "class": 8,
      "part": 4,
-     "script": "두려운 악마의 장갑",
      "category": 25,
      "set": 23,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9105,18 +7668,15 @@
      "idx": 480,
      "class": 8,
      "part": 5,
-     "script": "두려운 악마의 신발",
      "category": 25,
      "set": 23,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         11,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9124,17 +7684,14 @@
      "idx": 481,
      "class": 8,
      "part": 1,
-     "script": "기민한 맹공의 쌍단검",
      "category": 39,
      "set": 24,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 7,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9143,17 +7700,14 @@
      "idx": 482,
      "class": 8,
      "part": 2,
-     "script": "기민한 맹공의 갑옷",
      "category": 40,
      "set": 24,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9162,17 +7716,14 @@
      "idx": 483,
      "class": 8,
      "part": 3,
-     "script": "기민한 맹공의 바지",
      "category": 40,
      "set": 24,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9181,17 +7732,14 @@
      "idx": 484,
      "class": 8,
      "part": 4,
-     "script": "기민한 맹공의 장갑",
      "category": 40,
      "set": 24,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9200,17 +7748,14 @@
      "idx": 485,
      "class": 8,
      "part": 5,
-     "script": "기민한 맹공의 신발",
      "category": 40,
      "set": 24,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9219,18 +7764,15 @@
      "idx": 486,
      "class": 10,
      "part": 2,
-     "script": "아이언하트 아머",
      "category": 25,
      "set": 25,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9238,18 +7780,15 @@
      "idx": 487,
      "class": 10,
      "part": 3,
-     "script": "아이언하트 레그",
      "category": 25,
      "set": 25,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9257,18 +7796,15 @@
      "idx": 488,
      "class": 10,
      "part": 4,
-     "script": "아이언하트 글러브",
      "category": 25,
      "set": 25,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9276,18 +7812,15 @@
      "idx": 489,
      "class": 10,
      "part": 5,
-     "script": "아이언하트 부츠",
      "category": 25,
      "set": 25,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9295,17 +7828,14 @@
      "idx": 490,
      "class": 10,
      "part": 2,
-     "script": "시계탑의 대리인 갑옷",
      "category": 28,
      "set": 26,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9314,17 +7844,14 @@
      "idx": 491,
      "class": 10,
      "part": 4,
-     "script": "시계탑의 대리인 장갑",
      "category": 28,
      "set": 26,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9333,17 +7860,14 @@
      "idx": 492,
      "class": 10,
      "part": 5,
-     "script": "시계탑의 대리인 신발",
      "category": 28,
      "set": 26,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         12,
         13,
-        0,
         0
      ]
   },
@@ -9352,18 +7876,15 @@
      "idx": 493,
      "class": 10,
      "part": 2,
-     "script": "몰락한 세력의 갑옷",
      "category": 40,
      "set": 27,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9371,18 +7892,15 @@
      "idx": 494,
      "class": 10,
      "part": 3,
-     "script": "몰락한 세력의 바지",
      "category": 40,
      "set": 27,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9390,18 +7908,15 @@
      "idx": 495,
      "class": 10,
      "part": 4,
-     "script": "몰락한 세력의 장갑",
      "category": 40,
      "set": 27,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9409,18 +7924,15 @@
      "idx": 496,
      "class": 10,
      "part": 5,
-     "script": "몰락한 세력의 신발",
      "category": 40,
      "set": 27,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         10,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9428,17 +7940,14 @@
      "idx": 497,
      "class": 10,
      "part": 2,
-     "script": "메탈 그리드 갑옷",
      "category": 43,
      "set": 28,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -9447,17 +7956,14 @@
      "idx": 498,
      "class": 10,
      "part": 3,
-     "script": "메탈 그리드 바지",
      "category": 43,
      "set": 28,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -9466,17 +7972,14 @@
      "idx": 499,
      "class": 10,
      "part": 4,
-     "script": "메탈 그리드 장갑",
      "category": 43,
      "set": 28,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        0,
         0
      ]
   },
@@ -9485,16 +7988,13 @@
      "idx": 500,
      "class": 10,
      "part": 2,
-     "script": "완벽한 톱니바퀴 갑옷",
      "category": 55,
      "set": 29,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
-        0,
         0,
         0
      ]
@@ -9504,16 +8004,13 @@
      "idx": 501,
      "class": 10,
      "part": 3,
-     "script": "완벽한 톱니바퀴 바지",
      "category": 55,
      "set": 29,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
-        0,
         0,
         0
      ]
@@ -9523,16 +8020,13 @@
      "idx": 502,
      "class": 10,
      "part": 4,
-     "script": "완벽한 톱니바퀴 장갑",
      "category": 55,
      "set": 29,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
-        0,
         0,
         0
      ]
@@ -9542,16 +8036,13 @@
      "idx": 503,
      "class": 10,
      "part": 5,
-     "script": "완벽한 톱니바퀴 신발",
      "category": 55,
      "set": 29,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         7,
-        0,
         0,
         0
      ]
@@ -9561,18 +8052,15 @@
      "idx": 504,
      "class": 11,
      "part": 2,
-     "script": "스타더스트 로브",
      "category": 25,
      "set": 30,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9580,18 +8068,15 @@
      "idx": 505,
      "class": 11,
      "part": 3,
-     "script": "스타더스트 바지",
      "category": 25,
      "set": 30,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9599,18 +8084,15 @@
      "idx": 506,
      "class": 11,
      "part": 4,
-     "script": "스타더스트 장갑",
      "category": 25,
      "set": 30,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9618,18 +8100,15 @@
      "idx": 507,
      "class": 11,
      "part": 5,
-     "script": "스타더스트 신발",
      "category": 25,
      "set": 30,
      "reqlvl": 9,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         5,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9637,17 +8116,14 @@
      "idx": 508,
      "class": 11,
      "part": 2,
-     "script": "뿌리깊은 나무의 갑옷",
      "category": 28,
      "set": 31,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        0,
         0
      ]
   },
@@ -9656,17 +8132,14 @@
      "idx": 509,
      "class": 11,
      "part": 3,
-     "script": "뿌리깊은 나무의 바지",
      "category": 28,
      "set": 31,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        0,
         0
      ]
   },
@@ -9675,17 +8148,14 @@
      "idx": 510,
      "class": 11,
      "part": 5,
-     "script": "뿌리깊은 나무의 신발",
      "category": 28,
      "set": 31,
      "reqlvl": 9,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         6,
         13,
-        0,
         0
      ]
   },
@@ -9694,18 +8164,15 @@
      "idx": 511,
      "class": 11,
      "part": 2,
-     "script": "밀물과 썰물 로브",
      "category": 40,
      "set": 32,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9713,18 +8180,15 @@
      "idx": 512,
      "class": 11,
      "part": 3,
-     "script": "밀물과 썰물 바지",
      "category": 40,
      "set": 32,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9732,18 +8196,15 @@
      "idx": 513,
      "class": 11,
      "part": 4,
-     "script": "밀물과 썰물 장갑",
      "category": 40,
      "set": 32,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9751,18 +8212,15 @@
      "idx": 514,
      "class": 11,
      "part": 5,
-     "script": "밀물과 썰물 신발",
      "category": 40,
      "set": 32,
      "reqlvl": 7,
      "rarity": 5,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         2,
         13,
-        13,
-        0
+        13
      ]
   },
    {
@@ -9770,17 +8228,14 @@
      "idx": 515,
      "class": 11,
      "part": 3,
-     "script": "행운의 클로버 바지",
      "category": 43,
      "set": 33,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        0,
         0
      ]
   },
@@ -9789,17 +8244,14 @@
      "idx": 516,
      "class": 11,
      "part": 4,
-     "script": "행운의 클로버 장갑",
      "category": 43,
      "set": 33,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        0,
         0
      ]
   },
@@ -9808,17 +8260,14 @@
      "idx": 517,
      "class": 11,
      "part": 5,
-     "script": "행운의 클로버 신발",
      "category": 43,
      "set": 33,
      "reqlvl": 7,
      "rarity": 4,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         9,
         13,
-        0,
         0
      ]
   },
@@ -9827,16 +8276,13 @@
      "idx": 518,
      "class": 11,
      "part": 2,
-     "script": "미스틱 아머",
      "category": 55,
      "set": 34,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
-        0,
         0,
         0
      ]
@@ -9846,16 +8292,13 @@
      "idx": 519,
      "class": 11,
      "part": 3,
-     "script": "미스틱 팬츠",
      "category": 55,
      "set": 34,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
-        0,
         0,
         0
      ]
@@ -9865,16 +8308,13 @@
      "idx": 520,
      "class": 11,
      "part": 4,
-     "script": "미스틱 글러브",
      "category": 55,
      "set": 34,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
-        0,
         0,
         0
      ]
@@ -9884,891 +8324,14 @@
      "idx": 521,
      "class": 11,
      "part": 5,
-     "script": "미스틱 부츠",
      "category": 55,
      "set": 34,
      "reqlvl": 5,
      "rarity": 3,
-     "mainStat": 0,
      "subStat": 0,
-     "equipOption": [
+     "commonStat": [
         4,
         0,
-        0,
-        0
-     ]
-  },
-   {
-     "name": "스텔라 건틀릿",
-     "idx": 522,
-     "class": 1,
-     "part": 1,
-     "script": "스텔라 건틀릿",
-     "category": 87,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 11,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "스텔라 총검",
-     "idx": 523,
-     "class": 2,
-     "part": 1,
-     "script": "스텔라 총검",
-     "category": 87,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 11,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "스텔라 거대포",
-     "idx": 524,
-     "class": 3,
-     "part": 1,
-     "script": "스텔라 거대포",
-     "category": 87,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 11,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "스텔라 컨트롤러",
-     "idx": 525,
-     "class": 4,
-     "part": 1,
-     "script": "스텔라 컨트롤러",
-     "category": 87,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 11,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "위대한 갑옷",
-     "idx": 526,
-     "class": 10,
-     "part": 2,
-     "script": "위대한 갑옷",
-     "category": 88,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        6,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "위대한 바지",
-     "idx": 527,
-     "class": 10,
-     "part": 3,
-     "script": "위대한 바지",
-     "category": 88,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        6,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "위대한 장갑",
-     "idx": 528,
-     "class": 10,
-     "part": 4,
-     "script": "위대한 장갑",
-     "category": 88,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        6,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "위대한 신발",
-     "idx": 529,
-     "class": 10,
-     "part": 5,
-     "script": "위대한 신발",
-     "category": 88,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        6,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "태초의 구슬",
-     "idx": 530,
-     "class": 0,
-     "part": 6,
-     "script": "태초의 구슬",
-     "category": 89,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 9,
-     "subStat": 11,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "생체변환 능력 추출물",
-     "idx": 531,
-     "class": 0,
-     "part": 7,
-     "script": "생체변환 능력 추출물",
-     "category": 90,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 2,
-     "subStat": 12,
-     "equipOption": [
-        8,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "동력원 원소 지팡이",
-     "idx": 532,
-     "class": 5,
-     "part": 1,
-     "script": "동력원 원소 지팡이",
-     "category": 91,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 4,
-     "equipOption": [
-        12,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "동력원 플레일",
-     "idx": 533,
-     "class": 6,
-     "part": 1,
-     "script": "동력원 플레일",
-     "category": 91,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 4,
-     "equipOption": [
-        12,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "동력원 비전 마법봉",
-     "idx": 534,
-     "class": 7,
-     "part": 1,
-     "script": "동력원 비전 마법봉",
-     "category": 91,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 4,
-     "equipOption": [
-        12,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "동력원 장착 쌍단검",
-     "idx": 535,
-     "class": 8,
-     "part": 1,
-     "script": "동력원 장착 쌍단검",
-     "category": 91,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 4,
-     "equipOption": [
-        12,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "오케스트라 정장 상의",
-     "idx": 536,
-     "class": 11,
-     "part": 2,
-     "script": "오케스트라 정장 상의",
-     "category": 92,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        8,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "오케스트라 정장 바지",
-     "idx": 537,
-     "class": 11,
-     "part": 3,
-     "script": "오케스트라 정장 바지",
-     "category": 92,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        8,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "오케스트라 정장 장갑",
-     "idx": 538,
-     "class": 11,
-     "part": 4,
-     "script": "오케스트라 정장 장갑",
-     "category": 92,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        8,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "오케스트라 정장 신발",
-     "idx": 539,
-     "class": 11,
-     "part": 5,
-     "script": "오케스트라 정장 신발",
-     "category": 92,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        8,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "꽃과 태엽시계",
-     "idx": 540,
-     "class": 0,
-     "part": 6,
-     "script": "꽃과 태엽시계",
-     "category": 93,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 7,
-     "subStat": 9,
-     "equipOption": [
-        11,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "삐에로의 작은 트럼펫",
-     "idx": 541,
-     "class": 0,
-     "part": 7,
-     "script": "삐에로의 작은 트럼펫",
-     "category": 94,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 5,
-     "mainStat": 8,
-     "subStat": 12,
-     "equipOption": [
-        2,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "암흑 서린 갑옷",
-     "idx": 542,
-     "class": 10,
-     "part": 2,
-     "script": "암흑 서린 갑옷",
-     "category": 95,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        11,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "암흑 서린 바지",
-     "idx": 543,
-     "class": 10,
-     "part": 3,
-     "script": "암흑 서린 바지",
-     "category": 95,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        11,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "암흑 서린 장갑",
-     "idx": 544,
-     "class": 10,
-     "part": 4,
-     "script": "암흑 서린 장갑",
-     "category": 95,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        11,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "암흑 서린 신발",
-     "idx": 545,
-     "class": 10,
-     "part": 5,
-     "script": "암흑 서린 신발",
-     "category": 95,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        11,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "연구원 로브",
-     "idx": 546,
-     "class": 11,
-     "part": 2,
-     "script": "연구원 로브",
-     "category": 96,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        7,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "연구원 바지",
-     "idx": 547,
-     "class": 11,
-     "part": 3,
-     "script": "연구원 바지",
-     "category": 96,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        7,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "연구원 장갑",
-     "idx": 548,
-     "class": 11,
-     "part": 4,
-     "script": "연구원 장갑",
-     "category": 96,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        7,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "연구원 신발",
-     "idx": 549,
-     "class": 11,
-     "part": 5,
-     "script": "연구원 신발",
-     "category": 96,
-     "set": 0,
-     "reqlvl": 9,
-     "rarity": 4,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        7,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "연금된 건틀릿",
-     "idx": 550,
-     "class": 1,
-     "part": 1,
-     "script": "연금된 건틀릿",
-     "category": 97,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 7,
-     "equipOption": [
-        9,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "연금된 총검",
-     "idx": 551,
-     "class": 2,
-     "part": 1,
-     "script": "연금된 총검",
-     "category": 97,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 7,
-     "equipOption": [
-        9,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "연금된 거대포",
-     "idx": 552,
-     "class": 3,
-     "part": 1,
-     "script": "연금된 거대포",
-     "category": 97,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 7,
-     "equipOption": [
-        9,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "연금된 컨트롤러",
-     "idx": 553,
-     "class": 4,
-     "part": 1,
-     "script": "연금된 컨트롤러",
-     "category": 97,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 7,
-     "equipOption": [
-        9,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "발명품 지팡이",
-     "idx": 554,
-     "class": 5,
-     "part": 1,
-     "script": "발명품 지팡이",
-     "category": 98,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 9,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "발명품 플레일",
-     "idx": 555,
-     "class": 6,
-     "part": 1,
-     "script": "발명품 플레일",
-     "category": 98,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 9,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "발명품 마법봉",
-     "idx": 556,
-     "class": 7,
-     "part": 1,
-     "script": "발명품 마법봉",
-     "category": 98,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 9,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "발명품 쌍단검",
-     "idx": 557,
-     "class": 8,
-     "part": 1,
-     "script": "발명품 쌍단검",
-     "category": 98,
-     "set": 0,
-     "reqlvl": 7,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 9,
-     "equipOption": [
-        10,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "고대 광물 갑옷",
-     "idx": 558,
-     "class": 10,
-     "part": 2,
-     "script": "고대 광물 갑옷",
-     "category": 99,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        2,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "간부의 최고급 가죽바지",
-     "idx": 559,
-     "class": 11,
-     "part": 3,
-     "script": "간부의 최고급 가죽바지",
-     "category": 100,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        6,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "전도체 장갑",
-     "idx": 560,
-     "class": 10,
-     "part": 4,
-     "script": "전도체 장갑",
-     "category": 101,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        9,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "럭셔리 워커",
-     "idx": 561,
-     "class": 11,
-     "part": 5,
-     "script": "럭셔리 워커",
-     "category": 102,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 0,
-     "subStat": 0,
-     "equipOption": [
-        8,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "아카데미 링",
-     "idx": 562,
-     "class": 0,
-     "part": 6,
-     "script": "아카데미 링",
-     "category": 103,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 5,
-     "subStat": 7,
-     "equipOption": [
-        7,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "신비한 부품",
-     "idx": 563,
-     "class": 0,
-     "part": 6,
-     "script": "신비한 부품",
-     "category": 104,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 9,
-     "subStat": 11,
-     "equipOption": [
-        4,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "명예로운 훈장",
-     "idx": 564,
-     "class": 0,
-     "part": 7,
-     "script": "명예로운 훈장",
-     "category": 105,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 2,
-     "subStat": 6,
-     "equipOption": [
-        11,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "마력 깃든 플라스크",
-     "idx": 565,
-     "class": 0,
-     "part": 7,
-     "script": "마력 깃든 플라스크",
-     "category": 106,
-     "set": 0,
-     "reqlvl": 5,
-     "rarity": 5,
-     "mainStat": 2,
-     "subStat": 12,
-     "equipOption": [
-        5,
-        13,
-        13,
-        14
-     ]
-  },
-   {
-     "name": "짐승의 어금니",
-     "idx": 566,
-     "class": 0,
-     "part": 6,
-     "script": "짐승의 어금니",
-     "category": 107,
-     "set": 0,
-     "reqlvl": 3,
-     "rarity": 4,
-     "mainStat": 9,
-     "subStat": 11,
-     "equipOption": [
-        9,
-        13,
-        14,
-        0
-     ]
-  },
-   {
-     "name": "소녀의 아뮬렛",
-     "idx": 567,
-     "class": 0,
-     "part": 7,
-     "script": "소녀의 아뮬렛",
-     "category": 108,
-     "set": 0,
-     "reqlvl": 3,
-     "rarity": 4,
-     "mainStat": 6,
-     "subStat": 8,
-     "equipOption": [
-        2,
-        13,
-        14,
         0
      ]
   }

@@ -22,7 +22,7 @@ public class VisionMaster : Character
         if(set.Value[2] > 0 && LVL >= 10)
         {
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.AP, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.ATK, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.DEF, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.ACC, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.DOG, 1, set.Value[2], 1, 99, 0, 1));
@@ -160,7 +160,7 @@ public class VisionMaster : Character
 
             //찬란한 태양 2세트 - 양 스킬 사용 시 1턴 ATK 버프
             if (set.Value[0] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.ATK, 1, set.Value[0], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[0], 1, 1, 1, 1));
         }
         //음 스킬
         if (skill.category == 1024)

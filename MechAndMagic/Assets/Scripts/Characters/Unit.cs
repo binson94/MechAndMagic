@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 //스텟 index - 12가지
-public enum Obj { None, currHP, HP, currAP, AP, ATK, DEF, ACC, DOG, CRC, CRB, PEN, SPD, 
+public enum Obj { None, currHP, HP, currAP, AP, 공격력, DEF, ACC, DOG, CRC, CRB, PEN, SPD, 
     Stun, GetDmg, GiveDmg, LossPer, CurrPer, BuffCnt, DebuffCnt, MaxHP, Bleed, Burn, Cannon,
     Cycle, Curse, Posion, Shield, Bomb, Venom, Ghost, APCost };
 
@@ -298,13 +298,13 @@ public class Unit : MonoBehaviour
             return selects[0].buffStat[(int)Obj.HP];
         //출혈
         else if (effectStat == (int)Obj.Bleed)
-            return buffStat[(int)Obj.ATK] * 0.15f;
+            return buffStat[(int)Obj.공격력] * 0.15f;
         //화상
         else if (effectStat == (int)Obj.Burn)
-            return buffStat[(int)Obj.ATK] * 0.7f;
+            return buffStat[(int)Obj.공격력] * 0.7f;
         //중독
         else if (effectStat == (int)Obj.Posion)
-            return buffStat[(int)Obj.ATK] * 0.1f;
+            return buffStat[(int)Obj.공격력] * 0.1f;
         else
             return 0;
     }
@@ -529,7 +529,7 @@ public class Unit : MonoBehaviour
         float ironHeartDEF = 1 - ItemManager.GetSetData(25).Value[2];
 
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
-        int finalDmg = Mathf.RoundToInt(-dmg / Mathf.Max(1, Mathf.Log(finalDEF, caster.LVL + 1)) * ironHeartDEF * crb / 100);
+        int finalDmg = Mathf.RoundToInt(-dmg / (1 + 0.1f * finalDEF) * ironHeartDEF * crb / 100);
 
         if (shieldAmount + finalDmg >= 0)
             shieldAmount += finalDmg;

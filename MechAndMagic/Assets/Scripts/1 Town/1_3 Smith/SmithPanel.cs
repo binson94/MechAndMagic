@@ -1,25 +1,28 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class SmithPanel : MonoBehaviour, ITownPanel
 {
     [Header("Stat Show")]
-    [SerializeField] UnityEngine.UI.Text[] statTxts;
-    [SerializeField] UnityEngine.UI.Slider expSlider;
+    [SerializeField] Text classTxt;
+    [SerializeField] Text[] statTxts;
+    [SerializeField] Slider expSlider;
 
     [Header("Equip List")]
-    [SerializeField] Transform btnParent;
-    [SerializeField] Transform poolParent;
+    [SerializeField] RectTransform equipBtnParent;
+    [SerializeField] RectTransform poolParent;
     [SerializeField] GameObject equipBtnPrefab;
     List<EquipBtnToken> btnList = new List<EquipBtnToken>();
-    List<EquipBtnToken> btnPool = new List<EquipBtnToken>();
+    Queue<EquipBtnToken> equipBtnPool = new Queue<EquipBtnToken>();
 
     #region Category
-    [Header("Category")]
-    //0 : category, 1 : rarity, 2 : level, 3 : skillType
+    ///<summary> 0 : category, 1 : rarity, 2 : level, 3 : skillType </summary>
+    [Header("Category")] [Tooltip("0 : category, 1 : rarity, 2 : level, 3 : skillType")]
     [SerializeField] GameObject[] categorySelectPanels;
-    //0 : rarity Btn, 1 : skillType Btn
+    ///<summary> 0 : rarity Btn, 1 : skillType Btn </summary>
     [SerializeField] GameObject[] categoryBtns;
     ItemCategory currCategory = ItemCategory.Weapon;
     //장비 전용
@@ -31,12 +34,19 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     #endregion Category
 
     #region Work Panel
+    ///<summary> 현재 선택한 장비 정보 보여주는 UI Set </summary>
     [SerializeField] EquipInfoPanel selectedEquipPanel;
-    //-1 : close, 0 : equipCommon, 1 : equipMerge, 2 : equipOptionSwitch, 3 : EquipDisassemble, 4 : EBPCreate, 5 : Skillbook
+    ///<summary> -1 닫기, 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </summary>
     int currWorkPanel;
+    ///<summary> 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </summary>
+    [Tooltip("0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북")]
     [SerializeField] GameObject[] workPanels;
+
+
+    ///<summary> 현재 선택한 장비 정보(리스트에서의 인덱스, 장비 페어) </summary>
     KeyValuePair<int, Equipment> selectedEquip;
-    static KeyValuePair<int, Equipment> dummyEquip;
+    ///<summary> 선택한 장비 없을 시 상태
+    static KeyValuePair<int, Equipment> dummyEquip = new KeyValuePair<int, Equipment>(-1, null);
 
     EquipBluePrint selectedEBP = null;
     Skillbook selectedSkillbook = null;
@@ -51,14 +61,17 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     public void ResetAllState()
     {
+        //스텟 업데이트
+        StatTxtUpdate();
+
+        //카테고리 초기화
         currRarity = Rarity.None;
         currUseType = -1;
         currLvl = 0;
-
-        StatTxtUpdate();
         Btn_SwitchCategory((int)ItemCategory.Weapon);
         Btn_OpenCategorySelectPanel(-1);
 
+        //장비 선택 상태 초기화
         selectedEquip = dummyEquip;
         selectedEBP = null;
         selectedSkillbook = null;
@@ -66,60 +79,66 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
 
     #region Category
+    ///<summary> 카테고리, 등급, 레벨, 스킬 타입 버튼 선택 시 세부 선택 판넬 보이기 </summary>
+    ///<param name="panelIdx"> 0 category, 1 rarity, 2 lvl, 3 skillType </param>
     public void Btn_OpenCategorySelectPanel(int panelIdx)
     {
         for(int i = 0;i < categorySelectPanels.Length;i++)
             categorySelectPanels[i].SetActive(i == panelIdx);
 
+        //선택 정보 초기화 
         selectedEquip = dummyEquip;
         selectedEBP = null;
         selectedSkillbook = null;
         SelectedPanelUpdate();
         Btn_OpenWorkPanel(-1);
     }
+    ///<summary> 카테고리 세부 선택 판넬에서 카테고리 변경 </summary>
+    ///<param name="category"> 1 무기, 2 방어구, 3 장신구, 4 제작법, 5 스킬북 </param>
     public void Btn_SwitchCategory(int category)
     {
+        //카테고리 변경
         currCategory = (ItemCategory)category;
-        CategoryBtnUpdate();
+        //스킬북이면 스킬 타입 선택 버튼으로 변경
+        for (int i = 0; i < categoryBtns.Length; i++)
+            categoryBtns[i].SetActive(i == 0 ^ currCategory == ItemCategory.Skillbook);
         TokenBtnUpdate();
 
+        //선택 정보 초기화
         selectedEquip = dummyEquip;
         selectedEBP = null;
         selectedSkillbook = null;
         SelectedPanelUpdate();
         Btn_OpenCategorySelectPanel(-1);
-
-        void CategoryBtnUpdate()
-        {
-            int curr = 0;
-            if (currCategory == ItemCategory.Skillbook)
-                curr = 1;
-
-            for(int i =0;i<categoryBtns.Length;i++)
-                categoryBtns[i].SetActive(i == curr);
-        }
     }
+    ///<summary> 등급 세부 선택 판넬에서 등급 변경 </summary>
+    ///<param name="rarity"> 1 일반, 2 고급, 3 희귀, 3 고유, 4 전설 </param>
     public void Btn_SwitchRarity(int rarity)
     {
         currRarity = (Rarity)rarity;
         TokenBtnUpdate();
         Btn_OpenCategorySelectPanel(-1);
     }
-    public void Btn_SwitchSkillUseType(int type)
-    {
-        currUseType = type;
-        TokenBtnUpdate();
-        Btn_OpenCategorySelectPanel(-1);
-    }
+    ///<summary> 레벨 세부 선택 판넬에서 레벨 변경 </summary>
+    ///<param name="lvl"> 0 전체, 1, 3, 5, 7, 9 </param>
     public void Btn_SwitchLvl(int lvl)
     {
         currLvl = lvl;
         TokenBtnUpdate();
         Btn_OpenCategorySelectPanel(-1);
     }
+    ///<summary> 스킬 타입 세부 선택 판넬에서 스킬 타입 변경 </summary>
+    ///<param name="type"> 0 액티브, 1 패시브 </param>
+    public void Btn_SwitchSkillUseType(int type)
+    {
+        currUseType = type;
+        TokenBtnUpdate();
+        Btn_OpenCategorySelectPanel(-1);
+    }
     #endregion
     
     #region Btn Image Update
+    ///<summary> 스크롤뷰에서 나오는 버튼들 정보 업데이트 </summary>
     void TokenBtnUpdate()
     {
         TokenBtnReset();
@@ -133,174 +152,151 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
         void BtnUpdate_Equip()
         {
-            List<Equipment> now = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
+            //카테고리에 맞는 장비만 얻기
+            List<Equipment> categorizedEquips = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
 
-            List<KeyValuePair<int, Equipment>> idxs = new List<KeyValuePair<int, Equipment>>();
+            //버튼 인덱스(0 시작), 장비 정보 페어
+            //0개에서 4개
+            List<KeyValuePair<int, Equipment>> buttonInfos = new List<KeyValuePair<int, Equipment>>();
 
-            for (int i = 0; i < now.Count;)
+            //
+            for (int i = 0; i < categorizedEquips.Count;)
             {
-                while (idxs.Count < 4 && i < now.Count)
+                while (buttonInfos.Count < 4 && i < categorizedEquips.Count)
                 {
-                    idxs.Add(new KeyValuePair<int, Equipment>(i, now[i]));
+                    buttonInfos.Add(new KeyValuePair<int, Equipment>(i, categorizedEquips[i]));
                     i++;
                 }
-                GameObject go = NewBtnSet();
-                go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnToken>());
-                btnList[btnList.Count - 1].Init(this, idxs);
-                go.SetActive(true);
+                //풀에서 버튼 토큰 가져오기
+                EquipBtnToken token = GameManager.GetToken(equipBtnPool, equipBtnParent, equipBtnPrefab);
+                token.Init(this, buttonInfos);
+                btnList.Add(token);
+                token.gameObject.SetActive(true);
 
-                idxs.Clear();
+                buttonInfos.Clear();
             }
 
-            for(int i = btnList.Count;i < 4;i++)
+            //버튼 토큰이 5개보다 모자를 시, 빈 토큰으로 채움(리스트 보여주기 용)
+            for(int i = btnList.Count;i < 5;i++)
             {
-                GameObject go = NewBtnSet();
-                go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnToken>());
-                btnList[btnList.Count - 1].Init(this, idxs);
-                go.SetActive(true);
+                EquipBtnToken token = GameManager.GetToken(equipBtnPool, equipBtnParent, equipBtnPrefab);
+                token.Init(this, buttonInfos);
+                btnList.Add(token);
+                token.gameObject.SetActive(true);
             }
         }
         void BtnUpdate_Recipe()
         {
-            List<EquipBluePrint> recipe = ItemManager.GetRecipeData(currRarity, currLvl);
+            //현재 카테고리에 맞는 제작법 리스트
+            List<EquipBluePrint> categorizedRecipes = ItemManager.GetRecipeData(currRarity, currLvl);
 
-            List<KeyValuePair<int, EquipBluePrint>> idxs = new List<KeyValuePair<int, EquipBluePrint>>();
+            //버튼 인덱스, 레시피 페어
+            //0개에서 4개
+            List<KeyValuePair<int, EquipBluePrint>> buttonInfos = new List<KeyValuePair<int, EquipBluePrint>>();
 
-            for (int i = 0; i < recipe.Count;)
+            for (int i = 0; i < categorizedRecipes.Count;)
             {
-                while (idxs.Count < 4 && i < recipe.Count)
+                while (buttonInfos.Count < 4 && i < categorizedRecipes.Count)
                 {
-                    idxs.Add(new KeyValuePair<int, EquipBluePrint>(i, recipe[i]));
+                    buttonInfos.Add(new KeyValuePair<int, EquipBluePrint>(i, categorizedRecipes[i]));
                     i++;
                 }
 
-                GameObject go = NewBtnSet();
-                go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnToken>());
-                btnList[btnList.Count - 1].Init(this, idxs);
-                go.SetActive(true);
+                EquipBtnToken token = GameManager.GetToken(equipBtnPool, equipBtnParent, equipBtnPrefab);
+                token.Init(this, buttonInfos);
+                btnList.Add(token);
+                token.gameObject.SetActive(true);
 
-                idxs.Clear();
+                buttonInfos.Clear();
             }
             
-            for(int i = btnList.Count;i < 4;i++)
+            //5개보다 모자를 시, 빈 토큰으로 채움
+            for(int i = btnList.Count;i < 5;i++)
             {
-                GameObject go = NewBtnSet();
-                go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnToken>());
-                btnList[btnList.Count - 1].Init(this, idxs);
-                go.SetActive(true);
+                EquipBtnToken token = GameManager.GetToken(equipBtnPool, equipBtnParent, equipBtnPrefab);
+                token.Init(this, buttonInfos);
+                btnList.Add(token);
+                token.gameObject.SetActive(true);
             }
         }
         void BtnUpdate_Skillbook()
         {
-            List<Skillbook> now = ItemManager.GetSkillbookData(currUseType, currLvl);
+            //현재 카테고리에 맞는 스킬북 반환
+            List<Skillbook> categorizedSkillbooks = ItemManager.GetSkillbookData(currUseType, currLvl);
 
-            List<KeyValuePair<int, Skillbook>> idxs = new List<KeyValuePair<int, Skillbook>>();
-            for (int i = 0; i < now.Count;)
+            //버튼 인덱스, 스킬북 페어
+            //0개 ~ 4개
+            List<KeyValuePair<int, Skillbook>> buttonInfos = new List<KeyValuePair<int, Skillbook>>();
+            for (int i = 0; i < categorizedSkillbooks.Count;)
             {
-                while (idxs.Count < 4 && i < now.Count)
+                while (buttonInfos.Count < 4 && i < categorizedSkillbooks.Count)
                 {
-                    idxs.Add(new KeyValuePair<int, Skillbook>(i, now[i]));
+                    buttonInfos.Add(new KeyValuePair<int, Skillbook>(i, categorizedSkillbooks[i]));
                     i++;
                 }
-                GameObject go = NewBtnSet();
-                go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnToken>());
-                btnList[btnList.Count - 1].Init(this, idxs);
-                go.SetActive(true);
+                EquipBtnToken token = GameManager.GetToken(equipBtnPool, equipBtnParent, equipBtnPrefab);
+                token.Init(this, buttonInfos);
+                btnList.Add(token);
+                token.gameObject.SetActive(true);
 
-                idxs.Clear();
+                buttonInfos.Clear();
             }
             
-            for(int i = btnList.Count;i < 4;i++)
+            //버튼 토큰이 5개보다 모자를 시, 빈 토큰으로 채움
+            for(int i = btnList.Count;i < 5;i++)
             {
-                GameObject go = NewBtnSet();
-                go.transform.SetParent(btnParent);
-                btnList.Add(go.GetComponent<EquipBtnToken>());
-                btnList[btnList.Count - 1].Init(this, idxs);
-                go.SetActive(true);
+                EquipBtnToken token = GameManager.GetToken(equipBtnPool, equipBtnParent, equipBtnPrefab);
+                token.Init(this, buttonInfos);
+                btnList.Add(token);
+                token.gameObject.SetActive(true);
             }
         }
     }
+    ///<summary> 스크롤뷰에 있는 버튼들 초기화 </summary>
     void TokenBtnReset()
     {
-        for(int i =0;i<btnList.Count;i++)
+        for(int i = 0; i < btnList.Count; i++)
         {
             btnList[i].gameObject.SetActive(false);
             btnList[i].transform.SetParent(poolParent);
-            btnPool.Add(btnList[i]);
+            equipBtnPool.Enqueue(btnList[i]);
         }
         btnList.Clear();
     }
-    GameObject NewBtnSet()
-    {
-        if (btnPool.Count > 0)
-        {
-            GameObject go = btnPool[0].gameObject;
-            btnPool.RemoveAt(0);
-            return go;
-        }
-        else
-            return Instantiate(equipBtnPrefab);
-    }
     #endregion
 
-    #region Work Panels
+    #region SelectWorkPanel
+    ///<summary> 추가 선택 창 보이기 </summary>
+    ///<param name="workPanelIdx"> 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </param>
     public void Btn_OpenWorkPanel(int workPanelIdx)
     {
+        if(workPanelIdx == 1 && (selectedEquip.Equals(dummyEquip) || selectedEquip.Value.star >= 3))
+        {
+            Debug.Log("융합 불가");
+            return;
+        }
         if(workPanelIdx == 2 && !GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             Debug.Log("이 장비는 옵션 변경이 불가능합니다.");
             return;
         }
 
-        for(int i = 0;i < workPanels.Length;i++)
+        for (int i = 0; i < workPanels.Length; i++)
             workPanels[i].SetActive(i == workPanelIdx);
     }
+    #endregion SelectWorkPanel
 
-    public void Btn_EquipToken(KeyValuePair<int, Equipment> token)
-    {
-        if (selectedEquip.Equals(token))
-            selectedEquip = dummyEquip;
-        else
-            selectedEquip = token;
-
-        SelectedPanelUpdate();
-    }
-    public void Btn_EBPToken(EquipBluePrint token)
-    {
-        if (selectedEBP == token) 
-            selectedEBP = null;
-        else
-            selectedEBP = token;
-
-        SelectedPanelUpdate();
-    }
-    public void Btn_SkillbookToken(Skillbook token)
-    {
-        if (selectedSkillbook == token) 
-            selectedSkillbook = null;
-        else
-            selectedSkillbook = token;
-
-        SelectedPanelUpdate();
-    }
-
+    #region Fusion
+    ///<summary> 융합 버튼
+    ///<para> 융합 재료 장비 선택창 띄움 </para> </summary>
     public void Btn_Fusion()
     {
-        if (GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
-        {
-            ItemManager.FusionEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
-            selectedEquip = dummyEquip;
-            TokenBtnUpdate();
-            SelectedPanelUpdate();
-        }
-        else
-            Debug.Log("There is no same Equipment");
+
     }
+    #endregion Fusion
+
+    #region SwitchOption
+    ///<summary> 옵션 변경 버튼 </summary>
     public void Btn_SwitchOption()
     {
         if (GameManager.instance.slotData.itemData.CanSwitchCommonStat(selectedEquip.Value.ebp.part, selectedEquip.Key))
@@ -310,6 +306,9 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             SelectedPanelUpdate();
         }
     }
+    #endregion SwitchOption
+
+    
     public void Btn_Disassemble()
     {
         ItemManager.DisassembleEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
@@ -320,7 +319,12 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     public void Btn_Create()
     {
         if (ItemManager.CanSmith(selectedEBP.idx))
+        {
             ItemManager.SmithEquipment(selectedEBP.idx);
+
+            selectedEBP = null;
+            SelectedPanelUpdate();
+        }
         else
             Debug.Log("not enough resources");
     }
@@ -353,12 +357,48 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         TokenBtnUpdate();
         SelectedPanelUpdate();
     }
-    #endregion Work Panels
 
+    ///<summary> 토큰 버튼 장비 선택 </summary>
+    public void Btn_EquipToken(KeyValuePair<int, Equipment> token)
+    {
+        if (selectedEquip.Equals(token))
+            selectedEquip = dummyEquip;
+        else
+            selectedEquip = token;
+
+        SelectedPanelUpdate();
+    }
+    ///<summary> 토큰 버튼 제작법 선택 </summary>
+    public void Btn_RecipeToken(EquipBluePrint token)
+    {
+        if (selectedEBP == token)
+            selectedEBP = null;
+        else
+            selectedEBP = token;
+
+        SelectedPanelUpdate();
+    }
+    ///<summary> 토큰 버튼 스킬북 선택 </summary>
+    public void Btn_SkillbookToken(Skillbook token)
+    {
+        if (selectedSkillbook == token)
+            selectedSkillbook = null;
+        else
+            selectedSkillbook = token;
+
+        SelectedPanelUpdate();
+    }
+    public void Btn_FusionToken(KeyValuePair<int, Equipment> token)
+    {
+
+    }
+   
     void StatTxtUpdate()
     {
+        classTxt.text = GameManager.instance.slotData.className;
+
         statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
-        statTxts[1].text = string.Concat(GameManager.instance.slotData.exp, " / ", SlotData.reqExp[GameManager.instance.slotData.lvl]);
+        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {SlotData.reqExp[GameManager.instance.slotData.lvl]}";
         expSlider.value = GameManager.instance.slotData.exp / (float)SlotData.reqExp[GameManager.instance.slotData.lvl];
         int i, j;
         for (i = j = 2; i < 13; i++, j++)
@@ -367,8 +407,8 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             statTxts[j].text = GameManager.instance.slotData.itemStats[i].ToString();
         }
 
-        statTxts[8].text = string.Concat(statTxts[8].text, "%");
-        statTxts[9].text = string.Concat(statTxts[9].text, "%");
+        statTxts[8].text = $"{statTxts[8].text}%";
+        statTxts[9].text = $"{statTxts[9].text}%";
     }
 
     void SelectedPanelUpdate()
@@ -406,5 +446,10 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         TokenBtnUpdate();
         SelectedPanelUpdate();
         Btn_OpenWorkPanel(0);
+    }
+    public void BedToSkillLearn(int skillIdx)
+    {
+        Btn_SwitchCategory(5);
+        Btn_SkillbookToken(ItemManager.GetSkillbookData(-1, 0).FindAll(x => x.idx == skillIdx).First());
     }
 }

@@ -98,7 +98,7 @@ public class MetalKnight : Character
         //오버파워 3세트 - 처형, 대구경 탄환 ATK, PEN 상승
         if((skill.idx == 52 || skill.idx == 71) && set.Value[1] > 0)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ATK, 1, set.Value[1], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[1], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.PEN, 1, set.Value[1], 1, -1));
         }
 
@@ -254,9 +254,9 @@ public class MetalKnight : Character
                             //대상 무력화
                             if (HasSkill(82))
                             {
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "표식", (int)Obj.ACC, 1, 10, 1, 1, 1, 1));
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "표식", (int)Obj.CRC, 1, 10, 1, 1, 1, 1));
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "표식", (int)Obj.SPD, 1, 10, 1, 1, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "표식", (int)Obj.ACC, 1, 15, 1, 1, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "표식", (int)Obj.CRC, 1, 15, 1, 1, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), "표식", (int)Obj.SPD, 1, 15, 1, 1, 1, 1));
                             }
                         }
                         break;
@@ -497,7 +497,7 @@ public class MetalKnight : Character
 
                 //철벽 4세트 - 가드 아드레날린이 공격력도 올려줌
                 if(set.Value[1] > 0)
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.ATK, 1, set.Value[1], 1, tmp.effectTurn[0], 1, 1));
+                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.공격력, 1, set.Value[1], 1, tmp.effectTurn[0], 1, 1));
             }
         }
 

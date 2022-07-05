@@ -5,25 +5,30 @@ using LitJson;
 
 public class SkillDB
 {
-    public string className;        //관련 클래스 이름
-    public int classIdx;            //관련 클래스 인덱스 ex) 암드파이터 = 1
+    ///<summary> 클래스 영문 이름, 데이터 로드 시 사용 </summary>
+    string className;
+    ///<summary> 관련 클래스 인덱스 ex) 암드파이터 = 1 </summary>
+    public int classIdx;
 
+    ///<summary> 해당 클래스 가장 처음 스킬의 인덱스 </summary>
     public int startIdx;
-    protected int skillCount;       //스킬 갯수
+    ///<summary> 클래스 스킬 갯수 </summary>
+    protected int skillCount;
+
+    ///<summary> 스킬 데이터 </summary>
     public Skill[] skills = null;
 
     public SkillDB(string className, int classIdx)
     {
         this.className = className;
         this.classIdx = classIdx;
-        JsonLoad();
+        LoadData();
     }
 
-    protected void JsonLoad()
+    ///<summary> Json 파일 읽어오기 </summary>
+    void LoadData()
     {
-        TextAsset jsonTxt = Resources.Load<TextAsset>(string.Concat("Jsons/Skills/", className, "Skill"));
-        string loadStr = jsonTxt.text;
-        JsonData json = JsonMapper.ToObject(loadStr);
+        JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>($"Jsons/Skills/{className}Skill").text);
 
         skillCount = json.Count;
         skills = new Skill[skillCount];
@@ -35,8 +40,18 @@ public class SkillDB
         for (int i = 0; i < skillCount; i++)
         {
             skills[i].name = json[i]["name"].ToString();
+
+            //클래스 스킬에만 적용(몬스터, 골렘, 정령 제외)
+            if(classIdx <= 8)
+            {
+                skills[i].script = json[i]["script"].ToString();
+                skills[i].posScript = json[i]["script_pos"].ToString();
+                skills[i].negScript = json[i]["script_neg"].ToString();
+                skills[i].icon = (int)json[i]["icon"];
+            }
+            
+
             skills[i].idx = (int)json[i]["idx"];
-            skills[i].useclass = classIdx;
             skills[i].category = (int)json[i]["category"];
             skills[i].useType = (int)json[i]["usetype"];
             skills[i].reqLvl = (int)json[i]["reqlvl"];
@@ -50,8 +65,7 @@ public class SkillDB
             skills[i].targetSide = (int)json[i]["targetSide"];
             skills[i].targetCount = (int)json[i]["targetCount"];
 
-            skills[i].effectCount = (int)json[i]["effectCount"];
-            skills[i].DataAssign();
+            skills[i].DataAssign((int)json[i]["effectCount"]);
             for (int j = 0; j < skills[i].effectCount; j++)
             {
                 skills[i].effectType[j] = (int)json[i]["effectType"][j];

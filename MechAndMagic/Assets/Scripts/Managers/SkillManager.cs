@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     static SkillDB[] skillDB = new SkillDB[13];
+    static Skill dummySkill = new Skill();
 
     public static void LoadData()
     {
@@ -28,9 +29,16 @@ public class SkillManager : MonoBehaviour
     }
     static public Skill GetSkill(int classIdx, int idx)
     {
-        if (idx == 0)
-            return new Skill();
+        if (idx <= 0)
+            return dummySkill;
 
         return skillDB[classIdx].skills[idx - skillDB[classIdx].startIdx];
+    }
+    public static Skill GetSlotSkill(int slotIdx)
+    {
+        if(slotIdx < 6)
+            return GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.activeSkills[slotIdx]);
+        else
+            return GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.passiveSkills[slotIdx - 6]);
     }
 }

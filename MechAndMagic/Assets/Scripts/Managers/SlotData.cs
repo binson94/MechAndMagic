@@ -5,7 +5,7 @@ using System.Linq;
 
 public enum SceneKind
 {
-    Town, Dungeon, Event, Outbreak, Battle
+    Town = 1, Dungeon, Battle, Event, Outbreak
 }
 public enum DropType
 {
@@ -30,10 +30,13 @@ public class SlotData
     ///<summary> 불변 기본 스텟 </summary>
     public static readonly int[] baseStats = new int[13];
     ///<summary> 불변 경험치 요구량 </summary>
-    public static readonly int[] reqExp = new int[9];
+    public static readonly int[] reqExp = new int[10];
 
     ///<summary> 현재 슬롯의 직업 </summary>
     public int slotClass;
+    public string className;
+    public int region;
+
     public int lvl;
     public int exp;
     ///<summary> 현재 진행 중인 챕터 </summary>
@@ -66,7 +69,7 @@ public class SlotData
     static SlotData()
     {
         baseStats[0] = 1;
-        baseStats[1] = baseStats[2] = 15;
+        baseStats[1] = baseStats[2] = 40;
         baseStats[3] = baseStats[4] = 6;
         baseStats[5] = 5;
         baseStats[7] = 70;
@@ -74,15 +77,15 @@ public class SlotData
         baseStats[10] = 150;
         baseStats[12] = 5;
 
-        reqExp[0] = 100;
-        reqExp[1] = 200;
-        reqExp[2] = 400;
-        reqExp[3] = 600;
-        reqExp[4] = 900;
-        reqExp[5] = 1200;
-        reqExp[6] = 1600;
-        reqExp[7] = 2000;
-        reqExp[8] = 2500;
+        reqExp[1] = 100;
+        reqExp[2] = 200;
+        reqExp[3] = 400;
+        reqExp[4] = 600;
+        reqExp[5] = 900;
+        reqExp[6] = 1200;
+        reqExp[7] = 1600;
+        reqExp[8] = 2000;
+        reqExp[9] = 2500;
     }
     ///<summary> 로드 시 사용할 빈 생성자 </summary>
     public SlotData() { }
@@ -91,6 +94,34 @@ public class SlotData
     {
         lvl = 1;
         slotClass = classIdx;
+        region = slotClass <= 4 ? 10 : 11;
+        switch(slotClass)
+        {
+            case 1:
+                className = "암드파이터";
+                break;
+            case 2:
+                className = "메탈나이트";
+                break;
+            case 3:
+                className = "블래스터";
+                break;
+            case 4:
+                className = "매드 사이언티스트";
+                break;
+            case 5:
+                className = "엘리멘탈 컨트롤러";
+                break;
+            case 6:
+                className = "드루이드";
+                break;
+            case 7:
+                className = "비전 마스터";
+                break;
+            case 8:
+                className = "매지컬 로그";
+                break;
+        }
         chapter = 1;
 
         for (int i = 0; i <= 12; i++)
@@ -186,8 +217,7 @@ public class DungeonData
     ///<summary> 던전 입장 시 사용하는 생성자 </summary>
     public DungeonData(int dungeonIdx)
     {
-        currDungeon = new Dungeon();
-        currDungeon.DungeonInstantiate(dungeonIdx);
+        currDungeon = new Dungeon(dungeonIdx);
         mapScroll = 0;
 
         currHP = -1; druidRevive = 0; golemHP = GameManager.instance.slotData.slotClass == 4 ? 0 : -1;
@@ -201,7 +231,7 @@ public class DungeonData
 public class ItemData
 {
     ///<summary> 기본 재화 
-    ///<para> 1~3 : 스킬 재화 </para>
+    ///<para> 1~3 : 스킬 재화 - 안 씀 </para>
     ///<para> 4~12 : 아이템 특수 재화(상중하 우선, 무기,방어구,장신구) </para>
     ///<para> 13~15 : 아이템 공통 재화 </para>
     ///</summary>
@@ -214,7 +244,7 @@ public class ItemData
     ///<summary> 현재 슬롯 직업의 시작 스킬 인덱스 </summary>
     public int skillStartIdx;
     ///<summary> 스킬 학습 여부 </summary>
-    public bool[] skillLearned;
+    public List<int> learnedSkills = new List<int>();
 
     ///<summary> 획득한 무기 </summary>
     public List<Equipment> weapons = new List<Equipment>();
@@ -327,10 +357,9 @@ public class ItemData
     ///<summary> 새로운 장비 드롭 </summary>
     public void EquipDrop(EquipBluePrint ebp)
     {
-        Equipment tmp = new Equipment(ebp);
         List<Equipment> eList = GetEquipmentList(ebp.part);
 
-        eList.Add(tmp);
+        eList.Add(new Equipment(ebp));
         eList.Sort((a, b) => a.CompareTo(b));
     }
     ///<summary> 새로운 스킬북 드롭 </summary>
@@ -396,25 +425,19 @@ public class ItemData
 
     #region Skill
     ///<summary> 스킬 학습 여부 반환 </summary>
-    public bool IsLearned(int idx)
+    public bool IsLearned(int skillIdx)
     {
-        //선행 스킬 없으면 0 표기 -> 무조건 참 반환
-        if (idx < skillStartIdx)
+        //선행 스킬 없으면 0으로 표기 -> 무조건 참 반환
+        if (skillIdx < skillStartIdx)
             return true;
-        return skillLearned[idx - skillStartIdx];
+        return learnedSkills.Contains(skillIdx);
     }
     ///<summary> 스킬 학습 </summary>
-    public void SkillLearn(int idx)
-    {
-        skillLearned[idx - skillStartIdx] = true;
-    }
+    public void SkillLearn(int skillIdx) => learnedSkills.Add(skillIdx);
     ///<summary> 스킬북 분해 </summary>
-    public void DisassembleSkillbook(int idx)
-    {
-        skillbooks[idx - skillStartIdx].count--;
-    }
+    public void DisassembleSkillbook(int idx) => skillbooks.FindAll(x => x.idx == idx).First().count--;
     ///<summary> 스킬북 보유 여부 반환 </summary>
-    public bool HasSkillBook(int idx) => skillbooks.Any(x => x.idx == idx);
+    public bool HasSkillBook(int skillIdx) => skillbooks.Any(x => x.idx == skillIdx);
     #endregion Skill
 
     ///<summary> 로드용 빈 생성자 </summary>
@@ -425,11 +448,10 @@ public class ItemData
 
         Skill[] s = SkillManager.GetSkillData(currClass);
 
+        //1레벨 액티브 스킬은 학습 상태로 시작
         skillStartIdx = s[0].idx;
-        skillLearned = new bool[s.Length];
-
         for(int i = 0;s[i].reqLvl == 1 && s[i].useType == 0;i++)
-            skillLearned[i] = true;
+            learnedSkills.Add(s[i].idx);
     }
 }
 ///<summary> 퀘스트 진행 정보 저장용 </summary>
