@@ -8,20 +8,9 @@
      "type": 0,
      "objectIdx": 0,
      "objectAmt": 0,
-     "rewardCount": 0,
-     "rewardIdx": [
-        0,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 0,
+     "rewardAmt": 0
+   },
    {
      "name": "돌발 적 처치",
      "idx": 1,
@@ -31,20 +20,9 @@
      "type": 1,
      "objectIdx": 0,
      "objectAmt": 5,
-     "rewardCount": 2,
-     "rewardIdx": [
-        15,
-        14,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        20,
-        5,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 15,
+     "rewardAmt": 25
+   },
    {
      "name": "돌발 적 처치",
      "idx": 2,
@@ -54,20 +32,9 @@
      "type": 1,
      "objectIdx": 0,
      "objectAmt": 10,
-     "rewardCount": 1,
-     "rewardIdx": [
-        14,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        20,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 14,
+     "rewardAmt": 20
+   },
    {
      "name": "돌발 적 처치",
      "idx": 3,
@@ -77,20 +44,9 @@
      "type": 1,
      "objectIdx": 0,
      "objectAmt": 10,
-     "rewardCount": 2,
-     "rewardIdx": [
-        14,
-        13,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        40,
-        5,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 14,
+     "rewardAmt": 50
+   },
    {
      "name": "돌발 적 처치",
      "idx": 4,
@@ -100,158 +56,81 @@
      "type": 1,
      "objectIdx": 0,
      "objectAmt": 15,
-     "rewardCount": 1,
-     "rewardIdx": [
-        13,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        20,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 13,
+     "rewardAmt": 20
+   },
    {
      "name": "돌발 체력 유지",
      "idx": 5,
      "script": "전투 종료마다 체력 30% 이상 항상 유지",
-     "getScript": "은둔 고수를 만났다. \n\"자네가 이 곳을 나갈 때까지 치명적인 피해를 입지 않으면 보상을 주도록 하지.\"",
+     "getScript": "은둔 고수를 만났다. \n \"자네가 이 곳을 나갈 때까지 치명적인 피해를 입지 않으면 보상을 주도록 하지.\"",
      "doneScript": "그는 작은 선물을 두고 사라졌다.",
      "type": 8,
      "objectIdx": 0,
      "objectAmt": 30,
-     "rewardCount": 1,
-     "rewardIdx": [
-        3,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        5,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 3,
+     "rewardAmt": 5
+   },
    {
      "name": "돌발 체력 유지",
      "idx": 6,
      "script": "전투 종료마다 체력 45% 이상 항상 유지",
-     "getScript": "은둔 고수를 만났다. \n\"자네가 이 곳을 나갈 때까지 큰 피해를 입지 않으면 보상을 주도록 하지.\"",
+     "getScript": "은둔 고수를 만났다. \n \"자네가 이 곳을 나갈 때까지 큰 피해를 입지 않으면 보상을 주도록 하지.\"",
      "doneScript": "그는 상당한 선물을 두고 사라졌다.",
      "type": 8,
      "objectIdx": 0,
      "objectAmt": 45,
-     "rewardCount": 1,
-     "rewardIdx": [
-        2,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        5,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 2,
+     "rewardAmt": 5
+   },
    {
      "name": "돌발 체력 유지",
      "idx": 7,
      "script": "전투 종료마다 체력 60% 이상 항상 유지",
-     "getScript": "은둔 고수를 만났다. \n\"자네가 이 곳을 나갈 때까지 작은 피해도 입지 않으면 보상을 주도록 하지.\"",
+     "getScript": "은둔 고수를 만났다. \n \"자네가 이 곳을 나갈 때까지 작은 피해도 입지 않으면 보상을 주도록 하지.\"",
      "doneScript": "그는 귀중한 선물을 두고 사라졌다.",
      "type": 8,
      "objectIdx": 0,
      "objectAmt": 60,
-     "rewardCount": 1,
-     "rewardIdx": [
-        1,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        5,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 1,
+     "rewardAmt": 5
+   },
    {
      "name": "돌발 체력 유지",
      "idx": 8,
      "script": "전투 종료마다 체력 70% 이하 항상 유지",
-     "getScript": "섬뜩한 광인을 만났다. \n\"상처는. 모험가를. 용감하게. 만든다. 겁쟁이. 약간쯤은. 아픈게. 좋다.\"",
+     "getScript": "섬뜩한 광인을 만났다. \n \"상처는. 모험가를. 용감하게. 만든다. 겁쟁이. 약간쯤은. 아픈게. 좋다.\"",
      "doneScript": "그녀의 말대로 약간의 용기를 얻었다.",
      "type": 8,
      "objectIdx": 0,
      "objectAmt": 70,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        200,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 150,
+     "rewardAmt": 200
+   },
    {
      "name": "돌발 체력 유지",
      "idx": 9,
      "script": "전투 종료마다 체력 55% 이하 항상 유지",
-     "getScript": "섬뜩한 광인을 만났다. \n\"고통은. 용사를. 굳게. 만든다. 계속. 아파라. 그것이. 너를. 성장. 시킨다.\"",
+     "getScript": "섬뜩한 광인을 만났다. \n \"고통은. 용사를. 굳게. 만든다. 계속. 아파라. 그것이. 너를. 성장. 시킨다.\"",
      "doneScript": "그녀의 말대로 전보다 확실히 성장했다.",
      "type": 8,
      "objectIdx": 0,
      "objectAmt": 55,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        350,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 150,
+     "rewardAmt": 350
+   },
    {
      "name": "돌발 체력 유지",
      "idx": 10,
      "script": "전투 종료마다 체력 40% 이하 항상 유지",
-     "getScript": "섬뜩한 광인을 만났다. \n\"죽음은. 그것에. 대한 두려움을. 즐겨라. 그 때 너는. 범접할 수 없는. 인물이 된다.\"",
-     "doneScript": "가르침을 스스로 깨우쳤다. 상처, 고통, 죽음을 피하지 않게 되었다.",
+     "getScript": "섬뜩한 광인을 만났다. \n \"죽음은. 그것에. 대한 두려움을. 즐겨라. 그 때 너는. 범접할 수 없는. 인물이 된다.\"",
+     "doneScript": "가르침을 스스로 깨우쳤다. 상처, 고통 그리고 죽음을 피하지 않게 되었다.",
      "type": 8,
      "objectIdx": 0,
      "objectAmt": 40,
-     "rewardCount": 1,
-     "rewardIdx": [
-        150,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        600,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 150,
+     "rewardAmt": 600
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 11,
@@ -261,20 +140,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 1,
-     "rewardCount": 1,
-     "rewardIdx": [
-        12,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 12,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 12,
@@ -284,20 +152,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 1,
-     "rewardCount": 1,
-     "rewardIdx": [
-        11,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 11,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 13,
@@ -307,20 +164,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 1,
-     "rewardCount": 1,
-     "rewardIdx": [
-        10,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 10,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 14,
@@ -330,20 +176,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 1,
-     "rewardCount": 1,
-     "rewardIdx": [
-        10,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 10,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 15,
@@ -353,20 +188,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 2,
-     "rewardCount": 1,
-     "rewardIdx": [
-        9,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 9,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 16,
@@ -376,20 +200,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 2,
-     "rewardCount": 1,
-     "rewardIdx": [
-        8,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 8,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 17,
@@ -399,20 +212,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 2,
-     "rewardCount": 1,
-     "rewardIdx": [
-        7,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 7,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 18,
@@ -422,20 +224,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 2,
-     "rewardCount": 1,
-     "rewardIdx": [
-        7,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 7,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 19,
@@ -445,20 +236,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 3,
-     "rewardCount": 1,
-     "rewardIdx": [
-        6,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 6,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 20,
@@ -468,20 +248,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 3,
-     "rewardCount": 1,
-     "rewardIdx": [
-        5,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 5,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 21,
@@ -491,20 +260,9 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 3,
-     "rewardCount": 1,
-     "rewardIdx": [
-        4,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  },
+     "rewardIdx": 4,
+     "rewardAmt": 2
+   },
    {
      "name": "돌발 전투 승리",
      "idx": 22,
@@ -514,18 +272,7 @@
      "type": 2,
      "objectIdx": 0,
      "objectAmt": 3,
-     "rewardCount": 1,
-     "rewardIdx": [
-        4,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        2,
-        0,
-        0,
-        0
-     ]
-  }
+     "rewardIdx": 4,
+     "rewardAmt": 2
+   }
   ]

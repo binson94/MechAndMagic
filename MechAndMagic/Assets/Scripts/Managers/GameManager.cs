@@ -90,18 +90,8 @@ public class GameManager : MonoBehaviour
     ///<summary> 경험치 획득 </summary>
     public void GetExp(int amt)
     {
-        if (slotData.lvl < 10)
-        {
-            slotData.exp += amt;
-            while (slotData.lvl < 10 && slotData.exp > SlotData.reqExp[slotData.lvl])
-            {
-                slotData.exp -= SlotData.reqExp[slotData.lvl];
-                slotData.lvl++;
-            }
-
-            slotData.DropSave(DropType.EXP, 1, amt);
-            SaveSlotData();
-        }
+        slotData.GetExp(amt);
+        SaveSlotData();
     }
     ///<summary> 아이템 드롭 정보 저장 </summary>
     public void DropSave(DropType type, int idx)

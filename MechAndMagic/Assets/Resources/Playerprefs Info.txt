@@ -1,5 +1,0 @@
-1. Quest
-string : "QuestData" + slotNumber -> 현재 진행 중인 Quest 정보, 이어하기용(json 상태 저장)
-
-2. Dungeon
-string : "DungeonData" + slotNumber -> Dungeon Instance 정보, 이어하기용(json 상태 저장)

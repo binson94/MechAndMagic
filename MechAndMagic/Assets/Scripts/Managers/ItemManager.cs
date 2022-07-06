@@ -26,7 +26,9 @@ public class ItemManager : MonoBehaviour
     ///<summary> 아이템 드롭 </summary>
     public static void ItemDrop(int category, float prob)
     {
-        if (prob >= 1f)
+        if(category == 150)
+            GameManager.instance.GetExp((int)prob);
+        else if (prob >= 1f)
             for (float i = 0; i < prob; i += 1f)
                 AddItem();
         else if (Random.Range(0, 1f) < prob)

@@ -56,6 +56,8 @@ public class EquipInfoPanel : MonoBehaviour
             for(int i = 0;i < e.commonStatValue.Count;i++)
                 itemTxts[4].text += $"{e.commonStatValue[i].Key}\t+{e.commonStatValue[i].Value}\n";
 
+            gridImage.sprite = Resources.Load<Sprite>($"Sprites/Item/Grid/Grid_{(int)e.ebp.rarity}");
+            iconImage.sprite = Resources.Load<Sprite>("Sprites/Item/Equipment/거대포1");
             gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);
         }
         else

@@ -53,14 +53,22 @@ public class QuestBlueprint
         objectIdx = (int)json[idx]["objectIdx"];
         objectAmt = (int)json[idx]["objectAmt"];
 
-        rewardCount = (int)json[idx]["rewardCount"];
-        rewardIdx = new int[rewardCount]; rewardAmt = new int[rewardCount];
-
-        for (int i = 0; i < rewardCount; i++)
+        if(isOutbreak)
         {
-            rewardIdx[i] = (int)json[idx]["rewardIdx"][i];
-            rewardAmt[i] = (int)json[idx]["rewardAmt"][i];
+            rewardCount = 1;
+            rewardIdx = new int[1]; rewardIdx[0] = (int)json[idx]["rewardIdx"];
+            rewardAmt = new int[1]; rewardAmt[0] = (int)json[idx]["rewardAmt"];
         }
+        else
+        {
+            rewardCount = (int)json[idx]["rewardCount"];
+            rewardIdx = new int[rewardCount]; rewardAmt = new int[rewardCount];
 
+            for (int i = 0; i < rewardCount; i++)
+            {
+                rewardIdx[i] = (int)json[idx]["rewardIdx"][i];
+                rewardAmt[i] = (int)json[idx]["rewardAmt"][i];
+            }
+        }
     }
 }

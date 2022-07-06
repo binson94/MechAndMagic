@@ -138,7 +138,7 @@ public class QuestManager : MonoBehaviour
     ///<summary> 돌발 퀘스트 클리어 </summary>
     public static void ClearOutbreak()
     {
-        int idx = GameManager.instance.slotData.questData.GetOutbreakIdx();
+        int idx = GameManager.instance.slotData.questData.outbreakProceed.idx;
         if (idx > 0)
         {
             GetReward(true, outbreakData[idx]);

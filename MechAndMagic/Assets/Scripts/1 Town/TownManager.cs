@@ -44,8 +44,6 @@ public class TownManager : MonoBehaviour
     ///</summary>
     [SerializeField] Sprite[] equipFrameSprites;
     [Tooltip("장비 아이콘")]
-    ///<summary> 장비 아이콘 스프라이트들 </summary>
-    [SerializeField] Sprite[] equipIconSprites;
     ///<summary> 장착 중인 장비 정보 보여줄 이미지 </summary>
     [SerializeField] EquipInfoImage[] equipInfos;
     #endregion PlayerInfoPanel
@@ -133,9 +131,9 @@ public class TownManager : MonoBehaviour
         {
             Equipment e = GameManager.instance.slotData.itemData.equipmentSlots[i + 1];
             if(e == null)
-                equipInfos[i].SetImage(equipFrameSprites[0], null, 0);
+                equipInfos[i].SetImage(equipFrameSprites[0], 0);
             else
-                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], equipIconSprites[0], e.ebp.reqlvl);
+                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], e.ebp.reqlvl);
             
         }
     }

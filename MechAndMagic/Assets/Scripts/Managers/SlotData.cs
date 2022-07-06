@@ -9,7 +9,7 @@ public enum SceneKind
 }
 public enum DropType
 {
-    Material, Equip, Skillbook, Recipe, EXP
+    Material, Equip, Skillbook, Recipe
 }
 public class Triplet<T1, T2, T3>
 {
@@ -139,62 +139,47 @@ public class SlotData
         if (dungeonData == null)
             return;
 
-        if (dungeonData.dropList.Count <= 0)
-        {
-            dungeonData.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
-        }
+        if (dungeonData.dropList.Any(x=>x.first == type && x.second == idx))
+            dungeonData.dropList.FindAll(x=>x.first == type && x.second == idx).First().third += amt;
         else
+            dungeonData.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
+    }
+    ///<summary> 경험치 획득 </summary>
+    public void GetExp(int amt)
+    {
+        if (lvl < 10)
         {
-            int left = 0, right = dungeonData.dropList.Count - 1;
+            exp += amt;
+            if (dungeonData != null)
+                dungeonData.dropExp += amt;
 
-            int middle = (left + right) / 2;
-            while (left <= middle && middle <= right)
+            while (lvl < 10 && exp > SlotData.reqExp[lvl])
             {
-                middle = (left + right) / 2;
+                exp -= SlotData.reqExp[lvl];
+                lvl++;
 
-                int compare = Compare(type, idx, dungeonData.dropList[middle]);
-                if (compare == 0)
-                {
-                    dungeonData.dropList[middle].third += amt;
-                    return;
-                }
-                else if (compare < 0)
-                    right = middle - 1;
-                else
-                    left = middle + 1;
+                if (dungeonData != null)
+                    dungeonData.isLvlUp = true;
             }
-
-            if (middle < 0)
-                dungeonData.dropList.Insert(0, new Triplet<DropType, int, int>(type, idx, amt));
-            else if (middle >= dungeonData.dropList.Count)
-                dungeonData.dropList.Add(new Triplet<DropType, int, int>(type, idx, amt));
-            else
-                dungeonData.dropList.Insert(middle, new Triplet<DropType, int, int>(type, idx, amt));
-        }
-
-        int Compare(DropType type, int idx, Triplet<DropType, int, int> o2)
-        {
-            int ret = type.CompareTo(o2.first);
-            if (ret == 0)
-                ret = idx.CompareTo(o2.second);
-
-            return ret;
         }
     }
 }
 ///<summary> 던전 진행 정보 저장용 </summary>
 public class DungeonData
 {
-    ///<summary> 던전 맵 스크롤 </summary>
-    public double mapScroll;
 
+    #region PositionData
+    ///<summary> 던전 맵 스크롤, 전투 후 로드 시 스크롤 상태 불러옴 </summary>
+    public double mapScroll;
     ///<summary> 전투 방 번호, 이벤트 번호, 돌발퀘 번호 </summary>
     public int currRoomEvent;
     ///<summary> 던전 맵에서 현재 위치 </summary>
     public int[] currPos;
     ///<summary> 던전 정보 </summary>
     public Dungeon currDungeon;
+    #endregion PositionData
 
+    #region BattleData
     ///<summary> 현재 체력 </summary>
     public int currHP;
     ///<summary> 4 매드사이언티스트 골렘 체력 </summary>
@@ -203,14 +188,23 @@ public class DungeonData
     public int druidRevive;
     ///<summary> 포션 사용 여부 </summary>
     public bool[] potionUse = new bool[2];
+    #endregion BattleData
 
+    #region EventData
     ///<summary> 이벤트로 발생한 버프 </summary>
     public List<DungeonBuff> dungeonBuffs = new List<DungeonBuff>();
     ///<summary> 이벤트로 발생한 디버프 </summary>
     public List<DungeonBuff> dungeonDebuffs = new List<DungeonBuff>();
+    #endregion EventData
 
+    #region DropData
     ///<summary> 드롭된 아이템들 정보 </summary>
     public List<Triplet<DropType, int, int>> dropList = new List<Triplet<DropType, int, int>>();
+    ///<summary> 드롭된 경험치 정보 </summary>
+    public int dropExp = 0;
+    ///<summary> 이번 던전에서 레벨업 여부, 보고서 표시용 </summary>
+    public bool isLvlUp = false;
+    #endregion DropData
 
     ///<summary> 로드를 위한 빈 생성자 </summary>
     public DungeonData() { }

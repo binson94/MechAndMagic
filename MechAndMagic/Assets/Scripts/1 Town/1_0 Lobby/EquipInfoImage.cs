@@ -10,7 +10,7 @@ public class EquipInfoImage : MonoBehaviour
     [SerializeField] Text lvTxt;
 
     ///<summary> 장비 정보 이미지 세팅, 장착 장비 없으면 lv 0으로 전달 </summary>
-    public void SetImage(Sprite frame, Sprite icon, int lv)
+    public void SetImage(Sprite frame, int lv)
     {
         frameImage.sprite = frame;
 
@@ -21,7 +21,7 @@ public class EquipInfoImage : MonoBehaviour
         }
         else
         {
-            iconImage.sprite = icon;
+            iconImage.sprite = Resources.Load<Sprite>("Sprites/Item/Equipment/거대포1");
             iconImage.gameObject.SetActive(true);
             lvTxt.text = $"Lv.{lv}";
             lvTxt.gameObject.SetActive(true);
