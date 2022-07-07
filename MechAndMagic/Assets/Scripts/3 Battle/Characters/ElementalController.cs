@@ -153,10 +153,10 @@ public class ElementalController : Character
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -204,7 +204,7 @@ public class ElementalController : Character
 
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -212,14 +212,14 @@ public class ElementalController : Character
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
 
@@ -227,29 +227,29 @@ public class ElementalController : Character
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         BM.SummonElemental(this, skill.category);
                         break;
                     }
-                case SkillType.CharSpecial2:
+                case EffectType.CharSpecial2:
                     {
                         BM.UpgradeElemental(this, skill.category);
                         break;
                     }
-                case SkillType.CharSpecial3:
+                case EffectType.CharSpecial3:
                     {
                         int type = BM.SacrificeElemental(this, skill);
                         switch (type)
@@ -384,9 +384,9 @@ public class ElementalController : Character
                         break;
                 }
 
-                switch ((SkillType)s.effectType[i])
+                switch ((EffectType)s.effectType[i])
                 {
-                    case SkillType.Passive_HasSkillBuff:
+                    case EffectType.Passive_HasSkillBuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
@@ -397,20 +397,20 @@ public class ElementalController : Character
                                         u.AddBuff(this, -1, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_HasSkillDebuff:
+                    case EffectType.Passive_HasSkillDebuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddDebuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalBuff:
+                    case EffectType.Passive_EternalBuff:
                         {
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalDebuff:
+                    case EffectType.Passive_EternalDebuff:
                         {
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, -2, s, i, 0);

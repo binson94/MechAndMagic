@@ -152,10 +152,10 @@ public class Monster : Unit
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             rate = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -194,7 +194,7 @@ public class Monster : Unit
 
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = buffStat[skill.effectStat[i]] * skill.effectRate[i];
 
@@ -202,33 +202,33 @@ public class Monster : Unit
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach(Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, rate);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, orderIdx, skill, i, rate);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         //저주 지속 시간 증가
                         foreach (Unit u in damaged)
@@ -237,7 +237,7 @@ public class Monster : Unit
                                     b.duration++;
                         break;
                     }
-                case SkillType.CharSpecial2:
+                case EffectType.CharSpecial2:
                     {
                         //저주 있는 대상 저주 한번 더
                         foreach (Unit u in damaged)

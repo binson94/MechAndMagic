@@ -5,78 +5,35 @@ using UnityEngine.Audio;
 
 public enum BGM
 {
-    Title = 1, Intro, Town1, Town2, Battle1, Battle2, Battle3, Battle4, Boss
+    Title = 1, Intro, Town1, Town2, Battle1, Battle2, Battle3, Battle4, Boss1, Boss2, Boss3, End
 }
 
 public class SoundManager : MonoBehaviour
 {
-    static GameObject container;
     static SoundManager _instance = null;
-    public static SoundManager instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                container = new GameObject();
-                container.name = "SoundManager";
-                _instance = container.AddComponent<SoundManager>();
+    public static SoundManager instance {get {return _instance;}}
 
-                MakeAudioSource();
-                LoadResources();
-                _instance.LoadOption();
+    [SerializeField] AudioMixer mixer;
+    [SerializeField] AudioSource BGM;
+    [SerializeField] AudioSource SFX;
 
-                container.transform.SetParent(GameManager.instance.transform);
-            }
-
-            return _instance;
-        }
-    }
-
-    static AudioMixer mixer;
-    static AudioSource BGM;
-    static AudioSource SFX;
-
-    static AudioClip[] mechBgms = new AudioClip[13];
-    static AudioClip[] magicBgms = new AudioClip[13];
-    static AudioClip[] sfxs = new AudioClip[24];
-
-    ///<summary> BGM, SFX Audio Source 생성 </summary>
-    static void MakeAudioSource()
-    {
-        mixer = Resources.Load<AudioMixer>("Sounds/AudioMixer");
-
-        GameObject tmp = new GameObject();
-        tmp.name = "BGM";
-        BGM = tmp.AddComponent(typeof(AudioSource)) as AudioSource;
-        BGM.playOnAwake = false;
-        BGM.loop = true;
-        BGM.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
-        tmp.transform.SetParent(container.transform);
-
-        tmp = new GameObject();
-        tmp.name = "SFX";
-        SFX = tmp.AddComponent(typeof(AudioSource)) as AudioSource;
-        SFX.playOnAwake = false;
-        SFX.loop = false;
-        SFX.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
-        tmp.transform.SetParent(container.transform);
-    }
-    ///<summary> BGM, SFX 파일 불러옴 </summary>
-    static void LoadResources()
-    {
-        mechBgms[1] = magicBgms[1] = Resources.Load<AudioClip>("Sounds/BGM/1_BGM");
-        for(int i = 2;i <= 12;i++)
-        {
-            mechBgms[i] = Resources.Load<AudioClip>($"Sounds/BGM/{i}_BGM_Mech");
-            magicBgms[i] = Resources.Load<AudioClip>($"Sounds/BGM/{i}_BGM_Magic");
-        }
-
-        for(int i = 1;i <= 23;i++)
-            Resources.Load<AudioClip>($"Sounds/SFX/{i}_SFX");
-    }
+    [SerializeField] AudioClip[] mechBgms = new AudioClip[13];
+    [SerializeField] AudioClip[] magicBgms = new AudioClip[13];
+    [SerializeField] AudioClip[] sfxs = new AudioClip[24];
 
     public Option option;
+
+    private void Awake() 
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+            LoadOption();
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
 
     public void BGMSet(float val)
     {

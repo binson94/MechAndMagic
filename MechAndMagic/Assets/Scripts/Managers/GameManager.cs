@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
                 
                 _instance = container.AddComponent<GameManager>();
 
+                LoadBasicStat();
                 ItemManager.LoadData();
                 SkillManager.LoadData();
                 QuestManager.LoadData();
@@ -28,6 +30,31 @@ public class GameManager : MonoBehaviour
 
             return _instance;
         }
+    }
+
+    public static int[] baseStats = new int[13];
+    public static int[] reqExp = new int[10];
+    static void LoadBasicStat()
+    {
+
+        baseStats[0] = 1;
+        baseStats[1] = baseStats[2] = 40;
+        baseStats[3] = baseStats[4] = 6;
+        baseStats[5] = 5;
+        baseStats[7] = 70;
+
+        baseStats[10] = 150;
+        baseStats[12] = 5;
+
+        reqExp[1] = 100;
+        reqExp[2] = 200;
+        reqExp[3] = 400;
+        reqExp[4] = 600;
+        reqExp[5] = 900;
+        reqExp[6] = 1200;
+        reqExp[7] = 1600;
+        reqExp[8] = 2000;
+        reqExp[9] = 2500;
     }
 
     public const int SLOTMAX = 4;
@@ -102,9 +129,9 @@ public class GameManager : MonoBehaviour
 
     #region Event
     ///<summary> 긍정 이벤트 - 경험치 획득 </summary>
-    public void EventGetExp(float rate) => GetExp(Mathf.RoundToInt(SlotData.reqExp[slotData.lvl] * rate / 100f));
+    public void EventGetExp(float rate) => GetExp(Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
     ///<summary> 부정 이벤트 - 경험치 손실 </summary>
-    public void EventLoseExp(float rate) => slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(SlotData.reqExp[slotData.lvl] * rate / 100f));
+    public void EventLoseExp(float rate) => slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
     ///<summary> 긍정 이벤트 - 회복 </summary>
     public void EventGetHeal(float rate)
     {
@@ -153,6 +180,13 @@ public class GameManager : MonoBehaviour
     }
     #endregion Event
     #endregion Dungeon
+
+    public void LoadScene(SceneKind kind)
+    {
+        if(kind == SceneKind.Title) SceneManager.LoadScene(0);
+        else if(slotData == null) SceneManager.LoadScene((int)kind);
+        else SceneManager.LoadScene((int)kind + (slotData.region / 11) * 4);
+    }
 
     public static string ObjToHex<T>(T obj)
     {

@@ -55,9 +55,9 @@ public class EquipInfoPanel : MonoBehaviour
             itemTxts[4].text = string.Empty;
             for(int i = 0;i < e.commonStatValue.Count;i++)
                 itemTxts[4].text += $"{e.commonStatValue[i].Key}\t+{e.commonStatValue[i].Value}\n";
-
-            gridImage.sprite = Resources.Load<Sprite>($"Sprites/Item/Grid/Grid_{(int)e.ebp.rarity}");
-            iconImage.sprite = Resources.Load<Sprite>("Sprites/Item/Equipment/거대포1");
+            
+            gridImage.sprite = SpriteGetter.instance.GetGrid(e.ebp.rarity);
+            iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e);
             gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);
         }
         else
@@ -67,15 +67,36 @@ public class EquipInfoPanel : MonoBehaviour
         }
     }
 
-    public void InfoUpdate(Skillbook s)
+    public void InfoUpdate(Skillbook skillbook)
     {
-        if (s != null)
-            itemTxts[0].text = string.Concat("교본 : ", SkillManager.GetSkill(GameManager.instance.slotData.slotClass, s.idx).name);
+        foreach(Text t in itemTxts) t.text = string.Empty;
+        Skill skill = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.idx);
+        if (skill != null)
+        {
+            itemTxts[0].text = $"교본 : {skill.name}";
+            gridImage.sprite = SpriteGetter.instance.GetGrid((Rarity)(skill.reqLvl / 2 + 1));
+            iconImage.sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
+            gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            gridImage.gameObject.SetActive(false); iconImage.gameObject.SetActive(false);
+        }
     }
 
     public void InfoUpdate(EquipBluePrint ebp)
     {
+        foreach(Text t in itemTxts) t.text = string.Empty;
         if (ebp != null)
-            itemTxts[0].text = ebp.name;
+        {
+            itemTxts[0].text = $"제작법 : {ebp.name}";
+            gridImage.sprite = SpriteGetter.instance.GetGrid(ebp.rarity);
+            iconImage.sprite = SpriteGetter.instance.GetRecipeIcon();
+            gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            gridImage.gameObject.SetActive(false); iconImage.gameObject.SetActive(false);
+        }
     }
 }

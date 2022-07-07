@@ -28,7 +28,7 @@ public class SkillInfoPanel : MonoBehaviour
         }
         else
         {
-            iconImage.sprite = Resources.Load<Sprite>($"Sprites/SkillIcon/icon_{s.icon}");
+            iconImage.sprite =  SpriteGetter.instance.GetSkillIcon(s.icon);
             iconImage.gameObject.SetActive(true);
 
             skillInfoTxts[0].text = s.name;

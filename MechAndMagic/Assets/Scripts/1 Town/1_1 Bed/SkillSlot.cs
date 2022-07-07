@@ -29,7 +29,7 @@ public class SkillSlot : MonoBehaviour
         }
         else
         {
-            iconImage.sprite = Resources.Load<Sprite>($"Sprites/SkillIcon/icon_{skillIcon}");
+            iconImage.sprite = SpriteGetter.instance.GetSkillIcon(skillIcon);
             iconImage.gameObject.SetActive(true);
             lvlTxt.text = $"Lv.{lvl}";
             baseFrame.SetActive(true);

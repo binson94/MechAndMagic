@@ -17,6 +17,7 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
     [SerializeField] RectTransform poolParent;
 
     [SerializeField] Sprite[] dungeonFrameSprites;
+    [SerializeField] Sprite[] dungeonIconSprites;
 
     [SerializeField] GameObject namePrefab;
     Queue<DungeonSelectToken> dungeonBtnPool = new Queue<DungeonSelectToken>();
@@ -60,7 +61,7 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
 
             //이름 토큰
             dungeonBtnTokens.Insert(0, GameManager.GetToken(dungeonBtnPool, tokenParent, namePrefab));
-            dungeonBtnTokens[0].SetData(i, json, dungeonFrameSprites[(int)json[i]["main"]], this);
+            dungeonBtnTokens[0].SetData(i, json, dungeonIconSprites[(int)json[i]["icon"] - 1],dungeonFrameSprites[(int)json[i]["main"]],  this);
             dungeonBtnTokens[0].gameObject.SetActive(true);
 
             //설명 토큰

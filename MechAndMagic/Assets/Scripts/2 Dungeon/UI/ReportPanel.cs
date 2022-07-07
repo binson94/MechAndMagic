@@ -54,7 +54,7 @@ public class ReportPanel : MonoBehaviour
     ///<summary> 경험치 획득 정보 불러오기 </summary>
     void LoadExpData()
     {
-        expSlider.value = (float)GameManager.instance.slotData.exp / SlotData.reqExp[GameManager.instance.slotData.lvl];
+        expSlider.value = (float)GameManager.instance.slotData.exp / GameManager.reqExp[GameManager.instance.slotData.lvl];
         expTxt.text =$"+ {GameManager.instance.slotData.dungeonData.dropExp} exp";
         lvlUpTxt.SetActive(GameManager.instance.slotData.dungeonData.isLvlUp);
     }
@@ -65,6 +65,6 @@ public class ReportPanel : MonoBehaviour
     }
 
     ///<summary> 마을로 돌아가기 버튼 </summary>
-    public void Btn_GoToTown() => UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Town);
+    public void Btn_GoToTown() => GameManager.instance.LoadScene(SceneKind.Town);
     
 }

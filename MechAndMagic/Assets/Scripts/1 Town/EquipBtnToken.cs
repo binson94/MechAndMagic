@@ -9,7 +9,7 @@ public class EquipBtnToken : MonoBehaviour
     SmithPanel SM;
     BedItemPanel BM;
     [SerializeField] Button[] btns;
-    [SerializeField] Text[] txts;
+    [SerializeField] Image[] icons;
 
     #region TokenData
     ///<summary> 0: equip, 1 : blueprint, 2 : skillbook </summary>
@@ -31,12 +31,13 @@ public class EquipBtnToken : MonoBehaviour
         {
             equipPosIdxs[i] = p[i].Key;
             equipments[i] = p[i].Value;
-            txts[i].text = string.Concat("idx : ", equipPosIdxs[i]);
-            btns[i].gameObject.SetActive(true);
+            icons[i].sprite = SpriteGetter.instance.GetEquipIcon(p[i].Value);
+            btns[i].image.sprite = SpriteGetter.instance.GetGrid(p[i].Value.ebp.rarity);
+            icons[i].gameObject.SetActive(true);
         }
 
         for (; i < 4; i++)
-            btns[i].gameObject.SetActive(false);
+            icons[i].gameObject.SetActive(false);
     }
     public void Init(SmithPanel s, List<KeyValuePair<int, EquipBluePrint>> p)
     {
@@ -49,12 +50,13 @@ public class EquipBtnToken : MonoBehaviour
         {
             equipPosIdxs[i] = p[i].Key;
             ebps[i] = p[i].Value;
-            txts[i].text = string.Concat("idx : ", equipPosIdxs[i]);
-            btns[i].gameObject.SetActive(true);
+            icons[i].sprite = SpriteGetter.instance.GetRecipeIcon();
+            btns[i].image.sprite = SpriteGetter.instance.GetGrid(p[i].Value.rarity);
+            icons[i].gameObject.SetActive(true);
         }
 
         for (; i < 4; i++)
-            btns[i].gameObject.SetActive(false);
+            icons[i].gameObject.SetActive(false);
     }
     public void Init(SmithPanel s, List<KeyValuePair<int, Skillbook>> p)
     {
@@ -65,14 +67,17 @@ public class EquipBtnToken : MonoBehaviour
 
         for (; i < p.Count; i++)
         {
+            Skill skill = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, p[i].Value.idx);
+
             equipPosIdxs[i] = p[i].Key;
             sbooks[i] = p[i].Value;
-            txts[i].text = string.Concat("idx : ", equipPosIdxs[i]);
-            btns[i].gameObject.SetActive(true);
+            icons[i].sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
+            btns[i].image.sprite = SpriteGetter.instance.GetGrid((Rarity)(skill.reqLvl / 2 + 1));
+            icons[i].gameObject.SetActive(true);
         }
 
         for (; i < 4; i++)
-            btns[i].gameObject.SetActive(false);
+            icons[i].gameObject.SetActive(false);
     }
 
     public void Init(BedItemPanel b, List<KeyValuePair<int, Equipment>> p)
@@ -85,12 +90,13 @@ public class EquipBtnToken : MonoBehaviour
         {
             equipPosIdxs[i] = p[i].Key;
             equipments[i] = p[i].Value;
-            txts[i].text = string.Concat("idx : ", equipPosIdxs[i]);
-            btns[i].gameObject.SetActive(true);
+            icons[i].sprite = SpriteGetter.instance.GetEquipIcon(p[i].Value);
+            btns[i].image.sprite = SpriteGetter.instance.GetGrid(p[i].Value.ebp.rarity);
+            icons[i].gameObject.SetActive(true);
         }
 
         for (; i < 4; i++)
-            btns[i].gameObject.SetActive(false);
+            icons[i].gameObject.SetActive(false);
     }
 
     public void Btn_Equip(int idx)

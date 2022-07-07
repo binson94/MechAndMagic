@@ -133,10 +133,10 @@ public class MetalKnight : Character
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -201,7 +201,7 @@ public class MetalKnight : Character
                         
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -209,33 +209,33 @@ public class MetalKnight : Character
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         //철벽 2세트 - 막기 버프 방어력 상승량 증가
                         float rate = skill.effectRate[0] * (1 + ItemManager.GetSetData(4).Value[0]);
@@ -243,7 +243,7 @@ public class MetalKnight : Character
                         guardBuffList.Add(new GuardBuff(skill.name, skill.effectTurn[i], skill.idx == 78, skill.effectObject[i], rate, skill.effectCalc[i] == 1));
                         break;
                     }
-                case SkillType.CharSpecial2:
+                case EffectType.CharSpecial2:
                     {
                         //표식 부여
                         if(isAcc)
@@ -307,29 +307,29 @@ public class MetalKnight : Character
                         break;
                 }
 
-                switch ((SkillType)s.effectType[i])
+                switch ((EffectType)s.effectType[i])
                 {
-                    case SkillType.Passive_HasSkillBuff:
+                    case EffectType.Passive_HasSkillBuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_HasSkillDebuff:
+                    case EffectType.Passive_HasSkillDebuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddDebuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalBuff:
+                    case EffectType.Passive_EternalBuff:
                         {
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalDebuff:
+                    case EffectType.Passive_EternalDebuff:
                         {
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, -2, s, i, 0);
@@ -367,14 +367,14 @@ public class MetalKnight : Character
                 if (active.category != 0 && active.category != skill.effectCond[i])
                     continue;
 
-                switch ((SkillType)skill.effectType[i])
+                switch ((EffectType)skill.effectType[i])
                 {
-                    case SkillType.Passive_CastBuff:
+                    case EffectType.Passive_CastBuff:
                         {
                             AddBuff(this, orderIdx, skill, i, 0);
                             break;
                         }
-                    case SkillType.Passive_CastDebuff:
+                    case EffectType.Passive_CastDebuff:
                         {
                             AddDebuff(this, orderIdx, skill, i, 0);
                             break;
@@ -404,12 +404,12 @@ public class MetalKnight : Character
             }
             for (int j = 0; j < s.effectCount; j++)
             {
-                switch ((SkillType)s.effectType[j])
+                switch ((EffectType)s.effectType[j])
                 {
-                    case SkillType.Passive_CritHitBuff:
+                    case EffectType.Passive_CritHitBuff:
                         AddBuff(this, orderIdx, s, j, 0);
                         break;
-                    case SkillType.Passive_CritHitDebuff:
+                    case EffectType.Passive_CritHitDebuff:
                         AddDebuff(this, orderIdx, s, j, 0);
                         break;
                 }

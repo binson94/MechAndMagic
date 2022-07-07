@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TownState
-{
-    Lobby, Bed, Dungeon, Smith, Script
-}
 
 public interface ITownPanel
 {
@@ -15,6 +11,8 @@ public interface ITownPanel
 
 public class TownManager : MonoBehaviour
 {
+    enum TownState { Lobby, Bed, Dungeon, Smith, Script }
+    
     ///<summary> 자식 캔버스들(Lobby, Bed, Dungeon, Smith, Script), 인스펙터 할당 </summary>
     [SerializeField] GameObject[] uiPanels;
     ///<summary> uiPanels에서 GetComponent로 얻음 </summary>
@@ -131,9 +129,9 @@ public class TownManager : MonoBehaviour
         {
             Equipment e = GameManager.instance.slotData.itemData.equipmentSlots[i + 1];
             if(e == null)
-                equipInfos[i].SetImage(equipFrameSprites[0], 0);
+                equipInfos[i].SetImage(equipFrameSprites[0], e);
             else
-                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], e.ebp.reqlvl);
+                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], e);
             
         }
     }
@@ -158,7 +156,7 @@ public class TownManager : MonoBehaviour
     public void Btn_GoToTitle()
     {
         GameManager.instance.slotData = null; 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        GameManager.instance.LoadScene(SceneKind.Title);
     }
     public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
     public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);

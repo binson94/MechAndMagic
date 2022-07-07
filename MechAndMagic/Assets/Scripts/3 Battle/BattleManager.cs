@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, EnemyTurn, Win, Lose }
-
-
-
 ///<summary> 전투 제어 클래스 </summary>
 public class BattleManager : MonoBehaviour
 {
+    enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, EnemyTurn, Win, Lose }
+
     #region Variables
     BattleState state;
 
@@ -50,6 +48,8 @@ public class BattleManager : MonoBehaviour
     ///<summary> 체력 및 이름 표시 UI, 0 플레이어, 1 ~ 3 적 </summary>
     [Header("Unit Status")]
     [SerializeField] Status[] unitStatus;
+    ///<summary> 적 일러스트 </summary>
+    [SerializeField] Image[] enemyIilusts;
     ///<summary> 캐릭터들의 TP 표시 </summary>
     [SerializeField] TPSlider tpBars;
     ///<summary> 플레이어 AP 표시 UI </summary>
@@ -148,7 +148,7 @@ public class BattleManager : MonoBehaviour
                 mon.monsterIdx = roomInfo.monsterIdx[i];
                 allChars[i + 2] = mon;
             }
-            for (; i < 3; i++) { allChars[i + 2] = dummyUnit; unitStatus[i + 1].gameObject.SetActive(false); }
+            for (; i < 3; i++) { allChars[i + 2] = dummyUnit; unitStatus[i + 1].gameObject.SetActive(false); enemyIilusts[i].gameObject.SetActive(false); }
         }
     void LoadDungeonBuff()
     {
@@ -606,6 +606,8 @@ public class BattleManager : MonoBehaviour
         foreach (SkillButton s in skillBtns)
             s.Highlight(false);
 
+        foreach(Text t in skillTxts) t.text = string.Empty;
+
         isBoth = false;
         isMinus = 0;
         targetIdxs.Clear();
@@ -768,7 +770,12 @@ public class BattleManager : MonoBehaviour
     #region Function_BattleEnd
     bool IsWin()
     {
-        foreach (Unit u in allChars) if (u.buffStat[(int)Obj.currHP] <= 0 || u.classIdx == 0) u.gameObject.SetActive(false);
+        for(int i = 2;i < 5;i ++) 
+        if (allChars[i].buffStat[(int)Obj.currHP] <= 0 || allChars[i].classIdx == 0) 
+            {
+                allChars[i].gameObject.SetActive(false);
+                enemyIilusts[i - 2].gameObject.SetActive(false);
+            }
 
         for (int i = 2; i < 5; i++) if (allChars[i].isActiveAndEnabled) return false;
         return true;
@@ -840,7 +847,7 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.SwitchSceneData(SceneKind.Town);
     }
     ///<summary> 방 승리 -> 던전으로 돌아가기 </summary>
-    public void Btn_BackToMap() => UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Dungeon);
+    public void Btn_BackToMap() => GameManager.instance.LoadScene(SceneKind.Dungeon);
     
     #endregion
 

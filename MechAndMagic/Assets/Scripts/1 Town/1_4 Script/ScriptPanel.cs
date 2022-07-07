@@ -52,6 +52,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     Coroutine proceedDialog;
     #endregion Dialog
 
+    void Start() => charIllusts[0].sprite = playerSprites[GameManager.instance.slotData.slotClass];
+
     //최초 상태로 되돌리기
     public void ResetAllState()
     {

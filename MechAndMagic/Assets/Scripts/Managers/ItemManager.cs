@@ -194,7 +194,7 @@ public class ItemManager : MonoBehaviour
 
         for (int i = 1; i < 13; i++)
         {
-            GameManager.instance.slotData.itemStats[i] = SlotData.baseStats[i] + addPivots[i];
+            GameManager.instance.slotData.itemStats[i] = GameManager.baseStats[i] + addPivots[i];
         }
         GameManager.instance.slotData.itemStats[1] = GameManager.instance.slotData.itemStats[2];
         GameManager.instance.slotData.itemStats[3] = GameManager.instance.slotData.itemStats[4];

@@ -398,8 +398,8 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         classTxt.text = GameManager.instance.slotData.className;
 
         statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
-        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {SlotData.reqExp[GameManager.instance.slotData.lvl]}";
-        expSlider.value = GameManager.instance.slotData.exp / (float)SlotData.reqExp[GameManager.instance.slotData.lvl];
+        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[GameManager.instance.slotData.lvl]}";
+        expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[GameManager.instance.slotData.lvl];
         int i, j;
         for (i = j = 2; i < 13; i++, j++)
         {

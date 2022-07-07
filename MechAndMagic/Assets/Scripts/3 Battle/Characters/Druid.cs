@@ -181,7 +181,7 @@ public class Druid : Character
         if (set.Value[2] > 0 && (skill.idx == 248 || skill.idx == 250))
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRC, 1, 999, 0, -1));
         //252 자연재해 - 디버프 스킬 사용 시 생명력 회복
-        if (HasSkill(252) && skill.effectType.Any(x => x == (int)SkillType.Active_Debuff))
+        if (HasSkill(252) && skill.effectType.Any(x => x == (int)EffectType.Active_Debuff))
             HealVitality((int)SkillManager.GetSkill(6, 252).effectRate[0]);
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
@@ -224,10 +224,10 @@ public class Druid : Character
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -288,7 +288,7 @@ public class Druid : Character
 
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -296,45 +296,45 @@ public class Druid : Character
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         //생명력 소모
                         SpendVitality((int)skill.effectRate[i]);
                         break;
                     }
-                case SkillType.CharSpecial2:
+                case EffectType.CharSpecial2:
                     {
                         //생명력 회복
                         HealVitality((int)skill.effectRate[i]);
                         break;
                     }
-                case SkillType.CharSpecial3:
+                case EffectType.CharSpecial3:
                     {
                         //강화 가능 속도 감소 디버프
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)

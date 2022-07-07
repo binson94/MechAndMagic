@@ -104,7 +104,7 @@ public class MagicalRogue : Character
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        if (skill.effectType.Any(x => x == (int)SkillType.CharSpecial2))
+        if (skill.effectType.Any(x => x == (int)EffectType.CharSpecial2))
             buffStat[(int)Obj.currAP] += 2;
 
         cooldowns[idx] = skill.cooldown;
@@ -172,10 +172,10 @@ public class MagicalRogue : Character
                 effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -228,7 +228,7 @@ public class MagicalRogue : Character
 
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -236,39 +236,39 @@ public class MagicalRogue : Character
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         //TP 감소
                         BM.ReduceTP(effectTargets, Mathf.RoundToInt(skill.effectRate[i]));
                         return;
                     }
-                case SkillType.CharSpecial3:
+                case EffectType.CharSpecial3:
                     {
                         Unit u = effectTargets[0];
 
@@ -367,9 +367,9 @@ public class MagicalRogue : Character
                 if (active.category != 0 && active.category != skill.effectCond[i])
                     continue;
 
-                switch ((SkillType)skill.effectType[i])
+                switch ((EffectType)skill.effectType[i])
                 {
-                    case SkillType.Passive_CastBuff:
+                    case EffectType.Passive_CastBuff:
                         {
                             if (skill.idx == 317 || skill.idx == 325 || skill.idx == 333 || skill.idx == 349)
                                 turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[i], skill.effectStat[i], skill.effectRate[i] * (1 + set.Value[1]), skill.effectCalc[i], skill.effectTurn[i], skill.effectDispel[i], skill.effectVisible[i]));
@@ -377,7 +377,7 @@ public class MagicalRogue : Character
                                 AddBuff(this, orderIdx, skill, i, 0);
                             break;
                         }
-                    case SkillType.Passive_CastDebuff:
+                    case EffectType.Passive_CastDebuff:
                         {
                             AddDebuff(this, orderIdx, skill, i, 0);
                             break;

@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TitleState
-{
-    Title, SlotSelect, ClassSelect, ClassInfo, Option
-}
-
 public class TitleManager : MonoBehaviour
 {
+    enum TitleState { Title, SlotSelect, ClassSelect, ClassInfo, Option }
+    
     [Header("UI")]
     ///<summary> 0 Title, 1 SlotSelect, 2ClassSelect, 3 ClassInfo, 4 Option </summary>
     [SerializeField] GameObject[] uiPanels;
@@ -77,7 +74,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_LoadSlot(int slot)
     {
         GameManager.instance.LoadSlotData(slot);
-        UnityEngine.SceneManagement.SceneManager.LoadScene((int)GameManager.instance.slotData.nowScene);
+        GameManager.instance.LoadScene(GameManager.instance.slotData.nowScene);
     }
 
     #region start_New
@@ -109,7 +106,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_ConfirmClassSelect()
     {
         GameManager.instance.CreateNewSlot(currSlot, currClass);
-        UnityEngine.SceneManagement.SceneManager.LoadScene((int)SceneKind.Town);
+        GameManager.instance.LoadScene(SceneKind.Town);
     }
     ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>
     public void Btn_CancelClassSelect()

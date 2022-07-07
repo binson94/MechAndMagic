@@ -17,7 +17,7 @@ public class PotionInfoPanel : MonoBehaviour
             potionNameTxt.text = potion.name;
             potionScriptTxt.text = potion.script;
 
-            potionIcon.sprite = Resources.Load<Sprite>($"Sprites/Item/Potion/potion{potionIdx}");
+            potionIcon.sprite = SpriteGetter.instance.GetPotionIcon(potionIdx);
             potionIcon.gameObject.SetActive(true);
         }
         else

@@ -27,12 +27,12 @@ public class DungeonSelectToken : MonoBehaviour
     [SerializeField] GameObject startBtn;
     DungeonPanel mgr;
 
-    public void SetData(int jsonIdx, LitJson.JsonData json, Sprite frameSprite, DungeonPanel m)
+    public void SetData(int jsonIdx, LitJson.JsonData json, Sprite iconSprite, Sprite frameSprite, DungeonPanel m)
     {
         mgr = m;
         this.jsonIdx = jsonIdx;
 
-        dungeonIconImage.sprite = Resources.Load<Sprite>($"Sprites/DungeonIcon/icon_{this.jsonIdx + 1}");
+        dungeonIconImage.sprite = iconSprite;
         dungeonFrameImage.sprite = frameSprite;
 
         int tmp;

@@ -159,10 +159,10 @@ public class MadScientist : Character
                 effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -207,7 +207,7 @@ public class MadScientist : Character
 
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -221,7 +221,7 @@ public class MadScientist : Character
                         }
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
@@ -232,7 +232,7 @@ public class MadScientist : Character
                                     u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
@@ -243,19 +243,19 @@ public class MadScientist : Character
                                     u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         //골렘 조종 스킬
                         BM.GolemControl(new KeyValuePair<int, List<Unit>>((int)skill.effectRate[i], selects));
@@ -310,29 +310,29 @@ public class MadScientist : Character
                     turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
                     continue;
                 }
-                switch ((SkillType)s.effectType[i])
+                switch ((EffectType)s.effectType[i])
                 {
-                    case SkillType.Passive_HasSkillBuff:
+                    case EffectType.Passive_HasSkillBuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_HasSkillDebuff:
+                    case EffectType.Passive_HasSkillDebuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddDebuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalBuff:
+                    case EffectType.Passive_EternalBuff:
                         {
                                 foreach (Unit u in effectTargets)
                                     u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalDebuff:
+                    case EffectType.Passive_EternalDebuff:
                         {
                                 foreach (Unit u in effectTargets)
                                     u.AddDebuff(this, -2, s, i, 0);

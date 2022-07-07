@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public enum BuffType
-{
-    None, Stat, AP
-}
-
 public class BuffOrder
 {
     public Unit caster;

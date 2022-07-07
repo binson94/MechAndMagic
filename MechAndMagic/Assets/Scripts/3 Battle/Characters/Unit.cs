@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-//스텟 index - 12가지
-public enum Obj { None, currHP, HP, currAP, AP, 공격력, DEF, ACC, DOG, CRC, CRB, PEN, SPD, 
-    Stun, GetDmg, GiveDmg, LossPer, CurrPer, BuffCnt, DebuffCnt, MaxHP, Bleed, Burn, Cannon,
-    Cycle, Curse, Posion, Shield, Bomb, Venom, Ghost, APCost };
-
 public class Unit : MonoBehaviour
 {
     /* #region Variable */
@@ -178,10 +173,10 @@ public class Unit : MonoBehaviour
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
             
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -219,7 +214,7 @@ public class Unit : MonoBehaviour
                         
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -227,27 +222,27 @@ public class Unit : MonoBehaviour
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
@@ -321,12 +316,12 @@ public class Unit : MonoBehaviour
             Skill s = SkillManager.GetSkill(classIdx, passiveIdxs[i]);
             for (int j = 0; j < s.effectCount; j++)
             {
-                switch ((SkillType)s.effectType[j])
+                switch ((EffectType)s.effectType[j])
                 {
-                    case SkillType.Passive_CritHitBuff:
+                    case EffectType.Passive_CritHitBuff:
                         AddBuff(this, orderIdx, s, j, 0);
                         break;
-                    case SkillType.Passive_CritHitDebuff:
+                    case EffectType.Passive_CritHitDebuff:
                         AddDebuff(this, orderIdx, s, j, 0);
                         break;
                 }
@@ -346,14 +341,14 @@ public class Unit : MonoBehaviour
                 if (active.category != 0 && active.category != skill.effectCond[i])
                     continue;
 
-                switch ((SkillType)skill.effectType[i])
+                switch ((EffectType)skill.effectType[i])
                 {
-                    case SkillType.Passive_CastBuff:
+                    case EffectType.Passive_CastBuff:
                         {
                             AddBuff(this, orderIdx, skill, i, 0);
                             break;
                         }
-                    case SkillType.Passive_CastDebuff:
+                    case EffectType.Passive_CastDebuff:
                         {
                             AddDebuff(this, orderIdx, skill, i, 0);
                             break;

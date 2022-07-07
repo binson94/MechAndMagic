@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SkillState
-{
-    CantLearn, CanLearn, Learned, Equip
-}
-
 public class SkillBtnToken : MonoBehaviour
 {
     BedSkillPanel BM;
@@ -68,7 +63,7 @@ public class SkillBtnToken : MonoBehaviour
         }
 
         frameImage.sprite = frame;
-        skillIconImage.sprite = Resources.Load<Sprite>($"Sprites/SkillIcon/icon_{skill.icon}");
+        skillIconImage.sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
 
         skillIdx = skill.idx;
         skillTxts[0].text = skill.name;
@@ -91,7 +86,7 @@ public class SkillBtnToken : MonoBehaviour
         else
         {
             Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillSlotIdx < 6 ? GameManager.instance.slotData.activeSkills[skillSlotIdx] : GameManager.instance.slotData.passiveSkills[skillSlotIdx - 6]);
-            skillIconImage.sprite = Resources.Load<Sprite>($"Sprites/SkillIcon/icon_{s.icon}");
+            skillIconImage.sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
             skillIconImage.gameObject.SetActive(true);
 
             skillTxts[0].text = skill.name;

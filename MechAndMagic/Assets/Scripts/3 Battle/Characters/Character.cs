@@ -194,29 +194,29 @@ public class Character : Unit
                         break;
                 }
 
-                switch ((SkillType)s.effectType[i])
+                switch ((EffectType)s.effectType[i])
                 {
-                    case SkillType.Passive_HasSkillBuff:
+                    case EffectType.Passive_HasSkillBuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_HasSkillDebuff:
+                    case EffectType.Passive_HasSkillDebuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
                                     u.AddDebuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalBuff:
+                    case EffectType.Passive_EternalBuff:
                         {
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, -2, s, i, 0);
                             break;
                         }
-                    case SkillType.Passive_EternalDebuff:
+                    case EffectType.Passive_EternalDebuff:
                         {
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, -2, s, i, 0);

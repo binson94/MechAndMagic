@@ -2,22 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillType
-{
-    //액티브 - 스킬 시전 시 계산
-    Damage = 1, Heal,
-    Active_Buff, Active_Debuff,
-
-    Passive_HasSkillBuff, Passive_HasSkillDebuff,
-
-    Passive_CastBuff, Passive_CastDebuff,
-    Passive_EternalBuff, Passive_EternalDebuff,
-    Passive_CritHitBuff, Passive_CritHitDebuff,
-    Passive_APBuff,
-    Active_RemoveBuff, Active_RemoveDebuff,
-    DoNothing, CharSpecial1, CharSpecial2, CharSpecial3
-}
-
 public class Skill
 {
     [Header("Basic")]

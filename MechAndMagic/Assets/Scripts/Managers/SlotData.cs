@@ -5,7 +5,7 @@ using System.Linq;
 
 public enum SceneKind
 {
-    Town = 1, Dungeon, Battle, Event, Outbreak
+    Title, Town, Dungeon, Battle, Story
 }
 public enum DropType
 {
@@ -27,11 +27,6 @@ public class Triplet<T1, T2, T3>
 ///<summary> 슬롯 데이터 저장용 </summary>
 public class SlotData
 {
-    ///<summary> 불변 기본 스텟 </summary>
-    public static readonly int[] baseStats = new int[13];
-    ///<summary> 불변 경험치 요구량 </summary>
-    public static readonly int[] reqExp = new int[10];
-
     ///<summary> 현재 슬롯의 직업 </summary>
     public int slotClass;
     public string className;
@@ -65,28 +60,6 @@ public class SlotData
     ///<summary> 퀘스트 진행 정보 </summary>
     public QuestData questData;
 
-    ///<summary> 불변 스텟 및 경험치 요구량 로드 </summary>
-    static SlotData()
-    {
-        baseStats[0] = 1;
-        baseStats[1] = baseStats[2] = 40;
-        baseStats[3] = baseStats[4] = 6;
-        baseStats[5] = 5;
-        baseStats[7] = 70;
-
-        baseStats[10] = 150;
-        baseStats[12] = 5;
-
-        reqExp[1] = 100;
-        reqExp[2] = 200;
-        reqExp[3] = 400;
-        reqExp[4] = 600;
-        reqExp[5] = 900;
-        reqExp[6] = 1200;
-        reqExp[7] = 1600;
-        reqExp[8] = 2000;
-        reqExp[9] = 2500;
-    }
     ///<summary> 로드 시 사용할 빈 생성자 </summary>
     public SlotData() { }
     ///<summary> 새 슬롯 생성 시 사용할 생성자 </summary>
@@ -125,7 +98,7 @@ public class SlotData
         chapter = 1;
 
         for (int i = 0; i <= 12; i++)
-            itemStats[i] = baseStats[i];
+            itemStats[i] = GameManager.baseStats[i];
         activeSkills[0] = SkillManager.GetSkillData(classIdx)[0].idx;
 
         nowScene = SceneKind.Town;
@@ -153,9 +126,9 @@ public class SlotData
             if (dungeonData != null)
                 dungeonData.dropExp += amt;
 
-            while (lvl < 10 && exp > SlotData.reqExp[lvl])
+            while (lvl < 10 && exp > GameManager.reqExp[lvl])
             {
-                exp -= SlotData.reqExp[lvl];
+                exp -= GameManager.reqExp[lvl];
                 lvl++;
 
                 if (dungeonData != null)

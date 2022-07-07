@@ -144,10 +144,10 @@ public class Blaster : Character
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
             stat = GetEffectStat(selects, skill.effectStat[i]);
 
-            switch ((SkillType)skill.effectType[i])
+            switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
-                case SkillType.Damage:
+                case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
 
@@ -198,7 +198,7 @@ public class Blaster : Character
 
                         break;
                     }
-                case SkillType.Heal:
+                case EffectType.Heal:
                     {
                         float heal = stat * skill.effectRate[i];
 
@@ -206,21 +206,21 @@ public class Blaster : Character
                             u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
                         break;
                     }
-                case SkillType.Active_Buff:
+                case EffectType.Active_Buff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_Debuff:
+                case EffectType.Active_Debuff:
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case SkillType.Active_RemoveBuff:
+                case EffectType.Active_RemoveBuff:
                     {
                         int count = 0;
                         foreach (Unit u in effectTargets)
@@ -233,25 +233,25 @@ public class Blaster : Character
                         }
                         break;
                     }
-                case SkillType.Active_RemoveDebuff:
+                case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial1:
+                case EffectType.CharSpecial1:
                     {
                         //TP 감소
                         BM.ReduceTP(effectTargets, Mathf.RoundToInt(skill.effectRate[i]));
                         break;
                     }
-                case SkillType.CharSpecial2:
+                case EffectType.CharSpecial2:
                     {
                         //열기 상승
                         GetHeat(skill.effectRate[i]);
                         break;
                     }
-                case SkillType.CharSpecial3:
+                case EffectType.CharSpecial3:
                     {
                         //열기 감소
                         LoseHeat(skill.effectRate[i]);
@@ -285,14 +285,14 @@ public class Blaster : Character
                 if (active.category != 0 && active.category != skill.effectCond[i])
                     continue;
 
-                switch ((SkillType)skill.effectType[i])
+                switch ((EffectType)skill.effectType[i])
                 {
-                    case SkillType.Passive_CastBuff:
+                    case EffectType.Passive_CastBuff:
                         {
                             AddBuff(this, orderIdx, skill, i, 0);
                             break;
                         }
-                    case SkillType.Passive_CastDebuff:
+                    case EffectType.Passive_CastDebuff:
                         {
                             AddDebuff(this, orderIdx, skill, i, 0);
                             break;

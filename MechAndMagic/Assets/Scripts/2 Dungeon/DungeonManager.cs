@@ -172,7 +172,7 @@ public class DungeonManager : MonoBehaviour
         if (type == RoomType.Monster || type == RoomType.Boss)
         {
             GameManager.instance.SwitchSceneData(SceneKind.Battle);
-            SceneManager.LoadScene((int)SceneKind.Battle);
+            GameManager.instance.LoadScene(SceneKind.Battle);
         }
         //돌발 퀘스트 - 다른 돌발퀘스트 방 이벤트로 변경, 퀘스트 수락
         else if (type == RoomType.Quest)

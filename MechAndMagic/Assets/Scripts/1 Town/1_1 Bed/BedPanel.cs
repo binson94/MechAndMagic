@@ -72,8 +72,8 @@ public class BedPanel : MonoBehaviour, ITownPanel
         classTxt.text = GameManager.instance.slotData.className;
         
         statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
-        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {SlotData.reqExp[GameManager.instance.slotData.lvl]}";
-        expSlider.value = GameManager.instance.slotData.exp / (float)SlotData.reqExp[GameManager.instance.slotData.lvl];
+        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[GameManager.instance.slotData.lvl]}";
+        expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[GameManager.instance.slotData.lvl];
 
         int i, j;
         for (i = j = 2; i < 13; i++, j++)
@@ -100,9 +100,9 @@ public class BedPanel : MonoBehaviour, ITownPanel
 
     public void EquipIconUpdate()
     {
-        equipSlotImages[7].sprite = Resources.Load<Sprite>($"Sprites/Item/Potion/Potion{GameManager.instance.slotData.potionSlot[0]}");
+        equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[0]);
         equipSlotImages[7].gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
-        equipSlotImages[8].sprite = Resources.Load<Sprite>($"Sprites/Item/Potion/Potion{GameManager.instance.slotData.potionSlot[1]}");
+        equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[1]);
         equipSlotImages[8].gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
     }
 
