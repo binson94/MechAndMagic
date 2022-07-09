@@ -93,7 +93,7 @@ public class ReportPanel : MonoBehaviour
     public void ShowPopUp(string script, Color txtColor, RectTransform btnRect)
     {
         dropPopup.SetParent(btnRect);
-        dropPopup.anchoredPosition = new Vector2(Mathf.Min(0, 540 - dropPopup.rect.width - btnRect.anchoredPosition.x), -95);
+        dropPopup.anchoredPosition = new Vector2(Mathf.Min(0, 540 - dropPopup.rect.width - btnRect.anchoredPosition.x), +95);
         dropPopup.SetParent(viewPoint);
         popUpTxt.color = txtColor;
         popUpTxt.text = script;
