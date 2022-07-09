@@ -44,24 +44,21 @@ public class EquipBluePrint
         resourceJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/EquipResource").text);
     }
     public EquipBluePrint() { }
-    public EquipBluePrint(int idx)
+    public EquipBluePrint(int jsonIdx)
     {
-        if (idx == 0)
-            return;
-            
-        this.idx = (int)equipJson[idx]["idx"];
-        name = equipJson[idx]["name"].ToString();
-        useClass = (int)equipJson[idx]["class"];
-        part = (EquipPart)(int)equipJson[idx]["part"];
-        category = (int)equipJson[idx]["category"];
-        set = (int)equipJson[idx]["set"];
-        reqlvl = (int)equipJson[idx]["reqlvl"];
-        rarity = (Rarity)(int)equipJson[idx]["rarity"];
-        subStat = (Obj)(int)equipJson[idx]["subStat"];
+        this.idx = (int)equipJson[jsonIdx]["idx"];
+        name = equipJson[jsonIdx]["name"].ToString();
+        useClass = (int)equipJson[jsonIdx]["class"];
+        part = (EquipPart)(int)equipJson[jsonIdx]["part"];
+        category = (int)equipJson[jsonIdx]["category"];
+        set = (int)equipJson[jsonIdx]["set"];
+        reqlvl = (int)equipJson[jsonIdx]["reqlvl"];
+        rarity = (Rarity)(int)equipJson[jsonIdx]["rarity"];
+        subStat = (Obj)(int)equipJson[jsonIdx]["subStat"];
 
         commonStats = new int[3];
         for (int i = 0; i < 3; i++)
-            commonStats[i] = (int)equipJson[idx]["commonStat"][i];
+            commonStats[i] = (int)equipJson[jsonIdx]["commonStat"][i];
 
 
         int resourceIdx = (reqlvl / 2) * 5 + (rarity - Rarity.Common);

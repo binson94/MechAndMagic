@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public enum BGM
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+
+public enum BGMList
 {
-    Title = 1, Intro, Town1, Town2, Battle1, Battle2, Battle3, Battle4, Boss1, Boss2, Boss3, End
+    Title, Intro, Town1 = 3, Town2 = 5, Battle1 = 7, Battle2 = 9, Battle3 = 11, Battle4 = 13,
+    Boss1 = 15, Boss2 = 17, Boss3 = 19, End = 21
 }
 
 public class SoundManager : MonoBehaviour
@@ -17,9 +22,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource BGM;
     [SerializeField] AudioSource SFX;
 
-    [SerializeField] AudioClip[] mechBgms = new AudioClip[13];
-    [SerializeField] AudioClip[] magicBgms = new AudioClip[13];
-    [SerializeField] AudioClip[] sfxs = new AudioClip[24];
+    [SerializeField] List<AudioClip> bgms = new List<AudioClip>();
+    //List<AudioClip> sfxs = new List<AudioClip>();
+    [SerializeField] List<AudioClip> sfxs = new List<AudioClip>();
 
     public Option option;
 
@@ -53,6 +58,8 @@ public class SoundManager : MonoBehaviour
         SaveOption();
     }
 
+    public Task<IList<AudioClip>> LoadBGM() => Addressables.LoadAssetsAsync<AudioClip>("BGM", (result) => {bgms.Add(result);}).Task;
+    public Task<IList<AudioClip>> LoadSFX() => Addressables.LoadAssetsAsync<AudioClip>("SFX", (result) => {sfxs.Add(result);}).Task;
     void LoadOption()
     {
         if (PlayerPrefs.HasKey("Option"))
@@ -67,23 +74,22 @@ public class SoundManager : MonoBehaviour
     void SaveOption() => PlayerPrefs.SetString("Option", LitJson.JsonMapper.ToJson(option));
 
 
-    public void PlayBGM(BGM idx)
+    public void PlayBGM(BGMList idx)
     {
-        AudioClip tmp;
-        if (GameManager.instance.slotData == null)
-            tmp = mechBgms[(int)idx];
-        else
-            tmp = GameManager.instance.slotData.slotClass < 5 ? mechBgms[(int)idx] : magicBgms[(int)idx];
+        int pos = (int)idx;
+        if(GameManager.instance.slotData != null)
+            pos += GameManager.instance.slotData.region == 10 ? 1 : 0;
+        AudioClip clip = bgms[pos];
 
-        if (BGM.clip != tmp)
+        if(BGM.clip != clip)
         {
-            BGM.clip = tmp;
+            BGM.clip = clip;
             BGM.Play();
         }
     }
     public void PlaySFX(int idx)
     {
-        SFX.PlayOneShot(sfxs[idx]);
+        SFX.PlayOneShot(sfxs[Mathf.Max(0, idx - 1)]);
     }
     public int GetTxtSpd() => option.txtSpd;
 }

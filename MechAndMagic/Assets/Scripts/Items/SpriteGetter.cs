@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class SpriteGetter : MonoBehaviour
 {
-    public static SpriteGetter instance;
+    public static SpriteGetter instance = null;
 
     private void Awake() {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 
     ///<summary> 클래스-레벨 순 정렬 </summary>
+    [Header("Equipment")]
     [Tooltip("클래스-레벨 순")]
     [SerializeField] Sprite[] weaponSprites;
     ///<summary> 진영-부위 순 정렬 </summary>
@@ -21,16 +28,38 @@ public class SpriteGetter : MonoBehaviour
     [SerializeField] Sprite[] accessorySprites;
     ///<summary> 장비 그리드 스프라이트 </summary>
     [SerializeField] Sprite[] gridSprites;
+
+    ///<summary> 제작법 스프라이트(0 기계, 1 마법) </summary>
+    [Header("Recipe")]
     [SerializeField] Sprite[] recipeSprites;
 
     ///<summary> 포션 스프라이트 </summary>
+    [Header("Potion")]
     [SerializeField] Sprite[] potionSprites;
+
     ///<summary> 스킬 스프라이트 </summary>
+    [Header("Skill")]
     [SerializeField] Sprite[] skillSprites;
+
+    ///<summary> 24개, 직업 - 상중하 순 </summary>
+    [Header("Resource")]
+    [Tooltip("24개, 직업 - 상중하 순")]
+    [SerializeField] Sprite[] weaponResourceSprites;
+    ///<summary> 6개, 진영 - 상중하 순 </summary>
+    [Tooltip("6개, 진영 - 상중하 순")]
+    [SerializeField] Sprite[] armorResourceSprites;
+    ///<summary> 3개, 상중하 순 </summary>
+    [Tooltip("3개, 상중하 순")]
+    [SerializeField] Sprite[] accessoryResourceSprites;
+    ///<summary> 6개, 진영 - 상중하 순 </summary>
+    [Tooltip("6개, 진영 - 상중하 순")]
+    [SerializeField] Sprite[] commonResourceSprites;
 
     ///<summary> 장비 아이콘 반환 </summary>
     public Sprite GetEquipIcon(Equipment e)
     { 
+        if(e == null) return null;
+        
         if(e.ebp.part <= EquipPart.Weapon)
             return weaponSprites[(e.ebp.useClass - 1) * 5 + (int)e.ebp.reqlvl - 1];
         else if (e.ebp.part <= EquipPart.Shoes)
@@ -38,17 +67,38 @@ public class SpriteGetter : MonoBehaviour
         else
             return accessorySprites[((int)e.ebp.part / 7 * 5) + (int)e.ebp.reqlvl - 1];
     }
+    public Sprite GetEquipIcon(EquipBluePrint ebp)
+    {
+        if(ebp.part <= EquipPart.Weapon)
+            return weaponSprites[(ebp.useClass - 1) * 5 + (int)ebp.reqlvl - 1];
+        else if (ebp.part <= EquipPart.Shoes)
+            return armorSprites[(ebp.useClass / 11 * 4) + (ebp.part - EquipPart.Top)];
+        else
+            return accessorySprites[((int)ebp.part / 7 * 5) + (int)ebp.reqlvl - 1];
+    }
     ///<summary> 아이템 그리드 반환 </summary>
     public Sprite GetGrid(Rarity rarity) => gridSprites[rarity - Rarity.Common];
     ///<summary> 포션 아이콘 반환 </summary>
     public Sprite GetPotionIcon(int potionIdx) => potionSprites[Mathf.Max(0, potionIdx - 1)];
     ///<summary> 스킬 아이콘 반환 </summary>
     public Sprite GetSkillIcon(int iconIdx) => skillSprites[iconIdx - 1];
-
+    ///<summary> 레시피 아이콘 반환 </summary>
     public Sprite GetRecipeIcon() => recipeSprites[GameManager.instance.slotData.region / 11];
-    //public Sprite GetResourceIcon(int resourceIdx)
-    //{
-    //    
-    //    if(resourceIdx <= 6)
-    //}
+    ///<summary> 자원 아이콘 반환 
+    ///<para> 4 ~ 6 : 무기 재화(상중하) </para>
+    ///<para> 7 ~ 9 : 방어구 재화(상중하) </para>
+    ///<para> 10 ~ 12 : 악세서리 재화(상중하) </para>
+    ///<para> 13~15 : 아이템 공통 재화 </para> </summary>
+    public Sprite GetResourceIcon(int resourceIdx)
+    {
+        int pivot = (resourceIdx - 1) % 3;
+        if(resourceIdx <= 6)
+            return weaponResourceSprites[(GameManager.instance.slotData.slotClass - 1) * 3 + pivot];
+        else if(resourceIdx <= 9)
+            return armorResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
+        else if(resourceIdx <= 12)
+            return accessoryResourceSprites[pivot];
+        else
+            return commonResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
+    }
 }

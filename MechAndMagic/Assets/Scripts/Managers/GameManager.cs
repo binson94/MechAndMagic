@@ -89,8 +89,8 @@ public class GameManager : MonoBehaviour
     ///<summary> 던전 입장 시 새로운 던전 정보 생성 </summary>
     public void SetNewDungeon(int dungeonIdx)
     {
-        slotData.dungeonIdx = dungeonIdx;
         slotData.dungeonData = new DungeonData(dungeonIdx);
+        slotData.dungeonIdx = dungeonIdx;
         SaveSlotData();
     }
     ///<summary> 던전 정보 삭제(던전 종료, 중단) </summary>
@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(SceneKind kind)
     {
-        if(kind == SceneKind.Title) SceneManager.LoadScene(0);
+        if(kind == SceneKind.Title) SceneManager.LoadScene(1);
         else if(slotData == null) SceneManager.LoadScene((int)kind);
         else SceneManager.LoadScene((int)kind + (slotData.region / 11) * 4);
     }
@@ -203,18 +203,18 @@ public class GameManager : MonoBehaviour
             return JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));
     }
 
-    public static T GetToken<T>(Queue<T> pool, RectTransform parent, GameObject prefab) where T : MonoBehaviour
+    public static T GetToken<T>(Queue<T> pool, RectTransform parent, T prefab) where T : MonoBehaviour
     {
         T token;
 
-        if(pool.Count > 0)
+        if(pool != null && pool.Count > 0)
         {
             token = pool.Dequeue();
             token.transform.SetParent(parent);
         }
         else
         {
-            token = Instantiate(prefab).GetComponent<T>();
+            token = Instantiate<T>(prefab);
             token.transform.SetParent(parent);
 
             //해상도에 맞게 사이즈 조절
@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
             newRect.anchorMax = prefabRect.anchorMax;
             newRect.anchorMin = prefabRect.anchorMin;
             newRect.localRotation = prefabRect.localRotation;
-            newRect.localScale = prefabRect.localScale; ;
+            newRect.localScale = prefabRect.localScale;
             newRect.pivot = prefabRect.pivot;
             newRect.sizeDelta = prefabRect.sizeDelta;
         }

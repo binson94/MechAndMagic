@@ -6,30 +6,35 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/0 Title.unity
+    path: Assets/Scenes/0 Load.unity
+    guid: 0c7ac4c16142dd34f80854e34cc86eb7
+  - enabled: 1
+    path: Assets/Scenes/1 Title.unity
     guid: 4fafbf3f8e35f684797b852ab7c132b9
   - enabled: 1
-    path: Assets/Scenes/1 Town.unity
+    path: Assets/Scenes/2 Town.unity
     guid: 7f3621ae4e778404980a5b7fffcc7b42
   - enabled: 1
-    path: Assets/Scenes/2 Dungeon.unity
+    path: Assets/Scenes/3 Dungeon.unity
     guid: f983f914af237fe479f13edc0d5d535e
   - enabled: 1
-    path: Assets/Scenes/3 Battle.unity
+    path: Assets/Scenes/4 Battle.unity
     guid: b4229756f1f66f84f9ed8917bc0babec
   - enabled: 1
-    path: Assets/Scenes/4 Story.unity
+    path: Assets/Scenes/5 Story.unity
     guid: 916ec55481a9f9e42964805eacb0a3d1
   - enabled: 1
-    path: Assets/Scenes/5 Town_Magic.unity
-    guid: 8e75e4775fc32504690461fbfb859db9
+    path: Assets/Scenes/6 Town_Magic.unity
+    guid: b73c4411395e6e341b48c74302374bcd
   - enabled: 1
-    path: Assets/Scenes/6 Dungeon_Magic.unity
-    guid: eea0f6cf97204884796e2eab7324917e
+    path: Assets/Scenes/7 Dungeon_Magic.unity
+    guid: 3b1dfe4930d050b4ba0e3f9ff7f9c246
   - enabled: 1
-    path: Assets/Scenes/7 Battle_Magic.unity
-    guid: ff122153dfea53943951d2ea8749615c
+    path: Assets/Scenes/8 Battle_Magic.unity
+    guid: 22a3f1fea83c3514b8057195fa8b40b7
   - enabled: 1
-    path: Assets/Scenes/8 Story_Magic.unity
+    path: Assets/Scenes/9 Story_Magic.unity
     guid: 2193de6e1f58f194d8a3f3e3b63d5542
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 10c7b4e471324144d9e630fa8facd2c1,
+      type: 2}

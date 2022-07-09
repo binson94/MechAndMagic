@@ -5,7 +5,7 @@ using System.Linq;
 
 public enum SceneKind
 {
-    Title, Town, Dungeon, Battle, Story
+    Title = 1, Town, Dungeon, Battle, Story
 }
 public enum DropType
 {
@@ -171,7 +171,8 @@ public class DungeonData
     #endregion EventData
 
     #region DropData
-    ///<summary> 드롭된 아이템들 정보 </summary>
+    ///<summary> 드롭된 아이템들 정보
+    ///<para> 드롭 타입, 인덱스(장비, 스킬북, 레시피), 갯수 순 </para> </summary>
     public List<Triplet<DropType, int, int>> dropList = new List<Triplet<DropType, int, int>>();
     ///<summary> 드롭된 경험치 정보 </summary>
     public int dropExp = 0;

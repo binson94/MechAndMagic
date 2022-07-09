@@ -310,6 +310,58 @@ public class ItemManager : MonoBehaviour
 
     ///<summary> 현재 장착 중인 장비 반환 </summary>
     public static Equipment GetEquipment(EquipPart p) => GameManager.instance.slotData.itemData.equipmentSlots[(int)p];
+    public static EquipBluePrint GetEBP(int equipIdx) => bluePrints[equipIdx - bluePrints[0].idx];
+    ///<summary> 자원 이름 
+    ///<para> 4 ~ 6 : 무기 재화(상중하) </para>
+    ///<para> 7 ~ 9 : 방어구 재화(상중하) </para>
+    ///<para> 10 ~ 12 : 악세서리 재화(상중하) </para>
+    ///<para> 13~15 : 아이템 공통 재화 </para> </summary>
+    public static string GetResourceName(int resourceIdx)
+    {
+        int pivot = (resourceIdx - 1) % 3;
+        string resourceName = pivot == 0 ? "상급 " : (pivot == 1 ? "중급 " : "하급 ");
+        if(resourceIdx <= 6)
+            switch(GameManager.instance.slotData.slotClass)
+            {
+                case 1:
+                    resourceName += "동력원";
+                    break;
+                case 2:
+                    resourceName += "합금";
+                    break;
+                case 3:
+                    resourceName += "화약";
+                    break;
+                case 4:
+                    resourceName += "톱니바퀴";
+                    break;
+                case 5:
+                    resourceName += "원소 정수";
+                    break;
+                case 6:
+                    resourceName += "신비한 덩굴";
+                    break;
+                case 7:
+                    resourceName += "비전석";
+                    break;
+                case 8:
+                    resourceName += "사악한 날";
+                    break;
+            }
+        else if(resourceIdx <= 9)
+            if(GameManager.instance.slotData.region < 11)
+                resourceName += "관절 볼트";
+            else
+                resourceName += "세계수 줄기";
+        else if(resourceIdx <= 12)
+            resourceName += "보석";
+        else if(GameManager.instance.slotData.region < 11)
+            resourceName += "강철";
+        else
+            resourceName += "나무";
+        
+        return resourceName;
+    }
     ///<summary> 세트 정보 반환 </summary>
     public static KeyValuePair<string, float[]> GetSetData(int set) => setManager.GetSetData(set);
     ///<summary> 현재 발동 중인 모든 세트효과 반환 </summary>
