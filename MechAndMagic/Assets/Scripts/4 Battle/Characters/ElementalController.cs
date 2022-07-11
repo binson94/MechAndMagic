@@ -50,6 +50,7 @@ public class ElementalController : Character
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         
         //200 불안정한 마법
         if (skill.idx == 200)
@@ -198,7 +199,7 @@ public class ElementalController : Character
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
 
@@ -281,7 +282,8 @@ public class ElementalController : Character
                                         }
                                         else
                                         {
-                                            LogManager.instance.AddLog("Dodge");
+                                            LogManager.instance.AddLog($"{target.name}(이)가 스킬을 회피하였습니다.");
+                                            isAcc = false;
                                         }
 
                                         break;
@@ -327,7 +329,8 @@ public class ElementalController : Character
                                         }
                                         else
                                         {
-                                            LogManager.instance.AddLog("Dodge");
+                                            LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
+                                            isAcc = false;
                                         }
                                     }
 
@@ -427,7 +430,7 @@ public class ElementalController : Character
         //209 숭고한 폭발 - 바람 정령 희생 시 2턴 피해 면역
         if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 209).name))
         {
-            LogManager.instance.AddLog("무적");
+            LogManager.instance.AddLog("숭고한 폭발 효과로 피해를 받지 않습니다.");
             return new KeyValuePair<bool, int>(false, 0);
         }
 

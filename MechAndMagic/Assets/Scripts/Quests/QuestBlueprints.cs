@@ -39,35 +39,38 @@ public class QuestBlueprint
         jsonTxt = Resources.Load<TextAsset>("Jsons/Quests/Outbreak");
         outbreakJson = JsonMapper.ToObject(jsonTxt.text);
     }
-    public QuestBlueprint(bool isOutbreak, int idx)
+    public QuestBlueprint() {}
+    public QuestBlueprint(bool isOutbreak, int questIdx)
     {
         JsonData json = isOutbreak ? outbreakJson : questJson;
 
         //퀘스트 정보
-        this.idx = idx;
-        name = json[idx]["name"].ToString();
-        script = json[idx]["script"].ToString();
+        this.idx = questIdx;
+        int jsonIdx = questIdx - (int)json[0]["idx"];
+
+        name = json[jsonIdx]["name"].ToString();
+        script = json[jsonIdx]["script"].ToString();
 
         //퀘스트 목표
-        type = (QuestType)(int)json[idx]["type"];
-        objectIdx = (int)json[idx]["objectIdx"];
-        objectAmt = (int)json[idx]["objectAmt"];
+        type = (QuestType)(int)json[jsonIdx]["type"];
+        objectIdx = (int)json[jsonIdx]["objectIdx"];
+        objectAmt = (int)json[jsonIdx]["objectAmt"];
 
         if(isOutbreak)
         {
             rewardCount = 1;
-            rewardIdx = new int[1]; rewardIdx[0] = (int)json[idx]["rewardIdx"];
-            rewardAmt = new int[1]; rewardAmt[0] = (int)json[idx]["rewardAmt"];
+            rewardIdx = new int[1]; rewardIdx[0] = (int)json[jsonIdx]["rewardIdx"];
+            rewardAmt = new int[1]; rewardAmt[0] = (int)json[jsonIdx]["rewardAmt"];
         }
         else
         {
-            rewardCount = (int)json[idx]["rewardCount"];
+            rewardCount = (int)json[jsonIdx]["rewardCount"];
             rewardIdx = new int[rewardCount]; rewardAmt = new int[rewardCount];
 
             for (int i = 0; i < rewardCount; i++)
             {
-                rewardIdx[i] = (int)json[idx]["rewardIdx"][i];
-                rewardAmt[i] = (int)json[idx]["rewardAmt"][i];
+                rewardIdx[i] = (int)json[jsonIdx]["rewardIdx"][i];
+                rewardAmt[i] = (int)json[jsonIdx]["rewardAmt"][i];
             }
         }
     }

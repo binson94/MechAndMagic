@@ -48,7 +48,7 @@ public class ArmedFighter : Character
                     chargingPunch.target.GetDamage(this, chargingPunch.atk, buffStat[(int)Obj.PEN], 100);
                 }
                 else
-                    LogManager.instance.AddLog("Dodge");
+                    LogManager.instance.AddLog($"{chargingPunch.target.name}(이)가 스킬을 회피하였습니다.");
             }
 
             chargingPunch = null;
@@ -94,6 +94,7 @@ public class ArmedFighter : Character
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //36 피니셔 - punchCount 비례 공증
@@ -177,7 +178,7 @@ public class ArmedFighter : Character
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
 

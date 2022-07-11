@@ -25,13 +25,13 @@ EditorBuildSettings:
     guid: 916ec55481a9f9e42964805eacb0a3d1
   - enabled: 1
     path: Assets/Scenes/6 Town_Magic.unity
-    guid: b73c4411395e6e341b48c74302374bcd
+    guid: a6da9942db615774db2471443938238c
   - enabled: 1
     path: Assets/Scenes/7 Dungeon_Magic.unity
-    guid: 3b1dfe4930d050b4ba0e3f9ff7f9c246
+    guid: 975a3cdd027d6bc46bbf481aed8e502c
   - enabled: 1
     path: Assets/Scenes/8 Battle_Magic.unity
-    guid: 22a3f1fea83c3514b8057195fa8b40b7
+    guid: 451a99d0bbb31404f814e7830ed945ee
   - enabled: 1
     path: Assets/Scenes/9 Story_Magic.unity
     guid: 2193de6e1f58f194d8a3f3e3b63d5542

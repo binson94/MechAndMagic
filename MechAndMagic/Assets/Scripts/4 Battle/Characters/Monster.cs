@@ -91,6 +91,7 @@ public class Monster : Unit
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //16 발사 - 포탄 버프 소모
@@ -180,7 +181,7 @@ public class Monster : Unit
                                 //크리티컬 연산 - dmg * CRB
                                 isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
 
-                                u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRC] : 100);
+                                u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
                                 damaged.Add(u);
 
                                 Passive_SkillHit(skill);
@@ -188,7 +189,7 @@ public class Monster : Unit
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
 
@@ -260,26 +261,28 @@ public class Monster : Unit
         if(turnBuffs.buffs.Any(x=>x.name == SkillManager.GetSkill(classIdx, 44).name))
         {
             turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 44).name);
-            LogManager.instance.AddLog("Block");
+            LogManager.instance.AddLog("플레임 효과로 피해를 무시합니다.");
             return new KeyValuePair<bool, int>(false, 0);
         }
 
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
-        int finalDmg = Mathf.RoundToInt(-dmg / (1 + 0.1f * finalDEF) * crb / 100);
+        int finalDmg = Mathf.RoundToInt(dmg / (1 + 0.1f * finalDEF) * crb / 100);
 
-        if (shieldAmount + finalDmg >= 0)
-            shieldAmount += finalDmg;
+        if (shieldAmount - finalDmg >= 0)
+            shieldAmount -= finalDmg;
         else
         {
-            finalDmg += shieldAmount;
+            buffStat[(int)Obj.currHP] -= finalDmg - shieldAmount;
             shieldAmount = 0;
-            buffStat[(int)Obj.currHP] += finalDmg;
         }
-        dmgs[2] -= finalDmg;
-        caster.dmgs[0] -= finalDmg;
+        dmgs[2] += finalDmg;
+        caster.dmgs[0] += finalDmg;
         //피격 시 차감되는 버프 처리
 
-        LogManager.instance.AddLog(string.Concat(caster.name, "의 공격, ", name, "에게 ", finalDmg, "만큼 피해"));
+        if(crb <= 100)
+            LogManager.instance.AddLog($"{name}(이)가 피해 {finalDmg}를 입었습니다.");
+        else
+            LogManager.instance.AddLog($"{name}(이)가 치명타 피해 {finalDmg}를 입었습니다.");
 
 
         bool killed = false;
@@ -319,7 +322,7 @@ public class Monster : Unit
                     else
                     {
                         isAcc = false;
-                        LogManager.instance.AddLog("Dodge");
+                        LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                     }
                 }
             }
@@ -355,7 +358,7 @@ public class Monster : Unit
                     else
                     {
                         isAcc = false;
-                        LogManager.instance.AddLog("Dodge");
+                        LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                     }
                 }
             }
@@ -391,7 +394,7 @@ public class Monster : Unit
                     else
                     {
                         isAcc = false;
-                        LogManager.instance.AddLog("Dodge");
+                        LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                     }
                 }
             }
@@ -411,20 +414,22 @@ public class Monster : Unit
             json = JsonMapper.ToObject(loadStr);
         }
 
-        name = json[monsterIdx]["name"].ToString();
-        region = (int)json[monsterIdx]["region"];
-        LVL = (int)json[monsterIdx]["lvl"];
-        dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.HP] = (int)json[monsterIdx]["HP"];
-        dungeonStat[(int)Obj.공격력] = (int)json[monsterIdx]["ATK"];
-        dungeonStat[(int)Obj.DEF] = (int)json[monsterIdx]["DEF"];
-        dungeonStat[(int)Obj.ACC] = (int)json[monsterIdx]["ACC"];
-        dungeonStat[(int)Obj.DOG] = (int)json[monsterIdx]["DOG"];
-        dungeonStat[(int)Obj.CRC] = (int)json[monsterIdx]["CRC"];
-        dungeonStat[(int)Obj.CRB] = (int)json[monsterIdx]["CRB"];
-        dungeonStat[(int)Obj.PEN] = (int)json[monsterIdx]["PEN"];
-        dungeonStat[(int)Obj.SPD] = (int)json[monsterIdx]["SPD"];
+        int jsonIdx = monsterIdx - (int)json[0]["idx"];
 
-        pattern = json[monsterIdx]["pattern"].ToString();
+        name = json[jsonIdx]["name"].ToString();
+        region = (int)json[jsonIdx]["region"];
+        LVL = (int)json[jsonIdx]["lvl"];
+        dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.HP] = (int)json[jsonIdx]["HP"];
+        dungeonStat[(int)Obj.공격력] = (int)json[jsonIdx]["ATK"];
+        dungeonStat[(int)Obj.DEF] = (int)json[jsonIdx]["DEF"];
+        dungeonStat[(int)Obj.ACC] = (int)json[jsonIdx]["ACC"];
+        dungeonStat[(int)Obj.DOG] = (int)json[jsonIdx]["DOG"];
+        dungeonStat[(int)Obj.CRC] = (int)json[jsonIdx]["CRC"];
+        dungeonStat[(int)Obj.CRB] = (int)json[jsonIdx]["CRB"];
+        dungeonStat[(int)Obj.PEN] = (int)json[jsonIdx]["PEN"];
+        dungeonStat[(int)Obj.SPD] = (int)json[jsonIdx]["SPD"];
+
+        pattern = json[jsonIdx]["pattern"].ToString();
         if (pattern == "0")
             UseSkill = UseSkillByProb;
         else
@@ -439,8 +444,8 @@ public class Monster : Unit
         skillChance = new float[skillCount];
         for (int i = 0; i < 8; i++)
         {
-            activeIdxs[i] = (int)json[monsterIdx]["skillIdx"][i];
-            skillChance[i] = float.Parse(json[monsterIdx]["skillChance"][i].ToString());
+            activeIdxs[i] = (int)json[jsonIdx]["skillIdx"][i];
+            skillChance[i] = float.Parse(json[jsonIdx]["skillChance"][i].ToString());
         }
 
         for(int i = 0;i<dungeonStat.Length;i++)

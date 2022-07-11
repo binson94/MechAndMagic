@@ -79,6 +79,7 @@ public class MagicalRogue : Character
             skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, GetEffectStat(selects, (int)Obj.LossPer), set.Value[2], 1, -1));
 
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //skill 효과 순차적으로 계산
@@ -222,7 +223,7 @@ public class MagicalRogue : Character
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
 
@@ -311,7 +312,7 @@ public class MagicalRogue : Character
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                                 break;
                             }
                         }

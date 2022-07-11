@@ -134,6 +134,7 @@ public class Druid : Character
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(18);
@@ -282,7 +283,7 @@ public class Druid : Character
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
 
@@ -371,7 +372,7 @@ public class Druid : Character
 
             buffStat[(int)Obj.currHP] = 0;
             GetHeal(SkillManager.GetSkill(6, 255).effectRate[0] * buffStat[(int)Obj.HP]);
-            LogManager.instance.AddLog("Revive");
+            LogManager.instance.AddLog("세계수의 보호 효과로 치명적인 피해를 막고 회복했습니다.");
             revive = 1;
             killed = new KeyValuePair<bool, int>(false, killed.Value);
         }

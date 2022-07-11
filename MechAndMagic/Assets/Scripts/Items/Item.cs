@@ -352,7 +352,7 @@ public class Potion
     public Potion(int potionIdx)
     {
         idx = potionIdx;
-        name = json[potionIdx]["name"].ToString();
-        script = json[potionIdx]["script"].ToString();
+        name = json[potionIdx - (int)json[0]["idx"]]["name"].ToString();
+        script = json[potionIdx - (int)json[0]["idx"]]["script"].ToString();
     }
 }

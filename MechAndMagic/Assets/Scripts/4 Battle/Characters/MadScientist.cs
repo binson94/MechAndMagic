@@ -76,6 +76,7 @@ public class MadScientist : Character
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //기초 과학자 4세트 - 순수 발명품 스킬 사용 시 버프
@@ -200,7 +201,7 @@ public class MadScientist : Character
                                 else
                                 {
                                     isAcc = false;
-                                    LogManager.instance.AddLog("Dodge");
+                                    LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                                 }
                             }
                         }

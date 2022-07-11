@@ -55,16 +55,18 @@ public class QuestProceed
 //퀘스트 정보 관리
 public class QuestManager : MonoBehaviour
 {
-    const int QUEST_AMT = 63;
-    const int OUTBREAK_AMT = 23;
-    static QuestBlueprint[] questData = new QuestBlueprint[QUEST_AMT];
-    static QuestBlueprint[] outbreakData = new QuestBlueprint[OUTBREAK_AMT];
+    const int QUEST_AMT = 62;
+    const int OUTBREAK_AMT = 22;
+    static QuestBlueprint[] questData = new QuestBlueprint[QUEST_AMT + 1];
+    static QuestBlueprint[] outbreakData = new QuestBlueprint[OUTBREAK_AMT + 1];
 
     public static void LoadData()
     {
-        for (int i = 0; i < questData.Length; i++)
+        questData[0] = outbreakData[0] = new QuestBlueprint();
+
+        for (int i = 1; i <= QUEST_AMT; i++)
             questData[i] = new QuestBlueprint(false, i);
-        for (int i = 0; i < outbreakData.Length; i++)
+        for (int i = 1; i <= OUTBREAK_AMT; i++)
             outbreakData[i] = new QuestBlueprint(true, i);
     }
 
@@ -118,30 +120,30 @@ public class QuestManager : MonoBehaviour
     public static void DiehardUpdate(float rate) => GameManager.instance.slotData.questData.DiehardUpdate(rate);
 
     ///<summary> 새 퀘스트 받기, 마을 메뉴 또는 던전 돌발퀘 방에서 호출 </summary>
-    public static void AcceptQuest(bool isOutbreak, int idx)
+    public static void AcceptQuest(bool isOutbreak, int questIdx)
     {
         if (isOutbreak)
-            GameManager.instance.slotData.questData.AcceptOutbreak(outbreakData[idx]);
+            GameManager.instance.slotData.questData.AcceptOutbreak(outbreakData[questIdx]);
         else
-            GameManager.instance.slotData.questData.AcceptQuest(questData[idx]);
+            GameManager.instance.slotData.questData.AcceptQuest(questData[questIdx]);
 
         SaveData();
     }
 
     ///<summary> 퀘스트 클리어 </summary>
-    public static void ClearQuest(int idx)
+    public static void ClearQuest(int questIdx)
     {
-        GameManager.instance.slotData.questData.ClearQuest(idx);
-        GetReward(false, questData[idx]);
+        GameManager.instance.slotData.questData.ClearQuest(questIdx);
+        GetReward(false, questData[questIdx]);
         SaveData();
     }
     ///<summary> 돌발 퀘스트 클리어 </summary>
     public static void ClearOutbreak()
     {
-        int idx = GameManager.instance.slotData.questData.outbreakProceed.idx;
-        if (idx > 0)
+        int outbreakIdx = GameManager.instance.slotData.questData.outbreakProceed.idx;
+        if (outbreakIdx > 0)
         {
-            GetReward(true, outbreakData[idx]);
+            GetReward(true, outbreakData[outbreakIdx]);
             GameManager.instance.slotData.questData.ClearOutbreak();
         }
         else

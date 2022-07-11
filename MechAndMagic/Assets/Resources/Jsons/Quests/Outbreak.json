@@ -1,17 +1,5 @@
 [
    {
-     "name": "없음",
-     "idx": 0,
-     "script": "0",
-     "getScript": "",
-     "doneScript": "",
-     "type": 0,
-     "objectIdx": 0,
-     "objectAmt": 0,
-     "rewardIdx": 0,
-     "rewardAmt": 0
-   },
-   {
      "name": "돌발 적 처치",
      "idx": 1,
      "script": "적 5개체 소탕",

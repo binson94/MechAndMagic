@@ -522,7 +522,7 @@ MonoBehaviour:
   BP: {fileID: 503225249}
   equipTokenParent: {fileID: 963855967}
   equipTokenPoolParent: {fileID: 1794048435}
-  equipTokenPrefab: {fileID: 67791658564259964, guid: 46bd84a24d78e6b4c99ef75da1bb90d7,
+  equipTokenPrefab: {fileID: 6879333736856071240, guid: 46bd84a24d78e6b4c99ef75da1bb90d7,
     type: 3}
   categorySelectPanels:
   - {fileID: 436338173}
@@ -3699,6 +3699,49 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b0afed770e2e8644a961aa6ba100f1c3, type: 3}
   - {fileID: 21300000, guid: bb5ffd7a061a44e4d971ae9939043004, type: 3}
   - {fileID: 21300000, guid: 58b1febe122f26142b0315bb13ca07df, type: 3}
+  weaponResourceSprites:
+  - {fileID: 21300000, guid: 9759d378900943845b5a9aa8ad6bc433, type: 3}
+  - {fileID: 21300000, guid: 364836f411223e541b27f624d5108d94, type: 3}
+  - {fileID: 21300000, guid: 8af6bfbedbea68840aaed6aefe35f2db, type: 3}
+  - {fileID: 21300000, guid: b81baa0d0d4f92a43bed7f5f259f9c26, type: 3}
+  - {fileID: 21300000, guid: 80f98d12355297548adee1f2c83af6d3, type: 3}
+  - {fileID: 21300000, guid: d6830da1c7444ef4680d7ab17964ccf1, type: 3}
+  - {fileID: 21300000, guid: 647626dafd5f38247a5696a981390bd2, type: 3}
+  - {fileID: 21300000, guid: 98eb499cae6e2fb498b97f243b266e32, type: 3}
+  - {fileID: 21300000, guid: 6527505d9d4f7214cbce9174e0d7616b, type: 3}
+  - {fileID: 21300000, guid: aca9e11873849c241aae6339680a2046, type: 3}
+  - {fileID: 21300000, guid: 2957c9b93fefef94fbe20e06d898582c, type: 3}
+  - {fileID: 21300000, guid: 4b0161e82485fa44eb3bf844b5f2c760, type: 3}
+  - {fileID: 21300000, guid: 754e56a8e89011c43b65c698d1cbd940, type: 3}
+  - {fileID: 21300000, guid: 89f2197797ab8004c80a015efeefccaa, type: 3}
+  - {fileID: 21300000, guid: cfd8a3819c5c67947b6a393aff2e1147, type: 3}
+  - {fileID: 21300000, guid: 746a0ebe140beed4e82af0a7080d42c0, type: 3}
+  - {fileID: 21300000, guid: 8aa7006b120dd464785bd3dec418c063, type: 3}
+  - {fileID: 21300000, guid: 6d7c2d9296f87474aadc3090e1daef1e, type: 3}
+  - {fileID: 21300000, guid: 2536bcbadd08d0a44b454abfe0e00752, type: 3}
+  - {fileID: 21300000, guid: 0453c78ff64b64c44b9ac905c307c874, type: 3}
+  - {fileID: 21300000, guid: 9b09124a306133847a6387d4a63e31f9, type: 3}
+  - {fileID: 21300000, guid: e493cd039fbab9f4caf8de2956da4ece, type: 3}
+  - {fileID: 21300000, guid: 80b3d991cbfe16e45875d2078b8f6e90, type: 3}
+  - {fileID: 21300000, guid: 60cc086410538604e837b002c1dae203, type: 3}
+  armorResourceSprites:
+  - {fileID: 21300000, guid: eebd275c5fdc83c43a1f9f8b4ee066a5, type: 3}
+  - {fileID: 21300000, guid: c779ff0b8e369b24c9532b96114f7dd1, type: 3}
+  - {fileID: 21300000, guid: baf760506909a8740ad4336fb3a34e3b, type: 3}
+  - {fileID: 21300000, guid: eaa937805bf892b42a26296b01ce1da7, type: 3}
+  - {fileID: 21300000, guid: f28fbec54f3d1704195e08dcd6709ffc, type: 3}
+  - {fileID: 21300000, guid: bb8b6068a4946a4429387babbaf7c314, type: 3}
+  accessoryResourceSprites:
+  - {fileID: 21300000, guid: 73cdfb17baa42c24db142077352ee9e4, type: 3}
+  - {fileID: 21300000, guid: a57b15cfb6263c4408528af8c8642a18, type: 3}
+  - {fileID: 21300000, guid: 5ca17930bbb3541429f4b9b430297787, type: 3}
+  commonResourceSprites:
+  - {fileID: 21300000, guid: 9a28bec9f1b62604189c03031101ccd0, type: 3}
+  - {fileID: 21300000, guid: 9af008ecb3c43c04b9028c20ac89616e, type: 3}
+  - {fileID: 21300000, guid: 0b606e0d77e604048abff8d0fb8adea9, type: 3}
+  - {fileID: 21300000, guid: fcdfec0b61c8f3d4d9b5e150d30c73e2, type: 3}
+  - {fileID: 21300000, guid: 5b2f982b63b648c47a657996bdf08ac1, type: 3}
+  - {fileID: 21300000, guid: ede60a2b37ecfdf4397ceaf1e53aef1d, type: 3}
 --- !u!4 &80609341
 Transform:
   m_ObjectHideFlags: 0
@@ -19553,7 +19596,7 @@ MonoBehaviour:
   TM: {fileID: 2102056651}
   skillTokenParent: {fileID: 1327704909}
   skillTokenPoolParent: {fileID: 1966086554}
-  skillTokenPrefab: {fileID: 1213500679211263461, guid: ffd170acd4e64e14fa9c950d704a9e19,
+  skillTokenPrefab: {fileID: 8153573603509205211, guid: ffd170acd4e64e14fa9c950d704a9e19,
     type: 3}
   skillSlotPanel: {fileID: 493855533}
   selectedSkillPanel: {fileID: 361067065}
@@ -37706,9 +37749,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4030d6e639c7d7d4aa78e798fa637fe5, type: 3}
   - {fileID: 21300000, guid: 36c4bcde42cc65c479012ff57b994f38, type: 3}
   - {fileID: 21300000, guid: fb8aa003d327ca44e891b13e68309a4a, type: 3}
-  namePrefab: {fileID: 4405468060852789779, guid: 907b7769edee5b243a4daf08b353070d,
+  namePrefab: {fileID: 4853361844409244146, guid: 907b7769edee5b243a4daf08b353070d,
     type: 3}
-  scriptPrefab: {fileID: 1910767468674265565, guid: b87ca87cad6f5da4fa6242db6378252e,
+  scriptPrefab: {fileID: 8086462270163050697, guid: b87ca87cad6f5da4fa6242db6378252e,
     type: 3}
 --- !u!1 &1278964962
 GameObject:
@@ -43150,7 +43193,7 @@ MonoBehaviour:
   - {fileID: 525547731}
   equipBtnParent: {fileID: 1762487570}
   poolParent: {fileID: 488651818}
-  equipBtnPrefab: {fileID: 67791658564259964, guid: 46bd84a24d78e6b4c99ef75da1bb90d7,
+  equipBtnPrefab: {fileID: 6879333736856071240, guid: 46bd84a24d78e6b4c99ef75da1bb90d7,
     type: 3}
   categorySelectPanels:
   - {fileID: 250133262}

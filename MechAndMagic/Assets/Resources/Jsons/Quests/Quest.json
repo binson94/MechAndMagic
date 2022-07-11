@@ -1,26 +1,5 @@
 [
    {
-     "name": "없음",
-     "idx": 0,
-     "script": "0",
-     "type": 0,
-     "objectIdx": 0,
-     "objectAmt": 0,
-     "rewardCount": 0,
-     "rewardIdx": [
-        0,
-        0,
-        0,
-        0
-     ],
-     "rewardAmt": [
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
      "name": "스승과의 재회",
      "idx": 1,
      "script": "던전 '마을 광장' 1회 클리어",

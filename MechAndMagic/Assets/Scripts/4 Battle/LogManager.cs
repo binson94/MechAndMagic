@@ -32,8 +32,15 @@ public class LogManager : MonoBehaviour
         token = GetToken(expandLogContent);
         token.Set(str);
 
+        StartCoroutine(AddScroll());
+    }
+    IEnumerator AddScroll()
+    {
+        yield return null;
+
         logScroll.verticalNormalizedPosition = 0;
         expandLogScroll.verticalNormalizedPosition = 0;
+
     }
 
     Log GetToken(RectTransform parent)

@@ -1,44 +1,5 @@
 [
    {
-     "roomIdx": 0,
-     "monsterCount": 0,
-     "monsterIdx": [
-        0,
-        0,
-        0
-     ],
-     "roomExp": 0,
-     "ItemCount": 0,
-     "ItemIdx": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-     ],
-     "ItemChance": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-     ]
-  },
-   {
      "roomIdx": 1,
      "monsterCount": 1,
      "monsterIdx": [

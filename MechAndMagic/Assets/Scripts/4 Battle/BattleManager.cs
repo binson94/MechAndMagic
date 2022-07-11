@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+
 ///<summary> 전투 제어 클래스 </summary>
 public class BattleManager : MonoBehaviour
 {
@@ -15,6 +19,7 @@ public class BattleManager : MonoBehaviour
     ///<summary> 전투 중인 모든 캐릭터 리스트
     ///<para> 0 플레이어, 1 골렘, 정령, 2 ~ 4 적, 없으면 dummy 연결 </para> </summary>
     [SerializeField] Unit[] allChars = new Unit[5];
+    [SerializeField] Animator fadeAnimator;
 
 
     ///<summary> 플레이어 프리팹 
@@ -58,6 +63,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Text[] statusTxts;
     ///<summary> 포션 버튼 </summary>
     [SerializeField] Image[] potionBtns;
+
+    List<AsyncOperationHandle<Sprite>> enemyIilustHandles = new List<AsyncOperationHandle<Sprite>>();
 
 
     ///<summary> 스킬 선택 UI, 내 턴에 활성화 </summary>
@@ -115,41 +122,62 @@ public class BattleManager : MonoBehaviour
         StatusUpdate();
     }
     void Spawn()
+    {
+        int i;
+
+        //아군 캐릭터 생성
+        Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass]).GetComponent<Character>();
+        c.name = GameManager.instance.slotData.className;
+
+        for (i = 0; i < c.activeIdxs.Length; i++)
+            c.activeIdxs[i] = GameManager.instance.slotData.activeSkills[i];
+        for (i = 0; i < c.passiveIdxs.Length; i++)
+            c.passiveIdxs[i] = GameManager.instance.slotData.passiveSkills[i];
+
+        allChars[0] = c;
+
+
+        //골렘 생성
+        if (GameManager.instance.slotData.dungeonData.golemHP >= 0)
         {
-            int i;
-
-            //아군 캐릭터 생성
-            Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass]).GetComponent<Character>();
-            c.name = GameManager.instance.slotData.className;
-            
-            for (i = 0; i < c.activeIdxs.Length; i++)
-                c.activeIdxs[i] = GameManager.instance.slotData.activeSkills[i];
-            for (i = 0; i < c.passiveIdxs.Length; i++)
-                c.passiveIdxs[i] = GameManager.instance.slotData.passiveSkills[i];
-
-            allChars[0] = c;
-
-
-            //골렘 생성
-            if (GameManager.instance.slotData.dungeonData.golemHP >= 0)
-            {
-                Golem g = Instantiate(alliePrefabs[9]).GetComponent<Golem>();
-                g.GolemInit(allChars[0].GetComponent<MadScientist>());
-                allChars[1] = g;
-            }
-            else
-                allChars[1] = dummyUnit;
-
-
-            //던전 풀에 따른 적 캐릭터 생성
-            for (i = 0; i < roomInfo.monsterCount; i++)
-            {
-                Monster mon = Instantiate(enemyPrefab).GetComponent<Monster>();
-                mon.monsterIdx = roomInfo.monsterIdx[i];
-                allChars[i + 2] = mon;
-            }
-            for (; i < 3; i++) { allChars[i + 2] = dummyUnit; unitStatus[i + 1].gameObject.SetActive(false); enemyIilusts[i].gameObject.SetActive(false); }
+            Golem g = Instantiate(alliePrefabs[9]).GetComponent<Golem>();
+            g.GolemInit(allChars[0].GetComponent<MadScientist>());
+            allChars[1] = g;
         }
+        else
+            allChars[1] = dummyUnit;
+
+
+        //던전 풀에 따른 적 캐릭터 생성
+        for (i = 0; i < roomInfo.monsterCount; i++)
+        {
+            Monster mon = Instantiate(enemyPrefab).GetComponent<Monster>();
+            mon.monsterIdx = roomInfo.monsterIdx[i];
+            allChars[i + 2] = mon;
+        }
+        LoadEnemyIilust();
+
+        for (; i < 3; i++) { allChars[i + 2] = dummyUnit; unitStatus[i + 1].gameObject.SetActive(false); enemyIilusts[i].gameObject.SetActive(false); }
+    }
+
+    async void LoadEnemyIilust()
+    {
+        List<Task> tasks = new List<Task>();
+
+        for(int i = 0;i < roomInfo.monsterCount;i++)
+        {
+            AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>($"Mon{allChars[i + 2].GetComponent<Monster>().monsterIdx.ToString("D3")}");
+            enemyIilustHandles.Add(handle);
+            tasks.Add(handle.Task);
+        }
+
+        await Task.WhenAll(tasks);
+
+        for(int i = 0;i < roomInfo.monsterCount;i++)
+            enemyIilusts[i].sprite = enemyIilustHandles[i].Result;
+        fadeAnimator.SetBool("Fade", true);
+    }
+
     void LoadDungeonBuff()
     {
         //던전 이벤트로 생긴 버프, 디버프 처리
@@ -173,7 +201,7 @@ public class BattleManager : MonoBehaviour
         //매드 사이언티스트 - 골렘 체력 불러오기
         if (GameManager.instance.slotData.dungeonData.golemHP > 0)
             allChars[1].buffStat[(int)Obj.currHP] = GameManager.instance.slotData.dungeonData.golemHP;
-        else if(GameManager.instance.slotData.dungeonData.golemHP == 0)
+        else if (GameManager.instance.slotData.dungeonData.golemHP == 0)
             allChars[1].buffStat[(int)Obj.currHP] = allChars[1].buffStat[(int)Obj.HP];
     }
     void SetStatusTxt()
@@ -841,7 +869,7 @@ public class BattleManager : MonoBehaviour
         skillBtnPanel.SetActive(false);
         targetBtnPanel.SetActive(false);
         turnEndBtn.SetActive(false);
-        LogManager.instance.AddLog("Lose");
+        LogManager.instance.AddLog("패배");
 
         reportPanel.LoadData();
         reportPanel.gameObject.SetActive(true);
@@ -849,7 +877,24 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.SwitchSceneData(SceneKind.Town);
     }
     ///<summary> 방 승리 -> 던전으로 돌아가기 </summary>
-    public void Btn_BackToMap() => GameManager.instance.LoadScene(SceneKind.Dungeon);
+    public void Btn_BackToMap()
+    { 
+        for(int i = 0;i < enemyIilustHandles.Count;i++)
+        {
+            enemyIilusts[i].sprite = null;
+            Addressables.Release(enemyIilustHandles[i]);
+        }
+        GameManager.instance.LoadScene(SceneKind.Dungeon);
+    }
+    public void Btn_BackToTown()
+    {
+        for(int i = 0;i < enemyIilustHandles.Count;i++)
+        {
+            enemyIilusts[i].sprite = null;
+            Addressables.Release(enemyIilustHandles[i]);
+        }
+        GameManager.instance.LoadScene(SceneKind.Town);
+    }
     
     #endregion
 

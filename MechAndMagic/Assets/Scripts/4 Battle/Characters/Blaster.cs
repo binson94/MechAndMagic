@@ -91,7 +91,7 @@ public class Blaster : Character
     public override string CanCastSkill(int idx)
     {
         if (SkillManager.GetSkill(classIdx, activeIdxs[idx]).category == 1016 && turnDebuffs.buffs.Any(x => x.name == "쿨링히트"))
-            return "공격 스킬 사용 불가";
+            return "열기로 인해 이번 턴에 공격할 수 없습니다.";
         return base.CanCastSkill(idx);
     }
     public override void ActiveSkill(int idx, List<Unit> selects)
@@ -114,6 +114,7 @@ public class Blaster : Character
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //skill 효과 순차적으로 계산
@@ -192,7 +193,7 @@ public class Blaster : Character
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog(string.Concat(u.name, "은 ", this.name, "의 공격을 회피했다."));
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
 

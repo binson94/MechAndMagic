@@ -92,10 +92,11 @@ public class Unit : MonoBehaviour
     /* #region Skill Condition */
     public virtual string CanCastSkill(int idx)
     {
-        if (buffStat[(int)Obj.currAP] < GetSkillCost(SkillManager.GetSkill(classIdx, activeIdxs[idx])))
-            return "AP 부족";
+        Skill s = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        if (buffStat[(int)Obj.currAP] < GetSkillCost(s))
+            return $"{s.name}을 사용하기 위한 행동력이 부족합니다.";
         else if (cooldowns[idx] > 0)
-            return "쿨다운";
+            return $"{SkillManager.GetSkill(classIdx, activeIdxs[idx]).name}은 아직 쿨타임입니다.";
         return "";
     }   
     public virtual int GetSkillCost(Skill s)
@@ -153,6 +154,8 @@ public class Unit : MonoBehaviour
             return;
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
+
         Passive_SkillCast(skill);
 
         //skill 효과 순차적으로 계산
@@ -208,7 +211,7 @@ public class Unit : MonoBehaviour
                             else
                             {
                                 isAcc = false;
-                                LogManager.instance.AddLog("Dodge");
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
                         
@@ -524,21 +527,23 @@ public class Unit : MonoBehaviour
         float ironHeartDEF = 1 - ItemManager.GetSetData(25).Value[2];
 
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
-        int finalDmg = Mathf.RoundToInt(-dmg / (1 + 0.1f * finalDEF) * ironHeartDEF * crb / 100);
+        int finalDmg = Mathf.RoundToInt(dmg / (1 + 0.1f * finalDEF) * ironHeartDEF * crb / 100);
 
-        if (shieldAmount + finalDmg >= 0)
-            shieldAmount += finalDmg;
+        if (shieldAmount - finalDmg >= 0)
+            shieldAmount -= finalDmg;
         else
         {
-            finalDmg += shieldAmount;
+            buffStat[(int)Obj.currHP] -= finalDmg - shieldAmount;
             shieldAmount = 0;
-            buffStat[(int)Obj.currHP] += finalDmg;
         }
-        dmgs[2] -= finalDmg;
-        caster.dmgs[0] -= finalDmg;
+        dmgs[2] += finalDmg;
+        caster.dmgs[0] += finalDmg;
         //피격 시 차감되는 버프 처리
 
-        LogManager.instance.AddLog(string.Concat(caster.name, "의 공격, ", name, "에게 ", finalDmg, "만큼 피해"));
+        if(crb <= 100)
+            LogManager.instance.AddLog($"{name}(이)가 피해 {finalDmg}를 입었습니다.");
+        else
+            LogManager.instance.AddLog($"{name}(이)가 치명타 피해 {finalDmg}를 입었습니다.");
         
         //아이언하트 3세트 - 체력 40% 이하로 떨어질 때 디버프 하나 해제
         if(ItemManager.GetSetData(25).Value[1] > 0 && (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.HP] < 0.4f && beforeRate >= 0.4f)
