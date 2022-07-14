@@ -31,16 +31,17 @@ public class RepairPanel : MonoBehaviour
 
 
     private void Start() {
-        LoadStatInfo();
         LoadEquipInfo();
         LoadSkillInfo();
-        LoadDropInfo();
     }
 
     public void ResetAllState()
     {
         foreach(Text t in skillScriptTxts) t.text = string.Empty;
         equipPanel.InfoUpdate(null as Equipment);
+        
+        LoadStatInfo();
+        LoadDropInfo();
     }
 
     public void Btn_Equip(int part)

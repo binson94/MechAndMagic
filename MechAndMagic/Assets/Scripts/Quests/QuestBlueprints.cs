@@ -9,7 +9,7 @@ using LitJson;
 ///</summary>
 public enum QuestType
 {
-    Kill = 1, Battle, Event, Outbreak, Room, Dungeon, Level, Diehard
+    Kill = 1, Battle, Event, Outbreak, Room, Dungeon, Level, Diehard_Over, Diehard_Under
 }
 
 public class QuestBlueprint
@@ -18,6 +18,8 @@ public class QuestBlueprint
     public int idx;
     public string name;
     public string script;
+    public string getScript;
+    public string doneScript;
 
     //퀘스트 목표
     public QuestType type;
@@ -61,6 +63,9 @@ public class QuestBlueprint
             rewardCount = 1;
             rewardIdx = new int[1]; rewardIdx[0] = (int)json[jsonIdx]["rewardIdx"];
             rewardAmt = new int[1]; rewardAmt[0] = (int)json[jsonIdx]["rewardAmt"];
+
+            getScript = json[jsonIdx]["getScript"].ToString();
+            doneScript = json[jsonIdx]["doneScript"].ToString();
         }
         else
         {

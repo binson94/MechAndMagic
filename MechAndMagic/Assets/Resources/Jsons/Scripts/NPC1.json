@@ -1,0 +1,66 @@
+[
+  {
+    "npcName" : "빅터",
+    "name": "빅터에게 인사",
+    "idx": 10,
+    "kind": 0,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 0,
+    "linkedQuest": 0
+  },
+  {
+    "name": "완벽한 재건",
+    "idx": 11,
+    "kind": 1,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 1,
+    "linkedQuest": 2
+  },
+  {
+    "name": "강도 소탕",
+    "idx": 12,
+    "kind": 1,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 2,
+    "linkedQuest": 4
+  },
+  {
+    "name": "흐름 차단",
+    "idx": 13,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 5,
+    "linkedQuest": 6
+  },
+  {
+    "name": "엔트로피 수집",
+    "idx": 14,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 6,
+    "linkedQuest": 11
+  },
+  {
+    "name": "전력 혁신",
+    "idx": 15,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 11,
+    "linkedQuest": 12
+  },
+  {
+    "name": "슈뢰딩거 이론",
+    "idx": 16,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 12,
+    "linkedQuest": 13
+  }
+ ]

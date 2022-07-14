@@ -59,19 +59,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
     EquipBluePrint selectedEBP = null;
     Skillbook selectedSkillbook = null;
-    #endregion Work Panel
-
-    private void Start() {
-        Debug_Drop();
-
-        void Debug_Drop(){
-        ItemManager.ItemDrop(84, 1);
-        ItemManager.ItemDrop(85, 1);
-        ItemManager.ItemDrop(86, 1);
-        ItemManager.ItemDrop(87, 1);
-        ItemManager.ItemDrop(23, 1);}
-    }
-    
+    #endregion Work Panel    
     public void ResetAllState()
     {
         //스텟 업데이트
@@ -117,7 +105,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         {
             if(GameManager.instance.slotData.itemData.equipmentSlots[i + 1] != null)
             {
-                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1]);
+                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp);
                 equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
             
                 equipSlotImages[i].transform.parent.gameObject.SetActive(true);
@@ -402,6 +390,10 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         {
             Debug.Log("이미 학습했습니다.");
             return;
+        }
+        else if(ItemManager.CanSkillLearn(SkillManager.GetSkill(GameManager.instance.slotData.slotClass, selectedSkillbook.idx).reqLvl))
+        {
+            
         }
 
         ItemManager.SkillLearn(selectedSkillbook.idx);

@@ -23,15 +23,15 @@ public class Character : Unit
         //아이언하트 2세트 - 체력 비례 방어력 상승
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(25);
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.DEF, buffStat[(int)Obj.HP], set.Value[0], 0, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, buffStat[(int)Obj.체력], set.Value[0], 0, 99, 0, 1));
         //아이언하트 4세트 - CRC 상승
         if (set.Value[2] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.CRC, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99, 0, 1));
 
         set = ItemManager.GetSetData(26);
         //시계탑의 대리인 2세트 - AP 최대값 상승
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.AP, 1, set.Value[0], 0, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.행동력, 1, set.Value[0], 0, 99, 0, 1));
 
         //메탈 그리드 4세트 - 매 전투 1번 디버프 면역
         if (ItemManager.GetSetData(28).Value[1] > 0)
@@ -40,7 +40,7 @@ public class Character : Unit
         //완벽한 톱니바퀴 2세트 - ACC 상승
         set = ItemManager.GetSetData(29);
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.ACC, 1, set.Value[0], 1, 1, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[0], 1, 1, 0, 1));
 
         set = ItemManager.GetSetData(27);
         List<Unit> targets = GetEffectTarget(null, null, 6);
@@ -48,19 +48,19 @@ public class Character : Unit
         if (set.Value[0] > 0)
             foreach (Unit u in targets)
             {
-                u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.SPD, 1, set.Value[0], 1, 99, 0, 1));
+                u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.속도, 1, set.Value[0], 1, 99, 0, 1));
                 if (set.Value[1] > 0)
-                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.DOG, 1, set.Value[1], 1, 99, 0, 1));
+                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.회피율, 1, set.Value[1], 1, 99, 0, 1));
                 if (set.Value[2] > 0)
-                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.DEF, 1, set.Value[2], 1, 99, 0, 1));
+                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
             }
 
         set = ItemManager.GetSetData(33);
         //행운의 클로버 2세트 - CRC, CRB가 LVL 비례 상승
         if (set.Value[0] > 0)
         {
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.CRC, LVL, set.Value[0], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.CRB, LVL, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타율, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타피해, set.Value[0], 1, 99, 0, 1));
         }
     }
     public override void OnTurnStart()
@@ -70,7 +70,7 @@ public class Character : Unit
         //메탈 그리드 2세트 - 매 턴 1회 피격 DEF 상승
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(28);
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.DEF, 1, set.Value[0], 1, 1, 0, 1));        
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.방어력, 1, set.Value[0], 1, 1, 0, 1));        
 
         set = ItemManager.GetSetData(29);
         //완벽한 톱니바퀴 4세트 - 매 턴 시작 시, 랜덤 스킬 1개 쿨타임 감소
@@ -90,14 +90,14 @@ public class Character : Unit
         //스타더스트 2세트 = 턴 시작 시 랜덤 적 1인에게 피해
         if (set.Value[0] > 0)
         {
-            int crit = Random.Range(0, 100) < buffStat[(int)Obj.CRC] ? buffStat[(int)Obj.CRB] : 100;
-            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[0], buffStat[(int)Obj.PEN], crit);
+            int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
+            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[0], buffStat[(int)Obj.방어력무시], crit);
         }
 
         set = ItemManager.GetSetData(32);
         //밀물과 썰물 3세트 - 턴 시작 시 잃은 체력 비례 회복
         if (set.Value[1] > 0)
-            GetHeal(set.Value[1] * (buffStat[(int)Obj.HP] - buffStat[(int)Obj.currHP]));
+            GetHeal(set.Value[1] * (buffStat[(int)Obj.체력] - buffStat[(int)Obj.currHP]));
 
         immunePotion = false;
         skillCount[1] = 0;
@@ -109,14 +109,14 @@ public class Character : Unit
 
         //시계탑의 대리인 3세트 - 턴 종 시 SPD 상승(무제한)
         if (set.Value[1] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.SPD, 1, set.Value[1], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.속도, 1, set.Value[1], 1, 99, 0, 1));
 
         set = ItemManager.GetSetData(30);
         //스타더스트 3세트 - 턴 종 시 랜덤 적 1인에게 피해
         if (set.Value[1] > 0)
         {
-            int crit = Random.Range(0, 100) < buffStat[(int)Obj.CRC] ? buffStat[(int)Obj.CRB] : 100;
-            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[1], buffStat[(int)Obj.PEN], crit);
+            int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
+            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[1], buffStat[(int)Obj.방어력무시], crit);
         }
 
         set = ItemManager.GetSetData(32);
@@ -143,7 +143,7 @@ public class Character : Unit
     {
         //행운의 클로버 3세트 - 치명타 시 디버프 1개 해제
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(33);
-        if (set.Value[1] > 0 && Random.Range(0, 100) < buffStat[(int)Obj.CRC])
+        if (set.Value[1] > 0 && Random.Range(0, 100) < buffStat[(int)Obj.치명타율])
             RemoveDebuff(1);
     }
     protected void OnKill()
@@ -155,8 +155,8 @@ public class Character : Unit
             Unit u = GetEffectTarget(null, null, 4)[0];
             for (int i = 0; i < 2; i++)
             {
-                int crit = Random.Range(0, 100) < buffStat[(int)Obj.CRC] ? buffStat[(int)Obj.CRB] : 100;
-                u.GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[2], buffStat[(int)Obj.PEN], crit);
+                int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
+                u.GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[2], buffStat[(int)Obj.방어력무시], crit);
             }
         }
 

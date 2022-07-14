@@ -40,9 +40,16 @@ public class SpriteGetter : MonoBehaviour
     ///<summary> 스킬 스프라이트 </summary>
     [Header("Skill")]
     [SerializeField] Sprite[] skillSprites;
+    ///<summary> 버프 아이콘 스프라이트 </summary>
+    [SerializeField] Sprite[] buffIconSprites;
+    ///<summary> 버프, 디버프 배경 스프라이트 </summary>
+    [SerializeField] Sprite[] buffBGSprites;
 
-    ///<summary> 24개, 직업 - 상중하 순 </summary>
+    ///<summary> 6개, 진영 - 상중하 순 </summary>
     [Header("Resource")]
+    [Tooltip("6개, 진영 - 상중하 순")]
+    [SerializeField] Sprite[] skillResourceSprites;
+    ///<summary> 24개, 직업 - 상중하 순 </summary>
     [Tooltip("24개, 직업 - 상중하 순")]
     [SerializeField] Sprite[] weaponResourceSprites;
     ///<summary> 6개, 진영 - 상중하 순 </summary>
@@ -56,19 +63,10 @@ public class SpriteGetter : MonoBehaviour
     [SerializeField] Sprite[] commonResourceSprites;
 
     ///<summary> 장비 아이콘 반환 </summary>
-    public Sprite GetEquipIcon(Equipment e)
-    { 
-        if(e == null) return null;
-        
-        if(e.ebp.part <= EquipPart.Weapon)
-            return weaponSprites[(e.ebp.useClass - 1) * 5 + (int)e.ebp.reqlvl - 1];
-        else if (e.ebp.part <= EquipPart.Shoes)
-            return armorSprites[(e.ebp.useClass / 11 * 4) + (e.ebp.part - EquipPart.Top)];
-        else
-            return accessorySprites[((int)e.ebp.part / 7 * 5) + (int)e.ebp.reqlvl - 1];
-    }
     public Sprite GetEquipIcon(EquipBluePrint ebp)
     {
+        if(ebp == null) return null;
+
         if(ebp.part <= EquipPart.Weapon)
             return weaponSprites[(ebp.useClass - 1) * 5 + (int)ebp.reqlvl - 1];
         else if (ebp.part <= EquipPart.Shoes)
@@ -80,11 +78,10 @@ public class SpriteGetter : MonoBehaviour
     public Sprite GetGrid(Rarity rarity) => gridSprites[rarity - Rarity.Common];
     ///<summary> 포션 아이콘 반환 </summary>
     public Sprite GetPotionIcon(int potionIdx) => potionSprites[Mathf.Max(0, potionIdx - 1)];
-    ///<summary> 스킬 아이콘 반환 </summary>
-    public Sprite GetSkillIcon(int iconIdx) => skillSprites[iconIdx - 1];
     ///<summary> 레시피 아이콘 반환 </summary>
     public Sprite GetRecipeIcon() => recipeSprites[GameManager.instance.slotData.region / 11];
     ///<summary> 자원 아이콘 반환 
+    ///<para> 1 ~ 3 : 스킬 재화(상중하) </para>
     ///<para> 4 ~ 6 : 무기 재화(상중하) </para>
     ///<para> 7 ~ 9 : 방어구 재화(상중하) </para>
     ///<para> 10 ~ 12 : 악세서리 재화(상중하) </para>
@@ -92,6 +89,8 @@ public class SpriteGetter : MonoBehaviour
     public Sprite GetResourceIcon(int resourceIdx)
     {
         int pivot = (resourceIdx - 1) % 3;
+        if(resourceIdx <= 3)
+            return skillResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
         if(resourceIdx <= 6)
             return weaponResourceSprites[(GameManager.instance.slotData.slotClass - 1) * 3 + pivot];
         else if(resourceIdx <= 9)
@@ -101,4 +100,9 @@ public class SpriteGetter : MonoBehaviour
         else
             return commonResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
     }
+
+    ///<summary> 스킬 아이콘 반환 </summary>
+    public Sprite GetSkillIcon(int iconIdx) => skillSprites[iconIdx - 1];
+    public Sprite GetBuffIcon(Obj obj) => buffIconSprites[(int)obj - 1];
+    public Sprite GetBuffBG(bool isBuff) => buffBGSprites[isBuff ? 0 : 1];
 }

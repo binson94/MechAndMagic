@@ -126,11 +126,11 @@ public class Equipment
     ///<summary> json 데이터 로드 </summary>
     static Equipment()
     {
-        weaponSubstatKindPool[0] = Obj.AP; weaponSubstatKindPool[1] = Obj.공격력; weaponSubstatKindPool[2] = Obj.ACC;
-        weaponSubstatKindPool[3] = Obj.CRC; weaponSubstatKindPool[4] = Obj.PEN; weaponSubstatKindPool[5] = Obj.SPD;
+        weaponSubstatKindPool[0] = Obj.행동력; weaponSubstatKindPool[1] = Obj.공격력; weaponSubstatKindPool[2] = Obj.명중률;
+        weaponSubstatKindPool[3] = Obj.치명타율; weaponSubstatKindPool[4] = Obj.방어력무시; weaponSubstatKindPool[5] = Obj.속도;
 
-        necklaceStatKindPool[0] = Obj.HP; necklaceStatKindPool[1] = Obj.DEF; necklaceStatKindPool[2] = Obj.DOG; necklaceStatKindPool[3] = Obj.SPD;
-        ringStatKindPool[0] = Obj.공격력; ringStatKindPool[1] = Obj.ACC; ringStatKindPool[2] = Obj.CRC; ringStatKindPool[3] = Obj.PEN;
+        necklaceStatKindPool[0] = Obj.체력; necklaceStatKindPool[1] = Obj.방어력; necklaceStatKindPool[2] = Obj.회피율; necklaceStatKindPool[3] = Obj.속도;
+        ringStatKindPool[0] = Obj.공격력; ringStatKindPool[1] = Obj.명중률; ringStatKindPool[2] = Obj.치명타율; ringStatKindPool[3] = Obj.방어력무시;
 
         weaponStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/WeaponStat").text);
         armorStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/ArmorStat").text);
@@ -163,7 +163,7 @@ public class Equipment
             case EquipPart.Pants:
             case EquipPart.Gloves:
             case EquipPart.Shoes:
-                mainStat = Obj.DEF;
+                mainStat = Obj.방어력;
                 break;
             case EquipPart.Ring:
                 mainStat = ringStatKindPool[Random.Range(0, 4)];
@@ -189,16 +189,16 @@ public class Equipment
                         while (subStat == Obj.공격력);
                         break;
                     case EquipPart.Top:
-                        subStat = Obj.HP;
+                        subStat = Obj.체력;
                         break;
                     case EquipPart.Pants:
-                        subStat = Obj.DOG;
+                        subStat = Obj.회피율;
                         break;
                     case EquipPart.Gloves:
-                        subStat = Obj.ACC;
+                        subStat = Obj.명중률;
                         break;
                     case EquipPart.Shoes:
-                        subStat = Obj.SPD;
+                        subStat = Obj.속도;
                         break;
                     case EquipPart.Ring:
                         do
@@ -298,7 +298,7 @@ public class Equipment
                     break;
                 //방어구 - 서브 스텟이 1종류만 있음, 방어력이면 메인 스텟, 그 외는 서브 스텟임
                 default:
-                    if (stat == Obj.DEF)
+                    if (stat == Obj.방어력)
                         return 0;
                     else
                         return 1;

@@ -6,6 +6,8 @@ using LitJson;
 
 public class EventPanel : MonoBehaviour
 {
+    [SerializeField] DungeonManager DM;
+
     ///<summary> 이벤트 정보 로드 </summary>
     EventInfo eventInfo;
     ///<summary> 광고 시청 여부 </summary>
@@ -130,9 +132,11 @@ public class EventPanel : MonoBehaviour
                     break;
                 case EventType.Heal:
                     GameManager.instance.EventGetHeal(eventInfo.typeRate[i]);
+                    DM.LoadPlayerInfo();
                     break;
                 case EventType.Damage:
                     GameManager.instance.EventGetDamage(eventInfo.typeRate[i]);
+                    DM.LoadPlayerInfo();
                     break;
                 case EventType.Buff:
                     GameManager.instance.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));

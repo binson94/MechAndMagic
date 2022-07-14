@@ -27,7 +27,7 @@ public class EquipInfoImage : MonoBehaviour
         }
         else
         {
-            iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e);
+            iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e.ebp);
             iconImage.gameObject.SetActive(true);
             lvTxt.text = $"Lv.{e.ebp.reqlvl}";
             lvTxt.gameObject.SetActive(true);

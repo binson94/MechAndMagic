@@ -28,13 +28,13 @@ public class ArmedFighter : Character
         //종합 타격 2세트 - 손, 발 기술 AP 감소
         if (set.Value[0] > 0)
         {
-            turnBuffs.Add(new Buff(BuffType.AP, LVL, new BuffOrder(this, -1), set.Key, 31, 1, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 31, 1, set.Value[0], 1, 99, 0, 1));
         }
 
         set = ItemManager.GetSetData(2);
         //소닉붐 2세트 - SPD 비례 DOG 향상
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this), set.Key, (int)Obj.DOG, dungeonStat[(int)Obj.SPD], set.Value[0], 0, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.회피율, dungeonStat[(int)Obj.속도], set.Value[0], 0, 99, 0, 1));
     }
     public override void OnTurnStart()
     {
@@ -45,7 +45,7 @@ public class ArmedFighter : Character
             {
                 if (Random.Range(0, 100) < chargingPunch.acc)
                 {
-                    chargingPunch.target.GetDamage(this, chargingPunch.atk, buffStat[(int)Obj.PEN], 100);
+                    chargingPunch.target.GetDamage(this, chargingPunch.atk, buffStat[(int)Obj.방어력무시], 100);
                 }
                 else
                     LogManager.instance.AddLog($"{chargingPunch.target.name}(이)가 스킬을 회피하였습니다.");
@@ -58,14 +58,14 @@ public class ArmedFighter : Character
         if (skillOn[0])
         {
             Skill s = SkillManager.GetSkill(1, 30);
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -3), s.name, s.effectObject[0], dmgs[3], s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, s.name, s.effectObject[0], dmgs[3], s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
             skillOn[0] = false;
         }
         //31 충격 동력화
         if (skillOn[1])
         {
             Skill s = SkillManager.GetSkill(1, 31);
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -3), s.name, s.effectObject[0], dmgs[1], s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, s.name, s.effectObject[0], dmgs[1], s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
             skillOn[0] = false;
         }
 
@@ -103,11 +103,11 @@ public class ArmedFighter : Character
             Skill tmp = SkillManager.GetSkill(classIdx, 36);
             //종합 타격 5세트 - 피니셔 공증률 증가
             float rate = tmp.effectRate[0] * (1 + ItemManager.GetSetData(1).Value[2]);
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), tmp.name, tmp.effectObject[0], punchCount, rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, tmp.name, tmp.effectObject[0], punchCount, rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
         }
         //37 리퍼스 킥 - 타겟 체력 40% 이하일 시 100% 크리티컬
-        else if (skill.idx == 37 && (selects[0].buffStat[(int)Obj.currHP] / (float)selects[0].buffStat[(int)Obj.HP]) <= 0.4f)
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRC, 1, 999, 0, -1, 0, 0));
+        else if (skill.idx == 37 && (selects[0].buffStat[(int)Obj.currHP] / (float)selects[0].buffStat[(int)Obj.체력]) <= 0.4f)
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, 999, 0, -1, 0, 0));
 
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
@@ -153,10 +153,10 @@ public class ArmedFighter : Character
                         foreach (Unit u in effectTargets)
                         {
                             int acc = 20;
-                            if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
-                                acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
+                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
+                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
 
                             if (Random.Range(0, 100) < acc)
                             {
@@ -170,9 +170,10 @@ public class ArmedFighter : Character
                                     AddBuff(this, -4, SkillManager.GetSkill(1, 23), 0, 0);
                                 }
 
-                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
 
-                                u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
+                                u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
+                                damaged.Add(u);
                                 Passive_SkillHit(skill);
                             }
                             else
@@ -189,19 +190,19 @@ public class ArmedFighter : Character
                         float heal = stat * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
+                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
                         break;
                     }
                 case EffectType.Active_Buff:
                     {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
+                        if (skill.effectCond[i] == 0 || (skill.effectCond[i] == 1 && isAcc) || (skill.effectCond[i] == 2 && isCrit))
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
                 case EffectType.Active_Debuff:
                     {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
+                        if (skill.effectCond[i] == 0 || (skill.effectCond[i] == 1 && isAcc) || (skill.effectCond[i] == 2 && isCrit))
                             foreach (Unit u in effectTargets)
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
@@ -221,11 +222,11 @@ public class ArmedFighter : Character
                 case EffectType.CharSpecial1:
                     {
                         //머신건 히트 히트수 결정
-                        if (buffStat[(int)Obj.SPD] <= 13)
+                        if (buffStat[(int)Obj.속도] <= 13)
                             count = 4;
-                        else if (buffStat[(int)Obj.SPD] <= 25)
+                        else if (buffStat[(int)Obj.속도] <= 25)
                             count = 5;
-                        else if (buffStat[(int)Obj.SPD] <= 38)
+                        else if (buffStat[(int)Obj.속도] <= 38)
                             count = 6;
                         else
                             count = 7;
@@ -240,9 +241,9 @@ public class ArmedFighter : Character
                         AddBuff(this, orderIdx, skill, i, 0);
                         StatUpdate_Skill(skill);
 
-                        chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.공격력], buffStat[(int)Obj.ACC]);
+                        chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.공격력], buffStat[(int)Obj.명중률]);
                         //AP 값 0으로
-                        buffStat[(int)Obj.AP] = buffStat[(int)Obj.currAP] = 0;
+                        buffStat[(int)Obj.행동력] = buffStat[(int)Obj.currAP] = 0;
                         break;
                     }
                 default:
@@ -325,7 +326,7 @@ public class ArmedFighter : Character
                 {
                     //종합 타격 4세트 - 버프율 증가
                     float rate = skill.effectRate[0] * (1 +  ItemManager.GetSetData(1).Value[1]);
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], skill.effectStat[0], rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], skill.effectStat[0], rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
                 }
                 continue;
             }
@@ -357,7 +358,7 @@ public class ArmedFighter : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(3);
         if (set.Value[0] > 0 && active.category == 1002)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
         }
     }
 

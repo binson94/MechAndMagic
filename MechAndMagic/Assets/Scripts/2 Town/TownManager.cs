@@ -12,7 +12,7 @@ public interface ITownPanel
 public class TownManager : MonoBehaviour
 {
     enum TownState { Lobby, Bed, Dungeon, Smith, Script }
-    
+
     ///<summary> 자식 캔버스들(Lobby, Bed, Dungeon, Smith, Script), 인스펙터 할당 </summary>
     [SerializeField] GameObject[] uiPanels;
     ///<summary> uiPanels에서 GetComponent로 얻음 </summary>
@@ -20,6 +20,8 @@ public class TownManager : MonoBehaviour
 
     ///<summary> 배경 이미지 </summary>
     [SerializeField] Image bgImage;
+    ///<summary> 마을 이름 텍스트 </summary>
+    [SerializeField] Text townNameTxt;
     ///<summary> 배경 이미지 스프라이트들, 인스펙터에서 할당
     ///<para> 1to2 기계, 3to4 기계, 1to2 마법, 3to4 마법 순 </para>
     ///</summary>
@@ -56,7 +58,7 @@ public class TownManager : MonoBehaviour
     private void Start()
     {
         bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5) + (GameManager.instance.slotData.chapter / 2)];
-        
+
         //ITownPanel GetComponent로 얻음
         townPanels = new ITownPanel[uiPanels.Length];
         for (int i = 0; i < uiPanels.Length; i++)
@@ -86,7 +88,7 @@ public class TownManager : MonoBehaviour
         townPanels[idx].ResetAllState();
         PanelSet();
     }
-    
+
     ///<summary> 숙소에서 아이템 제작을 위해 대장간으로 넘어가기 위한 중계 함수 </summary>
     public void BedToSmith(ItemCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
     {
@@ -116,25 +118,25 @@ public class TownManager : MonoBehaviour
         LoadPlayerInfo();
         LoadItemInfo();
         playerInfoPanel.SetActive(true);
-    ///<summary> 플레이어 레벨 및 직업 표시 </summary>
-    void LoadPlayerInfo()
-    {
-        classTxt.text = GameManager.instance.slotData.className;
-        lvlTxt.text = $"Lv.{GameManager.instance.slotData.lvl}";
-    }
-    ///<summary> 현재 장착한 장비 정보 불러오기, 장비 정보 창에 적용 </summary>
-    void LoadItemInfo()
-    {
-        for(int i = 0;i < 7;i++)
+        ///<summary> 플레이어 레벨 및 직업 표시 </summary>
+        void LoadPlayerInfo()
         {
-            Equipment e = GameManager.instance.slotData.itemData.equipmentSlots[i + 1];
-            if(e == null)
-                equipInfos[i].SetImage(equipFrameSprites[0], e);
-            else
-                equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], e);
-            
+            classTxt.text = GameManager.instance.slotData.className;
+            lvlTxt.text = $"Lv.{GameManager.instance.slotData.lvl}";
         }
-    }
+        ///<summary> 현재 장착한 장비 정보 불러오기, 장비 정보 창에 적용 </summary>
+        void LoadItemInfo()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                Equipment e = GameManager.instance.slotData.itemData.equipmentSlots[i + 1];
+                if (e == null)
+                    equipInfos[i].SetImage(equipFrameSprites[0], e);
+                else
+                    equipInfos[i].SetImage(equipFrameSprites[(int)e.ebp.rarity - 1], e);
+
+            }
+        }
 
     }
 
@@ -143,8 +145,8 @@ public class TownManager : MonoBehaviour
     {
         for (int i = 0; i < uiPanels.Length; i++)
             uiPanels[i].SetActive(i == (int)state);
-        
-        if(state == TownState.Lobby || state == TownState.Dungeon || state == TownState.Script)
+
+        if (state == TownState.Lobby || state == TownState.Dungeon || state == TownState.Script)
             ShowItemInfo();
         else
             playerInfoPanel.SetActive(false);
@@ -155,7 +157,7 @@ public class TownManager : MonoBehaviour
     public void Btn_CloseOption() => optionPanel.SetActive(false);
     public void Btn_GoToTitle()
     {
-        GameManager.instance.slotData = null; 
+        GameManager.instance.slotData = null;
         GameManager.instance.LoadScene(SceneKind.Title);
     }
     public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
@@ -166,4 +168,6 @@ public class TownManager : MonoBehaviour
         SoundManager.instance.TxtSet(txtSpdSlider.value);
     }
     #endregion Option
+
+    public void Btn_SFX() => SoundManager.instance.PlaySFX(22);
 }

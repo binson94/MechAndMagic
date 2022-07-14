@@ -21,6 +21,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     [SerializeField] GameObject dialogSelectPanel;
     ///<summary> 대화 선택 버튼들 상태 표시 </summary>
     [SerializeField] DialogButton[] dialogSelectBtns;
+    ///<summary> 대화 선택 버튼 퀘스트 스프라이트 </summary>
+    [SerializeField] Sprite[] questSprites;
     ///<summary> 퀘스트 수락/거절 버튼 부모 오브젝트, 선택 가능 상황에서만 활성화 </summary>
     [SerializeField] GameObject questSelectBtns;
 
@@ -39,7 +41,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     ///<summary> 현재 대화 진행 상태 </summary>
     DialogState state = DialogState.Start;
     ///<summary> 현재 선택한 npc의 idx </summary>
-    int selectedNpc = -1;
+    int selectedNpcIdx = -1;
     ///<summary> 선택한 npc의 현재 가능한 대화 목록 </summary>
     List<KeyValuePair<DialogData, QuestState>> dialogList = new List<KeyValuePair<DialogData, QuestState>>();
     ///<summary> 현재 진행 중인 대화 데이터 </summary>
@@ -76,7 +78,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         void LoadNPCData()
         {
             npcDatas = new NPC[8];
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 4; i++)
                 npcDatas[i] = new NPC($"NPC{i}");
         }
     }
@@ -84,14 +86,14 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     ///<summary> 선택한 npc의 대화 목록 불러오기 </summary>
     public void SelectNPC(int npcIdx)
     {
-        selectedNpc = npcIdx;
-        charIllusts[1].sprite = npcSprites[selectedNpc];
+        selectedNpcIdx = npcIdx;
+        charIllusts[1].sprite = npcSprites[selectedNpcIdx];
         charIllusts[1].color = illustGrayColor;
 
         LoadDialogList();
         dialogSelectPanel.SetActive(true);
 
-        dialogTalkerTxt.text = "NPC";
+        dialogTalkerTxt.text = string.Empty;
     }
     ///<summary> 선택한 npc 대화 목록 불러오기 - 퀘스트 진행 상황에 따라 불러옴 </summary>
     void LoadDialogList()
@@ -101,9 +103,9 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         List<int> clearedQuestList = QuestManager.GetClearedQuest();
 
         int i = 0;
-        for (; i < npcDatas[selectedNpc].count && dialogList.Count < 4; i++)
+        for (; i < npcDatas[selectedNpcIdx].count && dialogList.Count < 4; i++)
         {
-            DialogData dialog = npcDatas[selectedNpc].dialogs[i];
+            DialogData dialog = npcDatas[selectedNpcIdx].dialogs[i];
 
             //현재 3개 이상 퀘스트 수행 중일 시, 새로운 퀘스트 관련 대화 표시 안함
             if (proceedingQuestList.Count >= 3 && dialog.kind == 1 &&
@@ -124,13 +126,13 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             //3. 숨김 퀘스트 클리어 안함
             // 위 조건 모두 만족 시 대화에 추가
             if (IsAdd(i))
-                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcDatas[selectedNpc].dialogs[i], qs));
+                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcDatas[selectedNpcIdx].dialogs[i], qs));
         }
 
         i = 0;
         for (; i < dialogList.Count; i++)
         {
-            dialogSelectBtns[i].Set(dialogList[i].Key.name);
+            dialogSelectBtns[i].Set(dialogList[i], questSprites[(int)dialogList[i].Value]);
             dialogSelectBtns[i].gameObject.SetActive(true);
         }
         for (; i < dialogSelectBtns.Length; i++)
@@ -139,12 +141,12 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         //선행 퀘스트, 관련 퀘스트, 레벨 조건 검사
         bool IsAdd(int idx)
         {
-            int reqQuest = npcDatas[selectedNpc].dialogs[idx].reqQuest;
-            int linkedQuest = npcDatas[selectedNpc].dialogs[idx].linkedQuest;
+            int reqQuest = npcDatas[selectedNpcIdx].dialogs[idx].reqQuest;
+            int linkedQuest = npcDatas[selectedNpcIdx].dialogs[idx].linkedQuest;
             //선행 퀘스트 클리어, 관련 퀘스트 클리어 안함, 레벨 넘김
             return (clearedQuestList.Contains(reqQuest) && 
                     (linkedQuest == 0 || !clearedQuestList.Contains(linkedQuest)) &&
-                    GameManager.instance.slotData.lvl >= npcDatas[selectedNpc].dialogs[idx].lvl);
+                    GameManager.instance.slotData.lvl >= npcDatas[selectedNpcIdx].dialogs[idx].lvl);
         }
     }
 
@@ -155,11 +157,15 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             return;
 
         currDialog = dialogList[idx].Key;
-        string path =$"Jsons/Scripts/NPC{selectedNpc}/dialog{currDialog.idx}";
-        if (currDialog.kind == 1)
-            path = string.Concat(path, dialogList[idx].Value == QuestState.NotReceive ? "R" :
-                                        dialogList[idx].Value == QuestState.Proceeding ? "P" : "C");
-
+        string path;
+        if (currDialog.kind == 1 && dialogList[idx].Value == QuestState.Proceeding)
+            path = "Jsons/Scripts/dialog_QuestProceed";
+        else
+        {
+            path = $"Jsons/Scripts/dialog{currDialog.idx}";
+            if(currDialog.kind == 1)
+                path += dialogList[idx].Value == QuestState.NotReceive ? "R" : "C";
+        }
 
         //선택한 대화 불러오기
         dialogJson = JsonMapper.ToObject(Resources.Load<TextAsset>(path).text);
@@ -171,6 +177,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     }
 
     #region Dialog
+    public void Btn_ScriptSFX() => SoundManager.instance.PlaySFX(23);
     ///<summary> 대화 진행 버튼 - 다음 대사 로드 </summary>
     public void Btn_NextDialog()
     {
@@ -225,7 +232,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                 //대사 출력
                 case DialogToken.NPC:
                     charIllusts[0].color = illustGrayColor; charIllusts[1].color = Color.white;
-                    dialogTalkerTxt.text = "NPC";
+                    dialogTalkerTxt.text = npcDatas[selectedNpcIdx].name;
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
                     break;
@@ -287,7 +294,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     #region NormalDialog
     IEnumerator ProceedDialog()
     {
-        float time = 0.05f + 0.05f * SoundManager.instance.GetTxtSpd();
+        float time = 0.1f - 0.035f * SoundManager.instance.GetTxtSpd();
         if (state != DialogState.Proceed)
             yield break;
 
@@ -337,7 +344,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     {
         state = DialogState.Start;
         dialogTxt.text = string.Empty;
-        dialogTalkerTxt.text = "NPC";
+        dialogTalkerTxt.text = string.Empty;
         currDialog = null;
         LoadDialogList();
 
@@ -356,34 +363,18 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     {
         Start, Proceed, QuestAccept, Next, End
     }
-
-    class DialogData
-    {
-        ///<summary> 대화 이름 </summary>
-        public string name;
-        ///<summary> 대화 인덱스 </summary>
-        public int idx;
-        ///<summary> 퀘스트 받는 대화 표시
-        ///<para> 0 : 그냥 대화, 1 : 퀘스트 수락 대화 </para>
-        ///</summary>
-        public int kind;
-        ///<summary> 대화 표시 요구 챕터 </summary>
-        public int chapter;
-        ///<summary> 대화 표시 요구 레벨 </summary>
-        public int lvl;
-        ///<summary> 대화 표시 요구 퀘스트 </summary>
-        public int reqQuest;
-        ///<summary> 대화 시 수락하는 퀘스트 </summary>
-        public int linkedQuest;
-    }
     class NPC
     {
+        public string name;
         public int count;
         public DialogData[] dialogs;
 
         public NPC(string name)
         {
-            JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>($"Jsons/Scripts/{name}/{name}").text);
+            JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>($"Jsons/Scripts/{name}").text);
+
+            this.name = json[0]["npcName"].ToString();
+
             count = json.Count;
 
             dialogs = new DialogData[count];
@@ -402,4 +393,24 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             }
         }
     }
+}
+
+public class DialogData
+{
+    ///<summary> 대화 이름 </summary>
+    public string name;
+    ///<summary> 대화 인덱스 </summary>
+    public int idx;
+    ///<summary> 퀘스트 받는 대화 표시
+    ///<para> 0 : 그냥 대화, 1 : 퀘스트 수락 대화 </para>
+    ///</summary>
+    public int kind;
+    ///<summary> 대화 표시 요구 챕터 </summary>
+    public int chapter;
+    ///<summary> 대화 표시 요구 레벨 </summary>
+    public int lvl;
+    ///<summary> 대화 표시 요구 퀘스트 </summary>
+    public int reqQuest;
+    ///<summary> 대화 시 수락하는 퀘스트 </summary>
+    public int linkedQuest;
 }

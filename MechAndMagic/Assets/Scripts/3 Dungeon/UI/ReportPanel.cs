@@ -8,8 +8,8 @@ public class ReportPanel : MonoBehaviour
     ///<summary> 돌발퀘스트 정보 표시 UI Set, 돌발 퀘스트 없으면 비활성화 </summary>
     [SerializeField] GameObject outbreakPanel;
     ///<summary> 돌발 퀘스트 표기 텍스트
-    ///<para> 0 name, 1 success(기본값 성공), 2 reward </para> </summary>
-    [Tooltip("0 name, 1 success, 2 reward")]
+    ///<para> 0 name, 1 success(기본값 성공), 2 script, 3 reward </para> </summary>
+    [Tooltip("0 name, 1 success, 2 script, 3 reward")]
     [SerializeField] Text[] outbreakTxts;
 
     ///<summary> 경험치 표시 슬라이더 </summary>
@@ -20,16 +20,12 @@ public class ReportPanel : MonoBehaviour
     ///<summary> 레벨업 시 표기 텍스트 </summary>
     [SerializeField] GameObject lvlUpTxt;
 
-    ///<summary> 드롭 세부 정보, 버튼 터치 지속 시 활성화 </summary>
-    [Header("Drop")]
-    [SerializeField] RectTransform dropPopup;
-    ///<summary> 팝업에 보여줄 아이템 이름 </summary>
-    [SerializeField] Text popUpTxt;
-
     ///<summary> 드롭 아이콘, 5개 한세트 </summary>
+    [Header("Drop")]
     [SerializeField] DropToken dropTokenPrefab;
     [SerializeField] RectTransform tokenParent;
     [SerializeField] RectTransform viewPoint;
+    [SerializeField] PopUpManager pm;
 
     ///<summary> 보고서 정보 불러오기 </summary>
     public void LoadData()
@@ -51,7 +47,13 @@ public class ReportPanel : MonoBehaviour
         else if (outbreakProceed.state == QuestState.CanClear)
         {
             outbreakTxts[0].text = outbreak.Key.name;
-            outbreakTxts[2].text = $"{outbreak.Key.rewardIdx[0]} : {outbreak.Key.rewardAmt[0]}";
+            outbreakTxts[2].text = outbreak.Key.doneScript;
+
+            if(outbreak.Key.rewardIdx[0] == 150)
+                outbreakTxts[3].text = $"경험치 {outbreak.Key.rewardAmt} 획득";
+            else
+
+            outbreakTxts[3].text = $"{ItemManager.GetResourceName(outbreak.Key.rewardIdx[0])} {outbreak.Key.rewardAmt[0]}개 획득";
             QuestManager.ClearOutbreak();
         }
         //돌발 퀘스트 실패
@@ -60,7 +62,7 @@ public class ReportPanel : MonoBehaviour
             outbreakTxts[0].text = outbreak.Key.name;
             outbreakTxts[1].text = "실패";
             outbreakTxts[1].color = new Color(0xed / 255f, 0x29 / 255f, 0x29 / 255f, 1);
-            outbreakTxts[2].text = string.Empty;
+            outbreakTxts[2].text = outbreakTxts[3].text = string.Empty;
         }
     }
     ///<summary> 경험치 획득 정보 불러오기 </summary>
@@ -85,21 +87,10 @@ public class ReportPanel : MonoBehaviour
             for(int j = 0;j < 5 && i < drops.Count;i++, j++)
                 idxs.Add(drops[i]);
 
-            token.Init(this, idxs);
+            token.Init(pm, idxs);
             idxs.Clear();
         }
     }
-
-    public void ShowPopUp(string script, Color txtColor, RectTransform btnRect)
-    {
-        dropPopup.SetParent(btnRect);
-        dropPopup.anchoredPosition = new Vector2(Mathf.Min(0, 540 - dropPopup.rect.width - btnRect.anchoredPosition.x), +95);
-        dropPopup.SetParent(viewPoint);
-        popUpTxt.color = txtColor;
-        popUpTxt.text = script;
-        dropPopup.gameObject.SetActive(true);
-    }
-    public void HidePopUp() => dropPopup.gameObject.SetActive(false);
 
     ///<summary> 마을로 돌아가기 버튼 </summary>
     public void Btn_GoToTown() => GameManager.instance.LoadScene(SceneKind.Town);

@@ -20,9 +20,9 @@ public enum EffectType
     DoNothing, CharSpecial1, CharSpecial2, CharSpecial3
 }
 
-public enum Obj { None, currHP, HP, currAP, AP, 공격력, DEF, ACC, DOG, CRC, CRB, PEN, SPD, 
-    Stun, GetDmg, GiveDmg, LossPer, CurrPer, BuffCnt, DebuffCnt, MaxHP, Bleed, Burn, Cannon,
-    Cycle, Curse, Posion, Shield, Bomb, Venom, Ghost, APCost };
+public enum Obj { None, currHP, 체력, currAP, 행동력, 공격력, 방어력, 명중률, 회피율, 치명타율, 치명타피해, 방어력무시, 속도, 
+    기절, GetDmg, GiveDmg, LossPer, CurrPer, BuffCnt, DebuffCnt, MaxHP, 출혈, 화상, Cannon,
+    순환, 저주, 중독, 보호막, 임플란트봄, 맹독, 악령빙의, APCost };
 
 public enum BuffType
 {

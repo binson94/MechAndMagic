@@ -13,6 +13,8 @@ public class ItemManager : MonoBehaviour
 
     ///<summary> 모든 장비 정보 </summary>
     static EquipBluePrint[] bluePrints = new EquipBluePrint[EQUIP_COUNT];
+    ///<summary> 스킬 학습 시 소모하는 재화 정보 </summary>
+    static JsonData skillLearnJson;
 
     public static void LoadData()
     {
@@ -20,6 +22,8 @@ public class ItemManager : MonoBehaviour
             bluePrints[i] = new EquipBluePrint(i);
 
         setManager = new SetOptionManager();
+
+        skillLearnJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/Skillbook").text);
     }
 
     #region ItemDrop
@@ -46,16 +50,16 @@ public class ItemManager : MonoBehaviour
             }
             //스킬북
             else if (category <= 23)
-                AddNewSkillBook(category);
+                SkillbookDrop(category);
             //장비
             else if (category <= 86)
-                AddNewEquip(category);
+                EquipmentDrop(category);
             //제작법
             else if (category <= 149)
-                AddNewEquipRecipe(category);
+                RecipeDrop(category);
         }
     }
-    static void AddNewEquip(int category)
+    static void EquipmentDrop(int category)
     {
         int classIdx = GameManager.instance.slotData.slotClass;
         int region = GameManager.instance.slotData.region;
@@ -74,7 +78,7 @@ public class ItemManager : MonoBehaviour
     }
     ///<summary> 스킬북 드롭 </summary>
     ///<param name="category"> 19 9lv, 20 7lv, 21 5lv, 22 3lv, 23 1lv </param>
-    static void AddNewSkillBook(int category)
+    static void SkillbookDrop(int category)
     {
         int lvl = 47 - 2 * category;
         Skill[] s = SkillManager.GetSkillData(GameManager.instance.slotData.slotClass);
@@ -97,7 +101,7 @@ public class ItemManager : MonoBehaviour
         GameManager.instance.DropSave(DropType.Skillbook, skillbookIdx);
         GameManager.instance.SaveSlotData();
     }
-    static void AddNewEquipRecipe(int category)
+    static void RecipeDrop(int category)
     {
         category -= 63;
         int classIdx = GameManager.instance.slotData.slotClass;
@@ -111,8 +115,8 @@ public class ItemManager : MonoBehaviour
 
         int recipeIdx = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().idx;
 
-        GameManager.instance.slotData.itemData.RecipeDrop(recipeIdx);
-        GameManager.instance.DropSave(DropType.Recipe, bluePrints[recipeIdx].idx);
+        if (GameManager.instance.slotData.itemData.RecipeDrop(recipeIdx))
+            GameManager.instance.DropSave(DropType.Recipe, bluePrints[recipeIdx - bluePrints[0].idx].idx);
 
         GameManager.instance.SaveSlotData();
     }
@@ -147,6 +151,8 @@ public class ItemManager : MonoBehaviour
         GameManager.instance.SaveSlotData();
     }
 
+    public static bool CanSkillLearn(int skillLvl) 
+    => GameManager.instance.slotData.itemData.CanSkillLearn((int)skillLearnJson[skillLvl / 2]["resource1"], (int)skillLearnJson[skillLvl / 2]["resource2"], (int)skillLearnJson[skillLvl / 2]["resource3"]);
     ///<summary> 스킬 학습 </summary>
     public static void SkillLearn(int idx)
     {
@@ -320,7 +326,12 @@ public class ItemManager : MonoBehaviour
     {
         int pivot = (resourceIdx - 1) % 3;
         string resourceName = pivot == 0 ? "상급 " : (pivot == 1 ? "중급 " : "하급 ");
-        if(resourceIdx <= 6)
+        if(resourceIdx <= 3)
+            if(GameManager.instance.slotData.region < 11)
+                resourceName += "용지";
+            else
+                resourceName += "양피지";
+        else if(resourceIdx <= 6)
             switch(GameManager.instance.slotData.slotClass)
             {
                 case 1:

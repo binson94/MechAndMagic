@@ -15,7 +15,10 @@ public class QuestInfoToken : MonoBehaviour
         else
         {
             questNameTxt.text = proceed.Key.name;
-            questScriptTxt.text = $"{proceed.Key.script} ({proceed.Value}/{proceed.Key.objectAmt})";
+            if(proceed.Key.type == QuestType.Diehard_Over || proceed.Key.type == QuestType.Diehard_Under)
+                questScriptTxt.text = $"{proceed.Key.script}";
+            else
+                questScriptTxt.text = $"{proceed.Key.script} ({proceed.Value}/{proceed.Key.objectAmt})";
         }
     }
 }

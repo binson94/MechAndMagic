@@ -121,7 +121,7 @@ public class DungeonManager : MonoBehaviour
         scroll.verticalNormalizedPosition = (float)GameManager.instance.slotData.dungeonData.mapScroll;
     }
     ///<summary> 현재 수행 중인 퀘스트 정보 로드하여 표시 </summary>
-    void LoadQuestData()
+    public void LoadQuestData()
     {
         KeyValuePair<QuestBlueprint, int>[] currQuest = QuestManager.GetProceedingQuestData();
 
@@ -129,7 +129,7 @@ public class DungeonManager : MonoBehaviour
             questPanels[i].SetQuestProceed(currQuest[i]);
     }
     ///<summary> 플레이어 정보 불러오기 </summary>
-    void LoadPlayerInfo()
+    public void LoadPlayerInfo()
     {
         //플레이어 이미지 설정
         playerIcon.sprite = playerSprites[GameManager.instance.slotData.slotClass - 1];
@@ -137,9 +137,9 @@ public class DungeonManager : MonoBehaviour
         SetPlayerImagePos();
 
         //체력바와 레벨 설정
-        int hpValue = GameManager.instance.slotData.dungeonData.currHP > 0 ? GameManager.instance.slotData.dungeonData.currHP : GameManager.instance.slotData.itemStats[(int)Obj.HP];
+        int hpValue = GameManager.instance.slotData.dungeonData.currHP > 0 ? GameManager.instance.slotData.dungeonData.currHP : GameManager.instance.slotData.itemStats[(int)Obj.체력];
         hpTxt.text = hpValue.ToString();
-        hpBar.value = hpValue / (float)GameManager.instance.slotData.itemStats[(int)Obj.HP];
+        hpBar.value = hpValue / (float)GameManager.instance.slotData.itemStats[(int)Obj.체력];
         lvlTxt.text = GameManager.instance.slotData.lvl.ToString();
     }
     ///<summary> 플레이어 이미지 위치 설정 </summary>

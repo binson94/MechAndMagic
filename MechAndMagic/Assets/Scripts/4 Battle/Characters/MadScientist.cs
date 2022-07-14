@@ -83,11 +83,11 @@ public class MadScientist : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(12);
         if (set.Value[2] > 0 && skill.category == 1026)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ACC, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRC, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRB, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.PEN, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.방어력무시, 1, set.Value[2], 1, -1));
         }
 
 
@@ -97,7 +97,7 @@ public class MadScientist : Character
         //144 시선 집중 기계, 157 하이라이트 부츠 - 자석탱
         if(skill.idx == 144 || skill.idx == 157)
         {
-            turnBuffs.Add(new Buff(BuffType.None, LVL, new BuffOrder(this, -1), skill.name, 0, 0, 0, 0, 3, 1, 1));
+            turnBuffs.Add(new Buff(BuffType.None, new BuffOrder(this), skill.name, 0, 0, 0, 0, 3, 1, 1));
             isMagnetic = true;
         }
         //165 업그레이드 세트
@@ -177,23 +177,23 @@ public class MadScientist : Character
 
                             //172 상태 왜곡 장치, 카오스 패닉 5세트(골렘도)
                             if (HasSkill(172) && (u == this || (u.classIdx == 12 && ItemManager.GetSetData(10).Value[2] > 0)))
-                                u.GetHeal(stat * skill.effectRate[i] * skill.effectCalc[i] == 1 ? buffStat[(int)Obj.HP] : 1);
+                                u.GetHeal(stat * skill.effectRate[i] * skill.effectCalc[i] == 1 ? buffStat[(int)Obj.체력] : 1);
                             else
                             {
                                 int acc = 20;
-                                if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
-                                    acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                                if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
+                                    acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                                 else
-                                    acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
+                                    acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
 
                                 //명중 시
                                 if (Random.Range(0, 100) < acc)
                                 {
                                     isAcc = true;
                                     //크리티컬 연산 - dmg * CRB
-                                    isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
+                                    isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
 
-                                    u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
+                                    u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
                                     damaged.Add(u);
 
                                     Passive_SkillHit(skill);
@@ -216,9 +216,9 @@ public class MadScientist : Character
                         {
                             //172 상태 왜곡 장치
                             if (HasSkill(172) && (u == this || (u.classIdx == 12 && ItemManager.GetSetData(10).Value[2] > 0)))
-                                u.GetDamage(this, heal * skill.effectCalc[i] == 1 ? u.buffStat[(int)Obj.HP] : 1, buffStat[(int)Obj.PEN], 100);
+                                u.GetDamage(this, heal * skill.effectCalc[i] == 1 ? u.buffStat[(int)Obj.체력] : 1, buffStat[(int)Obj.방어력무시], 100);
                             else
-                                u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
+                                u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
                         }
                         break;
                     }
@@ -308,7 +308,7 @@ public class MadScientist : Character
                 //기초 과학자 2세트 - 1레벨 패시브 강화
                 if((s.idx == 132 || s.idx == 133 || s.idx == 134) && rate > 0)
                 {
-                    turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
                     continue;
                 }
                 switch ((EffectType)s.effectType[i])

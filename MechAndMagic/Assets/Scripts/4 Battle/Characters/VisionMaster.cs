@@ -21,15 +21,15 @@ public class VisionMaster : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(21);
         if(set.Value[2] > 0 && LVL >= 10)
         {
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.AP, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.DEF, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.ACC, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.DOG, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.CRC, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.CRB, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.PEN, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.SPD, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.행동력, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.명중률, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.회피율, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타피해, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력무시, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.속도, 1, set.Value[2], 1, 99, 0, 1));
         }
     }
     public override void OnTurnStart()
@@ -54,7 +54,7 @@ public class VisionMaster : Character
             //찬란한 태양 3세트 - 플러스 비전이 DEF도 버프
             set = ItemManager.GetSetData(19);
             if (set.Value[1] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.DEF, 1, set.Value[1], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.방어력, 1, set.Value[1], 1, 1, 1, 1));
         }
         //298 마이너스 비전 - 이번 턴에 음 스킬만 사용 시 다음 턴에 명중 버프
         if (HasSkill(298) && skillCount_turn[0] == 0)
@@ -65,7 +65,7 @@ public class VisionMaster : Character
             //웅장한 월광 3세트 - 마이너스 비전이 DOG도 버프
             set = ItemManager.GetSetData(20);
             if (set.Value[1] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.DOG, 1, set.Value[1], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.회피율, 1, set.Value[1], 1, 1, 1, 1));
 
         }//299 플랫 비전 - 이번 턴에 양, 음 스킬 사용 수 같을 시, 다음 턴 올 때까지 방어력 상승
         //299 플랫 비전 - 이번 턴에 양, 음 스킬 사용 수가 같을 시 방어력 버프
@@ -74,7 +74,7 @@ public class VisionMaster : Character
             tmp = SkillManager.GetSkill(classIdx, 299);
             //완벽한 균형 3세트 - 플랫 비전 방어력 상승량 증가
             float rate = 1 + ItemManager.GetSetData(21).Value[1];
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
         }
     }
 
@@ -147,7 +147,7 @@ public class VisionMaster : Character
 
             //찬란한 태양 4세트 - 햇빛 승천 발동 시 CRB도 상승
             if (set.Value[2] > 0)
-                skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRB, 1, set.Value[2], 1, -1));
+                skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[2], 1, -1));
         }
 
         //skill 효과 순차적으로 계산
@@ -161,7 +161,7 @@ public class VisionMaster : Character
 
             //찬란한 태양 2세트 - 양 스킬 사용 시 1턴 ATK 버프
             if (set.Value[0] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[0], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[0], 1, 1, 1, 1));
         }
         //음 스킬
         if (skill.category == 1024)
@@ -172,7 +172,7 @@ public class VisionMaster : Character
             //웅장한 월광 2세트 - 음 스킬 사용 시 1턴 ACC 버프
             set = ItemManager.GetSetData(20);
             if (set.Value[0] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), set.Key, (int)Obj.ACC, 1, set.Value[0], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[0], 1, 1, 1, 1));
 
         }
         //스킬 카운트 - 동시 발동은 1번만 카운트
@@ -192,7 +192,7 @@ public class VisionMaster : Character
             Unit u = BM.GetEffectTarget(4)[0];
 
             StatUpdate_Turn();
-            u.GetDamage(this, buffStat[tmp.effectStat[0]] * tmp.effectRate[0], buffStat[(int)Obj.PEN], 100);
+            u.GetDamage(this, buffStat[tmp.effectStat[0]] * tmp.effectRate[0], buffStat[(int)Obj.방어력무시], 100);
         }
 
         set = ItemManager.GetSetData(21);
@@ -230,7 +230,7 @@ public class VisionMaster : Character
             set = ItemManager.GetSetData(20);
             if (set.Value[2] > 0)
                 foreach (Unit u in t)
-                    u.turnDebuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.DOG, 1, set.Value[2], 1, tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.회피율, 1, set.Value[2], 1, tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
         }
 
         orderIdx++;
@@ -273,19 +273,19 @@ public class VisionMaster : Character
                                 continue;
 
                             int acc = 20;
-                            if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
-                                acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
+                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
+                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
 
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
                                 isAcc = true;
                                 //크리티컬 연산 - dmg * CRB
-                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
 
-                                bool kill = u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100).Key;
+                                bool kill = u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100).Key;
                                 damaged.Add(u);
 
                                 if (kill)
@@ -309,7 +309,7 @@ public class VisionMaster : Character
                         float heal = stat * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
+                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
                         break;
                     }
                 case EffectType.Active_Buff:

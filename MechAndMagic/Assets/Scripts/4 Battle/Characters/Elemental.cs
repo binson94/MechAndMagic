@@ -17,7 +17,7 @@ public class Elemental : Character
         StatLoad(ec);
         SkillBuff(ec);
         StatUpdate_Turn();
-        buffStat[(int)Obj.currHP] = buffStat[(int)Obj.HP];
+        buffStat[(int)Obj.currHP] = buffStat[(int)Obj.체력];
 
         SkillSet();
     }
@@ -47,7 +47,7 @@ public class Elemental : Character
             dungeonStat[i] = Mathf.RoundToInt((isUpgraded ? 0.7f : 0.4f) * ec.dungeonStat[i]);
         dungeonStat[1] = dungeonStat[2];
 
-        dungeonStat[(int)Obj.SPD] = 50;
+        dungeonStat[(int)Obj.속도] = 50;
     }
     void SkillBuff(ElementalController ec)
     {
@@ -58,13 +58,13 @@ public class Elemental : Character
         if (ec.HasSkill(194))
         {
             Skill s= SkillManager.GetSkill(5, 194);
-            turnBuffs.Add(new Buff(BuffType.Stat, ec.LVL, new BuffOrder(ec, -1), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ec), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
         }
         //195 정령 생명 부여
         if (ec.HasSkill(195))
         {
             Skill s= SkillManager.GetSkill(5, 195);
-            turnBuffs.Add(new Buff(BuffType.Stat, ec.LVL, new BuffOrder(ec, -1), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ec), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
         }
         if (ec.HasSkill(202) && type == 1007)
             AddBuff(ec, -2, SkillManager.GetSkill(5, 114), 0, 0);

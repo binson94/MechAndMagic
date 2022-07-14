@@ -18,11 +18,11 @@ public class DropToken : MonoBehaviour
     int[] colorIdx;
     string[] scripts;
 
-    ReportPanel RP;
+    PopUpManager pm;
 
-    public void Init(ReportPanel rp, List<Triplet<DropType, int, int>> drops)
+    public void Init(PopUpManager pm, List<Triplet<DropType, int, int>> drops)
     {
-        RP = rp;
+        this.pm = pm;
         scripts = new string[drops.Count];
         colorIdx = new int[drops.Count];
         int i;
@@ -65,7 +65,7 @@ public class DropToken : MonoBehaviour
         }
     }
 
-    public void ShowPopUp(int idx, RectTransform rect) => RP.ShowPopUp(scripts[idx], rareColor[colorIdx[idx]], rect);
+    public void ShowPopUp(int idx, RectTransform rect) => pm.ShowPopUp(scripts[idx], rect, rareColor[colorIdx[idx]]);
     
-    public void HidePopUp() => RP.HidePopUp();
+    public void HidePopUp() => pm.HidePopUp();
 }

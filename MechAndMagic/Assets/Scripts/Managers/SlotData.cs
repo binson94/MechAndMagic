@@ -199,7 +199,7 @@ public class DungeonData
 public class ItemData
 {
     ///<summary> 기본 재화 
-    ///<para> 1~3 : 스킬 재화 - 안 씀 </para>
+    ///<para> 1~3 : 스킬 재화(상중하) </para>
     ///<para> 4~12 : 아이템 특수 재화(상중하 우선, 무기,방어구,장신구) </para>
     ///<para> 13~15 : 아이템 공통 재화 </para>
     ///</summary>
@@ -319,6 +319,15 @@ public class ItemData
         else
             Debug.Log("there is no stuff");
     }
+
+    public bool CanSkillLearn(params int[] resources)
+    {
+        for(int i = 0;i < resources.Length;i++)
+            if(basicMaterials[i + 1] < resources[i])
+                return false;
+
+        return true;
+    }
     #endregion Smith
 
     #region Drop
@@ -351,11 +360,15 @@ public class ItemData
         }
         skillbooks.Insert(left, new Skillbook(skillIdx, 1));
     }
-    ///<summary> 새로운 장비 레시피 드롭 </summary>
-    public void RecipeDrop(int equipIdx)
+    ///<summary> 새로운 장비 레시피 드롭, 이미 레시피 가지고 있으면 false 반환 </summary>
+    public bool RecipeDrop(int equipIdx)
     {
         if(!equipRecipes.Contains(equipIdx))
+        {
             equipRecipes.Add(equipIdx);
+            return true;
+        }
+        return false;
     }
     #endregion Drop
     ///<summary> 장비 장착 </summary>
@@ -472,7 +485,7 @@ public class QuestData
         //돌발 퀘스트
         if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == type)
         {
-            if (outbreakProceed.type != QuestType.Diehard)
+            if (!(outbreakProceed.type == QuestType.Diehard_Over || outbreakProceed.type == QuestType.Diehard_Under))
                 if (outbreakProceed.objectIdx == 0 || outbreakProceed.objectIdx == objectIdx)
                     outbreakProceed.objectCurr++;
 
@@ -484,8 +497,11 @@ public class QuestData
     ///<summary> 전투 끝날 때마다 호출 </summary>
     public void DiehardUpdate(float rate)
     {
-        if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard)
+        if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard_Over)
             if (100 * rate < outbreakProceed.objectReq)
+                RemoveOutbreak();
+        else if(outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard_Under)
+            if(100 * rate > outbreakProceed.objectReq)
                 RemoveOutbreak();
     }
     ///<summary> 퀘스트 클리어 판정 </summary>

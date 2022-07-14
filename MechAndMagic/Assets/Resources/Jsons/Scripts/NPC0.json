@@ -1,0 +1,84 @@
+[
+  {
+    "npcName" : "미스 밸러",
+    "name": "미스 밸러에게 인사",
+    "idx": 1,
+    "kind": 0,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 0,
+    "linkedQuest": 0
+  },
+  {
+    "name": "궁금한 것이 있습니다",
+    "idx": 2,
+    "kind": 0,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 0,
+    "linkedQuest": 0
+  },
+  {
+    "name": "스승과의 재회",
+    "idx": 3,
+    "kind": 1,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 0,
+    "linkedQuest": 1
+  },
+  {
+    "name": "추격",
+    "idx": 4,
+    "kind": 1,
+    "chapter": 1,
+    "lvl": 0,
+    "reqQuest": 2,
+    "linkedQuest": 3
+  },
+  {
+    "name": "초대받지 못한 손님",
+    "idx": 5,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 3,
+    "linkedQuest": 5
+  },
+  {
+    "name": "탑 안정화",
+    "idx": 6,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 6,
+    "linkedQuest": 7
+  },
+  {
+    "name": "대의를 위해",
+    "idx": 7,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 7,
+    "linkedQuest": 8
+  },
+  {
+    "name": "생존술 터득",
+    "idx": 8,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 5,
+    "linkedQuest": 9
+  },
+  {
+    "name": "정보 수집",
+    "idx": 9,
+    "kind": 1,
+    "chapter": 2,
+    "lvl": 0,
+    "reqQuest": 9,
+    "linkedQuest": 10
+  }
+ ]

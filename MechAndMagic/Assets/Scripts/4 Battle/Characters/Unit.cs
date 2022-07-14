@@ -5,10 +5,10 @@ using System.Linq;
 
 public class Unit : MonoBehaviour
 {
-    /* #region Variable */
+    #region Variable
     protected BattleManager BM;
 
-    /* #region Stat */
+    #region Stat
     [Header("Stats")]
     //레벨
     public int LVL;
@@ -23,9 +23,9 @@ public class Unit : MonoBehaviour
 
     //0:이번 턴 가한 데미지, 1:이전 턴 가한 데미지, 2:이번 턴 받은 데미지, 3:이전 턴 받은 데미지
     [HideInInspector] public int[] dmgs = new int[4];
-    /* #endregion Stat */
+    #endregion Stat
 
-    /* #region Buff */
+    #region Buff
     [Header("Buffs")]
     protected int orderIdx;
 
@@ -39,23 +39,23 @@ public class Unit : MonoBehaviour
     protected BuffSlot shieldBuffs = new BuffSlot();
 
     public ImplantBomb implantBomb = null;
-    /* #endregion */
+    #endregion
 
-    /* #region Active */
+    #region Active
     [Header("Battle")]
     protected bool isAcc;     //적중 여부
     protected bool isCrit;    //크리티컬 여부
-    /* #endregion */
+    #endregion Active
 
-    /* #region SkillIdx */
+    #region SkillIdx
     [Header("Skill")]
     public int[] activeIdxs = new int[6];
     public int[] cooldowns = new int[6];
     public int[] passiveIdxs = new int[4];
-    /* #endregion */
-    /* #endregion Variable */
+    #endregion SkillIdx
+    #endregion Variable
 
-    /* #region Function */
+    #region Function
     //전투 시작 시 1번만 호출
     public virtual void OnBattleStart(BattleManager BM) { this.BM = BM; StatLoad(); orderIdx = 0; }
     //내 턴이 시작될 때 호출 - AP 값 초기화, 스킬 쿨다운 감소, 턴 버프 계산
@@ -77,7 +77,7 @@ public class Unit : MonoBehaviour
         StatUpdate_Turn();
         HealBuffUpdate();
 
-        buffStat[(int)Obj.currAP] = buffStat[(int)Obj.AP];
+        buffStat[(int)Obj.currAP] = buffStat[(int)Obj.행동력];
 
         void TurnBuffUpdate()
         {
@@ -88,8 +88,8 @@ public class Unit : MonoBehaviour
     }
     public virtual void OnTurnEnd() {}
 
-    /* #region Skill */
-    /* #region Skill Condition */
+    #region Skill
+    #region Skill Condition
     public virtual string CanCastSkill(int idx)
     {
         Skill s = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
@@ -131,9 +131,9 @@ public class Unit : MonoBehaviour
             return false;
         }
     }
-    /* #endregion Skill Condition */
+    #endregion Skill Condition
 
-    /* #region Active */
+    #region Active
     public virtual void ActiveSkill(int idx, List<Unit> selects)
     {
         //적중 성공 여부
@@ -192,18 +192,18 @@ public class Unit : MonoBehaviour
                                 continue;
 
                             int acc = 20;
-                            if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
-                                acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
+                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
+                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
 
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
                                 isAcc = true;
-                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
 
-                                u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100);
+                                u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
                                 damaged.Add(u);
 
                                 Passive_SkillHit(skill);
@@ -222,7 +222,7 @@ public class Unit : MonoBehaviour
                         float heal = stat * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
+                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
                         break;
                     }
                 case EffectType.Active_Buff:
@@ -284,31 +284,31 @@ public class Unit : MonoBehaviour
             return dmgs[1];
         //타겟 잃은 체력 비율
         else if (effectStat == (int)Obj.LossPer)
-            return 1 - ((float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.HP]);
+            return 1 - ((float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.체력]);
         //타겟 현재 체력 비율
         else if (effectStat == (int)Obj.CurrPer)
-            return (float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.HP];
+            return (float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.체력];
         else if (effectStat == (int)Obj.BuffCnt)
             return turnBuffs.Count;
         else if (effectStat == (int)Obj.DebuffCnt)
             return selects[0].turnDebuffs.Count;
         else if (effectStat == (int)Obj.MaxHP)
-            return selects[0].buffStat[(int)Obj.HP];
+            return selects[0].buffStat[(int)Obj.체력];
         //출혈
-        else if (effectStat == (int)Obj.Bleed)
+        else if (effectStat == (int)Obj.출혈)
             return buffStat[(int)Obj.공격력] * 0.15f;
         //화상
-        else if (effectStat == (int)Obj.Burn)
+        else if (effectStat == (int)Obj.화상)
             return buffStat[(int)Obj.공격력] * 0.7f;
         //중독
-        else if (effectStat == (int)Obj.Posion)
+        else if (effectStat == (int)Obj.중독)
             return buffStat[(int)Obj.공격력] * 0.1f;
         else
             return 0;
     }
-    /* #endregion Active */
+    #endregion Active
 
-    /* #region Passive */
+    #region Passive
     //전투 시작 시, 패시브 버프 시전
     protected virtual void Passive_BattleStart() { }
     //타격 성공 시, 패시브 버프 시전
@@ -362,17 +362,18 @@ public class Unit : MonoBehaviour
             }
         }
     }
-    /* #endregion Passive */
-    /* #endregion */
+    #endregion Passive
+    #endregion Skill
 
-    /*#region Buff */
-    /* #region Add */
+    #region Buff
+    #region Add
     public void AddBuff(Unit caster, int order, Skill s, int effectIdx, float rate)
     {
         float stat;
-        if (s.effectStat[effectIdx] <= 12)
+        if (s.effectStat[effectIdx] <= 0) stat = 1;
+        else if (s.effectStat[effectIdx] <= 12)
             stat = dungeonStat[s.effectStat[effectIdx]];
-        else if (s.effectStat[effectIdx] == (int)Obj.Shield)
+        else if (s.effectStat[effectIdx] == (int)Obj.보호막)
         {
             AddShield(s, effectIdx);
             return;
@@ -381,12 +382,12 @@ public class Unit : MonoBehaviour
             stat = rate;
         if(s.effectObject[effectIdx] == (int)Obj.APCost)
         {
-            Buff b = new Buff(BuffType.AP, caster.LVL, new BuffOrder(caster, order), s.name, s.effectCond[effectIdx], 1, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
+            Buff b = new Buff(BuffType.AP, new BuffOrder(caster, order), s.name, s.effectCond[effectIdx], 1, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
             turnBuffs.Add(b);
         }
         else
         {
-            Buff b = new Buff(BuffType.Stat, caster.LVL, new BuffOrder(caster, order), s.name, s.effectObject[effectIdx], stat, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
+            Buff b = new Buff(BuffType.Stat, new BuffOrder(caster, order), s.name, s.effectObject[effectIdx], stat, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
             if (s.effectTurn[effectIdx] < 0)
                 skillBuffs.Add(b);
             else
@@ -398,18 +399,19 @@ public class Unit : MonoBehaviour
     public virtual void AddDebuff(Unit caster, int order, Skill s, int effectIdx, float rate)
     {
         float stat;
-        if (s.effectStat[effectIdx] <= 12)
+        if (s.effectStat[effectIdx] <= 0) stat = 1;
+        else if (s.effectStat[effectIdx] <= 12)
             stat = dungeonStat[s.effectStat[effectIdx]];
         else
             stat = rate;
         if (s.effectObject[effectIdx] == (int)Obj.APCost)
         {
-            Buff b = new Buff(BuffType.AP, caster.LVL, new BuffOrder(caster, order), s.name, s.effectCond[effectIdx], 1, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
+            Buff b = new Buff(BuffType.AP, new BuffOrder(caster, order), s.name, s.effectCond[effectIdx], 1, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
             turnDebuffs.Add(b);
         }
         else
         {
-            Buff b = new Buff(BuffType.Stat, caster.LVL, new BuffOrder(caster, order), s.name, s.effectObject[effectIdx], stat, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
+            Buff b = new Buff(BuffType.Stat, new BuffOrder(caster, order), s.name, s.effectObject[effectIdx], stat, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
             if (s.effectTurn[effectIdx] < 0)
                 skillDebuffs.Add(b);
             else
@@ -421,17 +423,17 @@ public class Unit : MonoBehaviour
     public void AddShield(Skill s, int effectIdx)
     {
         float rate = buffStat[s.effectStat[effectIdx]] * s.effectRate[effectIdx];
-        turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -2), s.name, (int)Obj.Shield, 1, rate, 0, s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]));
+        turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, (int)Obj.보호막, 1, rate, 0, s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]));
         ShieldUpdate(rate);
     }
-    /* #endregion Add */
+    #endregion Add
 
-    /* #region Random Remove */
+    #region Random Remove
     public virtual int RemoveBuff(int count) => turnBuffs.Remove(count);
     public virtual int RemoveDebuff(int count) => turnDebuffs.Remove(count);
-    /* #endregion Random Remove */
+    #endregion Random Remove
 
-    /* #region StatUpdate */
+    #region StatUpdate
     protected virtual void StatUpdate_Turn()
     {
         float[] mulPivot = new float[13];
@@ -471,9 +473,9 @@ public class Unit : MonoBehaviour
             if (i != 1 && i != 3)
                 buffStat[i] = Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]);
     }
-    /* #endregion StatUpdate */
+    #endregion StatUpdate
 
-    public bool IsStun() => turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.Stun));
+    public bool IsStun() => turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.기절));
 
     protected void HealBuffUpdate()
     {
@@ -486,22 +488,22 @@ public class Unit : MonoBehaviour
                         addPivot[0] += b.buffRate[i];
                     else if (b.objectIdx[i] == (int)Obj.currAP)
                         addPivot[1] += b.buffRate[i];
-                    else if (b.objectIdx[i] == (int)Obj.Cycle)
-                        addPivot[0] += dungeonStat[(int)Obj.HP] * 0.2f;
+                    else if (b.objectIdx[i] == (int)Obj.순환)
+                        addPivot[0] += dungeonStat[(int)Obj.체력] * 0.2f;
 
         foreach (Buff b in turnDebuffs.buffs)
             if (b.type == BuffType.Stat)
                 for (int i = 0; i < b.count; i++)
                     if (b.objectIdx[i] == (int)Obj.currHP)
                         addPivot[0] -= b.buffRate[i];
-                    else if (b.objectIdx[i] == (int)Obj.Bleed)
+                    else if (b.objectIdx[i] == (int)Obj.출혈)
                         addPivot[0] -= b.buffRate[i];
-                    else if (b.objectIdx[i] == (int)Obj.Burn)
-                        addPivot[0] -= Mathf.Min(0, buffStat[(int)Obj.DEF] - b.buffRate[i]);
-                    else if (b.objectIdx[i] == (int)Obj.Curse)
+                    else if (b.objectIdx[i] == (int)Obj.화상)
+                        addPivot[0] -= Mathf.Min(0, buffStat[(int)Obj.방어력] - b.buffRate[i]);
+                    else if (b.objectIdx[i] == (int)Obj.저주)
                         addPivot[0] -= b.buffRate[i];
-                    else if (b.objectIdx[i] == (int)Obj.Venom)
-                        addPivot[0] -= Mathf.Min(0, buffStat[(int)Obj.DEF] - b.buffRate[i]);
+                    else if (b.objectIdx[i] == (int)Obj.맹독)
+                        addPivot[0] -= Mathf.Min(0, buffStat[(int)Obj.방어력] - b.buffRate[i]);
 
         for (int i = 0; i < 2; i++)
             buffStat[2 * i + 1] = Mathf.Min(buffStat[2 * i + 2], Mathf.RoundToInt(buffStat[2 * i + 1] + addPivot[i]));
@@ -511,22 +513,22 @@ public class Unit : MonoBehaviour
         float max = 0;
         foreach (Buff b in turnBuffs.buffs)
             for (int i = 0; i < b.count; i++)
-                if (b.objectIdx[i] == (int)Obj.Shield)
+                if (b.objectIdx[i] == (int)Obj.보호막)
                     max += b.buffRate[i];
 
         shieldMax = Mathf.RoundToInt(max);
         shieldAmount = Mathf.Min(shieldAmount + Mathf.RoundToInt(add), shieldMax);
     }
-    /*#endregion Buff */
+    #endregion Buff
 
     public virtual KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
-        float beforeRate = (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.HP];
+        float beforeRate = (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력];
         
         //아이언하트 4세트 - 받는 피해 감소
         float ironHeartDEF = 1 - ItemManager.GetSetData(25).Value[2];
 
-        float finalDEF = Mathf.Max(0, buffStat[(int)Obj.DEF] * (100 - pen) / 100f);
+        float finalDEF = Mathf.Max(0, buffStat[(int)Obj.방어력] * (100 - pen) / 100f);
         int finalDmg = Mathf.RoundToInt(dmg / (1 + 0.1f * finalDEF) * ironHeartDEF * crb / 100);
 
         if (shieldAmount - finalDmg >= 0)
@@ -546,7 +548,7 @@ public class Unit : MonoBehaviour
             LogManager.instance.AddLog($"{name}(이)가 치명타 피해 {finalDmg}를 입었습니다.");
         
         //아이언하트 3세트 - 체력 40% 이하로 떨어질 때 디버프 하나 해제
-        if(ItemManager.GetSetData(25).Value[1] > 0 && (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.HP] < 0.4f && beforeRate >= 0.4f)
+        if(ItemManager.GetSetData(25).Value[1] > 0 && (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력] < 0.4f && beforeRate >= 0.4f)
             RemoveDebuff(1);
 
         bool killed = false;
@@ -566,10 +568,10 @@ public class Unit : MonoBehaviour
 
         return new KeyValuePair<bool, int>(killed, -finalDmg);
     }
-    public virtual void GetHeal(float heal) => buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.HP], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
-    public void GetAPHeal(float heal) => buffStat[(int)Obj.currAP] = Mathf.Min(buffStat[(int)Obj.AP], Mathf.RoundToInt(buffStat[(int)Obj.currAP] + heal));
+    public virtual void GetHeal(float heal) => buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.체력], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
+    public void GetAPHeal(float heal) => buffStat[(int)Obj.currAP] = Mathf.Min(buffStat[(int)Obj.행동력], Mathf.RoundToInt(buffStat[(int)Obj.currAP] + heal));
 
     public virtual bool IsBoss() => false;
     public virtual void StatLoad() { }
-    /* #endregion Function */
+    #endregion Function
 }

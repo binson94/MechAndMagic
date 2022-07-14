@@ -141,12 +141,12 @@ public class Druid : Character
         if (skill.idx == 225 && set.Value[0] > 0 && cycleSet[0])
         {
             cycleSet[0] = false;
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
         }
         if (skill.idx == 229 && set.Value[1] > 0 && cycleSet[1])
         {
             cycleSet[1] = false;
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[1], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[1], 1, -1));
         }
 
 
@@ -154,13 +154,13 @@ public class Druid : Character
         //자연의 응징 2세트 - 전체 공격 스킬 ATK, ACC 상승
         if (skill.category == 1014 && set.Value[0] > 0)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.ACC, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[0], 1, -1));
         }
 
 
         //215 내려치기 - 스피드 디버프 대상 공증
-        if (skill.idx == 215 && selects[0].turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.SPD)))
+        if (skill.idx == 215 && selects[0].turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.속도)))
             AddBuff(this, orderIdx, skill, 0, 0);
         //225 생명력 반환
         if (skill.idx == 225)
@@ -168,19 +168,19 @@ public class Druid : Character
 
         //240 활력의 타격 - 생명력 비례 공증
         if (skill.idx == 240)
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", skill.effectObject[0], currVitality, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0]));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", skill.effectObject[0], currVitality, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0]));
         //247 뿌리내리기
         if (skill.idx == 247)
             rooted = true;
         //248 세계수의 힘
         if (skill.idx == 248)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", skill.effectObject[0], currVitality, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0]));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", skill.effectObject[0], currVitality, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0]));
             SpendVitality(currVitality);
         }
         //자연의 응징 5세트 - 세계수의 힘, 붉은 장미 무조건 치명타
         if (set.Value[2] > 0 && (skill.idx == 248 || skill.idx == 250))
-            skillBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(), "", (int)Obj.CRC, 1, 999, 0, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, 999, 0, -1));
         //252 자연재해 - 디버프 스킬 사용 시 생명력 회복
         if (HasSkill(252) && skill.effectType.Any(x => x == (int)EffectType.Active_Debuff))
             HealVitality((int)SkillManager.GetSkill(6, 252).effectRate[0]);
@@ -242,27 +242,27 @@ public class Druid : Character
 
                             //명중 연산 - 최소 명중률 10%
                             int acc = 20;
-                            if (buffStat[(int)Obj.ACC] >= u.buffStat[(int)Obj.DOG])
-                                acc = 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
+                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.ACC] - u.buffStat[(int)Obj.DOG]) / (LVL + 2));
+                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
 
                             //238 거인의 타격 - 적 속도 반비례 명중 상승
                             if (skill.idx == 238)
-                                acc += 50 - u.buffStat[(int)Obj.SPD];
+                                acc += 50 - u.buffStat[(int)Obj.속도];
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
                                 isAcc = true;
                                 //크리티컬 연산 - dmg * CRB
-                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.CRC];
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
 
-                                bool kill = u.GetDamage(this, dmg, buffStat[(int)Obj.PEN], isCrit ? buffStat[(int)Obj.CRB] : 100).Key;
+                                bool kill = u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100).Key;
 
                                 //229 생명력 흡수
                                 if (skill.idx == 229)
                                 {
-                                    int finalDEF = Mathf.Max(0, u.buffStat[(int)Obj.DEF] - buffStat[(int)Obj.PEN]);
+                                    int finalDEF = Mathf.Max(0, u.buffStat[(int)Obj.방어력] - buffStat[(int)Obj.방어력무시]);
                                     GetHeal(Mathf.Max(1, dmg - finalDEF) * 0.3f);
                                 }
                                 //234 자연의 순환
@@ -294,7 +294,7 @@ public class Druid : Character
                         float heal = stat * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.HP] : heal);
+                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
                         break;
                     }
                 case EffectType.Active_Buff:
@@ -360,7 +360,7 @@ public class Druid : Character
     {
         if (rooted)
             heal *= 2f;
-        buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.HP], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
+        buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.체력], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
     }
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
@@ -371,7 +371,7 @@ public class Druid : Character
             gameObject.SetActive(true);
 
             buffStat[(int)Obj.currHP] = 0;
-            GetHeal(SkillManager.GetSkill(6, 255).effectRate[0] * buffStat[(int)Obj.HP]);
+            GetHeal(SkillManager.GetSkill(6, 255).effectRate[0] * buffStat[(int)Obj.체력]);
             LogManager.instance.AddLog("세계수의 보호 효과로 치명적인 피해를 막고 회복했습니다.");
             revive = 1;
             killed = new KeyValuePair<bool, int>(false, killed.Value);
@@ -393,8 +393,8 @@ public class Druid : Character
         {
             Skill s = SkillManager.GetSkill(6, 253);
             turnBuffs.buffs.RemoveAll(x => x.name == s.name);
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -3), s.name, s.effectObject[0], currVitality, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-            turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -3), s.name, s.effectObject[1], currVitality, s.effectRate[1], s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currVitality, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[1], currVitality, s.effectRate[1], s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
         }
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(18);
@@ -403,7 +403,7 @@ public class Druid : Character
         //순환 4세트 - 생명력 3일 경우 방어력 상승 및 디버프 면역
         cycleSet[2] = set.Value[2] > 0 && currVitality == 3;
         if (set.Value[2] > 0) turnBuffs.buffs.RemoveAll(x => x.name == set.Key);
-        if (cycleSet[2]) turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.DEF, 1, set.Value[2], 1, 99, 0, 1));
+        if (cycleSet[2]) turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
     }
     void SpendVitality(int rate)
     {
@@ -415,8 +415,8 @@ public class Druid : Character
 
             if (currVitality > 0)
             {
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -3), s.name, s.effectObject[0], currVitality, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-                turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -3), s.name, s.effectObject[1], currVitality, s.effectRate[1], s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currVitality, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[1], currVitality, s.effectRate[1], s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
             }
         }
 
@@ -426,6 +426,6 @@ public class Druid : Character
         //순환 4세트 - 생명력 3일 경우 방어력 상승 및 디버프 면역
         cycleSet[2] = set.Value[2] > 0 && currVitality == 3;
         if (set.Value[2] > 0) turnBuffs.buffs.RemoveAll(x => x.name == set.Key);
-        if (cycleSet[2]) turnBuffs.Add(new Buff(BuffType.Stat, LVL, new BuffOrder(this, -1), set.Key, (int)Obj.DEF, 1, set.Value[2], 1, 99, 0, 1));
+        if (cycleSet[2]) turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
     }
 }

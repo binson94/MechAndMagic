@@ -1,0 +1,84 @@
+[
+  {
+    "npcName" : "리플레이서",
+    "name": "리플레이서와의 접선",
+    "idx": 17,
+    "kind": 0,
+    "chapter": 3,
+    "lvl": 0,
+    "reqQuest": 0,
+    "linkedQuest": 0
+  },
+  {
+    "name": "첫번째 임무",
+    "idx": 18,
+    "kind": 1,
+    "chapter": 3,
+    "lvl": 0,
+    "reqQuest": 8,
+    "linkedQuest": 14
+  },
+  {
+    "name": "두번째 임무",
+    "idx": 19,
+    "kind": 1,
+    "chapter": 3,
+    "lvl": 0,
+    "reqQuest": 15,
+    "linkedQuest": 16
+  },
+  {
+    "name": "세번째 임무",
+    "idx": 20,
+    "kind": 1,
+    "chapter": 4,
+    "lvl": 0,
+    "reqQuest": 16,
+    "linkedQuest": 24
+  },
+  {
+    "name": "마지막 임무",
+    "idx": 21,
+    "kind": 1,
+    "chapter": 4,
+    "lvl": 0,
+    "reqQuest": 25,
+    "linkedQuest": 26
+  },
+  {
+    "name": "영향력 행사",
+    "idx": 22,
+    "kind": 1,
+    "chapter": 3,
+    "lvl": 0,
+    "reqQuest": 14,
+    "linkedQuest": 17
+  },
+  {
+    "name": "산전수전",
+    "idx": 23,
+    "kind": 1,
+    "chapter": 3,
+    "lvl": 0,
+    "reqQuest": 15,
+    "linkedQuest": 18
+  },
+  {
+    "name": "개인적인 계산식",
+    "idx": 24,
+    "kind": 1,
+    "chapter": 4,
+    "lvl": 0,
+    "reqQuest": 24,
+    "linkedQuest": 23
+  },
+  {
+    "name": "개체수 조절",
+    "idx": 25,
+    "kind": 1,
+    "chapter": 4,
+    "lvl": 0,
+    "reqQuest": 23,
+    "linkedQuest": 27
+  }
+ ]

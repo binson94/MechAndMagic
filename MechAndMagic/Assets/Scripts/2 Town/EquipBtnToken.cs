@@ -32,7 +32,7 @@ public class EquipBtnToken : MonoBehaviour
         {
             equipPosIdxs[i] = p[i].Key;
             equipments[i] = p[i].Value;
-            icons[i].sprite = SpriteGetter.instance.GetEquipIcon(p[i].Value);
+            icons[i].sprite = SpriteGetter.instance.GetEquipIcon(p[i].Value.ebp);
             btns[i].image.sprite = SpriteGetter.instance.GetGrid(p[i].Value.ebp.rarity);
             icons[i].gameObject.SetActive(true);
             for(int j = 0;j < 3;j++)
@@ -99,7 +99,7 @@ public class EquipBtnToken : MonoBehaviour
         {
             equipPosIdxs[i] = p[i].Key;
             equipments[i] = p[i].Value;
-            icons[i].sprite = SpriteGetter.instance.GetEquipIcon(p[i].Value);
+            icons[i].sprite = SpriteGetter.instance.GetEquipIcon(p[i].Value.ebp);
             btns[i].image.sprite = SpriteGetter.instance.GetGrid(p[i].Value.ebp.rarity);
             icons[i].gameObject.SetActive(true);
 

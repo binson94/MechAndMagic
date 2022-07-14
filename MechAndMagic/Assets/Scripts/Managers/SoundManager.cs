@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
     }
     public void TxtSet(float val)
     {
-        option.txtSpd = 2 * (int)val;
+        option.txtSpd = (int)(2 * val);
         SaveOption();
     }
 

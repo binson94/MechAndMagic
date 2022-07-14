@@ -8,16 +8,16 @@ public class BuffOrder
     public Unit caster;
     public int idx;
 
-    public BuffOrder(Unit u = null, int o = -1)
+    static BuffOrder defaultOrder = new BuffOrder(null);
+    public static BuffOrder Default { get { return defaultOrder; } }
+
+    public BuffOrder(Unit u, int o = -1)
     {
         caster = u;
         idx = o;
     }
     public bool Equal(BuffOrder order)
     {
-        if (caster == null && order.caster != null || caster != null && order.caster == null)
-            return false;
-
         if (caster == order.caster)
             return idx == order.idx;
         else
@@ -25,12 +25,14 @@ public class BuffOrder
     }
 }
 
+///<summary> 버프, 디버프 관리 클래스, 캐릭터 별 4개 존재 </summary>
 public class BuffSlot
 {
     public List<Buff> buffs = new List<Buff>();
 
     public int Count { get => buffs.Count; }
 
+    ///<summary> 새로운 버프 추가 </summary>
     public void Add(Buff b)
     {
         var tmp = from x in buffs where x.type == b.type && x.name == b.name && x.order.Equal(b.order) select x;
@@ -39,6 +41,7 @@ public class BuffSlot
         else
             buffs.Add(b);
     }
+    ///<summary> 무작위로 count만큼 제거(isDispel true인 것만) </summary>
     public int Remove(int count)
     {
         if (Count <= 0)
@@ -63,6 +66,7 @@ public class BuffSlot
 
         return count;
     }
+    ///<summary> 스킬 시전 시 AP 소비량 획득 </summary>
     public void GetAPCost(ref float add, ref float mul, int category, bool isBuff)
     {
         foreach (Buff b in buffs)
@@ -86,6 +90,7 @@ public class BuffSlot
                         }
                     }
     }
+    ///<summary> 스텟 업데이트 시 스텟 버프량 계산 </summary>
     public void GetBuffRate(ref float[] add, ref float[] mul, bool isBuff)
     {
         for (int i = 0; i < buffs.Count; i++)
@@ -126,6 +131,7 @@ public class BuffSlot
 
     public void Clear() => buffs.Clear();
 
+    ///<summary> 턴 시작 시, 버프 지속시간 업데이트 </summary>
     public void TurnUpdate()
     {
         for (int i = 0; i < buffs.Count; i++)
@@ -140,26 +146,35 @@ public class BuffSlot
     }
 }
 
-[System.Serializable]
 public class Buff
 {
+    ///<summary> 버프 종류, 0 표시용, 1 스텟, 2 AP </summary>
     public BuffType type;
 
-    public int lvl;
-    public BuffOrder order;    //같은 스킬에서 걸린 버프는 같은 orderIdx
-    public string name;     //버프 이름 - 스킬 이름을 따름
+    ///<summary> 같은 스킬에서 걸린 버프 하나로 통합하기 위한 구분자
+    ///<para> 시전자와 identifier 숫자로 구성 </para> </summary>
+    public BuffOrder order;
+    ///<summary> 버프 이름 </summary>
+    public string name;
 
 
-    public int count;       //효과 갯수
-    public int[] objectIdx; //stat - Obj Idx / AP - skill Category
-    public float[] buffRate;//버프 정도
-    public bool[] isMulti;  //true : 곱연산, false : 합연산
+    ///<summary> 효과 갯수 </summary>
+    public int count;
+    ///<summary> 효과 대상 (stat - Obj Idx / AP - skill Category) </summary>
+    public int[] objectIdx;
+    ///<summary> 효과 수치 </summary>
+    public float[] buffRate;
+    ///<summary> 곱연산 여부 </summary>
+    public bool[] isMulti;
 
-    public int duration;    //
-    public bool isDispel;   //stat - 디스펠 여부 / AP - true : turn 지속, false : 횟수 지속
+    ///<summary> 버프 지속 시간 </summary>
+    public int duration;
+    ///<summary> stat - 디스펠 여부 / AP - true : turn 지속, false : 횟수 지속 </summary>
+    public bool isDispel;
+    ///<summary> 버프 표시 여부 </summary>
     public bool isVisible;
 
-    public Buff(BuffType t, int lvl, BuffOrder order, string _name, int obj, float stat, float rate, 
+    public Buff(BuffType t, BuffOrder order, string _name, int obj, float stat, float rate, 
         int mul, int du, int dispel = 0, int visible = 0)
     { 
         type = t;
@@ -188,13 +203,13 @@ public class Buff
 
         for (int i = 0; i < count; i++) tmp[i] = buffRate[i];
         buffRate = new float[count + 1];
-        for (int i = 0; i < count; i++) buffRate[i] = (int)tmp[i];
+        for (int i = 0; i < count; i++) buffRate[i] = tmp[i];
         buffRate[count] = b.buffRate[0];
 
         for (int i = 0; i < count; i++) tmp[i] = isMulti[i] ? 1 : 0;
         isMulti = new bool[count + 1];
         for (int i = 0; i < count; i++) isMulti[i] = tmp[i] == 1;
-        isMulti[count] = b.isMulti[0];
+        isMulti[count++] = b.isMulti[0];
     }
 }
 

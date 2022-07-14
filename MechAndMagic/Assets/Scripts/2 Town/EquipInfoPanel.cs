@@ -58,7 +58,7 @@ public class EquipInfoPanel : MonoBehaviour
                 itemTxts[4].text += $"{e.commonStatValue[i].Key}\t+{e.commonStatValue[i].Value}\n";
             
             gridImage.sprite = SpriteGetter.instance.GetGrid(e.ebp.rarity);
-            iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e);
+            iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e.ebp);
             
             for (int i = 0; i < 3; i++) starImages[i].SetActive(i < e.star);
             gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);

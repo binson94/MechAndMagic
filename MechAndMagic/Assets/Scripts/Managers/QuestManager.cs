@@ -134,7 +134,7 @@ public class QuestManager : MonoBehaviour
     public static void ClearQuest(int questIdx)
     {
         GameManager.instance.slotData.questData.ClearQuest(questIdx);
-        GetReward(false, questData[questIdx]);
+        GetReward(questData[questIdx]);
         SaveData();
     }
     ///<summary> 돌발 퀘스트 클리어 </summary>
@@ -143,7 +143,7 @@ public class QuestManager : MonoBehaviour
         int outbreakIdx = GameManager.instance.slotData.questData.outbreakProceed.idx;
         if (outbreakIdx > 0)
         {
-            GetReward(true, outbreakData[outbreakIdx]);
+            GetReward(outbreakData[outbreakIdx]);
             GameManager.instance.slotData.questData.ClearOutbreak();
         }
         else
@@ -159,18 +159,19 @@ public class QuestManager : MonoBehaviour
     }
     ///<summary> 퀘스트 클리어에 따른 보상 획득
     ///<para> ClearQuest에서 호출</summary>
-    static void GetReward(bool isOutbreak, QuestBlueprint qbp)
+    static void GetReward(QuestBlueprint qbp)
     {
         for (int i = 0; i < qbp.rewardCount; i++)
-        {
             switch ((int)qbp.rewardIdx[i])
             {
                 //경험치
                 case 150:
                     GameManager.instance.GetExp(qbp.rewardAmt[i]);
                     break;
+                default:
+                    ItemManager.ItemDrop(qbp.rewardIdx[i], qbp.rewardIdx[i]);
+                    break;
             }
-        }
     }
     #endregion QuestProgress
 

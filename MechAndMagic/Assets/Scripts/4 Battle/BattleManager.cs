@@ -63,6 +63,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Text[] statusTxts;
     ///<summary> 포션 버튼 </summary>
     [SerializeField] Image[] potionBtns;
+    public BuffToken buffTokenPrefab;
+    public RectTransform poolParent;
+    public Queue<BuffToken> buffTokenPool = new Queue<BuffToken>();
 
     List<AsyncOperationHandle<Sprite>> enemyIilustHandles = new List<AsyncOperationHandle<Sprite>>();
 
@@ -182,10 +185,9 @@ public class BattleManager : MonoBehaviour
     {
         //던전 이벤트로 생긴 버프, 디버프 처리
         foreach (DungeonBuff b in GameManager.instance.slotData.dungeonData.dungeonBuffs)
-            allChars[0].turnBuffs.Add(new Buff(BuffType.Stat, allChars[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
+            allChars[0].turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
         foreach (DungeonBuff b in GameManager.instance.slotData.dungeonData.dungeonDebuffs)
-            allChars[0].turnDebuffs.Add(new Buff(BuffType.Stat, allChars[0].LVL, new BuffOrder(), b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
-
+            allChars[0].turnDebuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
     }
     void LoadHPData()
     {
@@ -193,7 +195,7 @@ public class BattleManager : MonoBehaviour
         if (GameManager.instance.slotData.dungeonData.currHP > 0)
             allChars[0].buffStat[(int)Obj.currHP] = GameManager.instance.slotData.dungeonData.currHP;
         else
-            allChars[0].buffStat[(int)Obj.currHP] = allChars[0].buffStat[(int)Obj.HP];
+            allChars[0].buffStat[(int)Obj.currHP] = allChars[0].buffStat[(int)Obj.체력];
 
         //드루이드 - 부활 여부 불러오기
         if (allChars[0].classIdx == 6)
@@ -202,7 +204,7 @@ public class BattleManager : MonoBehaviour
         if (GameManager.instance.slotData.dungeonData.golemHP > 0)
             allChars[1].buffStat[(int)Obj.currHP] = GameManager.instance.slotData.dungeonData.golemHP;
         else if (GameManager.instance.slotData.dungeonData.golemHP == 0)
-            allChars[1].buffStat[(int)Obj.currHP] = allChars[1].buffStat[(int)Obj.HP];
+            allChars[1].buffStat[(int)Obj.currHP] = allChars[1].buffStat[(int)Obj.체력];
     }
     void SetStatusTxt()
     {
@@ -253,7 +255,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach (Unit u in allChars)
             if (u.isActiveAndEnabled)
-                charTP[u][1] = Mathf.Max(25, 75 - u.buffStat[(int)Obj.SPD]);
+                charTP[u][1] = Mathf.Max(25, 75 - u.buffStat[(int)Obj.속도]);
 
         tpBars.ActiveSet(allChars);
         TPImageUpdate();
@@ -321,9 +323,9 @@ public class BattleManager : MonoBehaviour
             //속도 - 레벨 기준 정렬
             charged.Sort(delegate (Unit a, Unit b)
             {
-                if (a.buffStat[(int)Obj.SPD] < b.buffStat[(int)Obj.SPD])
+                if (a.buffStat[(int)Obj.속도] < b.buffStat[(int)Obj.속도])
                     return 1;
-                else if (a.buffStat[(int)Obj.SPD] > b.buffStat[(int)Obj.SPD])
+                else if (a.buffStat[(int)Obj.속도] > b.buffStat[(int)Obj.속도])
                     return -1;
                 else if (a.LVL > b.LVL)
                     return 1;
@@ -414,6 +416,7 @@ public class BattleManager : MonoBehaviour
         if (state != BattleState.AllieTurnStart) return;
 
         currCaster.OnTurnStart();
+        StatusUpdate();
 
         //정령, 골렘, 기절 중 - 알아서 행동 후 턴 종료
         if (currCaster.classIdx == 11 || currCaster.classIdx == 12 || currCaster.IsStun())
@@ -426,7 +429,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             turnEndBtn.SetActive(true);
-            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
             Btn_SkillCancel();
 
@@ -479,7 +482,7 @@ public class BattleManager : MonoBehaviour
                         state = BattleState.AllieTargetSelected;
                         currCaster.GetComponent<VisionMaster>().ActiveSkill_Both(buttonIdx, new List<Unit>());
 
-                        apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+                        apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
                         StatusUpdate();
                         Btn_SkillCancel();
@@ -532,7 +535,7 @@ public class BattleManager : MonoBehaviour
                 {
                     state = BattleState.AllieTargetSelected;
                     currCaster.ActiveSkill(buttonIdx, new List<Unit>());
-                    apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+                    apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
                     StatusUpdate();
 
@@ -560,7 +563,7 @@ public class BattleManager : MonoBehaviour
                 Elemental e = allChars[1].GetComponent<Elemental>();
                 if (!allChars[1].isActiveAndEnabled || e == null || e.type != skill.category || e.isUpgraded)
                 {
-                    LogManager.instance.AddLog("must summon elemental before upgrade");
+                    LogManager.instance.AddLog("정령을 소환한 후 사용해야 합니다.");
                     return true;
                 }
             }
@@ -569,13 +572,13 @@ public class BattleManager : MonoBehaviour
                 Elemental e = allChars[1].GetComponent<Elemental>();
                 if (!allChars[1].isActiveAndEnabled || e == null || !e.isUpgraded)
                 {
-                    LogManager.instance.AddLog("need upgraded elemental");
+                    LogManager.instance.AddLog("강화된 정령이 필요합니다.");
                     return true;
                 }
             }
             else if (currCaster.classIdx == 6 && skill.effectType[0] == 39 && currCaster.GetComponent<Druid>().currVitality < skill.effectRate[0])
             {
-                LogManager.instance.AddLog("not enough vitality");
+                LogManager.instance.AddLog("생명력이 부족합니다.");
                 return true;
             }
 
@@ -618,7 +621,7 @@ public class BattleManager : MonoBehaviour
             state = BattleState.AllieTargetSelected;
             currCaster.ActiveSkill(selectSkillBtnIdx, new List<Unit>());
 
-            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
             StatusUpdate();
             Btn_SkillCancel();
@@ -672,7 +675,7 @@ public class BattleManager : MonoBehaviour
             isBoth = false;
             isMinus = 0;
 
-            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
             StatusUpdate();
             Btn_SkillCancel();
@@ -698,13 +701,13 @@ public class BattleManager : MonoBehaviour
             {
                 //행동력 포션 - 행동력 최대로 회복
                 case 1:
-                    if(allChars[0].buffStat[(int)Obj.currAP] >= allChars[0].buffStat[(int)Obj.AP])
+                    if(allChars[0].buffStat[(int)Obj.currAP] >= allChars[0].buffStat[(int)Obj.행동력])
                     {
                         LogManager.instance.AddLog("행동력이 최대치입니다.");
                         return;
                     }
-                    allChars[0].GetAPHeal(allChars[0].buffStat[(int)Obj.AP]);
-                    apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.AP]);
+                    allChars[0].GetAPHeal(allChars[0].buffStat[(int)Obj.행동력]);
+                    apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
                     break;
                 //정화 포션 - 모든 디버프 제거
                 case 2:
@@ -717,12 +720,12 @@ public class BattleManager : MonoBehaviour
                     break;
                 //회복 포션 - 체력 최대로 회복
                 case 3:
-                    if(allChars[0].buffStat[(int)Obj.currHP] >= allChars[0].buffStat[(int)Obj.HP])
+                    if(allChars[0].buffStat[(int)Obj.currHP] >= allChars[0].buffStat[(int)Obj.체력])
                     {
                         LogManager.instance.AddLog("체력이 최대치입니다.");
                         return;
                     }
-                    allChars[0].GetHeal(allChars[0].buffStat[(int)Obj.HP]);
+                    allChars[0].GetHeal(allChars[0].buffStat[(int)Obj.체력]);
                     break;
                 //재활용 포션 - 다른 포션 재사용 가능
                 case 4:
@@ -818,6 +821,7 @@ public class BattleManager : MonoBehaviour
     ///<summary> 승리, 보상 획득, 탐험 계속 진행 </summary>
     void Win()
     {
+        state = BattleState.Win;
         skillBtnPanel.SetActive(false);
         targetBtnPanel.SetActive(false);
         turnEndBtn.SetActive(false);
@@ -828,7 +832,7 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.GetExp(roomInfo.roomExp);
         QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
         //체력 유지 퀘스트 업데이트
-        QuestManager.DiehardUpdate((float)allChars[0].buffStat[(int)Obj.currHP] / allChars[0].buffStat[(int)Obj.HP]);
+        QuestManager.DiehardUpdate((float)allChars[0].buffStat[(int)Obj.currHP] / allChars[0].buffStat[(int)Obj.체력]);
 
         //체력 상태 저장
         GameManager.instance.slotData.dungeonData.currHP = allChars[0].buffStat[(int)Obj.currHP];
@@ -841,12 +845,12 @@ public class BattleManager : MonoBehaviour
         if (allChars[0].classIdx == 6)
             GameManager.instance.slotData.dungeonData.druidRevive = allChars[0].GetComponent<Druid>().revive;
 
-        LogManager.instance.AddLog("승리");
+        LogManager.instance.AddLog("승리했습니다.");
 
         //보스방 승리 -> 보고서 보이기
         if (GameManager.instance.slotData.dungeonData.currPos[0] == GameManager.instance.slotData.dungeonData.currDungeon.floorCount - 1)
         {
-            if (GameManager.instance.slotData.questData.outbreakProceed.type == QuestType.Diehard) 
+            if (GameManager.instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Over || GameManager.instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Under) 
                 GameManager.instance.slotData.questData.outbreakProceed.state = QuestState.CanClear;
 
             QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.instance.slotData.dungeonIdx, 1);
@@ -866,10 +870,11 @@ public class BattleManager : MonoBehaviour
     ///<summary> 패배, 현재까지의 보상만 가진 채 마을로 귀환 </summary>
     void Lose()
     {
+        state = BattleState.Lose;
         skillBtnPanel.SetActive(false);
         targetBtnPanel.SetActive(false);
         turnEndBtn.SetActive(false);
-        LogManager.instance.AddLog("패배");
+        LogManager.instance.AddLog("패배하였습니다.");
 
         reportPanel.LoadData();
         reportPanel.gameObject.SetActive(true);

@@ -107,7 +107,7 @@ public class BedPanel : MonoBehaviour, ITownPanel
         {
             if(GameManager.instance.slotData.itemData.equipmentSlots[i + 1] != null)
             {
-                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1]);
+                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1]?.ebp);
                 equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
             
                 equipSlotImages[i].transform.parent.gameObject.SetActive(true);
