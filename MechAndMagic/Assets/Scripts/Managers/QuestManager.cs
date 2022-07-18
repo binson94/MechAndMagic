@@ -162,16 +162,7 @@ public class QuestManager : MonoBehaviour
     static void GetReward(QuestBlueprint qbp)
     {
         for (int i = 0; i < qbp.rewardCount; i++)
-            switch ((int)qbp.rewardIdx[i])
-            {
-                //경험치
-                case 150:
-                    GameManager.instance.GetExp(qbp.rewardAmt[i]);
-                    break;
-                default:
-                    ItemManager.ItemDrop(qbp.rewardIdx[i], qbp.rewardIdx[i]);
-                    break;
-            }
+            ItemManager.ItemDrop(qbp.rewardIdx[i], qbp.rewardAmt[i]);    
     }
     #endregion QuestProgress
 

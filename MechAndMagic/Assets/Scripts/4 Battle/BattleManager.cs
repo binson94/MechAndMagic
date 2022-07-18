@@ -14,27 +14,25 @@ public class BattleManager : MonoBehaviour
     enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, EnemyTurn, Win, Lose }
 
     #region Variables
-    BattleState state;
+    [SerializeField] BattleState state;
 
     ///<summary> 전투 중인 모든 캐릭터 리스트
     ///<para> 0 플레이어, 1 골렘, 정령, 2 ~ 4 적, 없으면 dummy 연결 </para> </summary>
+    [Header("Spawn")]
     [SerializeField] Unit[] allChars = new Unit[5];
-    [SerializeField] Animator fadeAnimator;
-
-
     ///<summary> 플레이어 프리팹 
     ///<para> 1 ~ 8 캐릭터, 9 골렘, 10 정령 </para> </summary>
-    [Header("Spawn")]
-    [SerializeField] GameObject[] alliePrefabs;
+    [SerializeField] Character[] alliePrefabs;
     ///<summary> 적 프리팹 </summary>
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Monster enemyPrefab;
     ///<summary> 더미 유닛 </summary>
     [SerializeField] Unit dummyUnit;
     ///<summary> 몬스터 및 보상 정보 json 불러옴 </summary>
     RoomInfo roomInfo;
 
 
-    ///<summary> 캐릭터, TP 현재, 최대치 저장 </summary>
+    ///<summary> 캐릭터의 TP값 저장
+    ///<para> 0 현재 값, 1 최대 값 </para> </summary>
     [Header("Caster")]
     Dictionary<Unit, int[]> charTP = new Dictionary<Unit, int[]>();
     ///<summary> TP를 통해 선정된 현재 턴 실행자 </summary>
@@ -48,15 +46,21 @@ public class BattleManager : MonoBehaviour
     ///<summary> 턴 종료 버튼 </summary>
     [Header("UI")]
     [SerializeField] GameObject turnEndBtn;
+    ///<summary> 몬스터 이미지 로드 완료 시 페이드 인 시작 </summary>
+    [SerializeField] Animator fadeAnimator;
+    ///<summary> 배겅 이미지 </summary>
+    [SerializeField] Image bgImage;
+    ///<summary> 배경 스프라이트들 </summary>
+    [SerializeField] Sprite[] bgSprites;
 
 
-    ///<summary> 체력 및 이름 표시 UI, 0 플레이어, 1 ~ 3 적 </summary>
+    ///<summary> 체력 및 이름 표시 UI, 0 플레이어, 1 골렘, 정령,  2 ~ 4 적 </summary>
     [Header("Unit Status")]
     [SerializeField] Status[] unitStatus;
     ///<summary> 적 일러스트 </summary>
     [SerializeField] Image[] enemyIilusts;
     ///<summary> 캐릭터들의 TP 표시 </summary>
-    [SerializeField] TPSlider tpBars;
+    [SerializeField] Slider[] tpSliders;
     ///<summary> 플레이어 AP 표시 UI </summary>
     [SerializeField] APBar apBar;
     ///<summary> Show Player Stat Txt </summary>
@@ -91,11 +95,16 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject targetBtnPanel;
     ///<summary> 각각 타겟 선택 버튼, 타겟 수만큼 활성화 </summary>
     [SerializeField] GameObject[] targetBtns;
+    ///<summary> 타겟 선택 버튼의 텍스트 </summary>
+    [SerializeField] Text[] targetBtnTxts;
+    ///<summary> 타겟 선택 버튼 강조 이미지 </summary>
+    [SerializeField] GameObject[] targetBtnHighlights;
 
 
     ///<summary> 승리 시 활성화 </summary>
     [Header("End Panel")]
     [SerializeField] GameObject winPanel;
+    [SerializeField] Animator winTxtAnimator;
     ///<summary> 던전 종료 UI, 패배, 보스 승리 시 보여줌 </summary>
     [SerializeField] ReportPanel reportPanel;
     #endregion Variables
@@ -104,16 +113,23 @@ public class BattleManager : MonoBehaviour
     ///<summary> BGM 재생, 몬스터 및 캐릭터 생성 </summary>
     private void Start()
     {
+        int chapter = GameManager.instance.slotData.dungeonData.currDungeon.chapter;
+
         //BGM 재생
-        SoundManager.instance.PlayBGM(BGMList.Battle1);
+        if(chapter >= 2 && GameManager.instance.slotData.dungeonData.currPos[0] == GameManager.instance.slotData.dungeonData.currDungeon.floorCount - 1)
+            SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Boss{chapter - 1}"));
+        else
+            SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
         //방 몬스터 및 보상 정보 로드
         roomInfo = new RoomInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
+        //배경 설정
+        bgImage.sprite = bgSprites[GameManager.instance.slotData.region / 11 * 4 + chapter - 1];
+
         //캐릭터 및 몬스터 생성
         Spawn();
 
         //캐릭터 스킬 정보 로드
         SkillBtnInit();
-        SkillAPCostUpdate();
 
         foreach (Unit c in allChars)
             c.OnBattleStart(this);
@@ -129,7 +145,7 @@ public class BattleManager : MonoBehaviour
         int i;
 
         //아군 캐릭터 생성
-        Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass]).GetComponent<Character>();
+        Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass]);
         c.name = GameManager.instance.slotData.className;
 
         for (i = 0; i < c.activeIdxs.Length; i++)
@@ -154,13 +170,18 @@ public class BattleManager : MonoBehaviour
         //던전 풀에 따른 적 캐릭터 생성
         for (i = 0; i < roomInfo.monsterCount; i++)
         {
-            Monster mon = Instantiate(enemyPrefab).GetComponent<Monster>();
+            Monster mon = Instantiate(enemyPrefab);
             mon.monsterIdx = roomInfo.monsterIdx[i];
             allChars[i + 2] = mon;
         }
         LoadEnemyIilust();
 
-        for (; i < 3; i++) { allChars[i + 2] = dummyUnit; unitStatus[i + 1].gameObject.SetActive(false); enemyIilusts[i].gameObject.SetActive(false); }
+        for (; i < 3; i++)
+        {
+            allChars[i + 2] = dummyUnit;
+            unitStatus[i + 2].gameObject.SetActive(false);
+            enemyIilusts[i].gameObject.SetActive(false);
+        }
     }
 
     async void LoadEnemyIilust()
@@ -208,12 +229,14 @@ public class BattleManager : MonoBehaviour
     }
     void SetStatusTxt()
     {
-        for (int i = 0, j = 0; i < allChars.Length; i++)
+        for (int i = 0; i < allChars.Length; i++)
         {
-            if (allChars[i] == dummyUnit || i == 1)
-                continue;
-            unitStatus[j++].StatusInit(allChars[i]);
+            if (!allChars[i].isActiveAndEnabled) continue;
+            unitStatus[i].StatusInit(allChars[i]);
         }
+        for (int i = 2; i < 5; i++)
+            if(allChars[i].isActiveAndEnabled)
+                targetBtnTxts[i - 2].text = allChars[i].name;
 
         for(int i = 0;i < 2;i++)
         {
@@ -241,7 +264,7 @@ public class BattleManager : MonoBehaviour
             if (GameManager.instance.slotData.activeSkills[i] > 0)
             {
                 skillBtns[i].gameObject.SetActive(true);
-                skillBtns[i].Init(SkillManager.GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.activeSkills[i]));
+                skillBtns[i].Init(allChars[0], i);
             }
             else
                 skillBtns[i].gameObject.SetActive(false);
@@ -257,7 +280,7 @@ public class BattleManager : MonoBehaviour
             if (u.isActiveAndEnabled)
                 charTP[u][1] = Mathf.Max(25, 75 - u.buffStat[(int)Obj.속도]);
 
-        tpBars.ActiveSet(allChars);
+        for (int i = 0; i < allChars.Length; i++) tpSliders[i].gameObject.SetActive(allChars[i].isActiveAndEnabled);
         TPImageUpdate();
     }
     ///<summary> TP 이미지 위치 재조정 </summary>
@@ -265,7 +288,7 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < allChars.Length; i++)
             if (allChars[i].isActiveAndEnabled)
-                tpBars.SetValue(i, (float)charTP[allChars[i]][0] / charTP[allChars[i]][1]);
+                tpSliders[i].value = (float)charTP[allChars[i]][0] / charTP[allChars[i]][1];
     }
     
     ///<summary> 다음 턴 시전자 탐색 </summary>
@@ -377,11 +400,10 @@ public class BattleManager : MonoBehaviour
     void StatusUpdate()
     {
         //체력 최신화
-        for (int i = 0, j = 0; i < allChars.Length; i++)
+        for (int i = 0; i < allChars.Length; i++)
         {
-            if (allChars[i] == dummyUnit || i == 1)
-                continue;
-            unitStatus[j++].StatusUpdate(allChars[i]);
+            if (!allChars[i].isActiveAndEnabled) continue;
+            unitStatus[i].StatusUpdate(allChars[i]);
         }
         //스텟 텍스트 최신화
         StatTxtUpdate();
@@ -396,16 +418,11 @@ public class BattleManager : MonoBehaviour
         }
     }
     ///<summary> 스킬 AP 소모량 표시 최신화 </summary>
-    void SkillAPCostUpdate()
+    void SkillBtnUpdate()
     {
         for (int i = 0; i < skillBtns.Length; i++)
-        {
-            if (GameManager.instance.slotData.activeSkills[i] > 0)
-            {
-                Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.activeSkills[i]);
-                skillBtns[i].APUpdate(allChars[0].GetSkillCost(s));
-            }
-        }
+            if (skillBtns[i].isActiveAndEnabled)
+                skillBtns[i].ValueUpdate(allChars[0], i);
     }
     #endregion
 
@@ -417,14 +434,14 @@ public class BattleManager : MonoBehaviour
 
         currCaster.OnTurnStart();
         StatusUpdate();
+        SkillBtnUpdate();
+        foreach(GameObject high in targetBtnHighlights) high.SetActive(false);
 
         //정령, 골렘, 기절 중 - 알아서 행동 후 턴 종료
         if (currCaster.classIdx == 11 || currCaster.classIdx == 12 || currCaster.IsStun())
         {
-            if (IsWin())
-                Win();
-            else
-                Btn_TurnEnd();
+            if (IsWin()) Win();
+            else Btn_TurnEnd();
         }
         else
         {
@@ -433,10 +450,8 @@ public class BattleManager : MonoBehaviour
 
             Btn_SkillCancel();
 
-            if (IsWin())
-                Win();
+            if (IsWin()) Win();
         }
-
     }
     ///<summary> 스킬 선택 버튼, 타겟 선택 창 활성화 </summary>
     public void Btn_SkillSelect(int buttonIdx)
@@ -444,8 +459,20 @@ public class BattleManager : MonoBehaviour
         if (state != BattleState.AllieTurnStart)
             return;
 
-        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[buttonIdx]);
+        //스킬 시전 가능 여부 확인(쿨타임, AP, 생명력, 열기, 매지컬 로그 콤보)
+        string castLog = currCaster.CanCastSkill(buttonIdx);
 
+        if (castLog != string.Empty)
+        {
+            LogManager.instance.AddLog(castLog);
+            return;
+        }
+
+        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[buttonIdx]);
+        //골렘, 정령 관련 스킬 시전 가능 여부 확인
+        if (IsUniqueCondition()) return;
+            
+        //같은 스킬 두 번 선택 시 시전(하이라이트 된 스킬 선택)
         if (selectSkillBtnIdx == buttonIdx)
         {
             foreach(Text txt in skillTxts) txt.text = string.Empty;
@@ -459,7 +486,7 @@ public class BattleManager : MonoBehaviour
                     isBoth = true;
                     state = BattleState.AllieSkillSelected;
 
-                    Skill minusS = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[buttonIdx] + 1);
+                    Skill minusS = SkillManager.GetSkill(currCaster.classIdx, currCaster.activeIdxs[buttonIdx] + 1);
 
                     //타겟 선택
                     if (skill.targetSelect == 1 || minusS.targetSelect == 1)
@@ -472,23 +499,14 @@ public class BattleManager : MonoBehaviour
                         for (int i = 0; i < 3; i++)
                             targetBtns[i].SetActive(allChars[i + 2].isActiveAndEnabled);
 
-
                         skillBtnPanel.SetActive(false);
                         targetBtnPanel.SetActive(true);
                     }
                     //타겟 미선택
                     else
                     {
-                        state = BattleState.AllieTargetSelected;
-                        currCaster.GetComponent<VisionMaster>().ActiveSkill_Both(buttonIdx, new List<Unit>());
-
-                        apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
-
-                        StatusUpdate();
-                        Btn_SkillCancel();
-
-                        if (IsWin())
-                            Win();
+                        selectSkillBtnIdx = buttonIdx;
+                        CastSkill(new List<Unit>());
                     }
                 }
                 //하나만 선택 시전
@@ -506,16 +524,6 @@ public class BattleManager : MonoBehaviour
             //그 외 스킬
             else
             {
-                string castLog = currCaster.CanCastSkill(buttonIdx);
-
-                if (castLog != "")
-                {
-                    LogManager.instance.AddLog(castLog);
-                    return;
-                }
-                if (IsUniqueCondition())
-                    return;
-
                 //타겟 선택 스킬
                 if (skill.targetSelect == 1)
                 {
@@ -533,19 +541,12 @@ public class BattleManager : MonoBehaviour
                 //타겟 미선택 스킬
                 else
                 {
-                    state = BattleState.AllieTargetSelected;
-                    currCaster.ActiveSkill(buttonIdx, new List<Unit>());
-                    apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
-
-                    StatusUpdate();
-
-                    Btn_SkillCancel();
-
-                    if (IsWin())
-                        Win();
+                    selectSkillBtnIdx = buttonIdx;
+                    CastSkill(new List<Unit>());
                 }
             }
         }
+        //스킬 한 번 선택 시 스킬 정보 보여줌
         else
         {
             skillTxts[0].text = skill.name;
@@ -576,10 +577,9 @@ public class BattleManager : MonoBehaviour
                     return true;
                 }
             }
-            else if (currCaster.classIdx == 6 && skill.effectType[0] == 39 && currCaster.GetComponent<Druid>().currVitality < skill.effectRate[0])
+            if(skill.category == 1028 && !HasGolem())
             {
-                LogManager.instance.AddLog("생명력이 부족합니다.");
-                return true;
+                LogManager.instance.AddLog("골렘이 필요합니다.");
             }
 
             return false;
@@ -589,18 +589,11 @@ public class BattleManager : MonoBehaviour
     ///<param name="isMinus"> 0 양, 1 음 </param>
     public void Btn_SkillChoose(int isMinus)
     {
-        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[selectSkillBtnIdx] + isMinus);
-
+        //음 스킬은 양 스킬 idx + 1
+        Skill skill = SkillManager.GetSkill(currCaster.classIdx, currCaster.activeIdxs[selectSkillBtnIdx] + isMinus);
+        //음 스킬 시전 여부 전달
         currCaster.GetComponent<VisionMaster>().skillState = isMinus;
         this.isMinus = isMinus;
-
-        string castLog = currCaster.CanCastSkill(selectSkillBtnIdx);
-
-        if (castLog != "")
-        {
-            LogManager.instance.AddLog(castLog);
-            return;
-        }
 
         //타겟 선택 스킬
         if (skill.targetSelect == 1)
@@ -619,75 +612,76 @@ public class BattleManager : MonoBehaviour
         else
         {
             state = BattleState.AllieTargetSelected;
-            currCaster.ActiveSkill(selectSkillBtnIdx, new List<Unit>());
-
-            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
-
-            StatusUpdate();
-            Btn_SkillCancel();
-
-            if (IsWin())
-                Win();
+            CastSkill(new List<Unit>());
         }
     }
     ///<summary> 스킬 선택 취소 버튼, 스킬 선택 전 상태로 돌아감 </summary>
     public void Btn_SkillCancel()
     {
-        selectSkillBtnIdx = -1;
-        foreach (SkillButton s in skillBtns)
-            s.Highlight(false);
+        //하이라이트 이미지 비활성화
+        foreach (SkillButton s in skillBtns) s.Highlight(false);
+        foreach(GameObject high in targetBtnHighlights) high.SetActive(false);
 
+        //스킬 설명 텍스트 비활성화
         foreach(Text t in skillTxts) t.text = string.Empty;
 
+        //스킬 선택 정보 초기화
+        selectSkillBtnIdx = -1;
         isBoth = false;
         isMinus = 0;
         targetIdxs.Clear();
+
+        //상태 및 UI 초기화
         state = BattleState.AllieTurnStart;
         targetBtnPanel.SetActive(false);
         skillChoosePanel.SetActive(false);
         skillBtnPanel.SetActive(true);
     }
-    ///<summary> 타겟 선택 버튼, 스킬 시전 </summary>
+    ///<summary> 타겟 선택 버튼 </summary>
     public void Btn_TargetSelect(int idx)
     {
-        if (targetIdxs.Contains(idx))
-            targetIdxs.Remove(idx);
-        else
-            targetIdxs.Add(idx);
+        //선택한 타겟 리스트에 추가, 이미 추가된 경우, 제거
+        if (targetIdxs.Contains(idx)) targetIdxs.Remove(idx);
+        else targetIdxs.Add(idx);
 
-        Skill s = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[selectSkillBtnIdx] + isMinus);
+        Skill s = SkillManager.GetSkill(currCaster.classIdx, currCaster.activeIdxs[selectSkillBtnIdx] + isMinus);
 
         int activeCount = 0;
         for (int i = 2; i < 5; i++) if (allChars[i].isActiveAndEnabled) activeCount++;
+        for(int i = 2; i < 5;i++) targetBtnHighlights[i - 2].SetActive(targetIdxs.Contains(i));
 
+        //선택한 타겟 수가 스킬 타겟 수 또는 활성화된 몬스터 수와 같은 경우 스킬 시전
         if (targetIdxs.Count == s.targetCount || targetIdxs.Count == activeCount)
         {
             List<Unit> selects = new List<Unit>();
             foreach (int i in targetIdxs)
                 selects.Add(allChars[i]);
 
-            state = BattleState.AllieTargetSelected;
-            if (isBoth)
-                currCaster.GetComponent<VisionMaster>().ActiveSkill_Both(selectSkillBtnIdx, selects);
-            else
-                currCaster.ActiveSkill(selectSkillBtnIdx, selects);
-
-            isBoth = false;
-            isMinus = 0;
-
-            apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
-
-            StatusUpdate();
-            Btn_SkillCancel();
-            
-            if (IsWin())
-                Win();
+            CastSkill(selects);
         }
+    }
+    ///<summary> 플레이어 캐릭터 스킬 시전 </summary>
+    void CastSkill(List<Unit> targets)
+    {
+        state = BattleState.AllieTargetSelected;
+
+        if(isBoth)
+            currCaster.GetComponent<VisionMaster>().ActiveSkill_Both(selectSkillBtnIdx, targets);
+        else
+            currCaster.ActiveSkill(selectSkillBtnIdx, targets);
+
+        apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
+
+        StatusUpdate();
+        Btn_SkillCancel();
+        SkillBtnUpdate();
+
+        if (IsWin()) Win();
     }
     ///<summary> 포션 사용 버튼 </summary>
     public void Btn_UsePotion(int slotIdx)
     {
-        if(state != BattleState.AllieTurnStart) return;
+        if (!(BattleState.AllieTurnStart <= state && state <= BattleState.AllieTargetSelected)) return;
 
         if(GameManager.instance.slotData.potionSlot[slotIdx] == 0)
             LogManager.instance.AddLog("착용한 포션이 없습니다.");
@@ -708,6 +702,7 @@ public class BattleManager : MonoBehaviour
                     }
                     allChars[0].GetAPHeal(allChars[0].buffStat[(int)Obj.행동력]);
                     apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
+                    LogManager.instance.AddLog("행동력을 전부 회복하였습니다.");
                     break;
                 //정화 포션 - 모든 디버프 제거
                 case 2:
@@ -717,6 +712,7 @@ public class BattleManager : MonoBehaviour
                         return;
                     }
                     allChars[0].RemoveDebuff(allChars[0].turnDebuffs.Count);
+                    LogManager.instance.AddLog("해제 가능한 모든 디버프를 제거했습니다.");
                     break;
                 //회복 포션 - 체력 최대로 회복
                 case 3:
@@ -726,10 +722,12 @@ public class BattleManager : MonoBehaviour
                         return;
                     }
                     allChars[0].GetHeal(allChars[0].buffStat[(int)Obj.체력]);
+                    LogManager.instance.AddLog("체력을 전부 회복하였습니다.");
                     break;
                 //재활용 포션 - 다른 포션 재사용 가능
                 case 4:
                     GameManager.instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2] = false;
+                    LogManager.instance.AddLog("다른 포션이 사용 가능해졌습니다.");
                     break;
             }
 
@@ -741,7 +739,7 @@ public class BattleManager : MonoBehaviour
     ///<summary> 턴 종료 버튼 </summary>
     public void Btn_TurnEnd()
     {
-        if (state != BattleState.AllieTurnStart) return;
+        if (!(BattleState.AllieTurnStart <= state && state <= BattleState.AllieTargetSelected)) return;
 
         Btn_SkillCancel();
         turnEndBtn.SetActive(false);
@@ -773,14 +771,10 @@ public class BattleManager : MonoBehaviour
     {
         if (state != BattleState.EnemyTurn)
             return;
-        Monster caster = currCaster.GetComponent<Monster>();
-        caster.OnTurnStart();
+        currCaster.OnTurnStart();
 
-        if (IsLose())
-        {
-            state = BattleState.Lose;
-            Lose();
-        }
+        if (IsLose()) Lose();
+        else if (IsWin()) Win();
         else
         {
             currCaster.OnTurnEnd();
@@ -799,21 +793,25 @@ public class BattleManager : MonoBehaviour
     #endregion
 
     #region Function_BattleEnd
+    ///<summary> 몬스터들 체력 체크 </summary>
     bool IsWin()
     {
-        for(int i = 2;i < 5;i ++) 
-        if (allChars[i].buffStat[(int)Obj.currHP] <= 0 || allChars[i].classIdx == 0) 
+        for (int i = 2; i < 5; i++)
+            if (allChars[i].isActiveAndEnabled && allChars[i].buffStat[(int)Obj.currHP] <= 0)
             {
                 allChars[i].gameObject.SetActive(false);
+                tpSliders[i].gameObject.SetActive(false);
+                LogManager.instance.AddLog($"{allChars[i].name}(이)가 쓰러졌습니다.");
                 enemyIilusts[i - 2].gameObject.SetActive(false);
             }
 
         for (int i = 2; i < 5; i++) if (allChars[i].isActiveAndEnabled) return false;
         return true;
     }
+    ///<summary> 플레이어 체력 체크 </summary>
     bool IsLose()
     {
-        foreach (Unit u in allChars) if (u.buffStat[(int)Obj.currHP] <= 0 || u.classIdx == 0) u.gameObject.SetActive(false);
+        foreach (Unit u in allChars) if (u.buffStat[(int)Obj.currHP] <= 0) u.gameObject.SetActive(false);
 
         for (int i = 0; i < 2; i++) if (allChars[i].isActiveAndEnabled) return false;
         return true;
@@ -830,6 +828,8 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < roomInfo.ItemCount; i++)
             ItemManager.ItemDrop(roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
         GameManager.instance.GetExp(roomInfo.roomExp);
+
+        //전투 진행 퀘스트 업데이트
         QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
         //체력 유지 퀘스트 업데이트
         QuestManager.DiehardUpdate((float)allChars[0].buffStat[(int)Obj.currHP] / allChars[0].buffStat[(int)Obj.체력]);
@@ -865,6 +865,7 @@ public class BattleManager : MonoBehaviour
             GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
             GameManager.instance.UpdateDungeonBuff();
             winPanel.SetActive(true);
+            winTxtAnimator.SetBool("loaded", true);
         }
     }
     ///<summary> 패배, 현재까지의 보상만 가진 채 마을로 귀환 </summary>
@@ -891,6 +892,7 @@ public class BattleManager : MonoBehaviour
         }
         GameManager.instance.LoadScene(SceneKind.Dungeon);
     }
+    ///<summary> 던전 승리 또는 패배 -> 마을로 돌아가기 </summary>
     public void Btn_BackToTown()
     {
         for(int i = 0;i < enemyIilustHandles.Count;i++)
@@ -900,7 +902,6 @@ public class BattleManager : MonoBehaviour
         }
         GameManager.instance.LoadScene(SceneKind.Town);
     }
-    
     #endregion
 
     #region Function_CharSkills
@@ -986,15 +987,18 @@ public class BattleManager : MonoBehaviour
     {
         List<Monster> mons = new List<Monster>();
         for (int i = 2; i < 5; i++) if (allChars[i].isActiveAndEnabled) mons.Add(allChars[i].GetComponent<Monster>());
-        var ene = from x in mons where x.monsterIdx == 10 || x.monsterIdx == 11 select x;
+        var ene = from x in mons where x.monsterIdx == 8 || x.monsterIdx == 9 select x;
 
         if (ene.Count() <= 0)
             return false;
 
+        LogManager.instance.AddLog($"{currCaster.name}(이)가 포탄 장전(을)를 시전했습니다.");
         Monster m = ene.First();
         charTP.Remove(m);
         casterQueue.Remove(m);
-        m.gameObject.SetActive(false);
+        m.buffStat[(int)Obj.currHP] = 0;
+        StatusUpdate();
+        IsWin();
 
         return true;
     }
@@ -1005,6 +1009,8 @@ public class BattleManager : MonoBehaviour
         charTP[m][0] = charTP[m][1];
     }
     #endregion Function_CharSkills
+
+    public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
 
     ///<summary> 효과 대상 반환 </summary>
     public List<Unit> GetEffectTarget(int targetIdx)

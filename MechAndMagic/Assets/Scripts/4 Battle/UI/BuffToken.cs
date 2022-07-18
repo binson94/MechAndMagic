@@ -43,6 +43,9 @@ public class BuffToken : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             case Obj.화상:
                 buffExplain += "\n높은 지속 피해";
                 break;
+            case Obj.Cannon:
+                buffExplain += "\n포탄을 장전하였습니다.";
+                break;
             case Obj.순환:
                 buffExplain += "\n지속적인 회복";
                 break;

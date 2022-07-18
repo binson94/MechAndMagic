@@ -69,7 +69,7 @@ public class QuestBlueprint
         }
         else
         {
-            rewardCount = (int)json[jsonIdx]["rewardCount"];
+            rewardCount = 4;
             rewardIdx = new int[rewardCount]; rewardAmt = new int[rewardCount];
 
             for (int i = 0; i < rewardCount; i++)

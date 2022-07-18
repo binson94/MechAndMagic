@@ -13,13 +13,6 @@ public class TitleManager : MonoBehaviour
     ///<summary> option - credit 시 표시할 판넬 </summary>
     [SerializeField] GameObject creditPanel;
 
-    #region Option
-    [Header("Option")]
-    [SerializeField] Slider bgmSlider;
-    [SerializeField] Slider sfxSlider;
-    [SerializeField] Slider txtSpdSlider;
-    #endregion
-
     #region GameSlot
     [Header("Slot")]
     ///<summary> 슬롯 정보 판넬 </summary>
@@ -44,30 +37,11 @@ public class TitleManager : MonoBehaviour
     private void Start()
     { 
         state = TitleState.Title;
-        bgmSlider.value = (float)SoundManager.instance.option.bgm;
-        sfxSlider.value = (float)SoundManager.instance.option.sfx;
-        txtSpdSlider.value = SoundManager.instance.option.txtSpd / 2f;
         
         PanelSet();
         SlotUpdate();
         SoundManager.instance.PlayBGM(BGMList.Title);
-    }   
-
-    #region Option
-    public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
-    public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
-    public void Slider_TxtSpd()
-    {
-        txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
-        SoundManager.instance.TxtSet(txtSpdSlider.value);
     }
-
-    public void Btn_Option_Credit()
-    {
-        uiPanels[(int)TitleState.Option].SetActive(false);
-        creditPanel.SetActive(true);
-    }
-    #endregion
 
     #region Start
     ///<summary> 진행 중이던 슬롯 불러옴 </summary>
@@ -165,6 +139,15 @@ public class TitleManager : MonoBehaviour
         for (int i = 0; i < uiPanels.Length; i++)
             uiPanels[i].SetActive(i == (int)state);
         creditPanel.SetActive(false);
+    }
+
+    public void Btn_Ad()
+    {
+        AdManager.instance.ShowInterstitialAd();
+    }
+    void EarnedReward(object sender, GoogleMobileAds.Api.Reward args)
+    {
+        Debug.Log("보상 획득");
     }
     
     public void Btn_Sound() => SoundManager.instance.PlaySFX(22);

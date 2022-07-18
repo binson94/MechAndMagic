@@ -26,13 +26,13 @@ public class MagicalRogue : Character
     {
         Skill s = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
         if (s.category == 1020 && resentCategory != 1019)
-            return "1형 스킬 다음에 시전";
+            return "1형 스킬 다음에 시전해야 합니다.";
         else if (s.category == 1021 && resentCategory != 1020)
-            return "2형 스킬 다음에 시전";
+            return "2형 스킬 다음에 시전해야 합니다.";
         else
             return base.CanCastSkill(idx);
     }
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -40,7 +40,7 @@ public class MagicalRogue : Character
         isCrit = false;
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
         KeyValuePair<string, float[]> set;
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -78,12 +78,12 @@ public class MagicalRogue : Character
         if (set.Value[2] > 0 && skill.idx == 311)
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, GetEffectStat(selects, (int)Obj.LossPer), set.Value[2], 1, -1));
 
-
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         //321 맹독 부여
         if (HasSkill(321))
@@ -108,12 +108,12 @@ public class MagicalRogue : Character
         if (skill.effectType.Any(x => x == (int)EffectType.CharSpecial2))
             buffStat[(int)Obj.currAP] += 2;
 
-        cooldowns[idx] = skill.cooldown;
+        cooldowns[slotIdx] = skill.cooldown;
         resentCategory = skill.category;
 
         //콤비네이션 3세트 - 3형 무술 쿨타임 1 감소
         if (skill.category == 1021 && ItemManager.GetSetData(22).Value[1] > 0)
-            cooldowns[idx]--;
+            cooldowns[slotIdx]--;
 
         //1형 무술
         if (skill.category == 1019)
@@ -156,6 +156,8 @@ public class MagicalRogue : Character
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
             guileCount[1] = 0;
         }
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

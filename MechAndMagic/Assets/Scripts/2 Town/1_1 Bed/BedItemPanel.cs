@@ -63,7 +63,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 상태 초기화 - 카테고리 초기화, 아이템 선택 상태 초기화 </summary>
     public void ResetAllState()
     {
-        currCategory = ItemCategory.Weapon;
+        currCategory = ItemCategory.None;
         currRarity = Rarity.None;
         currLvl = 0;
         ItemTokenUpdate();
@@ -120,44 +120,29 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     void ItemTokenUpdate()
     {
         ItemTokenReset();
+
+        //None 전체, Weapon, Armor, Accessory
         if (currCategory <= ItemCategory.Accessory)
-            BtnUpdate_Equip();
-        else
-            BtnUpdate_Potion();
-        
-        void BtnUpdate_Equip()
         {
-            List<Equipment> now = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
+            List<KeyValuePair<int, Equipment>> categorizedEquips = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
 
-            List<KeyValuePair<int, Equipment>> idxs = new List<KeyValuePair<int, Equipment>>();
-            for (int i = 0; i < now.Count;)
-            {
-                while (idxs.Count < 4 && i < now.Count)
-                {
-                    idxs.Add(new KeyValuePair<int, Equipment>(i, now[i]));
-                    i++;
-                }
-                EquipBtnToken token = GameManager.GetToken(equipTokenPool, equipTokenParent, equipTokenPrefab);
-
-                token.Init(this, idxs);
-                equipTokenList.Add(token);
-                token.gameObject.SetActive(true);
-
-                idxs.Clear();
-            }
-            
-            for(int i = equipTokenList.Count;i < 5;i++)
+            for (int i = 0; i < categorizedEquips.Count; i += 4)
             {
                 EquipBtnToken token = GameManager.GetToken(equipTokenPool, equipTokenParent, equipTokenPrefab);
 
-                token.Init(this, idxs);
+                token.Initialize(this, i, categorizedEquips);
                 equipTokenList.Add(token);
                 token.gameObject.SetActive(true);
             }
-        }
-        void BtnUpdate_Potion()
-        {
 
+            for (int i = equipTokenList.Count; i < 5; i++)
+            {
+                EquipBtnToken token = GameManager.GetToken(equipTokenPool, equipTokenParent, equipTokenPrefab);
+
+                token.Initialize(this, 0, null);
+                equipTokenList.Add(token);
+                token.gameObject.SetActive(true);
+            }
         }
     }
     ///<summary> 버튼 토큰 초기화, 전부 풀에 삽입 </summary>

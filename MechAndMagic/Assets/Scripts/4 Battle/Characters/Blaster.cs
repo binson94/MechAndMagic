@@ -94,7 +94,7 @@ public class Blaster : Character
             return "열기로 인해 이번 턴에 공격할 수 없습니다.";
         return base.CanCastSkill(idx);
     }
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -103,7 +103,7 @@ public class Blaster : Character
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -114,11 +114,12 @@ public class Blaster : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         //109 캐논 예열, 125 극도로 정밀한 계산 - 매 턴 처음 스킬에만 적용
         if (HasSkill(109))
@@ -128,11 +129,13 @@ public class Blaster : Character
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        cooldowns[idx] = skill.cooldown;
+        cooldowns[slotIdx] = skill.cooldown;
 
         //중화기 전문가 5세트 - 쿨타임 3턴 스킬 1턴 감소
         if(skill.cooldown == 3 && ItemManager.GetSetData(8).Value[1] > 0)
-            cooldowns[idx]--;
+            cooldowns[slotIdx]--;
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

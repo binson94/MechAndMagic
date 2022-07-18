@@ -28,9 +28,12 @@ public class OutbreakPanel : MonoBehaviour
     public void Btn_RerollOutbreak()
     {
         if(isReroll) return;
+        AdManager.instance.ShowRewardAd(OnAdReward);
+    }
+    ///<summary> 광고 성공적 시청 시 퀘스트 다시 받기 </summary>
+    void OnAdReward(object sender, GoogleMobileAds.Api.Reward reward)
+    {
         isReroll = true;
-        Debug.Log("show ad");
-        //광고 재생
 
         int newQuest = GameManager.instance.slotData.dungeonData.currDungeon.GetNewOutbreak(GameManager.instance.slotData.dungeonData.currRoomEvent);
         QuestManager.AcceptQuest(true, newQuest);

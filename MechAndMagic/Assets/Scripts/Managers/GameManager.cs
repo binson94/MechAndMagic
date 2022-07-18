@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
                 ItemManager.LoadData();
                 SkillManager.LoadData();
                 QuestManager.LoadData();
+                AdManager.instance.Initialize();
                 
                 DontDestroyOnLoad(container);
             }
@@ -129,9 +130,17 @@ public class GameManager : MonoBehaviour
 
     #region Event
     ///<summary> 긍정 이벤트 - 경험치 획득 </summary>
-    public void EventGetExp(float rate) => GetExp(Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
+    public void EventGetExp(float rate)
+    {
+        if(slotData.lvl <= 9)
+            GetExp(Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
+    }
     ///<summary> 부정 이벤트 - 경험치 손실 </summary>
-    public void EventLoseExp(float rate) => slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
+    public void EventLoseExp(float rate)
+    {
+        if(slotData.lvl <= 9)
+            slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
+    }
     ///<summary> 긍정 이벤트 - 회복 </summary>
     public void EventGetHeal(float rate)
     {

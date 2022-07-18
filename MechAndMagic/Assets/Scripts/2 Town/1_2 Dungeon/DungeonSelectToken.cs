@@ -55,10 +55,11 @@ public class DungeonSelectToken : MonoBehaviour
         startBtn.SetActive(false);
     }
     
+    public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
     public void ToggleStartBtn(bool show) => startBtn.gameObject.SetActive(show);
 
     ///<summary> 던전 이름 누를 시, 설명 보여주기 토글 </summary>
-    public void Btn_ToggleScript() => mgr.Btn_SelectDungeon(dungeonIdx);
+    public void Btn_ToggleScript() { mgr.Btn_SelectDungeon(dungeonIdx); SoundManager.instance.PlaySFX(22); }
     ///<summary> 던전 시작 버튼 </summary>
-    public void Btn_StartDungeon() => mgr.Btn_StartDungeon(dungeonIdx);
+    public void Btn_StartDungeon() { mgr.Btn_StartDungeon(dungeonIdx); SoundManager.instance.PlaySFX(22); }
 }

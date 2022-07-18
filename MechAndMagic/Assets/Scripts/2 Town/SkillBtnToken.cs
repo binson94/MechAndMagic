@@ -97,11 +97,13 @@ public class SkillBtnToken : MonoBehaviour
 
     public void Btn_Select()
     {
+        SoundManager.instance.PlaySFX(22);
         if (BM != null)
             BM.Btn_SkillToken(skillIdx, state);
     }
     public void Btn_Learn()
     {
+        SoundManager.instance.PlaySFX(22);
         if(BM != null) BM.BedToSkillLearn(skillIdx);
     }
 

@@ -74,9 +74,18 @@ public class BedPanel : MonoBehaviour, ITownPanel
     {
         classTxt.text = GameManager.instance.slotData.className;
         
-        statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
-        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[GameManager.instance.slotData.lvl]}";
-        expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[GameManager.instance.slotData.lvl];
+        int lvl = GameManager.instance.slotData.lvl;
+        statTxts[0].text = $"{lvl}";
+        if(lvl <= 9)
+        {
+            statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[GameManager.instance.slotData.lvl]}";
+            expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[GameManager.instance.slotData.lvl];
+        }
+        else
+        {
+            statTxts[1].text = "최대";
+            expSlider.value = 1;
+        }
 
         int i, j;
         for (i = j = 2; i < 13; i++, j++)
@@ -123,9 +132,9 @@ public class BedPanel : MonoBehaviour, ITownPanel
         }
 
         equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[0]);
-        equipSlotImages[7].gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
+        equipSlotImages[7].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
         equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[1]);
-        equipSlotImages[8].gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
+        equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
     }
 
     public void BedToSmith(ItemCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected) => TM.BedToSmith(currC, currR, currL, selected);

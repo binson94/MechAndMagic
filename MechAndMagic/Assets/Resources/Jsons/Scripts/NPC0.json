@@ -64,21 +64,12 @@
     "linkedQuest": 8
   },
   {
-    "name": "생존술 터득",
-    "idx": 8,
-    "kind": 1,
-    "chapter": 2,
-    "lvl": 0,
-    "reqQuest": 5,
-    "linkedQuest": 9
-  },
-  {
     "name": "정보 수집",
     "idx": 9,
     "kind": 1,
     "chapter": 2,
     "lvl": 0,
-    "reqQuest": 9,
+    "reqQuest": 7,
     "linkedQuest": 10
   }
  ]

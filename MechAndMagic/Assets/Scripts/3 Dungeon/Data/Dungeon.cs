@@ -65,6 +65,8 @@ public class Dungeon
     public int idx;
     ///<summary> 던전 이름 </summary>
     public string dungeonName;
+    ///<summary> 던전 챕터 </summary>
+    public int chapter;
 
     ///<summary> 던전의 층 갯수 </summary>
     public int floorCount;
@@ -86,6 +88,7 @@ public class Dungeon
         dbp = new DungeonBluePrint(dungeonIdx);
         idx = dungeonIdx;
         dungeonName = dbp.name;
+        chapter = dbp.chapter;
 
         MakeRoom();
         MakePath();

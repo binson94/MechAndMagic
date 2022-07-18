@@ -33,7 +33,7 @@ public class MetalKnight : Character
     //55 방어구 파괴
     Dictionary<Unit, int> armorBreakCount = new Dictionary<Unit, int>();
     
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -42,7 +42,7 @@ public class MetalKnight : Character
         huntKill = false;
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -53,7 +53,6 @@ public class MetalKnight : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //58 저격수
@@ -103,8 +102,10 @@ public class MetalKnight : Character
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.방어력무시, 1, set.Value[1], 1, -1));
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         //79 현상금 사냥
         if (skill.idx == 79 && selects[0].turnDebuffs.buffs.Any(x => x.name == "표식"))
@@ -121,7 +122,9 @@ public class MetalKnight : Character
             buffStat[(int)Obj.currAP] = Mathf.Min(buffStat[(int)Obj.행동력], buffStat[(int)Obj.currAP] + 2);
         resentSkillCategory = skill.category;
         if(!huntKill)
-            cooldowns[idx] = Mathf.RoundToInt(coolRate * skill.cooldown);
+            cooldowns[slotIdx] = Mathf.RoundToInt(coolRate * skill.cooldown);
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

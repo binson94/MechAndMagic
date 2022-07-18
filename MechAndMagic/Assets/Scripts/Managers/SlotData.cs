@@ -126,7 +126,7 @@ public class SlotData
             if (dungeonData != null)
                 dungeonData.dropExp += amt;
 
-            while (lvl < 10 && exp > GameManager.reqExp[lvl])
+            while (lvl < 10 && exp >= GameManager.reqExp[lvl])
             {
                 exp -= GameManager.reqExp[lvl];
                 lvl++;
@@ -319,15 +319,6 @@ public class ItemData
         else
             Debug.Log("there is no stuff");
     }
-
-    public bool CanSkillLearn(params int[] resources)
-    {
-        for(int i = 0;i < resources.Length;i++)
-            if(basicMaterials[i + 1] < resources[i])
-                return false;
-
-        return true;
-    }
     #endregion Smith
 
     #region Drop
@@ -372,7 +363,7 @@ public class ItemData
     }
     #endregion Drop
     ///<summary> 장비 장착 </summary>
-    public void Equip(EquipPart part, int idx)
+    public void Equip(EquipPart part, int orderIdx)
     {
         bool sort = false;
         List<Equipment> eList = GetEquipmentList(part);
@@ -386,8 +377,8 @@ public class ItemData
         }
 
         //장비 장착
-        equipmentSlots[(int)part] = eList[idx];
-        eList.RemoveAt(idx);
+        equipmentSlots[(int)part] = eList[orderIdx];
+        eList.RemoveAt(orderIdx);
 
         if (sort) eList.Sort((a, b) => a.CompareTo(b));
     }
@@ -413,8 +404,24 @@ public class ItemData
             return true;
         return learnedSkills.Contains(skillIdx);
     }
+    ///<summary> 스킬 학습 가능 여부 반환 </summary>
+    public bool CanSkillLearn(params int[] resources)
+    { 
+        for(int i = 0;i < resources.Length;i++)
+            if(basicMaterials[i + 1] < resources[i])
+                return false;
+
+        return true;
+    }
     ///<summary> 스킬 학습 </summary>
-    public void SkillLearn(int skillIdx) => learnedSkills.Add(skillIdx);
+    public void SkillLearn(KeyValuePair<int, Skillbook> skillInfo, params int[] reqResources)
+    { 
+        learnedSkills.Add(skillInfo.Value.idx);
+        skillbooks[skillInfo.Key].count--;
+        
+        for(int i = 0;i < 3;i++)
+            basicMaterials[i + 1] -= reqResources[i];
+    }
     ///<summary> 스킬북 분해 </summary>
     public void DisassembleSkillbook(int idx) => skillbooks.FindAll(x => x.idx == idx).First().count--;
     ///<summary> 스킬북 보유 여부 반환 </summary>
@@ -472,8 +479,10 @@ public class QuestData
                 //레벨 달성 퀘스트인 경우, 레벨 값으로 설정
                 if (qp.type == QuestType.Level)
                     qp.objectCurr = GameManager.instance.slotData.lvl;
-                //그 외 경우, 대상 일치 시 퀘스트 증가
-                else if (qp.objectIdx == 0 || qp.objectIdx == objectIdx)
+                //그 외 경우, 대상 일치 시 퀘스트 증가, 원숭이 로봇, 탈리아 퀘스트 예외 처리
+                else if ((qp.objectIdx == 0 || qp.objectIdx == objectIdx) ||
+                        (qp.objectIdx == 72 && (objectIdx == 73 || objectIdx == 74)) ||
+                        (qp.objectIdx == 83 && (objectIdx == 84 || objectIdx == 85)))
                     qp.objectCurr += amt;
 
                 //목표 달성 시 클리어 처리

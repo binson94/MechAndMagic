@@ -66,10 +66,10 @@ public class EquipBluePrint
 
         int amount;
         //특수 재화 소비량 읽기
-        //idx 4 ~ 12, 상 무기,방어구,장신구, 중 무기,방어구,장신구, 하 무기,방어구,장신구 순
+        //idx 4 ~ 12, 상중하-무기,방어구,장신구 순
         for (int i = 0; i < 3; i++)
             if ((amount = (int)resourceJson[resourceIdx]["resource"][i]) != 0)
-                requireResources.Add(new KeyValuePair<int, int>(4 + 3 * i + type, amount));
+                requireResources.Add(new KeyValuePair<int, int>(4 + i + type * 3, amount));
         //기본 재화 소비량 읽기
         //idx 13 ~ 15, 상중하 순
         for (int i = 3; i < 6; i++)
@@ -98,7 +98,7 @@ public class Equipment
 
     #region StatPool
     ///<summary> 무기 보조 스텟 가능 풀 </summary>
-    static readonly Obj[] weaponSubstatKindPool = new Obj[6];
+    static readonly Obj[] weaponSubstatKindPool = new Obj[5];
     ///<summary> 목걸이 스텟 가능 풀, 장신구는 메인, 서브 스텟 풀 같음 </summary>
     static readonly Obj[] necklaceStatKindPool = new Obj[4];
     ///<summary> 반지 스텟 가능 풀, 장신구는 메인, 서브 스텟 풀 같음 </summary>
@@ -126,8 +126,8 @@ public class Equipment
     ///<summary> json 데이터 로드 </summary>
     static Equipment()
     {
-        weaponSubstatKindPool[0] = Obj.행동력; weaponSubstatKindPool[1] = Obj.공격력; weaponSubstatKindPool[2] = Obj.명중률;
-        weaponSubstatKindPool[3] = Obj.치명타율; weaponSubstatKindPool[4] = Obj.방어력무시; weaponSubstatKindPool[5] = Obj.속도;
+        weaponSubstatKindPool[0] = Obj.행동력; weaponSubstatKindPool[1] = Obj.명중률;
+        weaponSubstatKindPool[2] = Obj.치명타율; weaponSubstatKindPool[3] = Obj.방어력무시; weaponSubstatKindPool[4] = Obj.속도;
 
         necklaceStatKindPool[0] = Obj.체력; necklaceStatKindPool[1] = Obj.방어력; necklaceStatKindPool[2] = Obj.회피율; necklaceStatKindPool[3] = Obj.속도;
         ringStatKindPool[0] = Obj.공격력; ringStatKindPool[1] = Obj.명중률; ringStatKindPool[2] = Obj.치명타율; ringStatKindPool[3] = Obj.방어력무시;
@@ -184,9 +184,7 @@ public class Equipment
                 switch (ebp.part)
                 {
                     case EquipPart.Weapon:
-                        do
-                            subStat = weaponSubstatKindPool[Random.Range(0, 6)];
-                        while (subStat == Obj.공격력);
+                        subStat = weaponSubstatKindPool[Random.Range(0, 5)];
                         break;
                     case EquipPart.Top:
                         subStat = Obj.체력;
@@ -207,7 +205,6 @@ public class Equipment
                         break;
                     case EquipPart.Necklace:
                         do
-
                             subStat = necklaceStatKindPool[Random.Range(0, 4)];
                         while (mainStat == subStat);
                         break;
@@ -244,10 +241,10 @@ public class Equipment
                     commonStatObjs[i] = ebp.commonStats[i];
                 else
                 {
-                    commonStatObjs[i] = Random.Range(1, 13);
                     bool isOverlap;
                     do
                     {
+                        commonStatObjs[i] = Random.Range(1, 13);
                         isOverlap = commonStatObjs[i] == 1 || commonStatObjs[i] == 3;
                         for(int j = i -1; !isOverlap && j < i;j++)
                             isOverlap |= commonStatObjs[i] == commonStatObjs[j];
@@ -260,51 +257,21 @@ public class Equipment
     ///<summary> 아이템 메인 및 서브 스텟 값 불러오기 </summary>
     void SetStatValue()
     {
-        JsonData json = weaponStatJson;
-        int jsonIdx = (ebp.reqlvl - 1) / 2 * 5 + (ebp.rarity - Rarity.Common);
+        JsonData json = ebp.part <= EquipPart.Weapon ? weaponStatJson : accessoryStatJson;
+
         if (EquipPart.Top <= ebp.part && ebp.part <= EquipPart.Shoes)
         {
-            json = armorStatJson;
-            jsonIdx += (ebp.part - EquipPart.Top) * 25;
+            mainStatValue = (int)armorStatJson[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{ebp.part}"][0];
+            if (subStat != Obj.None) subStatValue = (int)armorStatJson[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{ebp.part}"][1];
         }
-        else if (EquipPart.Ring <= ebp.part)
+        else 
         {
-            json = accessoryStatJson;
-            jsonIdx += (ebp.part - EquipPart.Ring) * 25;
+            mainStatValue = (int)json[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{mainStat}"];
+            if(subStat != Obj.None) subStatValue = (int)json[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{subStat}"];
         }
 
-        mainStatValue = (int)json[jsonIdx]["stat"][GetStatIdx(ebp.part, mainStat)];
-        if (subStat != Obj.None) subStatValue = star * (int)json[jsonIdx]["stat"][GetStatIdx(ebp.part, subStat)];
-
-        //
-        int GetStatIdx(EquipPart part, Obj stat)
-        {
-            switch (part)
-            {
-                case EquipPart.Weapon:
-                    for (int i = 0; i < 6; i++)
-                        if (weaponSubstatKindPool[i] == stat)
-                            return i;
-                    break;
-                case EquipPart.Ring:
-                    for (int i = 0; i < 4; i++)
-                        if (ringStatKindPool[i] == stat)
-                            return i;
-                    break;
-                case EquipPart.Necklace:
-                    for (int i = 0; i < 4; i++)
-                        if (necklaceStatKindPool[i] == stat)
-                            return i;
-                    break;
-                //방어구 - 서브 스텟이 1종류만 있음, 방어력이면 메인 스텟, 그 외는 서브 스텟임
-                default:
-                    if (stat == Obj.방어력)
-                        return 0;
-                    else
-                        return 1;
-            }
-            return 0;
-        }
+        mainStatValue = Mathf.RoundToInt(mainStatValue * (1f + star) / 2);
+        subStatValue = Mathf.RoundToInt(subStatValue * (1f + star) / 2);
     }
 
     ///<summary> 옵션 변환 가능 여부 - 레어 이상 장비 </summary>

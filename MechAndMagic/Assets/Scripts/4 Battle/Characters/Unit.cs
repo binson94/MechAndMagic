@@ -90,14 +90,14 @@ public class Unit : MonoBehaviour
 
     #region Skill
     #region Skill Condition
-    public virtual string CanCastSkill(int idx)
+    public virtual string CanCastSkill(int skillSlotIdx)
     {
-        Skill s = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill s = SkillManager.GetSkill(classIdx, activeIdxs[skillSlotIdx]);
         if (buffStat[(int)Obj.currAP] < GetSkillCost(s))
-            return $"{s.name}을 사용하기 위한 행동력이 부족합니다.";
-        else if (cooldowns[idx] > 0)
-            return $"{SkillManager.GetSkill(classIdx, activeIdxs[idx]).name}은 아직 쿨타임입니다.";
-        return "";
+            return $"{s.name}(을)를 사용하기 위한 행동력이 부족합니다.";
+        else if (cooldowns[skillSlotIdx] > 0)
+            return $"{SkillManager.GetSkill(classIdx, activeIdxs[skillSlotIdx]).name}(은)는 아직 쿨타임입니다.";
+        return string.Empty;
     }   
     public virtual int GetSkillCost(Skill s)
     {
@@ -134,7 +134,7 @@ public class Unit : MonoBehaviour
     #endregion Skill Condition
 
     #region Active
-    public virtual void ActiveSkill(int idx, List<Unit> selects)
+    public virtual void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -143,7 +143,7 @@ public class Unit : MonoBehaviour
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -163,7 +163,7 @@ public class Unit : MonoBehaviour
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        cooldowns[idx] = skill.cooldown;
+        cooldowns[slotIdx] = skill.cooldown;
     }
     protected virtual void Active_Effect(Skill skill, List<Unit> selects)
     {
@@ -555,7 +555,6 @@ public class Unit : MonoBehaviour
         if (buffStat[(int)Obj.currHP] <= 0)
         {
             killed = true;
-            gameObject.SetActive(false);
 
             if(implantBomb != null)
             {

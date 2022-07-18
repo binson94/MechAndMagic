@@ -1,6 +1,6 @@
 [
   {
-    "npcName" : "엘리스",
+    "npcName": "엘리스",
     "name": "엘리스, 그녀는 누구인가?",
     "idx": 26,
     "kind": 0,
@@ -42,7 +42,7 @@
     "kind": 1,
     "chapter": 3,
     "lvl": 0,
-    "reqQuest": 15,
+    "reqQuest": 18,
     "linkedQuest": 21
   },
   {
@@ -51,7 +51,7 @@
     "kind": 1,
     "chapter": 3,
     "lvl": 0,
-    "reqQuest": 15,
+    "reqQuest": 20,
     "linkedQuest": 22
   },
   {
@@ -99,4 +99,4 @@
     "reqQuest": 30,
     "linkedQuest": 31
   }
- ]
+]

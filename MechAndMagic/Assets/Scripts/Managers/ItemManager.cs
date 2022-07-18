@@ -124,7 +124,7 @@ public class ItemManager : MonoBehaviour
 
     #region Smith
     ///<summary> 장비 제작 가능 여부 반환 </summary>
-    public static bool CanSmith(int idx) => GameManager.instance.slotData.itemData.CanSmith(bluePrints[idx]);
+    public static bool CanSmith(int equipIdx) => GameManager.instance.slotData.itemData.CanSmith(bluePrints[equipIdx - bluePrints[0].idx]);
 
     ///<summary> 장비 제작 </summary>
     public static void SmithEquipment(int idx)
@@ -154,9 +154,10 @@ public class ItemManager : MonoBehaviour
     public static bool CanSkillLearn(int skillLvl) 
     => GameManager.instance.slotData.itemData.CanSkillLearn((int)skillLearnJson[skillLvl / 2]["resource1"], (int)skillLearnJson[skillLvl / 2]["resource2"], (int)skillLearnJson[skillLvl / 2]["resource3"]);
     ///<summary> 스킬 학습 </summary>
-    public static void SkillLearn(int idx)
+    public static void SkillLearn(KeyValuePair<int, Skillbook> skillInfo)
     {
-        GameManager.instance.slotData.itemData.SkillLearn(idx);
+        int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillInfo.Value.idx).reqLvl;
+        GameManager.instance.slotData.itemData.SkillLearn(skillInfo, (int)skillLearnJson[lvl / 2]["resource1"], (int)skillLearnJson[lvl / 2]["resource2"], (int)skillLearnJson[lvl / 2]["resource3"]);
         GameManager.instance.SaveSlotData();
     }
     ///<summary> 스킬북 분해 </summary>
@@ -169,9 +170,9 @@ public class ItemManager : MonoBehaviour
 
     #region Equip
     ///<summary> 장비 장착 </summary>
-    public static void Equip(EquipPart part, int idx)
+    public static void Equip(EquipPart part, int orderIdx)
     {
-        GameManager.instance.slotData.itemData.Equip(part, idx);
+        GameManager.instance.slotData.itemData.Equip(part, orderIdx);
         ItemStatUpdate();
         setManager.SetComfirm(GameManager.instance.slotData.itemData);
         GameManager.instance.SaveSlotData();
@@ -260,53 +261,64 @@ public class ItemManager : MonoBehaviour
 
     #region Show
     ///<summary> 현재 보유 중인 장비 중 태그에 맞는 장비 리스트 반환 </summary>
-    public static List<Equipment> GetEquipData(ItemCategory category, Rarity rarity, int lvl)
+    public static List<KeyValuePair<int, Equipment>> GetEquipData(ItemCategory category, Rarity rarity, int lvl)
     {
-        List<Equipment> tmp;
+        List<KeyValuePair<int, Equipment>> returnList = new List<KeyValuePair<int, Equipment>>();
+        List<Equipment>[] baseLists;
         switch (category)
         {
             case ItemCategory.Weapon:
-                tmp = GameManager.instance.slotData.itemData.weapons;
+                baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.weapons };
                 break;
             case ItemCategory.Armor:
-                tmp = GameManager.instance.slotData.itemData.armors;
+                baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.armors };
                 break;
             case ItemCategory.Accessory:
-                tmp = GameManager.instance.slotData.itemData.accessories;
+                baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.accessories };
+                break;
+            case ItemCategory.None:
+                baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.weapons, GameManager.instance.slotData.itemData.armors, GameManager.instance.slotData.itemData.accessories };
                 break;
             default:
                 return null;
         }
-        return (from x in tmp
-                where (rarity == Rarity.None || x.ebp.rarity == rarity) && (lvl == 0 || x.ebp.reqlvl == lvl)
-                select x).ToList();
+
+        foreach (List<Equipment> list in baseLists)
+            for (int i = 0; i < list.Count; i++)
+                if ((rarity == Rarity.None || list[i].ebp.rarity == rarity) && (lvl == 0 || list[i].ebp.reqlvl == lvl))
+                    returnList.Add(new KeyValuePair<int, Equipment>(i, list[i]));
+        if (category == ItemCategory.None) returnList.Sort((a, b) => a.Value.CompareTo(b.Value));
+        return returnList;
     }
     ///<summary> 현재 보유 중인 스킬북 중 태그에 맞는 리스트 반환 </summary>
     ///<param name="skillType"> -1 전체, 0 액티브, 1 패시브 </param>
-    public static List<Skillbook> GetSkillbookData(int skillType, int lvl)
+    public static List<KeyValuePair<int, Skillbook>> GetSkillbookData(int skillType, int lvl)
     {
-        List<Skillbook> categorizedList = new List<Skillbook>();
+        List<KeyValuePair<int, Skillbook>> categorizedList = new List<KeyValuePair<int, Skillbook>>();
+        int i = 0;
         foreach (Skillbook sb in GameManager.instance.slotData.itemData.skillbooks)
         {
             Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, sb.idx);
             if (sb.count > 0 && (skillType == -1 || s.useType == skillType) && (lvl == 0 || s.reqLvl == lvl))
-                categorizedList.Add(sb);
+                categorizedList.Add(new KeyValuePair<int, Skillbook>(i, sb));
+            i++;
         }
 
         return categorizedList;
     }
     ///<summary> 현재 보유 중인 장비 레시피 중 태그에 맞는 리스트 반환 </summary>
-    public static List<EquipBluePrint> GetRecipeData(Rarity rarity, int lvl)
+    public static List<KeyValuePair<int, EquipBluePrint>> GetRecipeData(Rarity rarity, int lvl)
     {
         int region = GameManager.instance.slotData.region;
-        List<EquipBluePrint> ebps = new List<EquipBluePrint>();
+        List<KeyValuePair<int, EquipBluePrint>> ebps = new List<KeyValuePair<int, EquipBluePrint>>();
 
         foreach (int equipIdx in GameManager.instance.slotData.itemData.equipRecipes)
         {
-            if ((bluePrints[equipIdx].useClass == 0 || bluePrints[equipIdx].useClass == GameManager.instance.slotData.slotClass || bluePrints[equipIdx].useClass == region) &&
-            (rarity == Rarity.None || bluePrints[equipIdx].rarity == rarity) &&
-            (lvl == 0 || bluePrints[equipIdx].reqlvl == lvl))
-                ebps.Add(bluePrints[equipIdx]);
+            EquipBluePrint ebp = bluePrints[equipIdx - bluePrints[0].idx];
+            if ((ebp.useClass == 0 || ebp.useClass == GameManager.instance.slotData.slotClass || ebp.useClass == region) &&
+            (rarity == Rarity.None || ebp.rarity == rarity) &&
+            (lvl == 0 || ebp.reqlvl == lvl))
+                ebps.Add(new KeyValuePair<int, EquipBluePrint>(0, ebp));
         }
 
         return ebps;
@@ -318,6 +330,7 @@ public class ItemManager : MonoBehaviour
     public static Equipment GetEquipment(EquipPart p) => GameManager.instance.slotData.itemData.equipmentSlots[(int)p];
     public static EquipBluePrint GetEBP(int equipIdx) => bluePrints[equipIdx - bluePrints[0].idx];
     ///<summary> 자원 이름 
+    ///<para> 1 ~ 3 : 스킬 학습 재화(상중하) </para>
     ///<para> 4 ~ 6 : 무기 재화(상중하) </para>
     ///<para> 7 ~ 9 : 방어구 재화(상중하) </para>
     ///<para> 10 ~ 12 : 악세서리 재화(상중하) </para>

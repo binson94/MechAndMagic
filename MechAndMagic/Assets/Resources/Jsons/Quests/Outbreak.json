@@ -140,7 +140,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 1,
-    "rewardIdx": 11,
+    "rewardIdx": 9,
     "rewardAmt": 2
   },
   {
@@ -152,7 +152,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 1,
-    "rewardIdx": 10,
+    "rewardIdx": 6,
     "rewardAmt": 2
   },
   {
@@ -164,7 +164,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 1,
-    "rewardIdx": 10,
+    "rewardIdx": 6,
     "rewardAmt": 2
   },
   {
@@ -176,7 +176,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 2,
-    "rewardIdx": 9,
+    "rewardIdx": 11,
     "rewardAmt": 2
   },
   {
@@ -200,7 +200,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 2,
-    "rewardIdx": 7,
+    "rewardIdx": 5,
     "rewardAmt": 2
   },
   {
@@ -212,7 +212,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 2,
-    "rewardIdx": 7,
+    "rewardIdx": 5,
     "rewardAmt": 2
   },
   {
@@ -224,7 +224,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 3,
-    "rewardIdx": 6,
+    "rewardIdx": 10,
     "rewardAmt": 2
   },
   {
@@ -236,7 +236,7 @@
     "type": 2,
     "objectIdx": 0,
     "objectAmt": 3,
-    "rewardIdx": 5,
+    "rewardIdx": 7,
     "rewardAmt": 2
   },
   {

@@ -32,6 +32,10 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] Image playerIcon;
     ///<summary> 플레이어 아이콘 스프라이트 </summary>
     [SerializeField] Sprite[] playerSprites;
+    ///<summary> 던전 배경 이미지 </summary>
+    [SerializeField] Image bgImage;
+    ///<summary> 던전 배경 스프라이트들 </summary>
+    [SerializeField] Sprite[] bgSprites;
 
     [Header("Player Info")]
     ///<summary> 플레이어 현재 체력 표시 슬라이더 </summary>
@@ -54,22 +58,16 @@ public class DungeonManager : MonoBehaviour
     ///<summary> 돌발퀘스트 방 입장 시 처리 </summary>
     [SerializeField] OutbreakPanel outbreakPanel;
 
-    [Header("Option")]
-    [SerializeField] Slider bgmSlider;
-    [SerializeField] Slider sfxSlider;
-    [SerializeField] Slider txtSpdSlider;
-
     ///<summary> 방 이미지 생성, 퀘스트 정보 불러오기, 플레이어 정보 불러오기, 옵션 불러오기 </summary>
     private void Start()
     {
+        int chapter = GameManager.instance.slotData.dungeonData.currDungeon.chapter;
+        bgImage.sprite = bgSprites[GameManager.instance.slotData.region / 11 * 4 + chapter - 1];
         MakeRoomImage();
         LoadQuestData();
         LoadPlayerInfo();
 
-        bgmSlider.value = (float)SoundManager.instance.option.bgm;
-        sfxSlider.value = (float)SoundManager.instance.option.sfx;
-        txtSpdSlider.value = SoundManager.instance.option.txtSpd / 2f;
-        SoundManager.instance.PlayBGM(BGMList.Battle1);
+        SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
     }
     ///<summary> 방 버튼 이미지 생성 </summary>
     private void MakeRoomImage()
@@ -114,7 +112,7 @@ public class DungeonManager : MonoBehaviour
             {
                 Room currRoom = dungeon.GetRoom(i, j);
                 for (int k = 0; k < currRoom.next.Count; k++)
-                    roomConnectMgr.AddConnect(roomImages[i][j].rectTransform, roomImages[i + 1][currRoom.next[k]].rectTransform);
+                    roomConnectMgr.AddConnect(roomImages[i][j].rect, roomImages[i + 1][currRoom.next[k]].rect);
             }
 
         //스크롤 정도 불러오기
@@ -147,9 +145,12 @@ public class DungeonManager : MonoBehaviour
     {
         int[] currPos = GameManager.instance.slotData.dungeonData.currPos;
         //플레이어 표시 이미지 스프라이트 및 위치 설정
-        playerIcon.rectTransform.anchoredPosition = roomImages[currPos[0]][currPos[1]].rectTransform.anchoredPosition + new Vector2(0, 100);
+        playerIcon.rectTransform.anchoredPosition = roomImages[currPos[0]][currPos[1]].rect.anchoredPosition + new Vector2(0, 100);
 
     }
+    
+    ///<summary> 모든 버튼에 할당, 효과음 재생 </summary>
+    public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
     ///<summary> 방 버튼 클릭 시 호출 
     ///<para> 이동 가능 시 이동 </para> </summary>
     public void Btn_RoomSelect(params int[] pos)
@@ -200,13 +201,5 @@ public class DungeonManager : MonoBehaviour
         reportPanel.gameObject.SetActive(true);
         GameManager.instance.RemoveDungeonData();
         GameManager.instance.SwitchSceneData(SceneKind.Town);
-    }
-
-    public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
-    public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
-    public void Slider_TxtSpd()
-    {
-        txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
-        SoundManager.instance.TxtSet(txtSpdSlider.value);
     }
 }

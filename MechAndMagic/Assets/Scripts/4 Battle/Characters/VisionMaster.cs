@@ -101,17 +101,17 @@ public class VisionMaster : Character
         return base.GetSkillCost(s) - (HasSkill(286) && resentCategory != s.category ? 1 : 0);
     }
 
-    public void ActiveSkill_Both(int idx, List<Unit> selects)
+    public void ActiveSkill_Both(int slotIdx, List<Unit> selects)
     {
         bothskill = 0;
-        ActiveSkill(idx, selects);
+        ActiveSkill(slotIdx, selects);
         bothskill = 1;
-        ActiveSkill(idx, selects);
+        ActiveSkill(slotIdx, selects);
 
-        buffStat[(int)Obj.currAP] -= Mathf.Min(GetSkillCost(SkillManager.GetSkill(classIdx, activeIdxs[idx])), GetSkillCost(SkillManager.GetSkill(classIdx, activeIdxs[idx] + 1)));
-        cooldowns[idx] = Mathf.Min(SkillManager.GetSkill(classIdx, activeIdxs[idx]).cooldown, SkillManager.GetSkill(classIdx, activeIdxs[idx] + 1).cooldown);
+        buffStat[(int)Obj.currAP] -= Mathf.Min(GetSkillCost(SkillManager.GetSkill(classIdx, activeIdxs[slotIdx])), GetSkillCost(SkillManager.GetSkill(classIdx, activeIdxs[slotIdx] + 1)));
+        cooldowns[slotIdx] = Mathf.Min(SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]).cooldown, SkillManager.GetSkill(classIdx, activeIdxs[slotIdx] + 1).cooldown);
     }
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -122,9 +122,9 @@ public class VisionMaster : Character
 
         //skillDB에서 스킬 불러오기
         if (skillState < 2)
-            skill = SkillManager.GetSkill(classIdx, activeIdxs[idx] + skillState);
+            skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx] + skillState);
         else
-            skill = SkillManager.GetSkill(classIdx, activeIdxs[idx] + bothskill);
+            skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx] + bothskill);
 
 
         skillBuffs.Clear();
@@ -136,7 +136,6 @@ public class VisionMaster : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(19);
@@ -150,8 +149,10 @@ public class VisionMaster : Character
                 skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[2], 1, -1));
         }
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         //양 스킬
         if (skill.category == 1023)
@@ -238,13 +239,15 @@ public class VisionMaster : Character
         if (skillState != 2)
         {
             buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-            cooldowns[idx] = skill.cooldown;
+            cooldowns[slotIdx] = skill.cooldown;
         }
 
         if (HasSkill(310) && skillCount_battle[2] % 7 == 0)
             skillState = 2;
         else
             skillState = 0;
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

@@ -48,6 +48,7 @@ public class SkillDB
                 skills[i].posScript = json[i]["script_pos"].ToString();
                 skills[i].negScript = json[i]["script_neg"].ToString();
                 skills[i].icon = (int)json[i]["icon"];
+                skills[i].sfx = (int)json[i]["sfx"];
             }
             
 

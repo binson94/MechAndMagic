@@ -23,6 +23,8 @@ public class Skill
     public int category;
     ///<summary> 스킬 타입(0 : 액티브, 1 : 패시브) </summary>
     public int useType;
+    ///<summary> 스킬 효과음 </summary>
+    public int sfx;
 
     [Header("Require")] //습득에 필요한 요구사항
     ///<summary> 스킬 습득을 위한 요구 레벨 </summary>

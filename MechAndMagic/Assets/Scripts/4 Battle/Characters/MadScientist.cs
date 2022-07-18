@@ -49,14 +49,8 @@ public class MadScientist : Character
             mul = 2;
         return Mathf.RoundToInt(base.GetSkillCost(s) * mul);
     }
-
-    public override string CanCastSkill(int idx)
-    {
-        if (SkillManager.GetSkill(classIdx, activeIdxs[idx]).category == 1028 && !BM.HasGolem())
-            return "골렘 필요";
-        return base.CanCastSkill(idx);
-    }
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -65,7 +59,7 @@ public class MadScientist : Character
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -76,7 +70,6 @@ public class MadScientist : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //기초 과학자 4세트 - 순수 발명품 스킬 사용 시 버프
@@ -90,9 +83,10 @@ public class MadScientist : Character
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.방어력무시, 1, set.Value[2], 1, -1));
         }
 
-
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         //144 시선 집중 기계, 157 하이라이트 부츠 - 자석탱
         if(skill.idx == 144 || skill.idx == 157)
@@ -126,13 +120,15 @@ public class MadScientist : Character
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
         
-        cooldowns[idx] = skill.cooldown;
+        cooldowns[slotIdx] = skill.cooldown;
         //궁극의 피조물 2, 4 세트 - 컨트롤 스킬 쿨타임 감소
         set = ItemManager.GetSetData(11);
         if (set.Value[0] > 0 && (skill.idx == 135 || skill.idx == 136 || skill.idx == 137))
-            cooldowns[idx] = 0;
+            cooldowns[slotIdx] = 0;
         if (set.Value[1] > 0 && (skill.idx == 154 || skill.idx == 155 || skill.idx == 156))
-            cooldowns[idx]--;
+            cooldowns[slotIdx]--;
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

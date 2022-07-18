@@ -59,9 +59,20 @@ public class RepairPanel : MonoBehaviour
 
     void LoadStatInfo()
     {
-        statTxts[0].text = GameManager.instance.slotData.lvl.ToString();
-        statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[GameManager.instance.slotData.lvl]}";
-        expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[GameManager.instance.slotData.lvl];
+        int lvl = GameManager.instance.slotData.lvl;
+        statTxts[0].text = $"{lvl}";
+
+        if(lvl <= 9)
+        {
+            statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[lvl]}";
+            expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[lvl];
+        }
+        else
+        {
+            statTxts[1].text = "최대";
+            expSlider.value = 1;
+        }
+        
 
         int i, j;
         for (i = j = 2; i < 13; i++, j++)

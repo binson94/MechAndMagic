@@ -30,7 +30,7 @@ public class ElementalController : Character
         return Mathf.RoundToInt(base.GetSkillCost(s) * rate);
     }
 
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -39,7 +39,7 @@ public class ElementalController : Character
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -50,7 +50,6 @@ public class ElementalController : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         
         //200 불안정한 마법
         if (skill.idx == 200)
@@ -84,8 +83,10 @@ public class ElementalController : Character
 
         Passive_SkillCast(skill);
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         if (skill.category == 1007)
             elementalUsed[0] = true;
@@ -136,12 +137,13 @@ public class ElementalController : Character
         {
             //정령의 대리인 4세트 - 정령왕의 계약 쿨감 100%로 상승
             float rate = ItemManager.GetSetData(13).Value[1] > 0 ? 0 : 0.5f;
-            cooldowns[idx] = Mathf.RoundToInt(skill.cooldown * rate);
+            cooldowns[slotIdx] = Mathf.RoundToInt(skill.cooldown * rate);
         }
         else
-            cooldowns[idx] = skill.cooldown;
+            cooldowns[slotIdx] = skill.cooldown;
 
         CountSkill();
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

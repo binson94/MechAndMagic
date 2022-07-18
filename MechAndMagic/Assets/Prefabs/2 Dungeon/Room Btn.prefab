@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1136314669206104003}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2335044436835296059}
+        m_TargetAssemblyTypeName: RoomImage, Assembly-CSharp
+        m_MethodName: Btn_Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2335044436835296059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bf668a620053d43aa1c1fc6ca61293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rectTransform: {fileID: 0}
-  bgImage: {fileID: 1136314669206104003}
+  btnImage: {fileID: 1136314669206104003}
   roomImage: {fileID: 6035340422691980799}
 --- !u!1 &8575737823133993066
 GameObject:

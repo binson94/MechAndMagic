@@ -1,0 +1,84 @@
+[
+    {
+      "npcName" : "리겐",
+      "name": "리겐과의 만남",
+      "idx": 53,
+      "kind": 0,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 0,
+      "linkedQuest": 0
+    },
+    {
+      "name": "리겐과의 탐험 1",
+      "idx": 54,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 44,
+      "linkedQuest": 45
+    },
+    {
+      "name": "리겐과의 탐험 2",
+      "idx": 55,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 45,
+      "linkedQuest": 46
+    },
+    {
+      "name": "리겐과의 탐험 3",
+      "idx": 56,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 46,
+      "linkedQuest": 47
+    },
+    {
+      "name": "만악의 근원의 근원",
+      "idx": 57,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 46,
+      "linkedQuest": 48
+    },
+    {
+      "name": "홀로서기",
+      "idx": 58,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 47,
+      "linkedQuest": 53
+    },
+    {
+      "name": "마지막 관문",
+      "idx": 59,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 54,
+      "linkedQuest": 55
+    },
+    {
+      "name": "그들의 대화",
+      "idx": 60,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 53,
+      "linkedQuest": 56
+    },
+    {
+      "name": "선제 공격",
+      "idx": 61,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 56,
+      "linkedQuest": 57
+    }
+   ]

@@ -62,7 +62,7 @@ public class Golem : Character
         skillQueue.Clear();
     }
 
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int skillIdx, List<Unit> selects)
     { //적중 성공 여부
         isAcc = true;
         //크리티컬 성공 여부
@@ -70,7 +70,7 @@ public class Golem : Character
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, idx);
+        Skill skill = SkillManager.GetSkill(classIdx, skillIdx);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();

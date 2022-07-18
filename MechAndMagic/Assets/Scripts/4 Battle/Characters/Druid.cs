@@ -106,15 +106,15 @@ public class Druid : Character
         rooted = false;
     }
 
-    public override string CanCastSkill(int idx)
+    public override string CanCastSkill(int skillSlotIdx)
     {
-        Skill s = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill s = SkillManager.GetSkill(classIdx, activeIdxs[skillSlotIdx]);
         if (s.effectType[0] == 39 && currVitality < s.effectRate[0])
-            return "생명력 부족";
+            return "생명력이 부족합니다.";
         else
-            return base.CanCastSkill(idx);
+            return base.CanCastSkill(skillSlotIdx);
     }
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -123,7 +123,7 @@ public class Druid : Character
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -134,7 +134,6 @@ public class Druid : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(18);
@@ -184,8 +183,11 @@ public class Druid : Character
         //252 자연재해 - 디버프 스킬 사용 시 생명력 회복
         if (HasSkill(252) && skill.effectType.Any(x => x == (int)EffectType.Active_Debuff))
             HealVitality((int)SkillManager.GetSkill(6, 252).effectRate[0]);
+
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
@@ -201,7 +203,7 @@ public class Druid : Character
             }
             HealVitality((int)(SkillManager.GetSkill(6, 237).effectRate[0] + rate));
         }
-        cooldowns[idx] = skill.cooldown;
+        cooldowns[slotIdx] = skill.cooldown;
 
         //자연의 선물 5세트 - 뿌리 내리기 쿨타임 1턴으로 감소, AP 소모량 0으로 감소
         if (skill.idx == 247)
@@ -209,10 +211,12 @@ public class Druid : Character
             set = ItemManager.GetSetData(17);
             if (set.Value[2] > 0)
             {
-                cooldowns[idx] = 1;
+                cooldowns[slotIdx] = 1;
                 buffStat[(int)Obj.currAP] += GetSkillCost(skill);
             }
         }
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {
@@ -368,8 +372,6 @@ public class Druid : Character
 
         if (HasSkill(255) && killed.Key && revive == 0)
         {
-            gameObject.SetActive(true);
-
             buffStat[(int)Obj.currHP] = 0;
             GetHeal(SkillManager.GetSkill(6, 255).effectRate[0] * buffStat[(int)Obj.체력]);
             LogManager.instance.AddLog("세계수의 보호 효과로 치명적인 피해를 막고 회복했습니다.");

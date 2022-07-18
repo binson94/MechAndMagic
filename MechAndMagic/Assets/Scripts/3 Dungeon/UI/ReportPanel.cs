@@ -50,7 +50,7 @@ public class ReportPanel : MonoBehaviour
             outbreakTxts[2].text = outbreak.Key.doneScript;
 
             if(outbreak.Key.rewardIdx[0] == 150)
-                outbreakTxts[3].text = $"경험치 {outbreak.Key.rewardAmt} 획득";
+                outbreakTxts[3].text = $"경험치 {outbreak.Key.rewardAmt[0]} 획득";
             else
 
             outbreakTxts[3].text = $"{ItemManager.GetResourceName(outbreak.Key.rewardIdx[0])} {outbreak.Key.rewardAmt[0]}개 획득";
@@ -68,7 +68,11 @@ public class ReportPanel : MonoBehaviour
     ///<summary> 경험치 획득 정보 불러오기 </summary>
     void LoadExpData()
     {
-        expSlider.value = (float)GameManager.instance.slotData.exp / GameManager.reqExp[GameManager.instance.slotData.lvl];
+        int lvl = GameManager.instance.slotData.lvl;
+        if (lvl <= 9)
+            expSlider.value = (float)GameManager.instance.slotData.exp / GameManager.reqExp[lvl];
+        else
+            expSlider.value = 1;
         expTxt.text =$"+ {GameManager.instance.slotData.dungeonData.dropExp} exp";
         lvlUpTxt.SetActive(GameManager.instance.slotData.dungeonData.isLvlUp);
     }

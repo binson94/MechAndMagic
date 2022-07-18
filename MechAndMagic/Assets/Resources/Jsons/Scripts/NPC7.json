@@ -1,0 +1,102 @@
+[
+    {
+      "npcName" : "엘리스",
+      "name": "엘리스, 그녀는 누구인가?",
+      "idx": 62,
+      "kind": 0,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 0,
+      "linkedQuest": 0
+    },
+    {
+      "name": "새로운 경험",
+      "idx": 63,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 44,
+      "linkedQuest": 49
+    },
+    {
+      "name": "학구열 넘치는 그녀",
+      "idx": 64,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 49,
+      "linkedQuest": 50
+    },
+    {
+      "name": "루시는 누구일까?",
+      "idx": 65,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 50,
+      "linkedQuest": 51
+    },
+    {
+      "name": "불안정한 원소 모으기",
+      "idx": 66,
+      "kind": 1,
+      "chapter": 3,
+      "lvl": 0,
+      "reqQuest": 49,
+      "linkedQuest": 52
+    },
+    {
+      "name": "열린 마음으로",
+      "idx": 67,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 51,
+      "linkedQuest": 54
+    },
+    {
+      "name": "원기 흡수",
+      "idx": 68,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 52,
+      "linkedQuest": 58
+    },
+    {
+      "name": "무에서 유로",
+      "idx": 69,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 58,
+      "linkedQuest": 59
+    },
+    {
+      "name": "쇠약해진 세계수",
+      "idx": 70,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 59,
+      "linkedQuest": 60
+    },
+    {
+      "name": "보고싶은 언니",
+      "idx": 71,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 54,
+      "linkedQuest": 61
+    },
+    {
+      "name": "찬란한 장비",
+      "idx": 72,
+      "kind": 1,
+      "chapter": 4,
+      "lvl": 0,
+      "reqQuest": 61,
+      "linkedQuest": 62
+    }
+   ]

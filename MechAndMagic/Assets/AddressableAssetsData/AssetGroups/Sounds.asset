@@ -109,15 +109,43 @@ MonoBehaviour:
     m_Address: BGM
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: f20a9e774d011234e93dc27ec5d873a7
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e62892c590cf39b418369d32bce3705f
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c27024646bd66664c9f3159eb12e149d
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ef3052482076a084ab287750bc6942f3
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: f6231891660de1244b95339de4e6c225
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ebc52d77585d45742b475946866e9925
+  - m_GUID: 20bde2fe9a24fa445bf41eb05b6773c6
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 264cef083b6ad944db86a5dce587d504
+  - m_GUID: 0c63ed56ade3f51428f2aad06084e155
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b5fc5c8cc2914e74d871d8ab1c214fe7
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6d4edbbaa5397c542a20b4d93fe1f099
+    m_Address: SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c371ce5d6efc250489a5be1b1898cea5
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
@@ -129,35 +157,11 @@ MonoBehaviour:
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 04d4e3b96111dac42a12f884be781492
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c371ce5d6efc250489a5be1b1898cea5
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 740cf99006c9fee4481ce808855ef643
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6d4edbbaa5397c542a20b4d93fe1f099
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: c162bf5d41e2f4d4595e8c966311834e
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: c27024646bd66664c9f3159eb12e149d
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 701aa3f99d9109249a062ebe2d8048aa
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a81c35d5c3c78e84f960b78ad87139f1
+  - m_GUID: 264cef083b6ad944db86a5dce587d504
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
@@ -165,19 +169,15 @@ MonoBehaviour:
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 20bde2fe9a24fa445bf41eb05b6773c6
+  - m_GUID: 04d4e3b96111dac42a12f884be781492
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: f20a9e774d011234e93dc27ec5d873a7
+  - m_GUID: a81c35d5c3c78e84f960b78ad87139f1
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: b5fc5c8cc2914e74d871d8ab1c214fe7
-    m_Address: SFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0c63ed56ade3f51428f2aad06084e155
+  - m_GUID: 701aa3f99d9109249a062ebe2d8048aa
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
@@ -185,11 +185,11 @@ MonoBehaviour:
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ef3052482076a084ab287750bc6942f3
+  - m_GUID: ebc52d77585d45742b475946866e9925
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: e62892c590cf39b418369d32bce3705f
+  - m_GUID: 740cf99006c9fee4481ce808855ef643
     m_Address: SFX
     m_ReadOnly: 0
     m_SerializedLabels: []

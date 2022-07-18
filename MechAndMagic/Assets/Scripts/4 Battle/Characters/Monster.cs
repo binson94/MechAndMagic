@@ -38,17 +38,16 @@ public class Monster : Unit
     void UseSkillByProb()
     {
         float rand = Random.Range(0, 1);
-        float curr = skillChance[0];
-        int idx;
-        for (idx = 0; rand > curr && idx < 7; idx++)
-            curr += skillChance[idx + 1];
+        float prob = skillChance[0];
+        int slotIdx;
+        for (slotIdx = 0; rand > prob && slotIdx < maxSkillIdx - 1; prob += skillChance[++slotIdx]);
 
-        ActiveSkill(idx, new List<Unit>());
+        ActiveSkill(activeIdxs[slotIdx], new List<Unit>());
     }
     void UseSkillByPattern()
     {
         //포병
-        if (monsterIdx == 12 || monsterIdx == 13)
+        if (monsterIdx == 10 || monsterIdx == 11)
         {
             //16 발사
             if (turnBuffs.buffs.Any(x => x.name == "포탄"))
@@ -58,7 +57,7 @@ public class Monster : Unit
                 bool reload = BM.ReloadBullet();
                 //15 장전
                 if (reload)
-                    turnBuffs.Add(new Buff(BuffType.None, new BuffOrder(this), "포탄", 0, 0, 0, 0, 99, 0, 1));
+                    turnBuffs.Add(new Buff(BuffType.None, new BuffOrder(this), "포탄", (int)Obj.Cannon, 0, 0, 0, 99, 0, 1));
                 //17 공포탄
                 else
                     ActiveSkill(17, new List<Unit>());
@@ -66,12 +65,12 @@ public class Monster : Unit
         }
         else
         {
-            ActiveSkill(pattern[currSkillIdx] - '1', new List<Unit>());
+            ActiveSkill(activeIdxs[pattern[currSkillIdx] - '1'], new List<Unit>());
             currSkillIdx = (currSkillIdx + 1) % maxSkillIdx;
         }
     }
 
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int skillIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -80,7 +79,7 @@ public class Monster : Unit
 
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, skillIdx);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -130,7 +129,6 @@ public class Monster : Unit
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        cooldowns[idx] = skill.cooldown;
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {
@@ -400,7 +398,6 @@ public class Monster : Unit
             }
 
             QuestManager.QuestUpdate(QuestType.Kill, monsterIdx, 1);
-            gameObject.SetActive(false);
         }
 
         return new KeyValuePair<bool, int>(killed, -finalDmg);
@@ -430,7 +427,7 @@ public class Monster : Unit
         dungeonStat[(int)Obj.속도] = (int)json[jsonIdx]["SPD"];
 
         pattern = json[jsonIdx]["pattern"].ToString();
-        if (pattern == "0")
+        if (pattern[0] == '0')
             UseSkill = UseSkillByProb;
         else
         {
@@ -439,10 +436,10 @@ public class Monster : Unit
             maxSkillIdx = pattern.Length;
         }
 
-        skillCount = 8;
+        skillCount = 4;
         activeIdxs = new int[skillCount];
         skillChance = new float[skillCount];
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 4; i++)
         {
             activeIdxs[i] = (int)json[jsonIdx]["skillIdx"][i];
             skillChance[i] = float.Parse(json[jsonIdx]["skillChance"][i].ToString());

@@ -78,7 +78,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         void LoadNPCData()
         {
             npcDatas = new NPC[8];
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 8; i++)
                 npcDatas[i] = new NPC($"NPC{i}");
         }
     }

@@ -75,7 +75,7 @@ public class ArmedFighter : Character
         punchCount = 0;
     }
 
-    public override void ActiveSkill(int idx, List<Unit> selects)
+    public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
         isAcc = true;
@@ -83,7 +83,7 @@ public class ArmedFighter : Character
         isCrit = false;
 
         //skillDB에서 스킬 불러오기
-        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[idx]);
+        Skill skill = SkillManager.GetSkill(classIdx, activeIdxs[slotIdx]);
 
         skillBuffs.Clear();
         skillDebuffs.Clear();
@@ -94,7 +94,6 @@ public class ArmedFighter : Character
             return;
         }
 
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
 
         //36 피니셔 - punchCount 비례 공증
@@ -109,8 +108,10 @@ public class ArmedFighter : Character
         else if (skill.idx == 37 && (selects[0].buffStat[(int)Obj.currHP] / (float)selects[0].buffStat[(int)Obj.체력]) <= 0.4f)
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, 999, 0, -1, 0, 0));
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
+        SoundManager.instance.PlaySFX(skill.sfx);
 
         //36 피니셔
         if (skill.category == 1000)
@@ -127,7 +128,9 @@ public class ArmedFighter : Character
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        cooldowns[idx] = skill.cooldown;
+        cooldowns[slotIdx] = skill.cooldown;
+
+        StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
     {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public interface ITownPanel
 {
-    public void ResetAllState();
+    void ResetAllState();
 }
 
 public class TownManager : MonoBehaviour
@@ -48,12 +48,7 @@ public class TownManager : MonoBehaviour
     [SerializeField] EquipInfoImage[] equipInfos;
     #endregion PlayerInfoPanel
 
-    [Header("Option")]
-    ///<summary> 옵션 판넬 </summary>
     [SerializeField] GameObject optionPanel;
-    [SerializeField] Slider bgmSlider;
-    [SerializeField] Slider sfxSlider;
-    [SerializeField] Slider txtSpdSlider;
 
     private void Start()
     {
@@ -67,12 +62,7 @@ public class TownManager : MonoBehaviour
         //Lobby 판넬에서 시작
         Btn_SelectPanel(0);
 
-        SoundManager.instance.PlayBGM(BGMList.Town1);
-
-        bgmSlider.value = (float)SoundManager.instance.option.bgm;
-        sfxSlider.value = (float)SoundManager.instance.option.sfx;
-        txtSpdSlider.value = SoundManager.instance.option.txtSpd / 2f;
-        Btn_CloseOption();
+        SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Town{GameManager.instance.slotData.chapter}"));
     }
     private void Update()
     {
@@ -115,6 +105,8 @@ public class TownManager : MonoBehaviour
 
     void ShowItemInfo()
     {
+        townNameTxt.gameObject.SetActive(state != TownState.Dungeon);
+
         LoadPlayerInfo();
         LoadItemInfo();
         playerInfoPanel.SetActive(true);
@@ -149,25 +141,18 @@ public class TownManager : MonoBehaviour
         if (state == TownState.Lobby || state == TownState.Dungeon || state == TownState.Script)
             ShowItemInfo();
         else
+        {
+            townNameTxt.gameObject.SetActive(false);
             playerInfoPanel.SetActive(false);
+        }
     }
 
-    #region Option
     public void Btn_OpenOption() => optionPanel.SetActive(true);
-    public void Btn_CloseOption() => optionPanel.SetActive(false);
     public void Btn_GoToTitle()
     {
         GameManager.instance.slotData = null;
         GameManager.instance.LoadScene(SceneKind.Title);
     }
-    public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
-    public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
-    public void Slider_TxtSpd()
-    {
-        txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
-        SoundManager.instance.TxtSet(txtSpdSlider.value);
-    }
-    #endregion Option
 
     public void Btn_SFX() => SoundManager.instance.PlaySFX(22);
 }

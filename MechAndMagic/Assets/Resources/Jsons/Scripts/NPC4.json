@@ -1,0 +1,66 @@
+[
+    {
+        "npcName": "라일라",
+        "name": "주변을 둘러봐",
+        "idx": 37,
+        "kind": 1,
+        "chapter": 1,
+        "lvl": 0,
+        "reqQuest": 0,
+        "linkedQuest": 32
+    },
+    {
+        "name": "무슨 일이야?",
+        "idx": 38,
+        "kind": 0,
+        "chapter": 1,
+        "lvl": 0,
+        "reqQuest": 32,
+        "linkedQuest": 0
+    },
+    {
+        "name": "라일라의 궁금증 풀어주기",
+        "idx": 39,
+        "kind": 0,
+        "chapter": 1,
+        "lvl": 0,
+        "reqQuest": 32,
+        "linkedQuest": 0
+    },
+    {
+        "name": "숲속의 친구",
+        "idx": 40,
+        "kind": 1,
+        "chapter": 1,
+        "lvl": 0,
+        "reqQuest": 33,
+        "linkedQuest": 35
+    },
+    {
+        "name": "혼내주기",
+        "idx": 42,
+        "kind": 1,
+        "chapter": 1,
+        "lvl": 0,
+        "reqQuest": 35,
+        "linkedQuest": 42
+    },
+    {
+        "name": "재밌는 이야기 해주기",
+        "idx": 43,
+        "kind": 1,
+        "chapter": 2,
+        "lvl": 0,
+        "reqQuest": 42,
+        "linkedQuest": 43
+    },
+    {
+        "name": "돌아올거라 약속하기",
+        "idx": 44,
+        "kind": 1,
+        "chapter": 2,
+        "lvl": 0,
+        "reqQuest": 38,
+        "linkedQuest": 44
+    }
+]

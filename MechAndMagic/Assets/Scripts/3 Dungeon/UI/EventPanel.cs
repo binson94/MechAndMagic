@@ -53,18 +53,21 @@ public class EventPanel : MonoBehaviour
     public void Btn_RemoveNegEffect()
     {
         if(isWatch) return;
-
-        Debug.Log("show ad");
+        AdManager.instance.ShowRewardAd(OnAdReward);
+    }
+    ///<summary> 광고 성공적 시청 시 부정적 효과 제거 </summary>
+    void OnAdReward(object sender, GoogleMobileAds.Api.Reward reward)
+    {
         isWatch = true; // 광고 끝까지 시청 여부 받아옴
 
         adBtnImage.color = new Color(1, 1, 1, 100f / 255);
         adTxt.color = new Color(1, 1, 1, 100f / 255);
-
     }
+
     ///<summary> 부정적 효과 그냥 받기 </summary>
     public void Btn_ClosePanel()
     {
-        if(eventInfo.eventType == 4 && isWatch)
+        if(eventInfo.eventType == 4 && !isWatch)
             EventEffect();
         gameObject.SetActive(false);
     }
