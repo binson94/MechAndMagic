@@ -6,13 +6,10 @@
      "script_neg": "",
      "idx": 213,
      "icon": 5,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -92,13 +89,10 @@
      "script_neg": "",
      "idx": 214,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -178,13 +172,10 @@
      "script_neg": "",
      "idx": 215,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -264,13 +255,10 @@
      "script_neg": "",
      "idx": 216,
      "icon": 3,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -350,13 +338,10 @@
      "script_neg": "",
      "idx": 217,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -436,13 +421,10 @@
      "script_neg": "",
      "idx": 218,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -522,13 +504,10 @@
      "script_neg": "",
      "idx": 219,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -608,13 +587,10 @@
      "script_neg": "",
      "idx": 220,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -694,14 +670,11 @@
      "script_neg": "",
      "idx": 221,
      "icon": 2,
-     "class": 6,
      "category": 1014,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         220,
-        0,
-        0,
         0,
         0
      ],
@@ -780,14 +753,11 @@
      "script_neg": "",
      "idx": 222,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         215,
-        0,
-        0,
         0,
         0
      ],
@@ -866,14 +836,11 @@
      "script_neg": "",
      "idx": 223,
      "icon": 2,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         214,
-        0,
-        0,
         0,
         0
      ],
@@ -952,14 +919,11 @@
      "script_neg": "",
      "idx": 224,
      "icon": 4,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         220,
-        0,
-        0,
         0,
         0
      ],
@@ -1038,14 +1002,11 @@
      "script_neg": "",
      "idx": 225,
      "icon": 4,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         217,
-        0,
-        0,
         0,
         0
      ],
@@ -1124,14 +1085,11 @@
      "script_neg": "",
      "idx": 226,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         216,
-        0,
-        0,
         0,
         0
      ],
@@ -1210,14 +1168,11 @@
      "script_neg": "",
      "idx": 227,
      "icon": 5,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         213,
-        0,
-        0,
         0,
         0
      ],
@@ -1296,14 +1251,11 @@
      "script_neg": "",
      "idx": 228,
      "icon": 5,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         219,
-        0,
-        0,
         0,
         0
      ],
@@ -1382,15 +1334,12 @@
      "script_neg": "",
      "idx": 229,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         223,
         225,
-        0,
-        0,
         0
      ],
      "apCost": 5,
@@ -1468,14 +1417,11 @@
      "script_neg": "",
      "idx": 230,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         222,
-        0,
-        0,
         0,
         0
      ],
@@ -1554,14 +1500,11 @@
      "script_neg": "명중률 75%",
      "idx": 231,
      "icon": 2,
-     "class": 6,
      "category": 1014,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         221,
-        0,
-        0,
         0,
         0
      ],
@@ -1640,14 +1583,11 @@
      "script_neg": "",
      "idx": 232,
      "icon": 3,
-     "class": 6,
      "category": 1015,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         225,
-        0,
-        0,
         0,
         0
      ],
@@ -1726,14 +1666,11 @@
      "script_neg": "",
      "idx": 233,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         224,
-        0,
-        0,
         0,
         0
      ],
@@ -1812,14 +1749,11 @@
      "script_neg": "",
      "idx": 234,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         225,
-        0,
-        0,
         0,
         0
      ],
@@ -1898,13 +1832,10 @@
      "script_neg": "",
      "idx": 235,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -1984,14 +1915,11 @@
      "script_neg": "",
      "idx": 236,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         226,
-        0,
-        0,
         0,
         0
      ],
@@ -2070,14 +1998,11 @@
      "script_neg": "",
      "idx": 237,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         221,
-        0,
-        0,
         0,
         0
      ],
@@ -2156,14 +2081,11 @@
      "script_neg": "명중률 65%",
      "idx": 238,
      "icon": 2,
-     "class": 6,
      "category": 1014,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         231,
-        0,
-        0,
         0,
         0
      ],
@@ -2242,14 +2164,11 @@
      "script_neg": "명중률 70%",
      "idx": 239,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         229,
-        0,
-        0,
         0,
         0
      ],
@@ -2328,14 +2247,11 @@
      "script_neg": "",
      "idx": 240,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         230,
-        0,
-        0,
         0,
         0
      ],
@@ -2414,14 +2330,11 @@
      "script_neg": "",
      "idx": 241,
      "icon": 4,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         232,
-        0,
-        0,
         0,
         0
      ],
@@ -2500,14 +2413,11 @@
      "script_neg": "",
      "idx": 242,
      "icon": 4,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         224,
-        0,
-        0,
         0,
         0
      ],
@@ -2586,15 +2496,12 @@
      "script_neg": "",
      "idx": 243,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         226,
         235,
-        0,
-        0,
         0
      ],
      "apCost": 0,
@@ -2672,15 +2579,12 @@
      "script_neg": "",
      "idx": 244,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         233,
         235,
-        0,
-        0,
         0
      ],
      "apCost": 0,
@@ -2758,15 +2662,12 @@
      "script_neg": "",
      "idx": 245,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         224,
         233,
-        0,
-        0,
         0
      ],
      "apCost": 0,
@@ -2844,15 +2745,12 @@
      "script_neg": "",
      "idx": 246,
      "icon": 5,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         228,
         234,
-        0,
-        0,
         0
      ],
      "apCost": 0,
@@ -2930,14 +2828,11 @@
      "script_neg": "",
      "idx": 247,
      "icon": 4,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         244,
-        0,
-        0,
         0,
         0
      ],
@@ -3016,14 +2911,11 @@
      "script_neg": "",
      "idx": 248,
      "icon": 1,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         239,
-        0,
-        0,
         0,
         0
      ],
@@ -3102,14 +2994,11 @@
      "script_neg": "명중률 70%",
      "idx": 249,
      "icon": 2,
-     "class": 6,
      "category": 1014,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         238,
-        0,
-        0,
         0,
         0
      ],
@@ -3188,15 +3077,12 @@
      "script_neg": "",
      "idx": 250,
      "icon": 3,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         229,
         242,
-        0,
-        0,
         0
      ],
      "apCost": 6,
@@ -3232,13 +3118,13 @@
      ],
      "effectStat": [
         5,
-        0,
+        5,
         0,
         0
      ],
      "effectRate": [
         1.2,
-        0,
+        0.15,
         0,
         0
      ],
@@ -3274,15 +3160,12 @@
      "script_neg": "",
      "idx": 251,
      "icon": 3,
-     "class": 6,
      "category": 1013,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         241,
         243,
-        0,
-        0,
         0
      ],
      "apCost": 5,
@@ -3360,14 +3243,11 @@
      "script_neg": "",
      "idx": 252,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         246,
-        0,
-        0,
         0,
         0
      ],
@@ -3446,14 +3326,11 @@
      "script_neg": "",
      "idx": 253,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         240,
-        0,
-        0,
         0,
         0
      ],
@@ -3532,14 +3409,11 @@
      "script_neg": "",
      "idx": 254,
      "icon": 4,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         243,
-        0,
-        0,
         0,
         0
      ],
@@ -3618,14 +3492,11 @@
      "script_neg": "",
      "idx": 255,
      "icon": 3,
-     "class": 6,
      "category": 1015,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         245,
-        0,
-        0,
         0,
         0
      ],

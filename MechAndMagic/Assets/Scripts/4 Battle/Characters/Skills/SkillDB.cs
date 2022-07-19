@@ -40,31 +40,29 @@ public class SkillDB
         for (int i = 0; i < skillCount; i++)
         {
             skills[i].name = json[i]["name"].ToString();
+            skills[i].idx = (int)json[i]["idx"];
 
-            //클래스 스킬에만 적용(몬스터, 골렘, 정령 제외)
-            if(classIdx <= 8)
+            //클래스 스킬에만 적용(몬스터 제외)
+            if (classIdx != 10)
             {
                 skills[i].script = json[i]["script"].ToString();
                 skills[i].posScript = json[i]["script_pos"].ToString();
                 skills[i].negScript = json[i]["script_neg"].ToString();
                 skills[i].icon = (int)json[i]["icon"];
                 skills[i].sfx = (int)json[i]["sfx"];
+                skills[i].category = (int)json[i]["category"];
+                skills[i].useType = (int)json[i]["usetype"];
+                skills[i].reqLvl = (int)json[i]["reqlvl"];
+
+                for (int j = 0; j < 3; j++)
+                    skills[i].reqskills[j] = (int)json[i]["reqskill"][j];
+
+                skills[i].apCost = (int)json[i]["apCost"];
+                skills[i].cooldown = (int)json[i]["cool"];
+                skills[i].targetSelect = (int)json[i]["targetSelect"];
+                skills[i].targetSide = (int)json[i]["targetSide"];
+                skills[i].targetCount = (int)json[i]["targetCount"];
             }
-            
-
-            skills[i].idx = (int)json[i]["idx"];
-            skills[i].category = (int)json[i]["category"];
-            skills[i].useType = (int)json[i]["usetype"];
-            skills[i].reqLvl = (int)json[i]["reqlvl"];
-
-            for (int j = 0; j < 5; j++)
-                skills[i].reqskills[j] = (int)json[i]["reqskill"][j];
-
-            skills[i].apCost = (int)json[i]["apCost"];
-            skills[i].cooldown = (int)json[i]["cool"];
-            skills[i].targetSelect = (int)json[i]["targetSelect"];
-            skills[i].targetSide = (int)json[i]["targetSide"];
-            skills[i].targetCount = (int)json[i]["targetCount"];
 
             skills[i].DataAssign((int)json[i]["effectCount"]);
             for (int j = 0; j < skills[i].effectCount; j++)

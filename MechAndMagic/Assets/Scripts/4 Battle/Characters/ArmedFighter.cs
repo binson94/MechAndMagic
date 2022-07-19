@@ -141,7 +141,7 @@ public class ArmedFighter : Character
         for (int i = 0; i < count; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            float stat = GetEffectStat(selects, skill.effectStat[i]);
+            float stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {

@@ -154,7 +154,7 @@ public class MadScientist : Character
                 effectTargets = GetEffectTarget(selects, damaged, 6);
             else
                 effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(selects, skill.effectStat[i]);
+            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {

@@ -151,8 +151,8 @@ public class ItemManager : MonoBehaviour
         GameManager.instance.SaveSlotData();
     }
 
-    public static bool CanSkillLearn(int skillLvl) 
-    => GameManager.instance.slotData.itemData.CanSkillLearn((int)skillLearnJson[skillLvl / 2]["resource1"], (int)skillLearnJson[skillLvl / 2]["resource2"], (int)skillLearnJson[skillLvl / 2]["resource3"]);
+    public static bool CanSkillLearn(Skill skill) 
+    => GameManager.instance.slotData.itemData.CanSkillLearn(skill, (int)skillLearnJson[skill.reqLvl / 2]["resource1"], (int)skillLearnJson[skill.reqLvl / 2]["resource2"], (int)skillLearnJson[skill.reqLvl / 2]["resource3"]);
     ///<summary> 스킬 학습 </summary>
     public static void SkillLearn(KeyValuePair<int, Skillbook> skillInfo)
     {
@@ -161,9 +161,12 @@ public class ItemManager : MonoBehaviour
         GameManager.instance.SaveSlotData();
     }
     ///<summary> 스킬북 분해 </summary>
-    public static void DisassembleSkillBook(int idx)
+    public static void DisassembleSkillBook(KeyValuePair<int, Skillbook> skillbook)
     {
-        GameManager.instance.slotData.itemData.DisassembleSkillbook(idx);
+        int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.Value.idx).reqLvl;
+        GameManager.instance.slotData.itemData.DisassembleSkillbook(skillbook.Key);
+        for(int i = 1;i <= 3;i++)
+            GameManager.instance.slotData.itemData.basicMaterials[i] += (int)skillLearnJson[lvl / 2][$"resource{i}"] / 2;
         GameManager.instance.SaveSlotData();
     }
     #endregion
@@ -323,8 +326,6 @@ public class ItemManager : MonoBehaviour
 
         return ebps;
     }
-    ///<summary> 기본 재료 반환 </summary>
-    public static int[] GetResourceData(ItemCategory category) => GameManager.instance.slotData.itemData.basicMaterials;
 
     ///<summary> 현재 장착 중인 장비 반환 </summary>
     public static Equipment GetEquipment(EquipPart p) => GameManager.instance.slotData.itemData.equipmentSlots[(int)p];
@@ -386,6 +387,19 @@ public class ItemManager : MonoBehaviour
         
         return resourceName;
     }
+    ///<summary> 스킬 학습 시, 재료 idx, 현재 보유량, 요구량 반환 </summary>
+    public static List<Triplet<int, int ,int>> GetRequireResources(Skillbook skillbook)
+    {
+        int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.idx).reqLvl;
+        List<Triplet<int, int, int>> resourceList = new List<Triplet<int, int, int>>();
+        int tmp;
+        for (int i = 1; i <= 3; i++)
+            if ((tmp = (int)skillLearnJson[lvl / 2][$"resource{i}"]) > 0)
+                resourceList.Add(new Triplet<int, int, int>(i, GameManager.instance.slotData.itemData.basicMaterials[i], tmp));
+            
+        return resourceList;
+    }
+    
     ///<summary> 세트 정보 반환 </summary>
     public static KeyValuePair<string, float[]> GetSetData(int set) => setManager.GetSetData(set);
     ///<summary> 현재 발동 중인 모든 세트효과 반환 </summary>

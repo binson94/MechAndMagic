@@ -173,7 +173,7 @@ public class MagicalRogue : Character
                 effectTargets = GetEffectTarget(selects, damaged, 5);
             else
                 effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(selects, skill.effectStat[i]);
+            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -250,7 +250,11 @@ public class MagicalRogue : Character
                     {
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
+                            {
                                 u.AddDebuff(this, orderIdx, skill, i, stat);
+                                if(skill.effectObject[i] == (int)Obj.악령빙의)
+                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, (int)Obj.속도, 1, 0.5f, 1, skill.effectTurn[i], skill.effectDispel[i], skill.effectVisible[i]));
+                            }
                         break;
                     }
                 case EffectType.Active_RemoveBuff:

@@ -11,6 +11,17 @@ public enum DropType
 {
     Material, Equip, Skillbook, Recipe
 }
+public class Pair<T1, T2>
+{
+    public T1 Key { get; set; }
+    public T2 Value { get; set; }
+
+    public Pair() {}
+    public Pair(T1 f, T2 s)
+    {
+        Key = f; Value = s;
+    }
+}
 public class Triplet<T1, T2, T3>
 {
     public T1 first;
@@ -357,6 +368,7 @@ public class ItemData
         if(!equipRecipes.Contains(equipIdx))
         {
             equipRecipes.Add(equipIdx);
+            equipRecipes.Sort();
             return true;
         }
         return false;
@@ -405,10 +417,14 @@ public class ItemData
         return learnedSkills.Contains(skillIdx);
     }
     ///<summary> 스킬 학습 가능 여부 반환 </summary>
-    public bool CanSkillLearn(params int[] resources)
+    public bool CanSkillLearn(Skill skill, params int[] resources)
     { 
         for(int i = 0;i < resources.Length;i++)
             if(basicMaterials[i + 1] < resources[i])
+                return false;
+
+        for(int i = 0;i < 3;i++)
+            if(!learnedSkills.Contains(skill.reqskills[i]))
                 return false;
 
         return true;
@@ -423,7 +439,11 @@ public class ItemData
             basicMaterials[i + 1] -= reqResources[i];
     }
     ///<summary> 스킬북 분해 </summary>
-    public void DisassembleSkillbook(int idx) => skillbooks.FindAll(x => x.idx == idx).First().count--;
+    public void DisassembleSkillbook(int slotIdx)
+    {
+        if(--skillbooks[slotIdx].count <= 0)
+            skillbooks.RemoveAt(slotIdx);
+    }
     ///<summary> 스킬북 보유 여부 반환 </summary>
     public bool HasSkillBook(int skillIdx) => skillbooks.Any(x => x.idx == skillIdx);
     #endregion Skill
@@ -438,6 +458,7 @@ public class ItemData
 
         //1레벨 액티브 스킬은 학습 상태로 시작
         skillStartIdx = s[0].idx;
+        learnedSkills.Add(0);
         for(int i = 0;s[i].reqLvl == 1 && s[i].useType == 0;i++)
             learnedSkills.Add(s[i].idx);
     }

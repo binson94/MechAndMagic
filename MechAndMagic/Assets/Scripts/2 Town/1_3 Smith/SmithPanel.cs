@@ -6,6 +6,8 @@ using System.Linq;
 
 public class SmithPanel : MonoBehaviour, ITownPanel
 {
+    #region Variables
+    #region PlayerInfo
     ///<summary> 클래스 이름 표시 </summary>
     [Header("Player Info")]
     [SerializeField] Text classTxt;
@@ -19,50 +21,78 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     [SerializeField] Image[] equipSlotGridImages;
     ///<summary> 장착 중인 장비 성급 </summary>
     [SerializeField] GameObject[] stars;
+    #endregion PlayerInfo
 
+    #region EquipList
+    ///<summary> 장비 리스트 버튼들 부모 오브젝트 </summary>
     [Header("Equip List")]
     [SerializeField] RectTransform equipBtnParent;
+    ///<summary> 풀에 있는 버튼들 부모 오브젝트 </summary>
     [SerializeField] RectTransform poolParent;
+    ///<summary> 장비 리스트 버튼 프리팹 </summary>
     [SerializeField] EquipBtnToken equipBtnPrefab;
+    ///<summary> 현재 활성화된 장비 리스트 버튼들 </summary>
     List<EquipBtnToken> btnList = new List<EquipBtnToken>();
+    ///<summary> 장비 리스트 버튼 풀 </summary>
     Queue<EquipBtnToken> equipBtnPool = new Queue<EquipBtnToken>();
+    #endregion EquipList
 
     #region Category
-    ///<summary> 0 : category, 1 : rarity, 2 : level, 3 : skillType </summary>
+    ///<summary> 카테고리 선택 버튼들 UI Set
+    ///<para> 0 : category, 1 : rarity, 2 : level, 3 : skillType </para></summary>
     [Header("Category")] [Tooltip("0 : category, 1 : rarity, 2 : level, 3 : skillType")]
     [SerializeField] GameObject[] categorySelectPanels;
-    ///<summary> 0 : rarity Btn, 1 : skillType Btn </summary>
+    ///<summary> 스킬북 선택 시, 레어도 -> 스킬 타입
+    ///<para> 0 : rarity Btn, 1 : skillType Btn </para></summary>
     [SerializeField] GameObject[] categoryBtns;
-    ItemCategory currCategory = ItemCategory.Weapon;
-    //장비 전용
+    ///<summary> 카테고리 </summary>
+    ItemCategory currCategory = ItemCategory.None;
+    ///<summary> 카테고리-장비 레어도 </summary>
     Rarity currRarity = Rarity.None;
-    //스킬북 전용, 0 : active, 1 : passive, -1 : all
+    ///<summary> 카테고리-스킬 타입
+    ///<para> 0 : active, 1 : passive, -1 : all </para></summary>
     int currUseType = -1;
-    //장비, 스킬북 0 : all, 1,3,5,7,9
+    ///<summary> 카테고리-레벨
+    ///<para> 0 : all, 1, 3, 5, 7, 9 </para></summary>
     int currLvl = 0;
     #endregion Category
 
-    #region Work Panel
-    ///<summary> 현재 선택한 장비 정보 보여주는 UI Set </summary>
-    [SerializeField] EquipInfoPanel selectedEquipPanel;
-    ///<summary> -1 닫기, 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </summary>
-    int currWorkPanel;
+    #region WorkPanel
     ///<summary> 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </summary>
-    [Tooltip("0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북")]
-    [SerializeField] GameObject[] workPanels;
+    [Header("Work Panel")] [Tooltip("0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북")]
+    [SerializeField] GameObject[] workPanelObjects;
+    ITownPanel[] workPanels = null;
+    #endregion WorkPanel
 
-
+    #region SelectInfo
+    ///<summary> 현재 선택한 장비 정보 보여주는 UI Set </summary>
+    [Header("Select Info")] 
+    [SerializeField] EquipInfoPanel selectedEquipPanel;
     ///<summary> 현재 선택한 장비 정보(리스트에서의 인덱스, 장비 페어) </summary>
     KeyValuePair<int, Equipment> selectedEquip;
-    ///<summary> 선택한 장비 없을 시 상태
+    ///<summary> 현재 선택한 장비 정보(리스트에서의 인덱스, 장비 페어) </summary>
+    public KeyValuePair<int, Equipment> SeletedEquip { get => selectedEquip; }
+    ///<summary> 선택한 장비 없을 시 상태 </summary>
     static KeyValuePair<int, Equipment> dummyEquip = new KeyValuePair<int, Equipment>(-1, null);
 
+    ///<summary> 선택한 제작법 정보 </summary>
     EquipBluePrint selectedEBP = null;
+    ///<summary> 선택한 스킬북 정보(리스트에서의 인덱스, 스킬북 페어) </summary>
     KeyValuePair<int, Skillbook> selectedSkillbook = dummySkillbook;
+    ///<summary> 선택한 스킬북 정보(리스트에서의 인덱스, 스킬북 페어) </summary>
+    public KeyValuePair<int, Skillbook> SelectedSkillbook { get => selectedSkillbook; }
+    ///<summary> 선택한 스킬북 없을 시 상태 </summary>
     static KeyValuePair<int, Skillbook> dummySkillbook = new KeyValuePair<int, Skillbook>(-1, null);
-    #endregion Work Panel    
+    #endregion SelectInfo  
+    #endregion Variables
+
     public void ResetAllState()
     {
+        if(workPanels == null)
+        {
+            workPanels = new ITownPanel[workPanelObjects.Length];
+            for(int i = 0;i < workPanels.Length;i++) workPanels[i] = workPanelObjects[i].GetComponent<ITownPanel>();
+        }
         //스텟 업데이트
         StatTxtUpdate();
         //장착 장비 정보 업데이트
@@ -81,6 +111,16 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         selectedSkillbook = dummySkillbook;
         SelectedPanelUpdate();
     }
+    public void ResetTokenState()
+    {
+        //장비 선택 상태 초기화
+        selectedEquip = dummyEquip;
+        selectedEBP = null;
+        selectedSkillbook = dummySkillbook;
+        TokenBtnUpdate();
+        SelectedPanelUpdate();
+    }
+    
     ///<summary> 플레이어 스텟 표시 텍스트 업데이트 </summary>
     void StatTxtUpdate()
     {
@@ -300,14 +340,17 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             Debug.Log("융합 불가");
             return;
         }
-        if(workPanelIdx == 2 && !GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
+        else if(workPanelIdx == 2 && !GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
         {
             Debug.Log("이 장비는 옵션 변경이 불가능합니다.");
             return;
         }
+        else if(workPanelIdx == 5)
+            workPanels[workPanelIdx].ResetAllState();
+
 
         for (int i = 0; i < workPanels.Length; i++)
-            workPanels[i].SetActive(i == workPanelIdx);
+            workPanelObjects[i].SetActive(i == workPanelIdx);
     }
     #endregion SelectWorkPanel
 
@@ -358,32 +401,6 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         selectedEquip = dummyEquip;
         selectedEBP = null;
         selectedSkillbook = dummySkillbook;
-        SelectedPanelUpdate();
-    }
-   
-    public void Btn_SkillLearn()
-    {
-        if(GameManager.instance.slotData.itemData.IsLearned(selectedSkillbook.Value.idx))
-        {
-            Debug.Log("이미 학습했습니다.");
-            return;
-        }
-        else if(!ItemManager.CanSkillLearn(SkillManager.GetSkill(GameManager.instance.slotData.slotClass, selectedSkillbook.Value.idx).reqLvl))
-        {
-            Debug.Log("재화 부족");
-            return;
-        }
-
-        ItemManager.SkillLearn(selectedSkillbook);
-        selectedSkillbook = dummySkillbook;
-        TokenBtnUpdate();
-        SelectedPanelUpdate();
-    }
-    public void Btn_SkillbookDisassemble()
-    {
-        ItemManager.DisassembleSkillBook(selectedSkillbook.Value.idx);
-        selectedSkillbook = dummySkillbook;
-        TokenBtnUpdate();
         SelectedPanelUpdate();
     }
 

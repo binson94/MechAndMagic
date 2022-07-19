@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using LitJson;
 
 public interface ITownPanel
 {
@@ -11,6 +11,9 @@ public interface ITownPanel
 
 public class TownManager : MonoBehaviour
 {
+    ///<summary> NPC 정보 </summary>
+    NPC[] npcDatas = null;
+
     enum TownState { Lobby, Bed, Dungeon, Smith, Script }
 
     ///<summary> 자식 캔버스들(Lobby, Bed, Dungeon, Smith, Script), 인스펙터 할당 </summary>
@@ -102,7 +105,18 @@ public class TownManager : MonoBehaviour
         uiPanels[(int)state].GetComponent<ScriptPanel>().SelectNPC(npcIdx);
         PanelSet();
     }
+    public NPC GetNPCData(int npcIdx)
+    {
+        if (npcDatas == null)
+        {
+            npcDatas = new NPC[8];
+            for (int i = 0; i < 8; i++)
+                npcDatas[i] = new NPC($"NPC{i}");
+        }
 
+        return npcDatas[npcIdx];
+    }
+    
     void ShowItemInfo()
     {
         townNameTxt.gameObject.SetActive(state != TownState.Dungeon);

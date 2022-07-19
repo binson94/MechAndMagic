@@ -174,8 +174,8 @@ public class Unit : MonoBehaviour
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(selects, skill.effectStat[i]);
-            
+            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
+
             switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
@@ -272,39 +272,42 @@ public class Unit : MonoBehaviour
                 return  BM.GetEffectTarget(effectTarget);
         }
     }
-    protected float GetEffectStat(List<Unit> selects, int effectStat)
+    ///<summary> 효과 발동 시 계수 스텟 반환 </summary>
+    protected float GetEffectStat(List<Unit> targets, int effectStatIdx)
     {
-        if (effectStat <= 12)
-            return buffStat[effectStat];
-        //전 턴 받은 피해
-        else if (effectStat == (int)Obj.GetDmg)
-            return dmgs[3];
-        //전 턴 가한 피해
-        else if (effectStat == (int)Obj.GiveDmg)
-            return dmgs[1];
-        //타겟 잃은 체력 비율
-        else if (effectStat == (int)Obj.LossPer)
-            return 1 - ((float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.체력]);
-        //타겟 현재 체력 비율
-        else if (effectStat == (int)Obj.CurrPer)
-            return (float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.체력];
-        else if (effectStat == (int)Obj.BuffCnt)
-            return turnBuffs.Count;
-        else if (effectStat == (int)Obj.DebuffCnt)
-            return selects[0].turnDebuffs.Count;
-        else if (effectStat == (int)Obj.MaxHP)
-            return selects[0].buffStat[(int)Obj.체력];
-        //출혈
-        else if (effectStat == (int)Obj.출혈)
-            return buffStat[(int)Obj.공격력] * 0.15f;
-        //화상
-        else if (effectStat == (int)Obj.화상)
-            return buffStat[(int)Obj.공격력] * 0.7f;
-        //중독
-        else if (effectStat == (int)Obj.중독)
-            return buffStat[(int)Obj.공격력] * 0.1f;
-        else
-            return 0;
+        //기본 스텟
+        if (effectStatIdx <= 12)
+            return buffStat[effectStatIdx];
+        switch ((Obj)effectStatIdx)
+        {
+            //전 턴 받은 피해
+            case Obj.GetDmg:
+                return dmgs[3];
+            //전 턴 가한 피해
+            case Obj.GiveDmg:
+                return dmgs[1];
+            //타겟 잃은 체력 비율
+            case Obj.LossPer:
+                if (targets.Count <= 0) return 0;
+                return 1 - ((float)targets[0].buffStat[(int)Obj.currHP] / targets[0].buffStat[(int)Obj.체력]);
+            //타겟 현재 체력 비율
+            case Obj.CurrPer:
+                if (targets.Count <= 0) return 0;
+                return (float)targets[0].buffStat[(int)Obj.currHP] / targets[0].buffStat[(int)Obj.체력];
+            //버프 갯수
+            case Obj.BuffCnt:
+                return turnBuffs.Count;
+            //타겟 디버프 갯수
+            case Obj.DebuffCnt:
+                if (targets.Count <= 0) return 0;
+                return targets[0].turnDebuffs.Count;
+            //타겟 최대 체력
+            case Obj.MaxHP:
+                if (targets.Count <= 0) return 1;
+                return targets[0].buffStat[(int)Obj.체력];
+            default:
+                return 0;
+        }
     }
     #endregion Active
 
@@ -404,6 +407,7 @@ public class Unit : MonoBehaviour
             stat = dungeonStat[s.effectStat[effectIdx]];
         else
             stat = rate;
+
         if (s.effectObject[effectIdx] == (int)Obj.APCost)
         {
             Buff b = new Buff(BuffType.AP, new BuffOrder(caster, order), s.name, s.effectCond[effectIdx], 1, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
@@ -489,7 +493,7 @@ public class Unit : MonoBehaviour
                     else if (b.objectIdx[i] == (int)Obj.currAP)
                         addPivot[1] += b.buffRate[i];
                     else if (b.objectIdx[i] == (int)Obj.순환)
-                        addPivot[0] += dungeonStat[(int)Obj.체력] * 0.2f;
+                        addPivot[0] += b.buffRate[i];
 
         foreach (Buff b in turnDebuffs.buffs)
             if (b.type == BuffType.Stat)
@@ -499,11 +503,11 @@ public class Unit : MonoBehaviour
                     else if (b.objectIdx[i] == (int)Obj.출혈)
                         addPivot[0] -= b.buffRate[i];
                     else if (b.objectIdx[i] == (int)Obj.화상)
-                        addPivot[0] -= Mathf.Min(0, buffStat[(int)Obj.방어력] - b.buffRate[i]);
+                        addPivot[0] -= b.buffRate[i] / (1 + 0.1f * buffStat[(int)Obj.방어력]);
                     else if (b.objectIdx[i] == (int)Obj.저주)
                         addPivot[0] -= b.buffRate[i];
                     else if (b.objectIdx[i] == (int)Obj.맹독)
-                        addPivot[0] -= Mathf.Min(0, buffStat[(int)Obj.방어력] - b.buffRate[i]);
+                        addPivot[0] -= b.buffRate[i] / (1 + 0.1f * buffStat[(int)Obj.방어력]);
 
         for (int i = 0; i < 2; i++)
             buffStat[2 * i + 1] = Mathf.Min(buffStat[2 * i + 2], Mathf.RoundToInt(buffStat[2 * i + 1] + addPivot[i]));

@@ -94,7 +94,7 @@ public class Equipment
     ///<summary> 보조 스텟 값 </summary>
     public int subStatValue;
     ///<summary> 공통 옵션 값 </summary>
-    public List<KeyValuePair<Obj, int>> commonStatValue = new List<KeyValuePair<Obj, int>>();
+    public List<Pair<Obj, int>> commonStatValue = new List<Pair<Obj, int>>();
 
     #region StatPool
     ///<summary> 무기 보조 스텟 가능 풀 </summary>
@@ -231,7 +231,7 @@ public class Equipment
         ResetCommonStat();
 
         for (int i = 0; i < commonStatObjs.Length; i++)
-            commonStatValue.Add(new KeyValuePair<Obj, int>((Obj)commonStatObjs[i], (int)commonStatJson[ebp.reqlvl / 2]["stat"][commonStatObjs[i]]));
+            commonStatValue.Add(new Pair<Obj, int>((Obj)commonStatObjs[i], (int)commonStatJson[ebp.reqlvl / 2]["stat"][commonStatObjs[i]]));
 
         void ResetCommonStat()
         {
@@ -246,7 +246,7 @@ public class Equipment
                     {
                         commonStatObjs[i] = Random.Range(1, 13);
                         isOverlap = commonStatObjs[i] == 1 || commonStatObjs[i] == 3;
-                        for(int j = i -1; !isOverlap && j < i;j++)
+                        for(int j = 0; !isOverlap && j < i;j++)
                             isOverlap |= commonStatObjs[i] == commonStatObjs[j];
                     } while(isOverlap);
                 }
@@ -261,13 +261,13 @@ public class Equipment
 
         if (EquipPart.Top <= ebp.part && ebp.part <= EquipPart.Shoes)
         {
-            mainStatValue = (int)armorStatJson[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{ebp.part}"][0];
-            if (subStat != Obj.None) subStatValue = (int)armorStatJson[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{ebp.part}"][1];
+            mainStatValue = (int)armorStatJson[ebp.reqlvl / 2 * 5 + (ebp.rarity - Rarity.Common)][$"{ebp.part}"][0];
+            if (subStat != Obj.None) subStatValue = (int)armorStatJson[ebp.reqlvl / 2 * 5 + (ebp.rarity - Rarity.Common)][$"{ebp.part}"][1];
         }
         else 
         {
-            mainStatValue = (int)json[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{mainStat}"];
-            if(subStat != Obj.None) subStatValue = (int)json[ebp.reqlvl / 2 + (ebp.rarity - Rarity.Common)][$"{subStat}"];
+            mainStatValue = (int)json[ebp.reqlvl / 2 * 5 + (ebp.rarity - Rarity.Common)][$"{mainStat}"];
+            if(subStat != Obj.None) subStatValue = (int)json[ebp.reqlvl / 2 * 5 + (ebp.rarity - Rarity.Common)][$"{subStat}"];
         }
 
         mainStatValue = Mathf.RoundToInt(mainStatValue * (1f + star) / 2);

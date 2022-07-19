@@ -30,7 +30,7 @@ public class Skill
     ///<summary> 스킬 습득을 위한 요구 레벨 </summary>
     public int reqLvl;
     ///<summary> 스킬 습득을 위한 선행스킬들, 없으면 0임 </summar>
-    public int[] reqskills = new int[5];
+    public int[] reqskills = new int[3];
 
     ///<summary> 스킬 AP 소모량 </summary>
     public int apCost;     //AP 소모량

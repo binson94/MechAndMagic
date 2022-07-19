@@ -79,6 +79,8 @@ public class EquipInfoPanel : MonoBehaviour
         if (skill != null)
         {
             itemTxts[0].text = $"교본 : {skill.name}";
+            itemTxts[1].text = $"Lv.{skill.reqLvl}";
+            itemTxts[3].text = skill.script;
             gridImage.sprite = SpriteGetter.instance.GetGrid((Rarity)(skill.reqLvl / 2 + 1));
             iconImage.sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
             gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);

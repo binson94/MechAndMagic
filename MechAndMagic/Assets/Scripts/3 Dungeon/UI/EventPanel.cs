@@ -52,7 +52,7 @@ public class EventPanel : MonoBehaviour
     ///<summary> 광고보고 부정적 효과 제거 </summary>
     public void Btn_RemoveNegEffect()
     {
-        if(isWatch) return;
+        if(isWatch || !AdManager.instance.IsLoaded(false)) return;
         AdManager.instance.ShowRewardAd(OnAdReward);
     }
     ///<summary> 광고 성공적 시청 시 부정적 효과 제거 </summary>

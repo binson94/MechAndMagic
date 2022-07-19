@@ -68,6 +68,10 @@ public class AdManager : MonoBehaviour
         interstitialAd.LoadAd(request);
     }
 
+    ///<summary> 광고 보여주기 전 로드 상태 확인 </summary>
+    ///<param name="kind"> false : 보상형 광고, true : 전면 광고 </param>
+    public bool IsLoaded(bool kind) => kind ? interstitialAd.IsLoaded() : rewardedAd.IsLoaded();
+
     ///<summary> 보상형 광고 보여주기 </summary>
     ///<param name="onEarned"> 광고 시청 완료 시 호출할 이벤트 </param>
     public void ShowRewardAd(EventHandler<Reward> onEarned)

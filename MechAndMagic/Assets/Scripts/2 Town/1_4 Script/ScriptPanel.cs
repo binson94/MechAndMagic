@@ -7,7 +7,7 @@ using System.Linq;
 
 public class ScriptPanel : MonoBehaviour, ITownPanel
 {
-    NPC[] npcDatas = null; 
+    [SerializeField] TownManager TM;
 
     #region UI
     [Header("Illust")]
@@ -59,30 +59,20 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     //최초 상태로 되돌리기
     public void ResetAllState()
     {
-        if (npcDatas == null)
-            LoadNPCData();
-
         StopAllCoroutines();
 
         state = DialogState.Start;
         dialogTxt.text = string.Empty;
 
-        foreach(GameObject g in jumpBtns)
+        foreach (GameObject g in jumpBtns)
             g.SetActive(false);
 
         currDialog = null;
 
         dialogList.Clear();
         questSelectBtns.SetActive(false);
-
-        void LoadNPCData()
-        {
-            npcDatas = new NPC[8];
-            for (int i = 0; i < 8; i++)
-                npcDatas[i] = new NPC($"NPC{i}");
-        }
     }
-    
+
     ///<summary> 선택한 npc의 대화 목록 불러오기 </summary>
     public void SelectNPC(int npcIdx)
     {
@@ -103,19 +93,20 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         List<int> clearedQuestList = QuestManager.GetClearedQuest();
 
         int i = 0;
-        for (; i < npcDatas[selectedNpcIdx].count && dialogList.Count < 4; i++)
+        NPC npc = TM.GetNPCData(selectedNpcIdx);
+        for (; i < npc.count && dialogList.Count < 4; i++)
         {
-            DialogData dialog = npcDatas[selectedNpcIdx].dialogs[i];
+            DialogData dialog = npc.dialogs[i];
 
             //현재 3개 이상 퀘스트 수행 중일 시, 새로운 퀘스트 관련 대화 표시 안함
             if (proceedingQuestList.Count >= 3 && dialog.kind == 1 &&
-                !proceedingQuestList.Any(x=>x.idx == dialog.linkedQuest))
+                !proceedingQuestList.Any(x => x.idx == dialog.linkedQuest))
                 continue;
 
             //관련 퀘스트 수행 중 여부 알아냄
             QuestState qs = QuestState.NotReceive;
-            foreach(QuestProceed qp in proceedingQuestList)
-                if(qp.idx == dialog.linkedQuest)
+            foreach (QuestProceed qp in proceedingQuestList)
+                if (qp.idx == dialog.linkedQuest)
                 {
                     qs = qp.state;
                     break;
@@ -126,7 +117,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             //3. 숨김 퀘스트 클리어 안함
             // 위 조건 모두 만족 시 대화에 추가
             if (IsAdd(i))
-                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npcDatas[selectedNpcIdx].dialogs[i], qs));
+                dialogList.Add(new KeyValuePair<DialogData, QuestState>(npc.dialogs[i], qs));
         }
 
         i = 0;
@@ -141,12 +132,12 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         //선행 퀘스트, 관련 퀘스트, 레벨 조건 검사
         bool IsAdd(int idx)
         {
-            int reqQuest = npcDatas[selectedNpcIdx].dialogs[idx].reqQuest;
-            int linkedQuest = npcDatas[selectedNpcIdx].dialogs[idx].linkedQuest;
+            int reqQuest = npc.dialogs[idx].reqQuest;
+            int linkedQuest = npc.dialogs[idx].linkedQuest;
             //선행 퀘스트 클리어, 관련 퀘스트 클리어 안함, 레벨 넘김
-            return (clearedQuestList.Contains(reqQuest) && 
+            return (clearedQuestList.Contains(reqQuest) &&
                     (linkedQuest == 0 || !clearedQuestList.Contains(linkedQuest)) &&
-                    GameManager.instance.slotData.lvl >= npcDatas[selectedNpcIdx].dialogs[idx].lvl);
+                    GameManager.instance.slotData.lvl >= npc.dialogs[idx].lvl);
         }
     }
 
@@ -163,7 +154,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         else
         {
             path = $"Jsons/Scripts/dialog{currDialog.idx}";
-            if(currDialog.kind == 1)
+            if (currDialog.kind == 1)
                 path += dialogList[idx].Value == QuestState.NotReceive ? "R" : "C";
         }
 
@@ -206,7 +197,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     ///<summary> 선택 분기 대화에서 선택 버튼 </summary>
     public void Btn_SelectJump(int idx)
     {
-        foreach(GameObject g in jumpBtns)
+        foreach (GameObject g in jumpBtns)
             g.SetActive(false);
 
         pos++;
@@ -232,7 +223,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                 //대사 출력
                 case DialogToken.NPC:
                     charIllusts[0].color = illustGrayColor; charIllusts[1].color = Color.white;
-                    dialogTalkerTxt.text = npcDatas[selectedNpcIdx].name;
+                    dialogTalkerTxt.text = TM.GetNPCData(selectedNpcIdx).name;
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
                     break;
@@ -264,7 +255,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                 case DialogToken.Select:
                     charIllusts[0].color = illustGrayColor; charIllusts[1].color = illustGrayColor;
                     string[] btnTxts = dialogJson[pos]["script"].ToString().Split('^');
-                    for(int i = 0; i < btnTxts.Length;i++)
+                    for (int i = 0; i < btnTxts.Length; i++)
                     {
                         jumpTxts[i].text = btnTxts[i];
                         jumpBtns[i].SetActive(true);
@@ -363,34 +354,34 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     {
         Start, Proceed, QuestAccept, Next, End
     }
-    class NPC
+}
+public class NPC
+{
+    public string name;
+    public int count;
+    public DialogData[] dialogs;
+
+    public NPC(string name)
     {
-        public string name;
-        public int count;
-        public DialogData[] dialogs;
+        JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>($"Jsons/Scripts/{name}").text);
 
-        public NPC(string name)
+        this.name = json[0]["npcName"].ToString();
+
+        count = json.Count;
+
+        dialogs = new DialogData[count];
+
+        for (int i = 0; i < count; i++)
         {
-            JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>($"Jsons/Scripts/{name}").text);
+            dialogs[i] = new DialogData();
+            dialogs[i].name = json[i]["name"].ToString();
+            dialogs[i].idx = (int)json[i]["idx"];
+            dialogs[i].kind = (int)json[i]["kind"];
+            dialogs[i].chapter = (int)json[i]["chapter"];
+            dialogs[i].lvl = (int)json[i]["lvl"];
 
-            this.name = json[0]["npcName"].ToString();
-
-            count = json.Count;
-
-            dialogs = new DialogData[count];
-
-            for (int i = 0; i < count; i++)
-            {
-                dialogs[i] = new DialogData();
-                dialogs[i].name = json[i]["name"].ToString();
-                dialogs[i].idx = (int)json[i]["idx"];
-                dialogs[i].kind = (int)json[i]["kind"];
-                dialogs[i].chapter = (int)json[i]["chapter"];
-                dialogs[i].lvl = (int)json[i]["lvl"];
-
-                dialogs[i].reqQuest = (int)json[i]["reqQuest"];
-                dialogs[i].linkedQuest = (int)json[i]["linkedQuest"];
-            }
+            dialogs[i].reqQuest = (int)json[i]["reqQuest"];
+            dialogs[i].linkedQuest = (int)json[i]["linkedQuest"];
         }
     }
 }

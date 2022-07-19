@@ -135,7 +135,7 @@ public class MetalKnight : Character
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(selects, skill.effectStat[i]);
+            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {

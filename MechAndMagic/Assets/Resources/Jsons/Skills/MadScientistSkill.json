@@ -6,13 +6,10 @@
      "script_neg": "명중률 90%",
      "idx": 127,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -122,13 +119,10 @@
      "script_neg": "명중률 50%",
      "idx": 128,
      "icon": 5,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -238,13 +232,10 @@
      "script_neg": "2타는 무작위 대상\n2타 명중률 85%",
      "idx": 129,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -354,13 +345,10 @@
      "script_neg": "",
      "idx": 130,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -470,13 +458,10 @@
      "script_neg": "치명타 확률 -15%",
      "idx": 131,
      "icon": 2,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -586,13 +571,10 @@
      "script_neg": "최대 행동력 -2",
      "idx": 132,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -702,13 +684,10 @@
      "script_neg": "방어력 -15%",
      "idx": 133,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -818,13 +797,10 @@
      "script_neg": "공격력 -15%",
      "idx": 134,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 1,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -934,14 +910,11 @@
      "script_neg": "",
      "idx": 135,
      "icon": 6,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         132,
-        0,
-        0,
         0,
         0
      ],
@@ -1050,14 +1023,11 @@
      "script_neg": "",
      "idx": 136,
      "icon": 6,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         133,
-        0,
-        0,
         0,
         0
      ],
@@ -1166,14 +1136,11 @@
      "script_neg": "",
      "idx": 137,
      "icon": 6,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         134,
-        0,
-        0,
         0,
         0
      ],
@@ -1282,15 +1249,12 @@
      "script_neg": "명중률 60%",
      "idx": 138,
      "icon": 5,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         127,
         128,
-        0,
-        0,
         0
      ],
      "apCost": 4,
@@ -1398,15 +1362,12 @@
      "script_neg": "적중시마다 다음 타격 명중률 -10%",
      "idx": 139,
      "icon": 1,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 3,
      "reqskill": [
         129,
         130,
-        0,
-        0,
         0
      ],
      "apCost": 4,
@@ -1514,14 +1475,11 @@
      "script_neg": "골렘 최대 체력 -20%",
      "idx": 140,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         134,
-        0,
-        0,
         0,
         0
      ],
@@ -1630,14 +1588,11 @@
      "script_neg": "골렘 속도 -20%",
      "idx": 141,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         132,
-        0,
-        0,
         0,
         0
      ],
@@ -1746,14 +1701,11 @@
      "script_neg": "",
      "idx": 142,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         133,
-        0,
-        0,
         0,
         0
      ],
@@ -1862,14 +1814,11 @@
      "script_neg": "",
      "idx": 143,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 3,
      "reqskill": [
         132,
-        0,
-        0,
         0,
         0
      ],
@@ -1978,14 +1927,11 @@
      "script_neg": "",
      "idx": 144,
      "icon": 4,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         141,
-        0,
-        0,
         0,
         0
      ],
@@ -2094,14 +2040,11 @@
      "script_neg": "",
      "idx": 145,
      "icon": 4,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         137,
-        0,
-        0,
         0,
         0
      ],
@@ -2210,13 +2153,10 @@
      "script_neg": "명중률 80%",
      "idx": 146,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -2326,14 +2266,11 @@
      "script_neg": "명중률 80%",
      "idx": 147,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         127,
-        0,
-        0,
         0,
         0
      ],
@@ -2442,15 +2379,12 @@
      "script_neg": "",
      "idx": 148,
      "icon": 4,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         142,
         143,
-        0,
-        0,
         0
      ],
      "apCost": 4,
@@ -2558,14 +2492,11 @@
      "script_neg": "",
      "idx": 149,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 5,
      "reqskill": [
         130,
-        0,
-        0,
         0,
         0
      ],
@@ -2674,14 +2605,11 @@
      "script_neg": "",
      "idx": 150,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         131,
-        0,
-        0,
         0,
         0
      ],
@@ -2790,14 +2718,11 @@
      "script_neg": "",
      "idx": 151,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         138,
-        0,
-        0,
         0,
         0
      ],
@@ -2906,14 +2831,11 @@
      "script_neg": "",
      "idx": 152,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
         139,
-        0,
-        0,
         0,
         0
      ],
@@ -3022,13 +2944,10 @@
      "script_neg": "",
      "idx": 153,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 5,
      "reqskill": [
-        0,
-        0,
         0,
         0,
         0
@@ -3138,14 +3057,11 @@
      "script_neg": "",
      "idx": 154,
      "icon": 6,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         142,
-        0,
-        0,
         0,
         0
      ],
@@ -3254,14 +3170,11 @@
      "script_neg": "",
      "idx": 155,
      "icon": 6,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         140,
-        0,
-        0,
         0,
         0
      ],
@@ -3370,14 +3283,11 @@
      "script_neg": "",
      "idx": 156,
      "icon": 6,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         141,
-        0,
-        0,
         0,
         0
      ],
@@ -3486,15 +3396,12 @@
      "script_neg": "",
      "idx": 157,
      "icon": 4,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         144,
         145,
-        0,
-        0,
         0
      ],
      "apCost": 8,
@@ -3602,15 +3509,12 @@
      "script_neg": "",
      "idx": 158,
      "icon": 2,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         131,
         146,
-        0,
-        0,
         0
      ],
      "apCost": 6,
@@ -3718,15 +3622,12 @@
      "script_neg": "",
      "idx": 159,
      "icon": 2,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 7,
      "reqskill": [
         131,
         147,
-        0,
-        0,
         0
      ],
      "apCost": 6,
@@ -3834,14 +3735,11 @@
      "script_neg": "",
      "idx": 160,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         152,
-        0,
-        0,
         0,
         0
      ],
@@ -3950,14 +3848,11 @@
      "script_neg": "",
      "idx": 161,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         151,
-        0,
-        0,
         0,
         0
      ],
@@ -4066,14 +3961,11 @@
      "script_neg": "",
      "idx": 162,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         153,
-        0,
-        0,
         0,
         0
      ],
@@ -4182,14 +4074,11 @@
      "script_neg": "",
      "idx": 163,
      "icon": 6,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 7,
      "reqskill": [
         153,
-        0,
-        0,
         0,
         0
      ],
@@ -4298,15 +4187,12 @@
      "script_neg": "",
      "idx": 164,
      "icon": 1,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         149,
         150,
-        0,
-        0,
         0
      ],
      "apCost": 7,
@@ -4414,14 +4300,11 @@
      "script_neg": "",
      "idx": 165,
      "icon": 4,
-     "class": 4,
      "category": 1026,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         148,
-        0,
-        0,
         0,
         0
      ],
@@ -4530,15 +4413,12 @@
      "script_neg": "",
      "idx": 166,
      "icon": 4,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         150,
         161,
-        0,
-        0,
         0
      ],
      "apCost": 6,
@@ -4646,16 +4526,13 @@
      "script_neg": "2타는 무작위 대상\n2타 명중률 -35%",
      "idx": 167,
      "icon": 1,
-     "class": 4,
      "category": 1027,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         139,
         146,
-        147,
-        0,
-        0
+        147
      ],
      "apCost": 7,
      "cool": 3,
@@ -4762,15 +4639,12 @@
      "script_neg": "",
      "idx": 168,
      "icon": 3,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         155,
         163,
-        0,
-        0,
         0
      ],
      "apCost": 7,
@@ -4878,15 +4752,12 @@
      "script_neg": "",
      "idx": 169,
      "icon": 2,
-     "class": 4,
      "category": 1028,
      "usetype": 0,
      "reqlvl": 9,
      "reqskill": [
         154,
         162,
-        0,
-        0,
         0
      ],
      "apCost": 7,
@@ -4994,15 +4865,12 @@
      "script_neg": "추가 행동력 소모 +1",
      "idx": 170,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         151,
         153,
-        0,
-        0,
         0
      ],
      "apCost": 0,
@@ -5110,15 +4978,12 @@
      "script_neg": "",
      "idx": 171,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         156,
         157,
-        0,
-        0,
         0
      ],
      "apCost": 0,
@@ -5226,14 +5091,11 @@
      "script_neg": "회복은 피해로 적용\n능력치 증가는 감소로 적용",
      "idx": 172,
      "icon": 4,
-     "class": 4,
      "category": 1029,
      "usetype": 1,
      "reqlvl": 9,
      "reqskill": [
         160,
-        0,
-        0,
         0,
         0
      ],

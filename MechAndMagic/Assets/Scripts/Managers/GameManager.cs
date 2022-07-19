@@ -144,14 +144,14 @@ public class GameManager : MonoBehaviour
     ///<summary> 긍정 이벤트 - 회복 </summary>
     public void EventGetHeal(float rate)
     {
-        int heal = Mathf.RoundToInt(slotData.itemStats[(int)Obj.체력] * rate);
+        int heal = Mathf.RoundToInt(slotData.itemStats[(int)Obj.체력] * rate / 100);
         slotData.dungeonData.currHP = Mathf.Min(slotData.dungeonData.currHP + heal, slotData.itemStats[(int)Obj.체력]);
         SaveSlotData();
     }
     ///<summary> 부정 이벤트 - 피해 </summary>
     public void EventGetDamage(float rate)
     {
-        int dmg = Mathf.RoundToInt(slotData.itemStats[(int)Obj.체력] * rate);
+        int dmg = Mathf.RoundToInt(slotData.itemStats[(int)Obj.체력] * rate / 100);
         slotData.dungeonData.currHP = Mathf.Max(slotData.dungeonData.currHP - dmg, 1);
     }
     ///<summary> 긍정 이벤트 - 버프 </summary>

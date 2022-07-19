@@ -35,7 +35,7 @@ public class VisionMaster : Character
     public override void OnTurnStart()
     {
         base.OnTurnStart();
-        for (int i = 0; i < 3; i++) skillCount_turn[i] = 0;
+        for (int i = 0; i < 2; i++) skillCount_turn[i] = 0;
 
         if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 294).name))
             shieldAmount = shieldMax;
@@ -258,7 +258,7 @@ public class VisionMaster : Character
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(selects, skill.effectStat[i]);
+            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {

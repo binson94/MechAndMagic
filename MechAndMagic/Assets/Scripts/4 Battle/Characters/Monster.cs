@@ -51,7 +51,7 @@ public class Monster : Unit
         {
             //16 발사
             if (turnBuffs.buffs.Any(x => x.name == "포탄"))
-                ActiveSkill(16, new List<Unit>());
+                ActiveSkill(monsterIdx == 10 ? 16 : 18, new List<Unit>());
             else
             {
                 bool reload = BM.ReloadBullet();
@@ -149,7 +149,7 @@ public class Monster : Unit
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            rate = GetEffectStat(selects, skill.effectStat[i]);
+            rate = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -288,9 +288,9 @@ public class Monster : Unit
         {
             killed = true;
 
-            if (HasSkill(38))
+            if (HasSkill(61))
             {
-                Skill skill = SkillManager.GetSkill(10, 38);
+                Skill skill = SkillManager.GetSkill(10, 61);
 
                 StatUpdate_Skill(skill);
 
@@ -324,9 +324,9 @@ public class Monster : Unit
                     }
                 }
             }
-            else if (HasSkill(39))
+            else if (HasSkill(62))
             {
-                Skill skill = SkillManager.GetSkill(10, 39);
+                Skill skill = SkillManager.GetSkill(10, 62);
 
                 StatUpdate_Skill(skill);
 
