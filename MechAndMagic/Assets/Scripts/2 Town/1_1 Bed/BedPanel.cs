@@ -137,5 +137,5 @@ public class BedPanel : MonoBehaviour, ITownPanel
         equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
     }
 
-    public void BedToSmith(ItemCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected) => TM.BedToSmith(currC, currR, currL, selected);
+    public void BedToSmith(SmithCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected) => TM.BedToSmith(currC, currR, currL, selected);
 }

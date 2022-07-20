@@ -20,8 +20,9 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 0 category, 1 rarity, 2 lvl </summary>
     [Header("Category")]
     [SerializeField] GameObject[] categorySelectPanels;
+    [SerializeField] ResourcePanel resourcePanel;
     ///<summary> 1Weapon, 2Armor, 3Accessory, 7Potion </summary>
-    ItemCategory currCategory = ItemCategory.Weapon;
+    SmithCategory currCategory = SmithCategory.EquipTotal;
     Rarity currRarity = Rarity.None;
     ///<summary> 0 : all, 1,3,5,7,9 </summary>
     int currLvl = 0;
@@ -30,6 +31,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 현재 선택한 슬롯 </summary>
     EquipPart slotPart = EquipPart.None;
     ///<summary> 현재 선택한 슬롯 장비 정보 표시 UI Set </summary>
+    [Header("Select")]
     [SerializeField] EquipInfoPanel slotEquipPanel;
     ///<summary> 새로 선택한 장비 list에서의 idx와 장비 정보 pair </summary>
     [SerializeField] KeyValuePair<int, Equipment> selectedEquip;
@@ -63,18 +65,27 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 상태 초기화 - 카테고리 초기화, 아이템 선택 상태 초기화 </summary>
     public void ResetAllState()
     {
-        currCategory = ItemCategory.None;
+        currCategory = SmithCategory.EquipTotal;
         currRarity = Rarity.None;
         currLvl = 0;
+        resourcePanel.gameObject.SetActive(false);
         ItemTokenUpdate();
+        foreach (GameObject panel in categorySelectPanels) panel.SetActive(false);
         
+        ResetSelectInfo();
+        ShowPotionInfo(false);
+    }
+    void ResetSelectInfo()
+    {
         slotPart = EquipPart.None;
         selectedEquip = dummyEquip;
         SlotInfoPanelUpdate();
         SelectedInfoPanelUpdate();
-        
-        potionSelectPanel.SetActive(false); potionEquipBtn.SetActive(false);
-        potionSlotPanel.gameObject.SetActive(false); selectedPotionPanel.gameObject.SetActive(false);
+    }
+    void ShowPotionInfo(bool isPotion)
+    {
+        potionSelectPanel.SetActive(isPotion); potionEquipBtn.SetActive(false);
+        potionSlotPanel.gameObject.SetActive(isPotion); selectedPotionPanel.gameObject.SetActive(isPotion);
     }
 
     #region Category
@@ -82,28 +93,33 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<param name="kind"> categorySelectPanels의 idx(0 ~ 2) </param>
     public void Btn_OpenSelectPanel(int kind)
     {
-        slotPart = EquipPart.None;
-        selectedEquip = dummyEquip;
-        SlotInfoPanelUpdate();
-        SelectedInfoPanelUpdate();
-        
+        if(kind > 0 && currCategory == SmithCategory.Resource) return;
+
         for(int i = 0;i < categorySelectPanels.Length;i++)
             categorySelectPanels[i].SetActive(i == kind);
+        resourcePanel.gameObject.SetActive(false);
     }
     ///<summary> 아이템 카테고리 변경 </summary>
     public void Btn_SwitchCategory(int category)
     {
-        currCategory = (ItemCategory)category;
+        currCategory = (SmithCategory)category;
+        ResetSelectInfo();
         Btn_OpenSelectPanel(-1);
         ItemTokenUpdate();
 
-        potionSelectPanel.SetActive(false); potionEquipBtn.SetActive(false);
-        potionSlotPanel.gameObject.SetActive(false); selectedPotionPanel.gameObject.SetActive(false);
+        ShowPotionInfo(false);
+
+        if(currCategory == SmithCategory.Resource)
+        {
+            resourcePanel.ResetAllState();
+            resourcePanel.gameObject.SetActive(true);
+        }
     }
     ///<summary> 아이템 레어리티 변경 </summary>
     public void Btn_SwitchRarity(int rarity)
     {
         currRarity = (Rarity)rarity;
+        ResetSelectInfo();
         Btn_OpenSelectPanel(-1);
         ItemTokenUpdate();
     }
@@ -122,7 +138,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         ItemTokenReset();
 
         //None 전체, Weapon, Armor, Accessory
-        if (currCategory <= ItemCategory.Accessory)
+        if (currCategory <= SmithCategory.Accessory)
         {
             List<KeyValuePair<int, Equipment>> categorizedEquips = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
 
@@ -161,27 +177,21 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 아이템 카테고리 포션으로 변경 </summary>
     public void Btn_OpenPotion()
     {
+        currCategory = SmithCategory.Resource;
         Btn_OpenSelectPanel(-1);
         ItemTokenUpdate();
 
-        potionSelectPanel.SetActive(true);
-
         potionSlotPanel.InfoUpdate(0);
-        potionSlotPanel.gameObject.SetActive(true);
-
         selectedPotion = 0;
         selectedPotionPanel.InfoUpdate(0);
-        selectedPotionPanel.gameObject.SetActive(true);
+        ShowPotionInfo(true);
     }
     ///<summary> 선택한 포션 슬롯 정보 표시 </summary>
     public void Btn_PotionSlot(int slotIdx)
     {
-        foreach(GameObject panel in categorySelectPanels) panel.SetActive(false);
-        potionSelectPanel.SetActive(true);
-        potionSlotPanel.gameObject.SetActive(true);
-        selectedPotionPanel.gameObject.SetActive(true);
+        ShowPotionInfo(true);
+        
         equipBtns.SetActive(false);
-
         potionSlotPanel.InfoUpdate(GameManager.instance.slotData.potionSlot[slotIdx]);
         selectedPotionPanel.InfoUpdate(0);
     }
@@ -214,7 +224,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         potionEquipBtn.SetActive(false);
 
         BP.EquipIconUpdate();
-    }  
+    }
     #endregion Potion
     
     public void Btn_UnEquip()

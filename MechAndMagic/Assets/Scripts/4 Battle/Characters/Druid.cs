@@ -235,6 +235,7 @@ public class Druid : Character
                 case EffectType.Damage:
                     {
                         StatUpdate_Skill(skill);
+                        stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
                         float dmg = stat * skill.effectRate[i];
 

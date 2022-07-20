@@ -65,8 +65,11 @@ public class ItemManager : MonoBehaviour
         int region = GameManager.instance.slotData.region;
 
         var possibleList = (from token in bluePrints
-                            where (token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0)
+                            where ((token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0))
                             select token);
+
+        Debug.Log("can Drop :");
+        foreach(EquipBluePrint aaa in possibleList) Debug.Log(aaa.name);
 
         if (possibleList.Count() <= 0)
             return;
@@ -124,12 +127,12 @@ public class ItemManager : MonoBehaviour
 
     #region Smith
     ///<summary> 장비 제작 가능 여부 반환 </summary>
-    public static bool CanSmith(int equipIdx) => GameManager.instance.slotData.itemData.CanSmith(bluePrints[equipIdx - bluePrints[0].idx]);
+    public static bool CanSmith(EquipBluePrint ebp) => GameManager.instance.slotData.itemData.CanSmith(ebp);
 
     ///<summary> 장비 제작 </summary>
-    public static void SmithEquipment(int idx)
+    public static void SmithEquipment(EquipBluePrint ebp)
     {
-        GameManager.instance.slotData.itemData.Smith(bluePrints[idx]);
+        GameManager.instance.slotData.itemData.Smith(ebp);
         GameManager.instance.SaveSlotData();
     }
     ///<summary> 장비 분해 </summary>
@@ -264,22 +267,22 @@ public class ItemManager : MonoBehaviour
 
     #region Show
     ///<summary> 현재 보유 중인 장비 중 태그에 맞는 장비 리스트 반환 </summary>
-    public static List<KeyValuePair<int, Equipment>> GetEquipData(ItemCategory category, Rarity rarity, int lvl)
+    public static List<KeyValuePair<int, Equipment>> GetEquipData(SmithCategory category, Rarity rarity, int lvl)
     {
         List<KeyValuePair<int, Equipment>> returnList = new List<KeyValuePair<int, Equipment>>();
         List<Equipment>[] baseLists;
         switch (category)
         {
-            case ItemCategory.Weapon:
+            case SmithCategory.Weapon:
                 baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.weapons };
                 break;
-            case ItemCategory.Armor:
+            case SmithCategory.Armor:
                 baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.armors };
                 break;
-            case ItemCategory.Accessory:
+            case SmithCategory.Accessory:
                 baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.accessories };
                 break;
-            case ItemCategory.None:
+            case SmithCategory.EquipTotal:
                 baseLists = new List<Equipment>[] { GameManager.instance.slotData.itemData.weapons, GameManager.instance.slotData.itemData.armors, GameManager.instance.slotData.itemData.accessories };
                 break;
             default:
@@ -290,7 +293,7 @@ public class ItemManager : MonoBehaviour
             for (int i = 0; i < list.Count; i++)
                 if ((rarity == Rarity.None || list[i].ebp.rarity == rarity) && (lvl == 0 || list[i].ebp.reqlvl == lvl))
                     returnList.Add(new KeyValuePair<int, Equipment>(i, list[i]));
-        if (category == ItemCategory.None) returnList.Sort((a, b) => a.Value.CompareTo(b.Value));
+        if (category == SmithCategory.EquipTotal) returnList.Sort((a, b) => a.Value.CompareTo(b.Value));
         return returnList;
     }
     ///<summary> 현재 보유 중인 스킬북 중 태그에 맞는 리스트 반환 </summary>
@@ -310,7 +313,7 @@ public class ItemManager : MonoBehaviour
         return categorizedList;
     }
     ///<summary> 현재 보유 중인 장비 레시피 중 태그에 맞는 리스트 반환 </summary>
-    public static List<KeyValuePair<int, EquipBluePrint>> GetRecipeData(Rarity rarity, int lvl)
+    public static List<KeyValuePair<int, EquipBluePrint>> GetRecipeData(SmithCategory category, Rarity rarity, int lvl)
     {
         int region = GameManager.instance.slotData.region;
         List<KeyValuePair<int, EquipBluePrint>> ebps = new List<KeyValuePair<int, EquipBluePrint>>();
@@ -318,7 +321,9 @@ public class ItemManager : MonoBehaviour
         foreach (int equipIdx in GameManager.instance.slotData.itemData.equipRecipes)
         {
             EquipBluePrint ebp = bluePrints[equipIdx - bluePrints[0].idx];
-            if ((ebp.useClass == 0 || ebp.useClass == GameManager.instance.slotData.slotClass || ebp.useClass == region) &&
+            SmithCategory ebpCategory = ebp.part <= EquipPart.Weapon ? SmithCategory.WeaponRecipe : (ebp.part <= EquipPart.Shoes ? SmithCategory.ArmorRecipe : SmithCategory.AccessoryRecipe);
+            if ((category == SmithCategory.RecipeTotal || category == ebpCategory) &&
+            (ebp.useClass == 0 || ebp.useClass == GameManager.instance.slotData.slotClass || ebp.useClass == region) &&
             (rarity == Rarity.None || ebp.rarity == rarity) &&
             (lvl == 0 || ebp.reqlvl == lvl))
                 ebps.Add(new KeyValuePair<int, EquipBluePrint>(0, ebp));

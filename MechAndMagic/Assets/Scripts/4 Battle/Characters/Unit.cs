@@ -71,11 +71,11 @@ public class Unit : MonoBehaviour
                 cooldowns[i] = 0;
         }
 
+        HealBuffUpdate();
+
         //버프 지속시간 최신화
         TurnBuffUpdate();
-
         StatUpdate_Turn();
-        HealBuffUpdate();
 
         buffStat[(int)Obj.currAP] = buffStat[(int)Obj.행동력];
 

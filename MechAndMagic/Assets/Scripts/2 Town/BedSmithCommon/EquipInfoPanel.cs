@@ -39,7 +39,7 @@ public class EquipInfoPanel : MonoBehaviour
                     itemTxts[2].text = "고급";
                     break;
                 case Rarity.Rare:
-                    itemTxts[2].text = "고유";
+                    itemTxts[2].text = "희귀";
                     break;
                 case Rarity.Unique:
                     itemTxts[2].text = "고유";

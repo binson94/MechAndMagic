@@ -83,7 +83,7 @@ public class TownManager : MonoBehaviour
     }
 
     ///<summary> 숙소에서 아이템 제작을 위해 대장간으로 넘어가기 위한 중계 함수 </summary>
-    public void BedToSmith(ItemCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
+    public void BedToSmith(SmithCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
     {
         state = TownState.Smith;
         townPanels[(int)state].ResetAllState();

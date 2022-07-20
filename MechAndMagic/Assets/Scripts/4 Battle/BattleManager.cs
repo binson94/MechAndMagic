@@ -31,9 +31,15 @@ public class BattleManager : MonoBehaviour
     RoomInfo roomInfo;
 
 
+    ///<summary> 캐릭터들의 TP 표시 </summary>
+    [Header("Caster")]
+    [SerializeField] Slider[] tpSliders;
+    ///<summary> 소환수 TP 아이콘 </summary>
+    [SerializeField] Image summonTPIcon;
+    ///<summary> 소환수 TP 스프라이트 </summary>
+    [SerializeField] Sprite[] summonTPSprites;
     ///<summary> 캐릭터의 TP값 저장
     ///<para> 0 현재 값, 1 최대 값 </para> </summary>
-    [Header("Caster")]
     Dictionary<Unit, int[]> charTP = new Dictionary<Unit, int[]>();
     ///<summary> TP를 통해 선정된 현재 턴 실행자 </summary>
     Unit currCaster;
@@ -59,8 +65,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Status[] unitStatus;
     ///<summary> 적 일러스트 </summary>
     [SerializeField] Image[] enemyIilusts;
-    ///<summary> 캐릭터들의 TP 표시 </summary>
-    [SerializeField] Slider[] tpSliders;
     ///<summary> 플레이어 AP 표시 UI </summary>
     [SerializeField] APBar apBar;
     ///<summary> Show Player Stat Txt </summary>
@@ -160,11 +164,16 @@ public class BattleManager : MonoBehaviour
         if (GameManager.instance.slotData.dungeonData.golemHP >= 0)
         {
             Golem g = Instantiate(alliePrefabs[9]).GetComponent<Golem>();
-            g.GolemInit(allChars[0].GetComponent<MadScientist>());
+            g.GolemInit(allChars[0] as MadScientist);
+            g.name = "타이탄 골렘";
             allChars[1] = g;
+            summonTPIcon.sprite = summonTPSprites[0];
         }
         else
+        {
             allChars[1] = dummyUnit;
+            summonTPIcon.sprite = summonTPSprites[1];
+        }
 
 
         //던전 풀에 따른 적 캐릭터 생성
@@ -933,6 +942,18 @@ public class BattleManager : MonoBehaviour
 
         Elemental e = Instantiate(alliePrefabs[10]).GetComponent<Elemental>();
         e.Summon(this, caster, type);
+        switch(type)
+        {
+            case 1007:
+                e.name = "작은 불 정령";
+                break;
+            case 1008:
+                e.name = "작은 물 정령";
+                break;
+            case 1009:
+                e.name = "작은 바람 정령";
+                break;
+        }
 
         charTP.Add(e, new int[2] { 0, 0 });
         allChars[1] = e;
@@ -950,6 +971,18 @@ public class BattleManager : MonoBehaviour
 
         Elemental e = Instantiate(alliePrefabs[10]).GetComponent<Elemental>();
         e.Summon(this, caster, type, true);
+        switch(type)
+        {
+            case 1007:
+                e.name = "큰 불 정령";
+                break;
+            case 1008:
+                e.name = "큰 물 정령";
+                break;
+            case 1009:
+                e.name = "큰 바람 정령";
+                break;
+        }
 
         charTP.Add(e, new int[2] { 0, 0 });
         allChars[1] = e;

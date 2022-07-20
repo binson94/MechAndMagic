@@ -37,32 +37,15 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     Queue<EquipBtnToken> equipBtnPool = new Queue<EquipBtnToken>();
     #endregion EquipList
 
-    #region Category
-    ///<summary> 카테고리 선택 버튼들 UI Set
-    ///<para> 0 : category, 1 : rarity, 2 : level, 3 : skillType </para></summary>
-    [Header("Category")] [Tooltip("0 : category, 1 : rarity, 2 : level, 3 : skillType")]
-    [SerializeField] GameObject[] categorySelectPanels;
-    ///<summary> 스킬북 선택 시, 레어도 -> 스킬 타입
-    ///<para> 0 : rarity Btn, 1 : skillType Btn </para></summary>
-    [SerializeField] GameObject[] categoryBtns;
-    ///<summary> 카테고리 </summary>
-    ItemCategory currCategory = ItemCategory.None;
-    ///<summary> 카테고리-장비 레어도 </summary>
-    Rarity currRarity = Rarity.None;
-    ///<summary> 카테고리-스킬 타입
-    ///<para> 0 : active, 1 : passive, -1 : all </para></summary>
-    int currUseType = -1;
-    ///<summary> 카테고리-레벨
-    ///<para> 0 : all, 1, 3, 5, 7, 9 </para></summary>
-    int currLvl = 0;
-    #endregion Category
-
-    #region WorkPanel
+    #region SubPanels
+    ///<summary> 카테고리 선택 UI Set </summary>
+    [Header("Sub Panels")]
+    [SerializeField] SmithCategoryPanel categoryPanel;
     ///<summary> 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </summary>
-    [Header("Work Panel")] [Tooltip("0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북")]
+    [Tooltip("0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북")]
     [SerializeField] GameObject[] workPanelObjects;
     ITownPanel[] workPanels = null;
-    #endregion WorkPanel
+    #endregion SubPanels
 
     #region SelectInfo
     ///<summary> 현재 선택한 장비 정보 보여주는 UI Set </summary>
@@ -86,6 +69,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     #endregion SelectInfo  
     #endregion Variables
 
+    #region ResetInfo
     public void ResetAllState()
     {
         if(workPanels == null)
@@ -99,19 +83,10 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         EquipIconUpdate();
 
         //카테고리 초기화
-        currRarity = Rarity.None;
-        currUseType = -1;
-        currLvl = 0;
-        Btn_SwitchCategory((int)ItemCategory.None);
-        Btn_OpenCategorySelectPanel(-1);
-
-        //장비 선택 상태 초기화
-        selectedEquip = dummyEquip;
-        selectedEBP = null;
-        selectedSkillbook = dummySkillbook;
-        SelectedPanelUpdate();
+        categoryPanel.ResetAllState();
     }
-    public void ResetTokenState()
+    ///<summary> 선택한 장비, 제작법, 스킬북 정보 초기화 </summary>
+    public void ResetSelectInfo()
     {
         //장비 선택 상태 초기화
         selectedEquip = dummyEquip;
@@ -120,7 +95,9 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         TokenBtnUpdate();
         SelectedPanelUpdate();
     }
-    
+    #endregion ResetInfo
+
+    #region LoadPlayerInfo
     ///<summary> 플레이어 스텟 표시 텍스트 업데이트 </summary>
     void StatTxtUpdate()
     {
@@ -172,78 +149,20 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         }
 
         equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[0]);
-        equipSlotImages[7].gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
+        equipSlotImages[7].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
         equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[1]);
-        equipSlotImages[8].gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
+        equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
     }
+    #endregion LoadPlayerInfo
 
-    #region Category
-    ///<summary> 카테고리, 등급, 레벨, 스킬 타입 버튼 선택 시 세부 선택 판넬 보이기 </summary>
-    ///<param name="panelIdx"> 0 category, 1 rarity, 2 lvl, 3 skillType </param>
-    public void Btn_OpenCategorySelectPanel(int panelIdx)
-    {
-        for(int i = 0;i < categorySelectPanels.Length;i++)
-            categorySelectPanels[i].SetActive(i == panelIdx);
-
-        //선택 정보 초기화 
-        selectedEquip = dummyEquip;
-        selectedEBP = null;
-        selectedSkillbook = dummySkillbook;
-        SelectedPanelUpdate();
-        Btn_OpenWorkPanel(-1);
-    }
-    ///<summary> 카테고리 세부 선택 판넬에서 카테고리 변경 </summary>
-    ///<param name="category"> 1 무기, 2 방어구, 3 장신구, 4 제작법, 5 스킬북 </param>
-    public void Btn_SwitchCategory(int category)
-    {
-        //카테고리 변경
-        currCategory = (ItemCategory)category;
-        //스킬북이면 스킬 타입 선택 버튼으로 변경
-        for (int i = 0; i < categoryBtns.Length; i++)
-            categoryBtns[i].SetActive(i == 0 ^ currCategory == ItemCategory.Skillbook);
-        TokenBtnUpdate();
-
-        //선택 정보 초기화
-        selectedEquip = dummyEquip;
-        selectedEBP = null;
-        selectedSkillbook = dummySkillbook;
-        SelectedPanelUpdate();
-        Btn_OpenCategorySelectPanel(-1);
-    }
-    ///<summary> 등급 세부 선택 판넬에서 등급 변경 </summary>
-    ///<param name="rarity"> 1 일반, 2 고급, 3 희귀, 3 고유, 4 전설 </param>
-    public void Btn_SwitchRarity(int rarity)
-    {
-        currRarity = (Rarity)rarity;
-        TokenBtnUpdate();
-        Btn_OpenCategorySelectPanel(-1);
-    }
-    ///<summary> 레벨 세부 선택 판넬에서 레벨 변경 </summary>
-    ///<param name="lvl"> 0 전체, 1, 3, 5, 7, 9 </param>
-    public void Btn_SwitchLvl(int lvl)
-    {
-        currLvl = lvl;
-        TokenBtnUpdate();
-        Btn_OpenCategorySelectPanel(-1);
-    }
-    ///<summary> 스킬 타입 세부 선택 판넬에서 스킬 타입 변경 </summary>
-    ///<param name="type"> 0 액티브, 1 패시브 </param>
-    public void Btn_SwitchSkillUseType(int type)
-    {
-        currUseType = type;
-        TokenBtnUpdate();
-        Btn_OpenCategorySelectPanel(-1);
-    }
-    #endregion
-    
     #region Btn Image Update
     ///<summary> 스크롤뷰에서 나오는 버튼들 정보 업데이트 </summary>
-    void TokenBtnUpdate()
+    public void TokenBtnUpdate()
     {
         TokenBtnReset();
-        if (currCategory <= ItemCategory.Accessory)
+        if (categoryPanel.CurrCategory <= SmithCategory.Accessory)
             BtnUpdate_Equip();
-        else if (currCategory <= ItemCategory.Recipe)
+        else if (categoryPanel.CurrCategory <= SmithCategory.AccessoryRecipe)
             BtnUpdate_Recipe();
         else
             BtnUpdate_Skillbook();
@@ -252,7 +171,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         void BtnUpdate_Equip()
         {
             //카테고리에 맞는 장비만 얻기
-            List<KeyValuePair<int, Equipment>> categorizedEquips = ItemManager.GetEquipData(currCategory, currRarity, currLvl);
+            List<KeyValuePair<int, Equipment>> categorizedEquips = ItemManager.GetEquipData(categoryPanel.CurrCategory, categoryPanel.CurrRarity, categoryPanel.CurrLvl);
 
             for (int i = 0; i < categorizedEquips.Count; i += 4)
             {
@@ -275,7 +194,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         void BtnUpdate_Recipe()
         {
             //현재 카테고리에 맞는 제작법 리스트
-            List<KeyValuePair<int, EquipBluePrint>> categorizedRecipes = ItemManager.GetRecipeData(currRarity, currLvl);
+            List<KeyValuePair<int, EquipBluePrint>> categorizedRecipes = ItemManager.GetRecipeData(categoryPanel.CurrCategory, categoryPanel.CurrRarity, categoryPanel.CurrLvl);
 
             for (int i = 0; i < categorizedRecipes.Count; i += 4)
             {
@@ -297,7 +216,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         void BtnUpdate_Skillbook()
         {
             //현재 카테고리에 맞는 스킬북 반환
-            List<KeyValuePair<int, Skillbook>> categorizedSkillbooks = ItemManager.GetSkillbookData(currUseType, currLvl);
+            List<KeyValuePair<int, Skillbook>> categorizedSkillbooks = ItemManager.GetSkillbookData(categoryPanel.CurrUseType, categoryPanel.CurrLvl);
 
             for (int i = 0; i < categorizedSkillbooks.Count; i += 4)
             {
@@ -386,9 +305,9 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     public void Btn_Create()
     {
-        if (ItemManager.CanSmith(selectedEBP.idx))
+        if (ItemManager.CanSmith(selectedEBP))
         {
-            ItemManager.SmithEquipment(selectedEBP.idx);
+            ItemManager.SmithEquipment(selectedEBP);
 
             selectedEBP = null;
             SelectedPanelUpdate();
@@ -443,35 +362,44 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
     void SelectedPanelUpdate()
     {
-        if (currCategory <= ItemCategory.Accessory && !selectedEquip.Equals(dummyEquip))
+        if (categoryPanel.CurrCategory <= SmithCategory.Accessory && !selectedEquip.Equals(dummyEquip))
         {
             selectedEquipPanel.InfoUpdate(selectedEquip.Value);
+            selectedEquipPanel.transform.parent.gameObject.SetActive(true);
             selectedEquipPanel.gameObject.SetActive(true);
             Btn_OpenWorkPanel(0);
         }
-        else if (currCategory <= ItemCategory.Recipe && selectedEBP != null)
+        else if (categoryPanel.CurrCategory <= SmithCategory.AccessoryRecipe && selectedEBP != null)
         {
             selectedEquipPanel.InfoUpdate(selectedEBP);
+            selectedEquipPanel.transform.parent.gameObject.SetActive(true);
             selectedEquipPanel.gameObject.SetActive(true);
             Btn_OpenWorkPanel(4);
         }
-        else if (currCategory <= ItemCategory.Skillbook && selectedSkillbook.Key >= 0)
+        else if (categoryPanel.CurrCategory <= SmithCategory.Skillbook && selectedSkillbook.Key >= 0)
         {
             selectedEquipPanel.InfoUpdate(selectedSkillbook.Value);
+            selectedEquipPanel.transform.parent.gameObject.SetActive(true);
             selectedEquipPanel.gameObject.SetActive(true);
             Btn_OpenWorkPanel(5);
         }
+        else if(categoryPanel.CurrCategory == SmithCategory.Resource)
+        {
+            selectedEquipPanel.transform.parent.gameObject.SetActive(false);
+            Btn_OpenWorkPanel(-1);
+        }
         else
         {
+            selectedEquipPanel.transform.parent.gameObject.SetActive(true);
             selectedEquipPanel.gameObject.SetActive(false);
             Btn_OpenWorkPanel(-1);
         }
     }
-    public void BedToSmith(ItemCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
+    public void BedToSmith(SmithCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
     {
-        currCategory = currC;
-        currRarity = currR;
-        currLvl = currL;
+        categoryPanel.Btn_SwitchCategory((int)currC);
+        categoryPanel.Btn_SwitchRarity((int)currR);
+        categoryPanel.Btn_SwitchLvl(currL);
         selectedEquip = selected;
         TokenBtnUpdate();
         SelectedPanelUpdate();
@@ -479,7 +407,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     public void BedToSkillLearn(int skillIdx)
     {
-        Btn_SwitchCategory(5);
+        categoryPanel.Btn_SwitchCategory((int)SmithCategory.Skillbook);
         Btn_SkillbookToken(ItemManager.GetSkillbookData(-1, 0).FindAll(x => x.Value.idx == skillIdx).First());
     }
 }

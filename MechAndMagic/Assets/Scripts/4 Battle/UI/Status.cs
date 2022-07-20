@@ -13,6 +13,8 @@ public class Status : MonoBehaviour
 
     ///<summary> 캐릭터 체력 표기 슬라이더 </summary>
     [SerializeField] Slider hpBar;
+    ///<summary> 캐릭터 보호막 표기 슬라이더 </summary>
+    [SerializeField] Slider shieldBar;
     ///<summary> 캐릭터 체력 표기 텍스트 </summary>
     [SerializeField] Text hpTxt;
 
@@ -33,7 +35,11 @@ public class Status : MonoBehaviour
     {
         int curr = Mathf.Max(0, u.buffStat[(int)Obj.currHP]);
         hpBar.value = (float)curr / u.buffStat[(int)Obj.체력];
-        hpTxt.text = curr.ToString();
+        hpTxt.text = $"{curr}";
+
+        shieldBar.value = u.shieldAmount / u.buffStat[(int)Obj.체력];
+        if(u.shieldAmount > 0)
+            hpTxt.text = $"{hpTxt.text}+<color=#F9DC3C>{u.shieldAmount}</color>";
 
         BuffImageUpdate(u);
     }

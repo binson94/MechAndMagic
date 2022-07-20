@@ -57,11 +57,11 @@ public class SkillbookPanel : MonoBehaviour, ITownPanel
         
 
         ItemManager.SkillLearn(SP.SelectedSkillbook);
-        SP.ResetTokenState();
+        SP.ResetSelectInfo();
     }
     public void Btn_SkillbookDisassemble()
     {
         ItemManager.DisassembleSkillBook(SP.SelectedSkillbook);
-        SP.ResetTokenState();
+        SP.ResetSelectInfo();
     }
 }

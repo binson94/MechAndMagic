@@ -489,6 +489,7 @@ public class QuestData
     {
         if (proceedingQuestList.Count < 3)
             proceedingQuestList.Add(new QuestProceed(qbp));
+        QuestUpdate(QuestType.Level, 0, 0);
     }
     ///<summary> 적 처치 등 퀘스트 요구 사항 관련 변경점 있을 때마다 호출 </summary>
     public void QuestUpdate(QuestType type, int objectIdx, int amt)
