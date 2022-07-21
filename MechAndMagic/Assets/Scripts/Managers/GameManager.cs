@@ -70,6 +70,9 @@ public class GameManager : MonoBehaviour
     {
         currSlot = slot;
         slotData = new SlotData(slotClass);
+        for(int i =1;i<=15;i++)
+            slotData.itemData.basicMaterials[i] += 1000;
+
         SaveSlotData();
     }
     ///<summary> 슬롯 삭제 </summary>
@@ -90,6 +93,7 @@ public class GameManager : MonoBehaviour
     ///<summary> 던전 입장 시 새로운 던전 정보 생성 </summary>
     public void SetNewDungeon(int dungeonIdx)
     {
+        slotData.dungeonData = null;
         slotData.dungeonData = new DungeonData(dungeonIdx);
         slotData.dungeonIdx = dungeonIdx;
         SaveSlotData();
@@ -192,8 +196,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(SceneKind kind)
     {
-        if(kind == SceneKind.Title) SceneManager.LoadScene(1);
-        else if(slotData == null) SceneManager.LoadScene((int)kind);
+        if(kind == SceneKind.Title || kind == SceneKind.Story || slotData == null)
+            SceneManager.LoadScene((int)kind);
         else SceneManager.LoadScene((int)kind + (slotData.region / 11) * 4);
     }
 

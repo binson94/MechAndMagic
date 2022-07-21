@@ -68,9 +68,6 @@ public class ItemManager : MonoBehaviour
                             where ((token.category == category) && (token.useClass == classIdx || token.useClass == region || token.useClass == 0))
                             select token);
 
-        Debug.Log("can Drop :");
-        foreach(EquipBluePrint aaa in possibleList) Debug.Log(aaa.name);
-
         if (possibleList.Count() <= 0)
             return;
 
@@ -125,42 +122,75 @@ public class ItemManager : MonoBehaviour
     }
     #endregion ItemDrop
 
-    #region Smith
-    ///<summary> 장비 제작 가능 여부 반환 </summary>
-    public static bool CanSmith(EquipBluePrint ebp) => GameManager.instance.slotData.itemData.CanSmith(ebp);
-
+    #region SmithEquipment
     ///<summary> 장비 제작 </summary>
-    public static void SmithEquipment(EquipBluePrint ebp)
+    public static Equipment CreateEquipment(EquipBluePrint ebp)
     {
-        GameManager.instance.slotData.itemData.Smith(ebp);
+        Equipment e = GameManager.instance.slotData.itemData.Create(ebp);
         GameManager.instance.SaveSlotData();
+        return e;
     }
     ///<summary> 장비 분해 </summary>
-    public static void DisassembleEquipment(EquipPart part, int idx)
+    public static void DisassembleEquipment(KeyValuePair<int, Equipment> equipInfo)
     {
-        GameManager.instance.slotData.itemData.Disassemble(part, idx);
+        GameManager.instance.slotData.itemData.Disassemble(equipInfo);
         GameManager.instance.SaveSlotData();
     }
     ///<summary> 장비 옵션 변경 </summary>
-    public static void SwitchEquipOption(EquipPart part, int idx)
+    public static void SwitchCommonStat(Equipment e)
     {
-        GameManager.instance.slotData.itemData.SwitchCommonStat(part, idx);
+        e.SwitchCommonStat();
+        for(int i = 0;i < e.ebp.requireResources.Count;i++)
+            GameManager.instance.slotData.itemData.basicMaterials[e.ebp.requireResources[i].Key] -= Mathf.RoundToInt(0.4f * e.ebp.requireResources[i].Value);
         GameManager.instance.SaveSlotData();
     }
-    ///<summary> 장비 융합 </summary>
-    public static void FusionEquipment(EquipPart part, int idx)
+    ///<summary> 조합 강화 재료로 쓰일 장비 반환 </summary>
+    public static List<KeyValuePair<int, Equipment>> GetResourceEquipData(KeyValuePair<int, Equipment> equipInfo)
     {
-        GameManager.instance.slotData.itemData.Fusion(part, idx);
-        GameManager.instance.SaveSlotData();
-    }
+        List<Equipment> baseList;
+        List<KeyValuePair<int, Equipment>> resultList = new List<KeyValuePair<int, Equipment>>();
+        if(equipInfo.Value.ebp.part <= EquipPart.Weapon)
+            baseList = GameManager.instance.slotData.itemData.weapons;
+        else if(equipInfo.Value.ebp.part <= EquipPart.Shoes)
+            baseList = GameManager.instance.slotData.itemData.armors;
+        else   
+            baseList = GameManager.instance.slotData.itemData.accessories;
 
-    public static bool CanSkillLearn(Skill skill) 
-    => GameManager.instance.slotData.itemData.CanSkillLearn(skill, (int)skillLearnJson[skill.reqLvl / 2]["resource1"], (int)skillLearnJson[skill.reqLvl / 2]["resource2"], (int)skillLearnJson[skill.reqLvl / 2]["resource3"]);
-    ///<summary> 스킬 학습 </summary>
+        for(int i = 0;i < baseList.Count;i++)
+            if ((i != equipInfo.Key) && (baseList[i].star == equipInfo.Value.star) && (baseList[i].ebp.idx == equipInfo.Value.ebp.idx))
+                resultList.Add(new KeyValuePair<int, Equipment>(i, baseList[i]));
+
+        return resultList;
+    }
+    public static void MergeEquipment(KeyValuePair<int, Equipment> equipInfo, KeyValuePair<int, Equipment> resourceInfo)
+    {
+        GameManager.instance.slotData.itemData.Merge(equipInfo, resourceInfo);
+        GameManager.instance.SaveSlotData();
+    }
+    #endregion SmithEquipment
+
+    #region SmithSkill
+    ///<summary> 스킬 학습 시, 재료 idx, 현재 보유량, 요구량 반환 </summary>
+    public static List<Triplet<int, int ,int>> GetRequireResources(Skillbook skillbook)
+    {
+        int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.idx).reqLvl;
+        List<Triplet<int, int, int>> resourceList = new List<Triplet<int, int, int>>();
+        int tmp;
+        for (int i = 1; i <= 3; i++)
+            if ((tmp = (int)skillLearnJson[lvl / 2][$"resource{i}"]) > 0)
+                resourceList.Add(new Triplet<int, int, int>(i, GameManager.instance.slotData.itemData.basicMaterials[i], tmp));
+            
+        return resourceList;
+    }
+    ///<summary> 스킬 학습 호출, 재화 소모 </summary>
     public static void SkillLearn(KeyValuePair<int, Skillbook> skillInfo)
     {
         int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillInfo.Value.idx).reqLvl;
-        GameManager.instance.slotData.itemData.SkillLearn(skillInfo, (int)skillLearnJson[lvl / 2]["resource1"], (int)skillLearnJson[lvl / 2]["resource2"], (int)skillLearnJson[lvl / 2]["resource3"]);
+
+        GameManager.instance.slotData.itemData.SkillLearn(skillInfo);
+        for (int i = 1; i <= 3; i++)
+            GameManager.instance.slotData.itemData.basicMaterials[i] -= (int)skillLearnJson[lvl / 2][$"resource{i}"];
+        
         GameManager.instance.SaveSlotData();
     }
     ///<summary> 스킬북 분해 </summary>
@@ -169,10 +199,10 @@ public class ItemManager : MonoBehaviour
         int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.Value.idx).reqLvl;
         GameManager.instance.slotData.itemData.DisassembleSkillbook(skillbook.Key);
         for(int i = 1;i <= 3;i++)
-            GameManager.instance.slotData.itemData.basicMaterials[i] += (int)skillLearnJson[lvl / 2][$"resource{i}"] / 2;
+            GameManager.instance.slotData.itemData.basicMaterials[i] += Mathf.Min(1, Mathf.RoundToInt((int)skillLearnJson[lvl / 2][$"resource{i}"] * 0.4f));
         GameManager.instance.SaveSlotData();
     }
-    #endregion
+    #endregion SmithSkill
 
     #region Equip
     ///<summary> 장비 장착 </summary>
@@ -263,7 +293,7 @@ public class ItemManager : MonoBehaviour
 
         GameManager.instance.SaveSlotData();
     }
-    #endregion
+    #endregion Equip
 
     #region Show
     ///<summary> 현재 보유 중인 장비 중 태그에 맞는 장비 리스트 반환 </summary>
@@ -392,24 +422,12 @@ public class ItemManager : MonoBehaviour
         
         return resourceName;
     }
-    ///<summary> 스킬 학습 시, 재료 idx, 현재 보유량, 요구량 반환 </summary>
-    public static List<Triplet<int, int ,int>> GetRequireResources(Skillbook skillbook)
-    {
-        int lvl = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.idx).reqLvl;
-        List<Triplet<int, int, int>> resourceList = new List<Triplet<int, int, int>>();
-        int tmp;
-        for (int i = 1; i <= 3; i++)
-            if ((tmp = (int)skillLearnJson[lvl / 2][$"resource{i}"]) > 0)
-                resourceList.Add(new Triplet<int, int, int>(i, GameManager.instance.slotData.itemData.basicMaterials[i], tmp));
-            
-        return resourceList;
-    }
     
     ///<summary> 세트 정보 반환 </summary>
     public static KeyValuePair<string, float[]> GetSetData(int set) => setManager.GetSetData(set);
     ///<summary> 현재 발동 중인 모든 세트효과 반환 </summary>
     public static List<KeyValuePair<string, int>> GetSetList() => setManager.GetSetList();
-    #endregion
+    #endregion Show
 }
 
 public class SetOptionManager

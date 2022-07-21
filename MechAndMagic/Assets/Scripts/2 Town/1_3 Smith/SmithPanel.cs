@@ -28,13 +28,13 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     [Header("Equip List")]
     [SerializeField] RectTransform equipBtnParent;
     ///<summary> 풀에 있는 버튼들 부모 오브젝트 </summary>
-    [SerializeField] RectTransform poolParent;
+    public RectTransform poolParent;
     ///<summary> 장비 리스트 버튼 프리팹 </summary>
-    [SerializeField] EquipBtnToken equipBtnPrefab;
+    public EquipBtnToken equipBtnPrefab;
     ///<summary> 현재 활성화된 장비 리스트 버튼들 </summary>
     List<EquipBtnToken> btnList = new List<EquipBtnToken>();
     ///<summary> 장비 리스트 버튼 풀 </summary>
-    Queue<EquipBtnToken> equipBtnPool = new Queue<EquipBtnToken>();
+    [HideInInspector] public Queue<EquipBtnToken> equipBtnPool = new Queue<EquipBtnToken>();
     #endregion EquipList
 
     #region SubPanels
@@ -54,12 +54,14 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     ///<summary> 현재 선택한 장비 정보(리스트에서의 인덱스, 장비 페어) </summary>
     KeyValuePair<int, Equipment> selectedEquip;
     ///<summary> 현재 선택한 장비 정보(리스트에서의 인덱스, 장비 페어) </summary>
-    public KeyValuePair<int, Equipment> SeletedEquip { get => selectedEquip; }
+    public KeyValuePair<int, Equipment> SelectedEquip { get => selectedEquip; }
     ///<summary> 선택한 장비 없을 시 상태 </summary>
     static KeyValuePair<int, Equipment> dummyEquip = new KeyValuePair<int, Equipment>(-1, null);
 
     ///<summary> 선택한 제작법 정보 </summary>
     EquipBluePrint selectedEBP = null;
+    ///<summary> 선택한 제작법 정보 </summary>
+    public EquipBluePrint SelectedEBP { get => selectedEBP; }
     ///<summary> 선택한 스킬북 정보(리스트에서의 인덱스, 스킬북 페어) </summary>
     KeyValuePair<int, Skillbook> selectedSkillbook = dummySkillbook;
     ///<summary> 선택한 스킬북 정보(리스트에서의 인덱스, 스킬북 페어) </summary>
@@ -249,80 +251,28 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     }
     #endregion
 
-    #region SelectWorkPanel
     ///<summary> 추가 선택 창 보이기 </summary>
     ///<param name="workPanelIdx"> 0 선택, 1 융합, 2 옵션 변경, 3 분해, 4 제작, 5 스킬북 </param>
     public void Btn_OpenWorkPanel(int workPanelIdx)
     {
-        if(workPanelIdx == 1 && (selectedEquip.Equals(dummyEquip) || selectedEquip.Value.star >= 3))
-        {
-            Debug.Log("융합 불가");
-            return;
-        }
-        else if(workPanelIdx == 2 && !GameManager.instance.slotData.itemData.CanFusion(selectedEquip.Value.ebp.part, selectedEquip.Key))
-        {
-            Debug.Log("이 장비는 옵션 변경이 불가능합니다.");
-            return;
-        }
-        else if(workPanelIdx == 5)
+        if(workPanelIdx >= 0)
             workPanels[workPanelIdx].ResetAllState();
-
 
         for (int i = 0; i < workPanels.Length; i++)
             workPanelObjects[i].SetActive(i == workPanelIdx);
     }
-    #endregion SelectWorkPanel
-
-    #region Fusion
-    ///<summary> 융합 버튼
-    ///<para> 융합 재료 장비 선택창 띄움 </para> </summary>
-    public void Btn_Fusion()
+    public void OnEquipReroll()
     {
-
+        if(selectedEquip.Value != null)
+            selectedEquipPanel.InfoUpdate(selectedEquip.Value);
     }
-    #endregion Fusion
-
-    #region SwitchOption
-    ///<summary> 옵션 변경 버튼 </summary>
-    public void Btn_SwitchOption()
+    public void OnDisassemble()
     {
-        if (GameManager.instance.slotData.itemData.CanSwitchCommonStat(selectedEquip.Value.ebp.part, selectedEquip.Key))
-        {
-            ItemManager.SwitchEquipOption(selectedEquip.Value.ebp.part, selectedEquip.Key);
-            TokenBtnUpdate();
-            SelectedPanelUpdate();
-        }
-    }
-    #endregion SwitchOption
-
-    
-    public void Btn_Disassemble()
-    {
-        ItemManager.DisassembleEquipment(selectedEquip.Value.ebp.part, selectedEquip.Key);
         selectedEquip = dummyEquip;
         TokenBtnUpdate();
         SelectedPanelUpdate();
     }
-    public void Btn_Create()
-    {
-        if (ItemManager.CanSmith(selectedEBP))
-        {
-            ItemManager.SmithEquipment(selectedEBP);
-
-            selectedEBP = null;
-            SelectedPanelUpdate();
-        }
-        else
-            Debug.Log("not enough resources");
-    }
-    public void Btn_Cancel()
-    {
-        selectedEquip = dummyEquip;
-        selectedEBP = null;
-        selectedSkillbook = dummySkillbook;
-        SelectedPanelUpdate();
-    }
-
+    
     ///<summary> 토큰 버튼 장비 선택 </summary>
     public void Btn_EquipToken(KeyValuePair<int, Equipment> token)
     {
@@ -353,12 +303,6 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
         SelectedPanelUpdate();
     }
-    public void Btn_FusionToken(KeyValuePair<int, Equipment> token)
-    {
-
-    }
-   
-    
 
     void SelectedPanelUpdate()
     {

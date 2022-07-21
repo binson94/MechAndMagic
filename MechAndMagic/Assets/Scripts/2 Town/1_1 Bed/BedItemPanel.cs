@@ -33,6 +33,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 현재 선택한 슬롯 장비 정보 표시 UI Set </summary>
     [Header("Select")]
     [SerializeField] EquipInfoPanel slotEquipPanel;
+    [SerializeField] GameObject unequipBtn;
     ///<summary> 새로 선택한 장비 list에서의 idx와 장비 정보 pair </summary>
     [SerializeField] KeyValuePair<int, Equipment> selectedEquip;
     ///<summary> 새로 선택한 장비 정보 표시 UI Set </summary>
@@ -69,9 +70,8 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         currRarity = Rarity.None;
         currLvl = 0;
         resourcePanel.gameObject.SetActive(false);
-        ItemTokenUpdate();
         foreach (GameObject panel in categorySelectPanels) panel.SetActive(false);
-        
+
         ResetSelectInfo();
         ShowPotionInfo(false);
     }
@@ -86,6 +86,8 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     {
         potionSelectPanel.SetActive(isPotion); potionEquipBtn.SetActive(false);
         potionSlotPanel.gameObject.SetActive(isPotion); selectedPotionPanel.gameObject.SetActive(isPotion);
+
+        if (!isPotion) ItemTokenUpdate();
     }
 
     #region Category
@@ -93,9 +95,9 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<param name="kind"> categorySelectPanels의 idx(0 ~ 2) </param>
     public void Btn_OpenSelectPanel(int kind)
     {
-        if(kind > 0 && currCategory == SmithCategory.Resource) return;
+        if (kind > 0 && currCategory == SmithCategory.Resource) return;
 
-        for(int i = 0;i < categorySelectPanels.Length;i++)
+        for (int i = 0; i < categorySelectPanels.Length; i++)
             categorySelectPanels[i].SetActive(i == kind);
         resourcePanel.gameObject.SetActive(false);
     }
@@ -105,11 +107,10 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         currCategory = (SmithCategory)category;
         ResetSelectInfo();
         Btn_OpenSelectPanel(-1);
-        ItemTokenUpdate();
 
         ShowPotionInfo(false);
 
-        if(currCategory == SmithCategory.Resource)
+        if (currCategory == SmithCategory.Resource)
         {
             resourcePanel.ResetAllState();
             resourcePanel.gameObject.SetActive(true);
@@ -189,8 +190,12 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 선택한 포션 슬롯 정보 표시 </summary>
     public void Btn_PotionSlot(int slotIdx)
     {
-        ShowPotionInfo(true);
-        
+        Btn_OpenPotion();
+        selectedEquip = dummyEquip;
+        slotPart = EquipPart.None;
+        SlotInfoPanelUpdate();
+        SelectedInfoPanelUpdate();
+
         equipBtns.SetActive(false);
         potionSlotPanel.InfoUpdate(GameManager.instance.slotData.potionSlot[slotIdx]);
         selectedPotionPanel.InfoUpdate(0);
@@ -199,8 +204,8 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<param name="potionIdx" 1 활력(AP 전체 회복), 2 정화(모든 디버프 해제), 3 회복(HP 전체 회복), 4 재활용(재사용 가능) </summary>
     public void Btn_SelectPotion(int potionIdx)
     {
-        if(GameManager.instance.slotData.potionSlot[0] == potionIdx || GameManager.instance.slotData.potionSlot[1] == potionIdx)
-        {    
+        if (GameManager.instance.slotData.potionSlot[0] == potionIdx || GameManager.instance.slotData.potionSlot[1] == potionIdx)
+        {
             selectedPotion = 0;
             potionSlotPanel.InfoUpdate(potionIdx);
             selectedPotionPanel.InfoUpdate(0);
@@ -226,13 +231,23 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         BP.EquipIconUpdate();
     }
     #endregion Potion
-    
+
+    ///<summary> 장비 장착 해제 </summary>
     public void Btn_UnEquip()
     {
-        if(slotPart != EquipPart.None)
+        if (slotPart != EquipPart.None)
         {
             ItemManager.UnEquip(slotPart);
             ItemTokenUpdate();
+
+            slotPart = EquipPart.None;
+            selectedEquip = dummyEquip;
+            SlotInfoPanelUpdate();
+            SelectedInfoPanelUpdate();
+
+            BP.StatTxtUpdate();
+            BP.SetTxtUpdate();
+            BP.EquipIconUpdate();
         }
     }
     ///<summary> 장비 장착 버튼, 새로 선택한 장비 장착 </summary>
@@ -256,10 +271,11 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     public void Btn_EquipSlot(int part)
     {
         slotPart = (EquipPart)part;
+        if (currCategory == SmithCategory.Resource) currCategory = SmithCategory.EquipTotal;
         SlotInfoPanelUpdate();
 
-        potionSelectPanel.SetActive(false); potionEquipBtn.SetActive(false);
-        potionSlotPanel.gameObject.SetActive(false); selectedPotionPanel.gameObject.SetActive(false);
+        resourcePanel.gameObject.SetActive(false);
+        ShowPotionInfo(false);
 
         if (selectedEquip.Key != -1 && (selectedEquip.Value == null || selectedEquip.Value.ebp.part != slotPart))
         {
@@ -270,7 +286,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     //<summary> 새로운 장비 선택 </summary>
     public void Btn_EquipToken(KeyValuePair<int, Equipment> p)
     {
-        if(selectedEquip.Equals(p))
+        if (selectedEquip.Equals(p))
         {
             selectedEquip = dummyEquip;
         }
@@ -285,11 +301,16 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     }
 
     ///<summary> 선택한 장비 슬롯 정보 UI 업데이트 </summary>
-    void SlotInfoPanelUpdate() => slotEquipPanel.InfoUpdate(ItemManager.GetEquipment(slotPart));
+    void SlotInfoPanelUpdate()
+    {
+        Equipment e = ItemManager.GetEquipment(slotPart);
+        unequipBtn.SetActive(slotPart != EquipPart.None && e != null);
+        slotEquipPanel.InfoUpdate(e);
+    }
     ///<summary> 새로운 장비 선택 정보 UI 업데이트 </summary>
     void SelectedInfoPanelUpdate()
     {
-        foreach(UnityEngine.UI.Text t in statDelta) t.text = string.Empty;
+        foreach (UnityEngine.UI.Text t in statDelta) t.text = string.Empty;
 
         if (selectedEquip.Equals(dummyEquip))
         {
@@ -302,11 +323,11 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
             equipBtns.SetActive(true);
 
             int[] newDelta = ItemManager.GetStatDelta(selectedEquip.Value);
-            for(int i = 0;i < 10;i++)
-                if(newDelta[i] > 0)
+            for (int i = 0; i < 10; i++)
+                if (newDelta[i] > 0)
                 {
                     statDelta[i].text = $"+{newDelta[i]}";
-                    if(i == 6 || i == 7)
+                    if (i == 6 || i == 7)
                         statDelta[i].text = $"{statDelta[i].text}%";
 
                     statDelta[i].text = $"<color=#82e67c>{statDelta[i].text}</color>";
@@ -314,9 +335,9 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
                 else if (newDelta[i] < 0)
                 {
                     statDelta[i].text = newDelta[i].ToString();
-                    if(i == 6 || i == 7)
+                    if (i == 6 || i == 7)
                         statDelta[i].text = $"{statDelta[i].text}%";
-                        
+
                     statDelta[i].text = $"<color=#f93f3d>{statDelta[i].text}</color>";
                 }
 

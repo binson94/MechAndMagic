@@ -26,7 +26,7 @@ public class EquipBluePrint
 
     ///<summary> 제작에 필요한 재료
     ///<para> Key : 재료 idx, Value : 재료 요구 갯수 </para> </summary>
-    public List<KeyValuePair<int, int>> requireResources = new List<KeyValuePair<int, int>>();
+    public List<Pair<int, int>> requireResources = new List<Pair<int, int>>();
 
     ///<summary> 0인 경우 보조 스텟이 없는 장비거나 범위 내 랜덤, 그 외엔 지정 </summary>
     public Obj subStat;
@@ -69,12 +69,12 @@ public class EquipBluePrint
         //idx 4 ~ 12, 상중하-무기,방어구,장신구 순
         for (int i = 0; i < 3; i++)
             if ((amount = (int)resourceJson[resourceIdx]["resource"][i]) != 0)
-                requireResources.Add(new KeyValuePair<int, int>(4 + i + type * 3, amount));
+                requireResources.Add(new Pair<int, int>(4 + i + type * 3, amount));
         //기본 재화 소비량 읽기
         //idx 13 ~ 15, 상중하 순
         for (int i = 3; i < 6; i++)
             if ((amount = (int)resourceJson[resourceIdx]["resource"][i]) != 0)
-                requireResources.Add(new KeyValuePair<int, int>(10 + i, amount));
+                requireResources.Add(new Pair<int, int>(10 + i, amount));
     }
 }
 
@@ -114,12 +114,17 @@ public class Equipment
     ///<para> idx major(오름차순), star minor(내림차순) </para> </summary>
     public int CompareTo(Equipment e)
     {
-        if (ebp.idx < e.ebp.idx)
-            return -1;
-        else if (ebp.idx > e.ebp.idx)
-            return 1;
-        else
-            return star.CompareTo(e.star);
+        int result = ebp.idx.CompareTo(e.ebp.idx);
+        if(result == 0)
+        {
+            if(star > e.star)
+                return -1;
+            else if(star < e.star)
+                return 1;
+            else
+                return 0;
+        }
+        return result;
     }
     ///<summary> 데이터 로드를 위한 빈 생성자 </summary>
     public Equipment() { }
@@ -143,6 +148,15 @@ public class Equipment
         this.ebp = ebp;
         star = 1;
 
+        SetMainStatKind();
+        SetSubStatKind();
+        SetCommonStat();
+
+        SetStatValue();
+    }
+
+    public void ReCreate()
+    {
         SetMainStatKind();
         SetSubStatKind();
         SetCommonStat();
@@ -285,7 +299,7 @@ public class Equipment
         SetCommonStat();
     }
     ///<summary> 장비 융합 </summary>
-    public void Fusion()
+    public void Merge()
     {
         star = Mathf.Min(star + 1, 3);
         SetStatValue();

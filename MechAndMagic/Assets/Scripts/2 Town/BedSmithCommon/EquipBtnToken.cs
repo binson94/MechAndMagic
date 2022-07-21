@@ -6,8 +6,9 @@ using UnityEngine.UI;
 ///<summary> 4개의 장비 버튼을 묶어 한개의 클래스에서 관리 </summary>
 public class EquipBtnToken : MonoBehaviour
 {
-    SmithPanel SM;
-    BedItemPanel BM;
+    SmithPanel SP;
+    BedItemPanel BP;
+    MergePanel MP;
     [SerializeField] Image[] gridImages;
     [SerializeField] Image[] iconImages;
     [SerializeField] GameObject[] stars;
@@ -27,9 +28,10 @@ public class EquipBtnToken : MonoBehaviour
     public void Initialize(ITownPanel panel, int startPos, List<KeyValuePair<int, Equipment>> categorizedEquips)
     {
         //숙소일 경우 BM이 활성화, SM은 null, 대장간은 반대
-        BM = panel as BedItemPanel;
-        if((SM = panel as SmithPanel) != null)
+        BP = panel as BedItemPanel;
+        if((SP = panel as SmithPanel) != null)
             tokenKind = 0;
+        MP = panel as MergePanel;
 
         int i = 0;
         if(categorizedEquips != null)
@@ -57,8 +59,8 @@ public class EquipBtnToken : MonoBehaviour
     ///<param name="categorizedEquips"> 선택한 카테고리에 만족하는 제작법 전체 리스트 </param>
     public void Initialize(SmithPanel panel, int startPos, List<KeyValuePair<int, EquipBluePrint>> categorizedRecipes)
     {
-        SM = panel;
-        BM = null;
+        SP = panel;
+        BP = null;
         int i = 0;
         tokenKind = 1;
 
@@ -81,8 +83,8 @@ public class EquipBtnToken : MonoBehaviour
     ///<param name="categorizedEquips"> 선택한 카테고리에 만족하는 스킬북 전체 리스트 </param>
     public void Initialize(SmithPanel panel, int startPos, List<KeyValuePair<int, Skillbook>> categorizedSkillbooks)
     {
-        SM = panel;
-        BM = null;
+        SP = panel;
+        BP = null;
         int i = 0;
         tokenKind = 2;
 
@@ -107,18 +109,18 @@ public class EquipBtnToken : MonoBehaviour
     public void Btn_Equip(int idx)
     {
         SoundManager.instance.PlaySFX(22);
-        if (SM != null)
+        if (SP != null)
         {
             if (tokenKind == 0)
-                SM.Btn_EquipToken(equipmentInfos[idx]);
+                SP.Btn_EquipToken(equipmentInfos[idx]);
             else if (tokenKind == 1)
-                SM.Btn_RecipeToken(ebpInfos[idx].Value);
+                SP.Btn_RecipeToken(ebpInfos[idx].Value);
             else if(tokenKind == 2)
-                SM.Btn_SkillbookToken(skillbookInfos[idx]);
-            else
-                SM.Btn_FusionToken(equipmentInfos[idx]);
+                SP.Btn_SkillbookToken(skillbookInfos[idx]);
         }
+        else if(BP != null)
+            BP.Btn_EquipToken(equipmentInfos[idx]);
         else
-            BM.Btn_EquipToken(equipmentInfos[idx]);
+            MP.Btn_EquipToken(equipmentInfos[idx]);
     }
 }

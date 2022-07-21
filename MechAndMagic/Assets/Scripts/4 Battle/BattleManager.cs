@@ -422,8 +422,8 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < 8; i++)
                 statusTxts[i].text = allChars[0].buffStat[i + 5].ToString();
 
-            statusTxts[5].text = $"{statusTxts[5].text}%";
-            statusTxts[6].text = $"{statusTxts[6].text}%";
+            statusTxts[4].text = $"{statusTxts[5].text}%";
+            statusTxts[5].text = $"{statusTxts[6].text}%";
         }
     }
     ///<summary> 스킬 AP 소모량 표시 최신화 </summary>
@@ -686,6 +686,7 @@ public class BattleManager : MonoBehaviour
         SkillBtnUpdate();
 
         if (IsWin()) Win();
+        else if (IsLose()) Lose();
     }
     ///<summary> 포션 사용 버튼 </summary>
     public void Btn_UsePotion(int slotIdx)

@@ -27,7 +27,7 @@ public class OutbreakPanel : MonoBehaviour
     ///<summary> 퀘스트 다시 받기 버튼 </summary>
     public void Btn_RerollOutbreak()
     {
-        if(isReroll || !AdManager.instance.IsLoaded(false)) return;
+        if(isReroll || !AdManager.instance.IsLoaded()) return;
         AdManager.instance.ShowRewardAd(OnAdReward);
     }
     ///<summary> 광고 성공적 시청 시 퀘스트 다시 받기 </summary>

@@ -269,7 +269,6 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                 //스토리 보이기, 대화 종료
                 case DialogToken.Story:
                     PlayStory(int.Parse(dialogJson[pos]["script"].ToString()));
-                    EndDialog();
                     break;
                 //에러 - 대화 종료
                 default:
@@ -325,9 +324,11 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     #endregion NormalDialog
 
     void PlaySFX(int idx) => SoundManager.instance.PlaySFX(idx);
-    void PlayStory(int idx)
+    void PlayStory(int storyIdx)
     {
-        Debug.Log(string.Concat("스토리 재생 ", idx));
+        GameManager.instance.slotData.storyIdx = storyIdx;
+        GameManager.instance.SwitchSceneData(SceneKind.Story);
+        GameManager.instance.LoadScene(SceneKind.Story);
     }
     void NewQuest(int idx) => QuestManager.AcceptQuest(false, idx);
     void ClearQuest(int idx) => QuestManager.ClearQuest(idx);

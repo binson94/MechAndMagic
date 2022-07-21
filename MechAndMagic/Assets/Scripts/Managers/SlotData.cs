@@ -60,6 +60,8 @@ public class SlotData
 
     ///<summary> 재시작 시 로드할 씬 </summary>
     public SceneKind nowScene;
+    ///<summary> 스토리 인덱스 </summary>
+    public int storyIdx;
 
     ///<summary> 현재 진행 중인 던전 인덱스 </summary>
     public int dungeonIdx;
@@ -107,15 +109,17 @@ public class SlotData
                 break;
         }
         chapter = 1;
+        storyIdx = 1 + region / 11 * 5;
 
         for (int i = 0; i <= 12; i++)
             itemStats[i] = GameManager.baseStats[i];
         activeSkills[0] = SkillManager.GetSkillData(classIdx)[0].idx;
 
-        nowScene = SceneKind.Town;
+        nowScene = SceneKind.Story;
 
         itemData = new ItemData(slotClass);
         questData = new QuestData(slotClass);
+        dungeonData = null;
     }
     ///<summary> 던전 진행 중 획득한 아이템 정보 저장(결과창 용) </summary>
     public void DropSave(DropType type, int idx, int amt = 1)
@@ -251,47 +255,19 @@ public class ItemData
     public Equipment[] equipmentSlots = new Equipment[8];
 
     #region Smith
-    ///<summary> 해당 장비 제작 가능 여부 반환 </summary>
-    public bool CanSmith(EquipBluePrint ebp)
-    {
-        for (int i = 0; i < ebp.requireResources.Count; i++)
-            if (basicMaterials[ebp.requireResources[i].Key] < ebp.requireResources[i].Value)
-                return false;
-
-        return equipRecipes.Contains(ebp.idx);
-    }
-    ///<summary> 해당 장비 옵션 변환 가능 여부 반환 </summary>
-    public bool CanSwitchCommonStat(EquipPart part, int idx) => GetEquipmentList(part)[idx].CanSwitchCommonStat();
-    ///<summary> 해당 장비 융합 가능 여부 반환 </summary>
-    public bool CanFusion(EquipPart part, int idx)
-    {
-        int stuff = -1;
-        List<Equipment> eList = GetEquipmentList(part);
-        Equipment tmp = eList[idx];
-
-        for (int i = 0; i < eList.Count; i++)
-            if (i != idx && eList[i].ebp.idx == tmp.ebp.idx && eList[i].star == tmp.star)
-            {
-                stuff = i;
-                break;
-            }
-
-        return tmp.star < 3 && stuff >= 0;
-    }
-
     ///<summary> 장비 제작 </summary>
-    public void Smith(EquipBluePrint ebp)
+    public Equipment Create(EquipBluePrint ebp)
     {
         for (int i = 0; i < ebp.requireResources.Count; i++)
             basicMaterials[ebp.requireResources[i].Key] -= ebp.requireResources[i].Value;
-        EquipDrop(ebp);
+        return EquipDrop(ebp);
     }
     ///<summary> 장비 분해 </summary>
-    public void Disassemble(EquipPart part, int idx)
+    public void Disassemble(KeyValuePair<int, Equipment> equipInfo)
     {
-        List<Equipment> eList = GetEquipmentList(part);
-        GetResource(eList[idx]);
-        eList.RemoveAt(idx);
+        List<Equipment> eList = GetEquipmentList(equipInfo.Value.ebp.part);
+        GetResource(eList[equipInfo.Key]);
+        eList.RemoveAt(equipInfo.Key);
 
         //분해 시 획득 재료 = 제작 시 소모 재료의 20% * 2^(장비 star)
         void GetResource(Equipment e)
@@ -300,46 +276,33 @@ public class ItemData
                 basicMaterials[e.ebp.requireResources[i].Key] += Mathf.RoundToInt(Mathf.Pow(2, e.star) * 0.2f * e.ebp.requireResources[i].Value);
         }
     }
-    ///<summary> 장비 옵션 변환 </summary>
-    public void SwitchCommonStat(EquipPart part, int idx)
-    {
-        List<Equipment> eList = GetEquipmentList(part);
-
-        eList[idx].SwitchCommonStat();
-    }
     ///<summary> 장비 융합 </summary>
-    public void Fusion(EquipPart part, int idx)
+    public void Merge(KeyValuePair<int, Equipment> equipInfo, KeyValuePair<int, Equipment> resourceInfo)
     {
-        int stuff = -1;
-        List<Equipment> eList = GetEquipmentList(part);
-        Equipment selectEquip = eList[idx];
-
-        for (int i = 0; i < eList.Count; i++)
-            if (i != idx && eList[i].ebp.idx == selectEquip.ebp.idx && eList[i].star == selectEquip.star)
-            {
-                stuff = i;
-                break;
-            }
-
-        if (stuff > 0)
-        {
-            selectEquip.Fusion();
-            eList.RemoveAt(stuff);
-            eList.Sort((a, b) => a.CompareTo(b));
-        }
+        List<Equipment> baseList;
+        if(resourceInfo.Value.ebp.part <= EquipPart.Weapon)
+            baseList = weapons;
+        else if(resourceInfo.Value.ebp.part <= EquipPart.Shoes)
+            baseList = armors;
         else
-            Debug.Log("there is no stuff");
+            baseList = accessories;
+
+        equipInfo.Value.Merge();
+        baseList.RemoveAt(resourceInfo.Key);
+        baseList.Sort((a, b) => a.CompareTo(b));
     }
     #endregion Smith
 
     #region Drop
     ///<summary> 새로운 장비 드롭 </summary>
-    public void EquipDrop(EquipBluePrint ebp)
+    public Equipment EquipDrop(EquipBluePrint ebp)
     {
         List<Equipment> eList = GetEquipmentList(ebp.part);
 
-        eList.Add(new Equipment(ebp));
+        Equipment e = new Equipment(ebp);
+        eList.Add(e);
         eList.Sort((a, b) => a.CompareTo(b));
+        return e;
     }
     ///<summary> 새로운 스킬북 드롭 </summary>
     public void SkillBookDrop(int skillIdx)
@@ -374,6 +337,7 @@ public class ItemData
         return false;
     }
     #endregion Drop
+    
     ///<summary> 장비 장착 </summary>
     public void Equip(EquipPart part, int orderIdx)
     {
@@ -416,27 +380,12 @@ public class ItemData
             return true;
         return learnedSkills.Contains(skillIdx);
     }
-    ///<summary> 스킬 학습 가능 여부 반환 </summary>
-    public bool CanSkillLearn(Skill skill, params int[] resources)
-    { 
-        for(int i = 0;i < resources.Length;i++)
-            if(basicMaterials[i + 1] < resources[i])
-                return false;
-
-        for(int i = 0;i < 3;i++)
-            if(!learnedSkills.Contains(skill.reqskills[i]))
-                return false;
-
-        return true;
-    }
     ///<summary> 스킬 학습 </summary>
-    public void SkillLearn(KeyValuePair<int, Skillbook> skillInfo, params int[] reqResources)
+    public void SkillLearn(KeyValuePair<int, Skillbook> skillInfo)
     { 
         learnedSkills.Add(skillInfo.Value.idx);
-        skillbooks[skillInfo.Key].count--;
-        
-        for(int i = 0;i < 3;i++)
-            basicMaterials[i + 1] -= reqResources[i];
+        if(--skillbooks[skillInfo.Key].count <= 0)
+            skillbooks.RemoveAt(skillInfo.Key);
     }
     ///<summary> 스킬북 분해 </summary>
     public void DisassembleSkillbook(int slotIdx)

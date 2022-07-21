@@ -55,7 +55,7 @@ public class TownManager : MonoBehaviour
 
     private void Start()
     {
-        bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5) + (GameManager.instance.slotData.chapter / 2)];
+        bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5) + ((GameManager.instance.slotData.chapter - 1) / 2)];
 
         //ITownPanel GetComponent로 얻음
         townPanels = new ITownPanel[uiPanels.Length];
@@ -65,7 +65,7 @@ public class TownManager : MonoBehaviour
         //Lobby 판넬에서 시작
         Btn_SelectPanel(0);
 
-        SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Town{GameManager.instance.slotData.chapter}"));
+        SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Town{(GameManager.instance.slotData.chapter + 1) / 2}"));
     }
     private void Update()
     {

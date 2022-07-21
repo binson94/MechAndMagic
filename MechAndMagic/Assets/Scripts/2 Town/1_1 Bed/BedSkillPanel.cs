@@ -29,11 +29,11 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
     ///<summary> 현재 선택한 장착 슬롯 정보 표시하는 UI Set </summary>
     [SerializeField] SkillInfoPanel skillSlotPanel;
     ///<summary> 현재 선택한 슬롯 idx(0 ~ 5 : active, 6 ~ 9 : passive, -1 : none) </summary>
-    int skillSlotIdx = -1;
+    [SerializeField] int skillSlotIdx = -1;
     ///<summary> 장착하고자 선택한 스킬 정보 표시하는 UI Set </summary>
     [SerializeField] SkillInfoPanel selectedSkillPanel;
     ///<summary> 선택한 스킬 idx </summary>
-    int selectedSkillIdx = -1;
+    [SerializeField] int selectedSkillIdx = -1;
     ///<summary> 선택한 스킬 상태 </summary>
     SkillState selectedSkillState = SkillState.CantLearn;
 
@@ -174,8 +174,10 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
         else
         {
             skillSlotIdx = slotIdx;
+            
             Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, selectedSkillIdx);
-            if(s != null && 0 <= skillSlotIdx && (skillSlotIdx < 6 ^ s.useType == 0))
+            //교차 선택 시 선택 정보 초기화
+            if (s != null && (skillSlotIdx < 6 ^ s.useType == 0))
             {
                 selectedSkillIdx = -1;
                 selectedSkillState = SkillState.CantLearn;
@@ -216,10 +218,28 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
             selectedSkillState = state;
 
             Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, selectedSkillIdx);
-            if(s != null && 0 <= skillSlotIdx && (skillSlotIdx < 6 ^ s.useType == 0))
+            
+            //교차 선택 시 슬롯 선택 초기화
+            if (s != null && (skillSlotIdx < 6 ^ s.useType == 0))
             {
                 skillSlotIdx = -1;
                 CurrSkillSlotUpdate();
+            }
+            //슬롯 선택 안 되어 있을 시 빈 슬롯 선택
+            if (s != null && skillSlotIdx < 0)
+            {
+                for (int i = 0; i < 6 && s.useType == 0; i++)
+                    if (GameManager.instance.slotData.activeSkills[i] == 0)
+                    {
+                        Btn_SelectSkillSlot(i);
+                        break;
+                    }
+                for (int i = 0; i < 4 && s.useType == 1; i++)
+                    if (GameManager.instance.slotData.passiveSkills[i] == 0)
+                    {
+                        Btn_SelectSkillSlot(i + 6);
+                        break;
+                    }
             }
         }
 
@@ -292,6 +312,7 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
 
         SlotImageUpdate();
 
+        skillSlotIdx = -1;
         selectedSkillIdx = -1;
         selectedSkillState = SkillState.CantLearn;
 
@@ -311,6 +332,7 @@ public class BedSkillPanel : MonoBehaviour, ITownPanel
             GameManager.instance.slotData.passiveSkills[skillSlotIdx - 6] = 0;
         GameManager.instance.SaveSlotData();
 
+        SkillTokenUpdate();
         SlotImageUpdate();
         CurrSkillSlotUpdate();
     }

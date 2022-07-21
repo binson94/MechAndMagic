@@ -80,7 +80,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_ConfirmClassSelect()
     {
         GameManager.instance.CreateNewSlot(currSlot, currClass);
-        GameManager.instance.LoadScene(SceneKind.Town);
+        GameManager.instance.LoadScene(SceneKind.Story);
     }
     ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>
     public void Btn_CancelClassSelect()
@@ -139,15 +139,6 @@ public class TitleManager : MonoBehaviour
         for (int i = 0; i < uiPanels.Length; i++)
             uiPanels[i].SetActive(i == (int)state);
         creditPanel.SetActive(false);
-    }
-
-    public void Btn_Ad()
-    {
-        AdManager.instance.ShowInterstitialAd();
-    }
-    void EarnedReward(object sender, GoogleMobileAds.Api.Reward args)
-    {
-        Debug.Log("보상 획득");
     }
     
     public void Btn_Sound() => SoundManager.instance.PlaySFX(22);
