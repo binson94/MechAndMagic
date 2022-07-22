@@ -34,7 +34,6 @@ public class Triplet<T1, T2, T3>
         first = a; second = b; third = c;
     }
 }
-
 ///<summary> 슬롯 데이터 저장용 </summary>
 public class SlotData
 {
@@ -445,13 +444,17 @@ public class QuestData
     {
         foreach (QuestProceed qp in proceedingQuestList)
         {
-            if (qp.state == QuestState.Proceeding && qp.type == type)
+            //레벨 달성 퀘스트인 경우, 레벨 값으로 설정
+            if (qp.state == QuestState.Proceeding && qp.type == QuestType.Level)
             {
-                //레벨 달성 퀘스트인 경우, 레벨 값으로 설정
-                if (qp.type == QuestType.Level)
-                    qp.objectCurr = GameManager.instance.slotData.lvl;
+                qp.objectCurr = GameManager.instance.slotData.lvl;
+                if (qp.objectCurr >= qp.objectReq)
+                    qp.state = QuestState.CanClear;
+            }
+            else if (qp.state == QuestState.Proceeding && qp.type == type)
+            {
                 //그 외 경우, 대상 일치 시 퀘스트 증가, 원숭이 로봇, 탈리아 퀘스트 예외 처리
-                else if ((qp.objectIdx == 0 || qp.objectIdx == objectIdx) ||
+                if ((qp.objectIdx == 0 || qp.objectIdx == objectIdx) ||
                         (qp.objectIdx == 72 && (objectIdx == 73 || objectIdx == 74)) ||
                         (qp.objectIdx == 83 && (objectIdx == 84 || objectIdx == 85)))
                     qp.objectCurr += amt;
@@ -479,10 +482,10 @@ public class QuestData
     {
         if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard_Over)
             if (100 * rate < outbreakProceed.objectReq)
-                RemoveOutbreak();
+                outbreakProceed.state = QuestState.Fail;
         else if(outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard_Under)
             if(100 * rate > outbreakProceed.objectReq)
-                RemoveOutbreak();
+                outbreakProceed.state = QuestState.Fail;
     }
     ///<summary> 퀘스트 클리어 판정 </summary>
     public void ClearQuest(int idx)

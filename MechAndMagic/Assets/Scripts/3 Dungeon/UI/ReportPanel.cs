@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ReportPanel : MonoBehaviour
 {
+    [SerializeField] Text successTxt;
     ///<summary> 돌발퀘스트 정보 표시 UI Set, 돌발 퀘스트 없으면 비활성화 </summary>
     [SerializeField] GameObject outbreakPanel;
     ///<summary> 돌발 퀘스트 표기 텍스트
@@ -23,13 +24,14 @@ public class ReportPanel : MonoBehaviour
     ///<summary> 드롭 아이콘, 5개 한세트 </summary>
     [Header("Drop")]
     [SerializeField] DropToken dropTokenPrefab;
+    ///<summary> 드랍 토큰 부모 오브젝트 </summary>
     [SerializeField] RectTransform tokenParent;
-    [SerializeField] RectTransform viewPoint;
     [SerializeField] PopUpManager pm;
 
     ///<summary> 보고서 정보 불러오기 </summary>
-    public void LoadData()
+    public void LoadData(bool isClear)
     {
+        successTxt.text = isClear ? "- <color=#86ff64>성공</color>" : "- <color=#F43021>실패</color>";
         LoadOutbreakData();
         LoadExpData();
         LoadDropData();
@@ -91,7 +93,7 @@ public class ReportPanel : MonoBehaviour
             for(int j = 0;j < 5 && i < drops.Count;i++, j++)
                 idxs.Add(drops[i]);
 
-            token.Init(pm, idxs);
+            token.Initialize(pm, idxs);
             idxs.Clear();
         }
     }

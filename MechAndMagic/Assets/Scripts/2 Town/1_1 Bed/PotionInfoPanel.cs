@@ -9,12 +9,14 @@ public class PotionInfoPanel : MonoBehaviour
     [SerializeField] Text potionNameTxt;
     [SerializeField] Text potionScriptTxt;
 
-    public void InfoUpdate(int potionIdx)
+    public void InfoUpdate(int potionIdx, bool used = false)
     {
         if(potionIdx > 0)
         {
             Potion potion = new Potion(potionIdx);
             potionNameTxt.text = potion.name;
+            if(used)
+                potionNameTxt.text += "<color=#ed2929>(사용함)</color>";
             potionScriptTxt.text = potion.script;
 
             potionIcon.sprite = SpriteGetter.instance.GetPotionIcon(potionIdx);

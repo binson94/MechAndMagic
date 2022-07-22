@@ -48,6 +48,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_LoadSlot(int slot)
     {
         GameManager.instance.LoadSlotData(slot);
+        ItemManager.LoadSetData();
         GameManager.instance.LoadScene(GameManager.instance.slotData.nowScene);
     }
 
@@ -80,6 +81,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_ConfirmClassSelect()
     {
         GameManager.instance.CreateNewSlot(currSlot, currClass);
+        ItemManager.LoadSetData();
         GameManager.instance.LoadScene(SceneKind.Story);
     }
     ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>

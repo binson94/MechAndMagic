@@ -28,7 +28,8 @@ public class ArmedFighter : Character
         //종합 타격 2세트 - 손, 발 기술 AP 감소
         if (set.Value[0] > 0)
         {
-            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 31, 1, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1000, 1, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1001, 1, set.Value[0], 1, 99, 0, 1));
         }
 
         set = ItemManager.GetSetData(2);

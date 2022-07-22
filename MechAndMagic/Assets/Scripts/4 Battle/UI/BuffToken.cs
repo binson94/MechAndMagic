@@ -16,10 +16,10 @@ public class BuffToken : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     
     string buffExplain;
 
-    public void SetImage(PopUpManager pm, Buff buff, bool isBuff)
+    public void Initialize(PopUpManager pm, Buff buff, bool isBuff)
     {
         this.pm = pm;
-        buffIconImage.sprite = SpriteGetter.instance.GetBuffIcon((Obj)buff.objectIdx[0]);
+        buffIconImage.sprite = SpriteGetter.instance.GetBuffIcon((Obj)Mathf.Min(30, buff.objectIdx[0]));
         buffBG.sprite = SpriteGetter.instance.GetBuffBG(isBuff);
 
         buffExplain = $"{buff.name}({buff.duration}턴, ";
@@ -29,6 +29,16 @@ public class BuffToken : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             AddEffectExplain(buff, i, isBuff);
             
         turnTxt.text = $"{buff.duration}";
+    }
+    public void Initialize(PopUpManager pm, DungeonBuff buff, bool isBuff)
+    {
+        this.pm = pm;
+        buffIconImage.sprite = SpriteGetter.instance.GetBuffIcon((Obj)Mathf.Min(30, buff.objIdx));
+        buffBG.sprite = SpriteGetter.instance.GetBuffBG(isBuff);
+
+        buffExplain = $"{buff.name}({buff.count}회 전투 지속)\n";
+        buffExplain += $"{(Obj)buff.objIdx} {(int)(buff.rate * 100)}% ";
+        buffExplain += isBuff ? "증가" : "감소";
     }
     void AddEffectExplain(Buff buff, int effectIdx, bool isBuff)
     {
@@ -66,6 +76,11 @@ public class BuffToken : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 break;
             case Obj.악령빙의:
                 buffExplain += "높은 방어력 무시 지속 피해";
+                break;
+            case Obj.APCost:
+                buffExplain += "행동력 소비량 ";
+                buffExplain += buff.isMulti[effectIdx] ? $"{buff.buffRate[effectIdx] * 100}%" : $"{buff.buffRate[effectIdx]}";
+                buffExplain += isBuff ? " 감소" : " 증가";
                 break;
             default:
                 buffExplain += $"\n{(Obj)buff.objectIdx[effectIdx]} ";

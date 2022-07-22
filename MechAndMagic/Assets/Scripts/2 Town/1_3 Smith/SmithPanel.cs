@@ -19,8 +19,19 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     [SerializeField] Image[] equipSlotImages;
     ///<summary> 장착 중인 장비 그리드 표시 </summary>
     [SerializeField] Image[] equipSlotGridImages;
+    ///<summary> 장착 중인 장비 세트 표시 </summary>
+    [SerializeField] Image[] equipSetImages;
     ///<summary> 장착 중인 장비 성급 </summary>
     [SerializeField] GameObject[] stars;
+
+    ///<summary> 세트 옵션 이름 텍스트들 </summary>
+    [SerializeField] Text[] setNameTxts;
+    ///<summary> 세트 옵션 설명 텍스트들 </summary>
+    [SerializeField] Text[] setScriptTxts;
+    ///<summary> 세트 옵션 설명 텍스트 색상
+    ///<para> 0 발동 이름, 1 발동 설명, 2 미발동 이름, 3 미발동 설명 </para> </summary>
+    Color[] setColors = new Color[] { new Color(1, 1, 1, 1), new Color(0xd3 / 255f, 0xd3 / 255f, 0xd3 / 255f, 1), new Color(0x77 / 255, 0x77 / 255f, 0x77 / 255f, 1), new Color(0x5b / 255f, 0x5a / 255f, 0x5a / 255f, 1) };
+
     #endregion PlayerInfo
 
     #region EquipList
@@ -86,6 +97,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
 
         //카테고리 초기화
         categoryPanel.ResetAllState();
+        SetTxtUpdate();
     }
     ///<summary> 선택한 장비, 제작법, 스킬북 정보 초기화 </summary>
     public void ResetSelectInfo()
@@ -137,7 +149,9 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             {
                 equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp);
                 equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
-            
+                equipSetImages[i].sprite = SpriteGetter.instance.GetSetIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set);
+                equipSetImages[i].gameObject.SetActive(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set > 0);
+
                 equipSlotImages[i].transform.parent.gameObject.SetActive(true);
                 for(int j = 0;j < 3;j++)
                     stars[i * 3 + j].SetActive(j < GameManager.instance.slotData.itemData.equipmentSlots[i + 1].star);
@@ -145,6 +159,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             else
             {
                 equipSlotImages[i].transform.parent.gameObject.SetActive(false);
+                equipSetImages[i].gameObject.SetActive(false);
                 for(int j = 0;j < 3;j++)
                     stars[i * 3 + j].SetActive(false);
             }
@@ -261,11 +276,13 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         for (int i = 0; i < workPanels.Length; i++)
             workPanelObjects[i].SetActive(i == workPanelIdx);
     }
+    ///<summary> 장비 옵션 변경 시 호출, 선택 장비 정보 업데이트 </summary>
     public void OnEquipReroll()
     {
         if(selectedEquip.Value != null)
             selectedEquipPanel.InfoUpdate(selectedEquip.Value);
     }
+    ///<summary> 분해 시 호출, 선택 상태 초기화 </summary>
     public void OnDisassemble()
     {
         selectedEquip = dummyEquip;
@@ -273,6 +290,49 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         SelectedPanelUpdate();
     }
     
+    ///<summary> 세트 옵션 정보 최신화 </summary>
+    public void SetTxtUpdate()
+    {
+        if (selectedEquip.Value != null && selectedEquip.Value.ebp.set > 0)
+            SetTxtUpdate_Select(selectedEquip.Value.ebp.set);
+        else if (selectedEBP != null && selectedEBP.set > 0)
+            SetTxtUpdate_Select(selectedEBP.set);
+        else
+            SetTxtUpdate_CurrEquip();
+
+        void SetTxtUpdate_CurrEquip()
+        {
+
+            foreach (Text text in setNameTxts) text.text = string.Empty;
+            foreach (Text text in setScriptTxts) text.text = string.Empty;
+
+            List<Pair<string, string>> currSetInfos = ItemManager.GetSetInfo();
+
+            for (int i = 0; i < 3 && i < currSetInfos.Count; i++)
+            {
+                setNameTxts[i].text = currSetInfos[i].Key;
+                setNameTxts[i].color = setColors[0];
+                setScriptTxts[i].text = currSetInfos[i].Value;
+                setScriptTxts[i].color = setColors[1];
+            }
+        }
+        void SetTxtUpdate_Select(int setIdx)
+        {
+            foreach (Text text in setNameTxts) text.text = string.Empty;
+            foreach (Text text in setScriptTxts) text.text = string.Empty;
+
+            Pair<string, List<Triplet<bool, int, string>>> currSetInfos = ItemManager.GetSetInfo(setIdx);
+
+            for (int i = 0; i < 3 && i < currSetInfos.Value.Count; i++)
+            {
+                setNameTxts[i].text = $"{currSetInfos.Key} {currSetInfos.Value[i].second}세트";
+                setNameTxts[i].color = currSetInfos.Value[i].first ? setColors[0] : setColors[2];
+                setScriptTxts[i].text = currSetInfos.Value[i].third;
+                setScriptTxts[i].color = currSetInfos.Value[i].first ? setColors[1] : setColors[3];
+            }
+        }
+    }
+
     ///<summary> 토큰 버튼 장비 선택 </summary>
     public void Btn_EquipToken(KeyValuePair<int, Equipment> token)
     {
@@ -304,6 +364,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         SelectedPanelUpdate();
     }
 
+    ///<summary> 선택한 장비 정보 UI Set 최신화 </summary>
     void SelectedPanelUpdate()
     {
         if (categoryPanel.CurrCategory <= SmithCategory.Accessory && !selectedEquip.Equals(dummyEquip))
@@ -338,7 +399,9 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             selectedEquipPanel.gameObject.SetActive(false);
             Btn_OpenWorkPanel(-1);
         }
+        SetTxtUpdate();
     }
+    ///<summary> 숙소 장비 -> 대장간 </summary>
     public void BedToSmith(SmithCategory currC, Rarity currR, int currL, KeyValuePair<int, Equipment> selected)
     {
         categoryPanel.Btn_SwitchCategory((int)currC);
@@ -349,6 +412,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         SelectedPanelUpdate();
         Btn_OpenWorkPanel(0);
     }
+    ///<summary> 숙소 스킬 -> 대장간 </summary>
     public void BedToSkillLearn(int skillIdx)
     {
         categoryPanel.Btn_SwitchCategory((int)SmithCategory.Skillbook);

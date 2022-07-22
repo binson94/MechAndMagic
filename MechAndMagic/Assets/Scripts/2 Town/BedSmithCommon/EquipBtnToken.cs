@@ -11,6 +11,7 @@ public class EquipBtnToken : MonoBehaviour
     MergePanel MP;
     [SerializeField] Image[] gridImages;
     [SerializeField] Image[] iconImages;
+    [SerializeField] Image[] setIconImages;
     [SerializeField] GameObject[] stars;
     [SerializeField] Text[] countTxts;
 
@@ -42,8 +43,11 @@ public class EquipBtnToken : MonoBehaviour
                 gridImages[i].sprite = SpriteGetter.instance.GetGrid(categorizedEquips[startPos + i].Value.ebp.rarity);
                 iconImages[i].gameObject.SetActive(true);
 
+                setIconImages[i].sprite = SpriteGetter.instance.GetSetIcon(categorizedEquips[startPos + i].Value.ebp.set);
+                setIconImages[i].gameObject.SetActive(categorizedEquips[startPos + i].Value.ebp.set > 0);
+
                 for(int j = 0;j < 3;j++)
-                    stars[i * 3 + j].SetActive(j < categorizedEquips[i].Value.star);
+                    stars[i * 3 + j].SetActive(j < categorizedEquips[startPos + i].Value.star);
             }
 
         for (; i < 4; i++)
@@ -71,6 +75,9 @@ public class EquipBtnToken : MonoBehaviour
                 iconImages[i].sprite = SpriteGetter.instance.GetRecipeIcon();
                 gridImages[i].sprite = SpriteGetter.instance.GetGrid(categorizedRecipes[startPos + i].Value.rarity);
                 iconImages[i].gameObject.SetActive(true);
+
+                setIconImages[i].sprite = SpriteGetter.instance.GetSetIcon(categorizedRecipes[startPos + i].Value.set);
+                setIconImages[i].gameObject.SetActive(categorizedRecipes[startPos + i].Value.set > 0);
             }
 
         for (; i < 4; i++)
@@ -103,6 +110,7 @@ public class EquipBtnToken : MonoBehaviour
         for (; i < 4; i++)
             iconImages[i].gameObject.SetActive(false);
         foreach(GameObject star in stars) star.SetActive(false);
+        foreach(Image set in setIconImages) set.gameObject.SetActive(false);
     }
 
     ///<summary> 장비 선택 버튼 </summary>

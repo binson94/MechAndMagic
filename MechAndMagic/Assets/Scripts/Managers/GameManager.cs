@@ -70,8 +70,6 @@ public class GameManager : MonoBehaviour
     {
         currSlot = slot;
         slotData = new SlotData(slotClass);
-        for(int i =1;i<=15;i++)
-            slotData.itemData.basicMaterials[i] += 1000;
 
         SaveSlotData();
     }

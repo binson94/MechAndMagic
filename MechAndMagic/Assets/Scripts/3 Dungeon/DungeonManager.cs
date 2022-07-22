@@ -45,6 +45,15 @@ public class DungeonManager : MonoBehaviour
     ///<summary> 플레이어 레벨 표시 텍스트 </summary>
     [SerializeField] Text lvlTxt;
 
+    [Header("Buff Icon")]
+    [SerializeField] BuffToken tokenPrefab;
+    [SerializeField] RectTransform tokenParent;
+    [SerializeField] RectTransform poolParent;
+    List<BuffToken> tokenList = new List<BuffToken>();
+    Queue<BuffToken> tokenPool = new Queue<BuffToken>();
+    [SerializeField] PopUpManager pm;
+
+    [Header("Sub Panels")]
     [SerializeField] RepairPanel repairPanel;
 
     ///<summary> 각 퀘스트 정보 표시 UI Set </summary>
@@ -66,6 +75,7 @@ public class DungeonManager : MonoBehaviour
         MakeRoomImage();
         LoadQuestData();
         LoadPlayerInfo();
+        BuffIconUpdate();
 
         SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
     }
@@ -197,9 +207,45 @@ public class DungeonManager : MonoBehaviour
 
     public void Btn_RetireDungeon()
     {
-        reportPanel.LoadData();
+        reportPanel.LoadData(false);
         reportPanel.gameObject.SetActive(true);
         GameManager.instance.RemoveDungeonData();
         GameManager.instance.SwitchSceneData(SceneKind.Town);
+    }
+
+    public void BuffIconUpdate()
+    {
+        BuffIconReset();
+
+        List<DungeonBuff> buffList = GameManager.instance.slotData.dungeonData.dungeonBuffs;
+
+        foreach(DungeonBuff buff in buffList)
+        {
+            BuffToken token = GameManager.GetToken(tokenPool, tokenParent, tokenPrefab);
+            token.Initialize(pm, buff, true);
+            tokenList.Add(token);
+            token.gameObject.SetActive(true);
+        }
+
+         buffList = GameManager.instance.slotData.dungeonData.dungeonDebuffs;
+
+        foreach(DungeonBuff buff in buffList)
+        {
+            BuffToken token = GameManager.GetToken(tokenPool, tokenParent, tokenPrefab);
+            token.Initialize(pm, buff, false);
+            tokenList.Add(token);
+            token.gameObject.SetActive(true);
+        }
+
+        void BuffIconReset()
+        {
+            for(int i = 0;i < tokenList.Count;i++)
+            {
+                tokenList[i].gameObject.SetActive(false);
+                tokenList[i].transform.SetParent(poolParent);
+                tokenPool.Enqueue(tokenList[i]);
+            }
+            tokenList.Clear();
+        }
     }
 }

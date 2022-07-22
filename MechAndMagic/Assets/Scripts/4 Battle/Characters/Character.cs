@@ -261,7 +261,7 @@ public class Character : Unit
     }
     public override void StatLoad()
     {
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i <= 12; i++)
             dungeonStat[i] = GameManager.instance.slotData.itemStats[i];
     }
 }

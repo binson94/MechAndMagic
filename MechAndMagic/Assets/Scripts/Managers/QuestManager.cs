@@ -5,7 +5,7 @@ using UnityEngine;
 ///<summary> 퀘스트 진행 상태 표시 나열형 </summary>
 public enum QuestState
 {
-    NotReceive, Proceeding, CanClear
+    NotReceive, Proceeding, CanClear, Fail
 }
 ///<summary> 개별 퀘스트 진행 상황 저장을 위한 클래스
 ///<para> QuestSlot 클래스에서 진행 중인 퀘스트 정보 리스트 형태로 관리 </para>

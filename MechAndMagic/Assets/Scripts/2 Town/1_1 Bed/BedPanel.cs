@@ -31,9 +31,16 @@ public class BedPanel : MonoBehaviour, ITownPanel
     [SerializeField] Image[] equipSlotImages;
     ///<summary> 장비 장착칸 그리드 이미지들 <para> 0 wep, 1-4 armor, 5-6 accessory, 7-8 potion </para> </summary>
     [SerializeField] Image[] equipSlotGridImages;
+    ///<summary> 장비 세트 아이콘 이미지들 <para> 0 wep, 1-4 armor, 5-6 accessory </para> </summary>
+    [SerializeField] Image[] equipSetImages;
     [SerializeField] GameObject[] stars;
     ///<summary> 세트 정보 표시 텍스트 </summary>
-    [SerializeField] Text setTxt;
+    [SerializeField] Text[] setNameTxts;
+    ///<summary> 세트 옵션 설명 표시 텍스트들 </summary>
+    [SerializeField] Text[] setScriptTxts;
+    ///<summary> 세트 옵션 설명 텍스트 색상
+    ///<para> 0 발동 이름, 1 발동 설명, 2 미발동 이름, 3 미발동 설명 </para> </summary>
+    Color[] setColors = new Color[] { new Color(1, 1, 1, 1), new Color(0xd3 / 255f, 0xd3 / 255f, 0xd3 / 255f, 1), new Color(0x77 / 255, 0x77 / 255f, 0x77 / 255f, 1), new Color(0x5b / 255f, 0x5a / 255f, 0x5a / 255f, 1) };
 
     public void ResetAllState()
     {
@@ -100,14 +107,36 @@ public class BedPanel : MonoBehaviour, ITownPanel
         foreach(Text t in statDelta)
             t.text = string.Empty;
     }
+    ///<summary> 세트 옵션 정보 업데이트 </summary>
     public void SetTxtUpdate()
     {
-        setTxt.text = string.Empty;
+        foreach(Text text in setNameTxts) text.text = string.Empty;
+        foreach (Text text in setScriptTxts) text.text = string.Empty;
 
-        List<KeyValuePair<string, int>> setList = ItemManager.GetSetList();
+        List<Pair<string, string>> currSetInfos = ItemManager.GetSetInfo();
 
-        foreach(KeyValuePair<string, int> token in setList)
-            setTxt.text += $"{token.Key} {token.Value}세트\n";
+        for(int i = 0;i < 3 && i < currSetInfos.Count;i++)
+        {
+            setNameTxts[i].text = currSetInfos[i].Key;
+            setNameTxts[i].color = setColors[0];
+            setScriptTxts[i].text = currSetInfos[i].Value;
+            setScriptTxts[i].color = setColors[1];
+        }
+    }
+    public void SetTxtUpdate(int setIdx)
+    {
+        foreach(Text text in setNameTxts) text.text = string.Empty;
+        foreach (Text text in setScriptTxts) text.text = string.Empty;
+
+        Pair<string, List<Triplet<bool, int ,string>>> currSetInfos = ItemManager.GetSetInfo(setIdx);
+
+        for(int i = 0;i < 3 && i < currSetInfos.Value.Count;i++)
+        {
+            setNameTxts[i].text = $"{currSetInfos.Key} {currSetInfos.Value[i].second}세트";
+            setNameTxts[i].color = currSetInfos.Value[i].first ? setColors[0] : setColors[2];
+            setScriptTxts[i].text = currSetInfos.Value[i].third;
+            setScriptTxts[i].color = currSetInfos.Value[i].first ? setColors[1] : setColors[3];
+        }
     }
 
     public void EquipIconUpdate()
@@ -118,7 +147,9 @@ public class BedPanel : MonoBehaviour, ITownPanel
             {
                 equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1]?.ebp);
                 equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
-            
+                equipSetImages[i].sprite = SpriteGetter.instance.GetSetIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set);
+                equipSetImages[i].gameObject.SetActive(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set > 0);
+
                 equipSlotImages[i].transform.parent.gameObject.SetActive(true);
                 for(int j = 0;j < 3;j++)
                     stars[i * 3 + j].SetActive(j < GameManager.instance.slotData.itemData.equipmentSlots[i + 1].star);
@@ -126,6 +157,7 @@ public class BedPanel : MonoBehaviour, ITownPanel
             else
             {
                 equipSlotImages[i].transform.parent.gameObject.SetActive(false);
+                equipSetImages[i].gameObject.SetActive(false);
                 for(int j = 0;j < 3;j++)
                     stars[i * 3 + j].SetActive(false);
             }

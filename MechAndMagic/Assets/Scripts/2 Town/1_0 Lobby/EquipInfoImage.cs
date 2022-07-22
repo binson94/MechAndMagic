@@ -9,6 +9,8 @@ public class EquipInfoImage : MonoBehaviour
     [SerializeField] Image frameImage;
     ///<summary> 장비 아이콘 </summary>
     [SerializeField] Image iconImage;
+    ///<summary> 장비 세트 이미지 </summary>
+    [SerializeField] Image setIconImage;
     ///<summary> 장비 레벨 텍스트 </summary>
     [SerializeField] Text lvTxt;
     ///<summary> 장비 성급 표시 이미지 </summary>
@@ -23,12 +25,16 @@ public class EquipInfoImage : MonoBehaviour
         {
             iconImage.gameObject.SetActive(false);
             lvTxt.gameObject.SetActive(false);
+            setIconImage.gameObject.SetActive(false);
             foreach(GameObject go in stars) go.SetActive(false);
         }
         else
         {
             iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e.ebp);
             iconImage.gameObject.SetActive(true);
+            setIconImage.sprite = SpriteGetter.instance.GetSetIcon(e.ebp.set);
+            setIconImage.gameObject.SetActive(e.ebp.set > 0);
+            
             lvTxt.text = $"Lv.{e.ebp.reqlvl}";
             lvTxt.gameObject.SetActive(true);
             for(int i = 0;i < 3;i++) stars[i].SetActive(i < e.star);

@@ -12,7 +12,8 @@ public class PopUpManager : MonoBehaviour
     public void ShowPopUp(string script, RectTransform btnRect, Color txtColor)
     {
         popup.SetParent(btnRect);
-        popup.anchoredPosition = new Vector2(Mathf.Min(0, 540 - popup.rect.width - btnRect.anchoredPosition.x), +95);
+        popup.anchoredPosition = new Vector2(0, 0);
+        popup.position = new Vector3(Mathf.Min(popup.position.x, 1020 - popup.rect.width), popup.position.y, popup.position.z);
         popup.SetParent(viewPoint);
         popupTxt.color = txtColor;
         popupTxt.text = script;

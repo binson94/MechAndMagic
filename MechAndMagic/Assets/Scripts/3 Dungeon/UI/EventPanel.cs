@@ -143,9 +143,11 @@ public class EventPanel : MonoBehaviour
                     break;
                 case EventType.Buff:
                     GameManager.instance.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    DM.BuffIconUpdate();
                     break;
                 case EventType.Debuff:
                     GameManager.instance.EventAddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    DM.BuffIconUpdate();
                     break;
             }
         }

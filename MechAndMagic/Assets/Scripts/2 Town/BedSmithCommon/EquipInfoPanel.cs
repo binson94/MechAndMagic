@@ -14,6 +14,8 @@ public class EquipInfoPanel : MonoBehaviour
     [SerializeField] Image gridImage;
     ///<summary> 아이템 아이콘 이미지 </summary>
     [SerializeField] Image iconImage;
+    ///<summary> 아이템 세트 아이콘 이미지 </summary>
+    [SerializeField] Image setIconImage;
     [SerializeField] GameObject[] starImages;
 
     ///<summary> 등급 표기 색깔, 일반 -> 전설 오름차순 </summar>
@@ -59,6 +61,8 @@ public class EquipInfoPanel : MonoBehaviour
             
             gridImage.sprite = SpriteGetter.instance.GetGrid(e.ebp.rarity);
             iconImage.sprite = SpriteGetter.instance.GetEquipIcon(e.ebp);
+            setIconImage.sprite = SpriteGetter.instance.GetSetIcon(e.ebp.set);
+            setIconImage.gameObject.SetActive(e.ebp.set > 0);
             
             for (int i = 0; i < 3; i++) starImages[i].SetActive(i < e.star);
             gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);
@@ -67,7 +71,7 @@ public class EquipInfoPanel : MonoBehaviour
         {
             foreach (Text t in itemTxts) t.text = string.Empty;
             foreach(GameObject go in starImages) go.SetActive(false);
-            gridImage.gameObject.SetActive(false); iconImage.gameObject.SetActive(false);
+            gridImage.gameObject.SetActive(false); iconImage.gameObject.SetActive(false); setIconImage.gameObject.SetActive(false);
         }
     }
 
@@ -75,6 +79,8 @@ public class EquipInfoPanel : MonoBehaviour
     {
         foreach(Text t in itemTxts) t.text = string.Empty;
         foreach(GameObject go in starImages) go.SetActive(false);
+        setIconImage.gameObject.SetActive(false);
+
         Skill skill = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.idx);
         if (skill != null)
         {
@@ -175,11 +181,14 @@ public class EquipInfoPanel : MonoBehaviour
 
             gridImage.sprite = SpriteGetter.instance.GetGrid(ebp.rarity);
             iconImage.sprite = SpriteGetter.instance.GetRecipeIcon();
+            setIconImage.sprite = SpriteGetter.instance.GetSetIcon(ebp.set);
+            setIconImage.gameObject.SetActive(ebp.set > 0);
+
             gridImage.gameObject.SetActive(true); iconImage.gameObject.SetActive(true);
         }
         else
         {
-            gridImage.gameObject.SetActive(false); iconImage.gameObject.SetActive(false);
+            gridImage.gameObject.SetActive(false); iconImage.gameObject.SetActive(false); setIconImage.gameObject.SetActive(false);
         }
     }
 }

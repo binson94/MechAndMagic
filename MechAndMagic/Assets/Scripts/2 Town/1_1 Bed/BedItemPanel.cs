@@ -246,7 +246,6 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
             SelectedInfoPanelUpdate();
 
             BP.StatTxtUpdate();
-            BP.SetTxtUpdate();
             BP.EquipIconUpdate();
         }
     }
@@ -262,7 +261,6 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
 
         ItemTokenUpdate();
         BP.StatTxtUpdate();
-        BP.SetTxtUpdate();
         BP.EquipIconUpdate();
     }
     ///<summary> 대장간으로 넘어가기, 현재 선택 카테고리 및 장비 유지 </summary>
@@ -306,6 +304,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         Equipment e = ItemManager.GetEquipment(slotPart);
         unequipBtn.SetActive(slotPart != EquipPart.None && e != null);
         slotEquipPanel.InfoUpdate(e);
+        SetInfoUpdate();
     }
     ///<summary> 새로운 장비 선택 정보 UI 업데이트 </summary>
     void SelectedInfoPanelUpdate()
@@ -340,7 +339,18 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
 
                     statDelta[i].text = $"<color=#f93f3d>{statDelta[i].text}</color>";
                 }
-
         }
+        SetInfoUpdate();
+    }
+    void SetInfoUpdate()
+    {
+        Equipment e;
+
+        if(selectedEquip.Value != null && selectedEquip.Value.ebp.set > 0)
+            BP.SetTxtUpdate(selectedEquip.Value.ebp.set);
+        else if(slotPart != EquipPart.None && (e = ItemManager.GetEquipment(slotPart)) != null && e.ebp.set > 0)
+            BP.SetTxtUpdate(e.ebp.set);
+        else
+            BP.SetTxtUpdate();
     }
 }

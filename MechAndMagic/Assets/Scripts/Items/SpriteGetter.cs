@@ -28,6 +28,8 @@ public class SpriteGetter : MonoBehaviour
     [SerializeField] Sprite[] accessorySprites;
     ///<summary> 장비 그리드 스프라이트 </summary>
     [SerializeField] Sprite[] gridSprites;
+    ///<summary> 장비 세트 스프라이트 </summary>
+    [SerializeField] Sprite[] setSprites;
 
     ///<summary> 제작법 스프라이트(0 기계, 1 마법) </summary>
     [Header("Recipe")]
@@ -68,14 +70,16 @@ public class SpriteGetter : MonoBehaviour
         if(ebp == null) return null;
 
         if(ebp.part <= EquipPart.Weapon)
-            return weaponSprites[(ebp.useClass - 1) * 5 + (int)ebp.reqlvl - 1];
+            return weaponSprites[(ebp.useClass - 1) * 5 + (int)ebp.reqlvl / 2];
         else if (ebp.part <= EquipPart.Shoes)
-            return armorSprites[(ebp.useClass / 11 * 4) + (ebp.part - EquipPart.Top)];
+            return armorSprites[(ebp.useClass / 11 * 20) + (ebp.part - EquipPart.Top) * 5 + ebp.reqlvl / 2];
         else
-            return accessorySprites[((int)ebp.part / 7 * 5) + (int)ebp.reqlvl - 1];
+            return accessorySprites[((int)ebp.part / 7 * 5) + (int)ebp.reqlvl / 2];
     }
     ///<summary> 아이템 그리드 반환 </summary>
     public Sprite GetGrid(Rarity rarity) => gridSprites[rarity - Rarity.Common];
+    ///<summary> 장비 세트 아이콘 반환 </summary>
+    public Sprite GetSetIcon(int setIdx) => setSprites[Mathf.Max(0, setIdx - 1)];
     ///<summary> 포션 아이콘 반환 </summary>
     public Sprite GetPotionIcon(int potionIdx) => potionSprites[Mathf.Max(0, potionIdx - 1)];
     ///<summary> 레시피 아이콘 반환 </summary>

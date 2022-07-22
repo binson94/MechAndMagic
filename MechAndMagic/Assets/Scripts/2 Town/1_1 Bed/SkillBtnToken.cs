@@ -92,6 +92,7 @@ public class SkillBtnToken : MonoBehaviour
             skillTxts[0].text = skill.name;
             skillTxts[1].text = $"Lv.{skill.reqLvl}";
             skillTxts[2].text = skill.apCost.ToString();
+            skillAP.SetActive(s.useType == 0);
         }
     }
 

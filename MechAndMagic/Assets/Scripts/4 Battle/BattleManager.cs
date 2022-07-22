@@ -251,6 +251,7 @@ public class BattleManager : MonoBehaviour
         {
             potionBtns[i].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[i]);
             potionBtns[i].gameObject.SetActive(GameManager.instance.slotData.potionSlot[i] > 0);
+            potionBtns[i].color = GameManager.instance.slotData.dungeonData.potionUse[i] ? new Color(1, 1, 1, 0.5f) : Color.white;
         }
     }
     ///<summary> 전투 시작 시 1번만 호출, 아군, 적군 정보 불러오기, 버프 및 디버프 설정, TP값 초기화 </summary>
@@ -737,11 +738,13 @@ public class BattleManager : MonoBehaviour
                 //재활용 포션 - 다른 포션 재사용 가능
                 case 4:
                     GameManager.instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2] = false;
+                    potionBtns[(slotIdx + 1) % 2].color = Color.white;
                     LogManager.instance.AddLog("다른 포션이 사용 가능해졌습니다.");
                     break;
             }
 
             GameManager.instance.slotData.dungeonData.potionUse[slotIdx] = true;
+            potionBtns[slotIdx].color = new Color(1, 1, 1, 0.5f);
             
             StatusUpdate();
         }
@@ -865,7 +868,7 @@ public class BattleManager : MonoBehaviour
 
             QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.instance.slotData.dungeonIdx, 1);
 
-            reportPanel.LoadData();
+            reportPanel.LoadData(true);
             reportPanel.gameObject.SetActive(true);
             GameManager.instance.RemoveDungeonData();
             GameManager.instance.SwitchSceneData(SceneKind.Town);
@@ -881,13 +884,14 @@ public class BattleManager : MonoBehaviour
     ///<summary> 패배, 현재까지의 보상만 가진 채 마을로 귀환 </summary>
     void Lose()
     {
+        StopAllCoroutines();
         state = BattleState.Lose;
         skillBtnPanel.SetActive(false);
         targetBtnPanel.SetActive(false);
         turnEndBtn.SetActive(false);
         LogManager.instance.AddLog("패배하였습니다.");
 
-        reportPanel.LoadData();
+        reportPanel.LoadData(false);
         reportPanel.gameObject.SetActive(true);
         GameManager.instance.RemoveDungeonData();
         GameManager.instance.SwitchSceneData(SceneKind.Town);
@@ -1045,6 +1049,7 @@ public class BattleManager : MonoBehaviour
     #endregion Function_CharSkills
 
     public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
+    public void Btn_Retire() => Lose();
 
     ///<summary> 효과 대상 반환 </summary>
     public List<Unit> GetEffectTarget(int targetIdx)

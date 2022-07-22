@@ -21,7 +21,8 @@ public class DropToken : MonoBehaviour
 
     PopUpManager pm;
 
-    public void Init(PopUpManager pm, List<Triplet<DropType, int, int>> drops)
+    ///<summary> 드랍 정보 불러오기(드랍 타입, 드랍 인덱스, 드랍 갯수) </summary>
+    public void Initialize(PopUpManager pm, List<Triplet<DropType, int, int>> drops)
     {
         this.pm = pm;
         scripts = new string[drops.Count];
@@ -59,7 +60,7 @@ public class DropToken : MonoBehaviour
             }
         }
 
-        for (; i < 5; i++)
+        for (; i < dropCountTxts.Length; i++)
         {
             dropCountTxts[i].text = string.Empty;
             dropIconImages[i].gameObject.SetActive(false);

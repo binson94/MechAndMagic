@@ -60,7 +60,7 @@ public class Status : MonoBehaviour
         {
             BuffToken token = GameManager.GetToken(BM.buffTokenPool, buffTokenParent, BM.buffTokenPrefab);
             buffTokens.Add(token);
-            token.SetImage(PM, b, true);
+            token.Initialize(PM, b, true);
             token.gameObject.SetActive(true);
         }
 
@@ -69,7 +69,7 @@ public class Status : MonoBehaviour
         {
             BuffToken token = GameManager.GetToken(BM.buffTokenPool, buffTokenParent, BM.buffTokenPrefab);
             buffTokens.Add(token);
-            token.SetImage(PM, b, false);
+            token.Initialize(PM, b, false);
             token.gameObject.SetActive(true);
         }
     }
