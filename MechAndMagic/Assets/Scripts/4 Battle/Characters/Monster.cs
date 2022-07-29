@@ -84,11 +84,7 @@ public class Monster : Unit
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
 
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
@@ -134,7 +130,6 @@ public class Monster : Unit
     {
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
-        float rate = 0;
 
         if(skill.idx == 78)
         {
@@ -149,7 +144,6 @@ public class Monster : Unit
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            rate = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -158,7 +152,7 @@ public class Monster : Unit
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = buffStat[skill.effectStat[i]] * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -193,40 +187,6 @@ public class Monster : Unit
 
                         break;
                     }
-                case EffectType.Heal:
-                    {
-                        float heal = buffStat[skill.effectStat[i]] * skill.effectRate[i];
-
-                        foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
-                case EffectType.Active_Buff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach(Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, i, rate);
-                        break;
-                    }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                u.AddDebuff(this, orderIdx, skill, i, rate);
-                        break;
-                    }
-                case EffectType.Active_RemoveBuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
                 case EffectType.CharSpecial1:
                     {
                         //저주 지속 시간 증가
@@ -245,7 +205,10 @@ public class Monster : Unit
 
                         break;
                     }
+                case EffectType.DoNothing:
+                    break;
                 default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
                     break;
             }
         }
@@ -397,10 +360,17 @@ public class Monster : Unit
                 }
             }
 
+            //임플란트 봄 존재 시 폭발
+            if(implantBomb != null)
+            {
+                implantBomb.Bomb(BM, this);
+                implantBomb = null;
+            }
+
             QuestManager.QuestUpdate(QuestType.Kill, monsterIdx, 1);
         }
 
-        return new KeyValuePair<bool, int>(killed, -finalDmg);
+        return new KeyValuePair<bool, int>(killed, finalDmg);
     }
     public override void StatLoad()
     {
@@ -412,6 +382,7 @@ public class Monster : Unit
         }
 
         int jsonIdx = monsterIdx - (int)json[0]["idx"];
+        isBoss = monsterIdx >= 90;
 
         name = json[jsonIdx]["name"].ToString();
         region = (int)json[jsonIdx]["region"];

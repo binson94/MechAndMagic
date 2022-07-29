@@ -60,7 +60,6 @@ public class SkillDB
                 skills[i].apCost = (int)json[i]["apCost"];
                 skills[i].cooldown = (int)json[i]["cool"];
                 skills[i].targetSelect = (int)json[i]["targetSelect"];
-                skills[i].targetSide = (int)json[i]["targetSide"];
                 skills[i].targetCount = (int)json[i]["targetCount"];
             }
 

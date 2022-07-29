@@ -14,9 +14,6 @@ public class ArmedFighter : Character
     //36 피니셔
     int punchCount = 0;
 
-    //30 적응형 아머, 31 충격 동력화
-    bool[] skillOn = new bool[2];
-
     ChargingPunch chargingPunch = null;
 
     public override void OnBattleStart(BattleManager BM)
@@ -44,6 +41,7 @@ public class ArmedFighter : Character
         {
             if (chargingPunch.target.isActiveAndEnabled && !IsStun())
             {
+                SoundManager.Instance.PlaySFX(1);
                 if (Random.Range(0, 100) < chargingPunch.acc)
                 {
                     chargingPunch.target.GetDamage(this, chargingPunch.atk, buffStat[(int)Obj.방어력무시], 100);
@@ -54,22 +52,6 @@ public class ArmedFighter : Character
 
             chargingPunch = null;
         }
-
-        //30 적응형 아머
-        if (skillOn[0])
-        {
-            Skill s = SkillManager.GetSkill(1, 30);
-            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, s.name, s.effectObject[0], dmgs[3], s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-            skillOn[0] = false;
-        }
-        //31 충격 동력화
-        if (skillOn[1])
-        {
-            Skill s = SkillManager.GetSkill(1, 31);
-            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, s.name, s.effectObject[0], dmgs[1], s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-            skillOn[0] = false;
-        }
-
 
         base.OnTurnStart();
         resentCategory = 0;
@@ -89,11 +71,7 @@ public class ArmedFighter : Character
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
 
         Passive_SkillCast(skill);
 
@@ -112,7 +90,7 @@ public class ArmedFighter : Character
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
-        SoundManager.instance.PlaySFX(skill.sfx);
+        SoundManager.Instance.PlaySFX(skill.sfx);
 
         //36 피니셔
         if (skill.category == 1000)
@@ -124,7 +102,7 @@ public class ArmedFighter : Character
         resentCategory = skill.category;
 
         //자가개선 4세트 - 자버프 2번당 무작위 버프 1개 해제
-        if ((selfImproveCount & 1) == 1 && ItemManager.GetSetData(3).Value[2] > 0)
+        if (skill.category == 1002 && (selfImproveCount % 2) == 0 && ItemManager.GetSetData(3).Value[1] > 0)
             RemoveDebuff(1);
 
         orderIdx++;
@@ -149,10 +127,11 @@ public class ArmedFighter : Character
                 //데미지 - 스킬 버프 계산 후 
                 case EffectType.Damage:
                     {
+                        damaged.Clear();
                         StatUpdate_Skill(skill);
 
                         //skillEffectRate가 기본적으로 음수
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
                         {
@@ -171,7 +150,7 @@ public class ArmedFighter : Character
                                 if (HasSkill(23) && accCount >= 3)
                                 {
                                     accCount = 0;
-                                    AddBuff(this, -4, SkillManager.GetSkill(1, 23), 0, 0);
+                                    AddBuff(this, orderIdx, SkillManager.GetSkill(1, 23), 0, 0);
                                 }
 
                                 isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
@@ -189,40 +168,8 @@ public class ArmedFighter : Character
 
                         break;
                     }
-                case EffectType.Heal:
-                    {
-                        float heal = stat * skill.effectRate[i];
-
-                        foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
-                case EffectType.Active_Buff:
-                    {
-                        if (skill.effectCond[i] == 0 || (skill.effectCond[i] == 1 && isAcc) || (skill.effectCond[i] == 2 && isCrit))
-                            foreach (Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[i] == 0 || (skill.effectCond[i] == 1 && isAcc) || (skill.effectCond[i] == 2 && isCrit))
-                            foreach (Unit u in effectTargets)
-                                u.AddDebuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_RemoveBuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
+                case EffectType.DoNothing:
+                    break;
                 case EffectType.CharSpecial1:
                     {
                         //머신건 히트 히트수 결정
@@ -242,15 +189,13 @@ public class ArmedFighter : Character
                     }
                 case EffectType.CharSpecial2:
                     {
-                        AddBuff(this, orderIdx, skill, i, 0);
                         StatUpdate_Skill(skill);
 
                         chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.공격력], buffStat[(int)Obj.명중률]);
-                        //AP 값 0으로
-                        buffStat[(int)Obj.행동력] = buffStat[(int)Obj.currAP] = 0;
                         break;
                     }
                 default:
+                    ActiveDefaultCase(skill, i, effectTargets, stat);
                     break;
             }
         }
@@ -323,21 +268,30 @@ public class ArmedFighter : Character
         {
             Skill skill = SkillManager.GetSkill(classIdx, passiveIdxs[j]);
 
+            //26 신체 활성화
+            if(skill.idx == 26)
+            {
+                //강화 계열 스킬 사용 시 회복
+                if(active.category == skill.effectCond[0])
+                    GetHeal(GetEffectStat(null, skill.effectStat[0]) * skill.effectRate[0]);
+                
+                continue;
+            }
             //32 콤비네이션 히트
-            if (skill.idx == 32)
+            else if (skill.idx == 32)
             {
                 if (active.category == 1000 && resentCategory == 1001 || active.category == 1001 && resentCategory == 1000)
                 {
                     //종합 타격 4세트 - 버프율 증가
                     float rate = skill.effectRate[0] * (1 +  ItemManager.GetSetData(1).Value[1]);
-                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], skill.effectStat[0], rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], 1, rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
                 }
                 continue;
             }
 
             for (int i = 0; i < skill.effectCount; i++)
             {
-                if (active.category != 0 && active.category != skill.effectCond[i])
+                if (skill.effectCond[i] != 0 && active.category != skill.effectCond[i])
                     continue;
 
                 switch ((EffectType)skill.effectType[i])

@@ -28,7 +28,7 @@ public class DisassemblePanel : MonoBehaviour, ITownPanel
 
             resourceIcons[j].sprite = SpriteGetter.instance.GetResourceIcon(resourceInfo.Key);
             resourceIcons[j].gameObject.SetActive(true);
-            resourceTxts[j].text = $"({GameManager.instance.slotData.itemData.basicMaterials[resourceInfo.Key]} + {require})";
+            resourceTxts[j].text = $"({GameManager.Instance.slotData.itemData.basicMaterials[resourceInfo.Key]} + {require})";
             j++;
         }
 

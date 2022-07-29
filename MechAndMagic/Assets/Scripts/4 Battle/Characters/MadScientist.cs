@@ -5,11 +5,13 @@ using System.Linq;
 
 public class MadScientist : Character
 {
+    ///<summary> 144 시선 집중 기계, 157 하이라이트 부츠, 162 골렘 주종 역전 </summary>
     public bool isMagnetic = false;
+    ///<summary> 171 타임리프 </summary>
     public int turnCount = 0;
     
+    ///<summary> 카오스 패닉 2세트 - 폭탄 AP 감소 시 사용 </summary>
     int bombState = 0;
-    int uncontrolCount = 0;
 
     public override void OnBattleStart(BattleManager BM)
     {
@@ -64,11 +66,7 @@ public class MadScientist : Character
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
 
         Passive_SkillCast(skill);
 
@@ -86,29 +84,33 @@ public class MadScientist : Character
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
-        SoundManager.instance.PlaySFX(skill.sfx);
+        SoundManager.Instance.PlaySFX(skill.sfx);
 
         //144 시선 집중 기계, 157 하이라이트 부츠 - 자석탱
-        if(skill.idx == 144 || skill.idx == 157)
+        if (skill.idx == 144 || skill.idx == 157)
         {
-            turnBuffs.Add(new Buff(BuffType.None, new BuffOrder(this), skill.name, 0, 0, 0, 0, 3, 1, 1));
+            turnBuffs.Add(new Buff(BuffType.None, new BuffOrder(this, orderIdx), skill.name, (int)Obj.Magnetic, 0, 0, 0, 3, 1, 1));
             isMagnetic = true;
         }
-        //165 업그레이드 세트
-        if(skill.idx == 165)
+        //148 업그레이드 파츠
+        else if(skill.idx == 148)
         {
-            Skill tmp = SkillManager.GetSkill(classIdx, 165);
+            Unit target = BM.GetEffectTarget(2)[0];
+
+            target.AddBuff(this, orderIdx, skill, 0, 0);
+            target.AddBuff(this, orderIdx, skill, 1, 0);
+        }
+        //165 업그레이드 세트
+        else if(skill.idx == 165)
+        {
             for (int i = 0; i < 3; i++)
             {
                 Unit target = BM.GetEffectTarget(2)[0];
 
-                target.AddBuff(this, orderIdx, tmp, 0, 0);
-                target.AddBuff(this, orderIdx++, tmp, 1, 0);
+                target.AddBuff(this, orderIdx, skill, 0, 0);
+                target.AddBuff(this, orderIdx++, skill, 1, 0);
             }
         }
-
-        if (skill.idx == 130 || skill.idx == 139 || skill.idx == 149 || skill.idx == 164)
-            uncontrolCount++;
 
         //카오스 패닉 2세트 - 유독류탄, 교란 폭탄 둘 중 하나 사용 시 이번 턴 동안 다른 스킬 AP 소모량 절반
         if (bombState == 0 && ItemManager.GetSetData(10).Value[0] > 0)
@@ -137,12 +139,9 @@ public class MadScientist : Character
         float stat;
         int count = skill.effectCount;
 
-        //카오스 패닉 4세트 - 통제불능 스킬 히트 수 1 증가
-        if(ItemManager.GetSetData(10).Value[1] > 0 && uncontrolCount == 4 && (skill.idx == 130 || skill.idx == 139 || skill.idx == 149 || skill.idx == 164))
-        {
-            uncontrolCount = 0;
-            count++;
-        }
+        //카오스 패닉 4세트 - 통제불능 스킬 히트 수 1 증가(기본적으로 늘어난 상태, 만족 안하면 1 빼줌)
+        if (ItemManager.GetSetData(10).Value[1] <= 0 && (skill.idx == 130 || skill.idx == 139 || skill.idx == 149 || skill.idx == 164))
+            count--;
 
         for (int i = 0; i < count; i++)
         {
@@ -240,18 +239,8 @@ public class MadScientist : Character
                                     u.AddDebuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case EffectType.Active_RemoveBuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
+                case EffectType.DoNothing:
+                    break;
                 case EffectType.CharSpecial1:
                     {
                         //골렘 조종 스킬
@@ -259,6 +248,7 @@ public class MadScientist : Character
                         break;
                     }
                 default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
                     break;
             }
         }
@@ -268,12 +258,8 @@ public class MadScientist : Character
     public void GolemKills()
     {
         for(int i = 0;i < activeIdxs.Length;i++)
-        {
-            Skill s = SkillManager.GetSkill(classIdx, activeIdxs[i]);
-            
-            if(s.idx == 168 || s.idx == 169)
-                cooldowns[i] = 0;
-        }
+            if(activeIdxs[i] == 168 || activeIdxs[i] == 169)
+                cooldowns[i] = 0; 
     }
 
     protected override void Passive_BattleStart()
@@ -300,11 +286,11 @@ public class MadScientist : Character
                         effectTargets = BM.GetEffectTarget(s.effectTarget[i]);
                         break;
                 }
-                
+
                 //기초 과학자 2세트 - 1레벨 패시브 강화
-                if((s.idx == 132 || s.idx == 133 || s.idx == 134) && rate > 0)
+                if (s.idx == 132 || s.idx == 133 || s.idx == 134)
                 {
-                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], s.effectStat[0], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], buffStat[s.effectStat[0]], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
                     continue;
                 }
                 switch ((EffectType)s.effectType[i])

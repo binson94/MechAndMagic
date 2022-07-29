@@ -35,7 +35,7 @@ public class BuffSlot
     ///<summary> 새로운 버프 추가 </summary>
     public void Add(Buff b)
     {
-        var tmp = from x in buffs where x.type == b.type && x.name == b.name && x.order.Equal(b.order) select x;
+        var tmp = from x in buffs where x.type == b.type && x.name == b.name && x.duration == b.duration && x.isDispel == b.isDispel && x.order.Equal(b.order) select x;
         if (tmp.Count() > 0)
             tmp.First().Add(b);
         else
@@ -101,8 +101,10 @@ public class BuffSlot
 
             for (int j = 0; j < b.count; j++)
             {
-                if (b.objectIdx[j] <= 0 || 12 <= b.objectIdx[j])
+                if (b.objectIdx[j] <= 0 || 13 <= b.objectIdx[j])
                     continue;
+
+                //Debug.Log($"{b.name}, {b.objectIdx[j]}, {b.buffRate[j]}, {b.isMulti[j]}");
 
                 if(isBuff)
                 {
@@ -186,6 +188,7 @@ public class Buff
         objectIdx[0] = obj;
         buffRate = new float[1];
         buffRate[0] = stat * rate;
+
         isMulti = new bool[1];
         isMulti[0] = mul == 1;
 
@@ -213,27 +216,25 @@ public class Buff
     }
 }
 
+///<summary> 44 빠르게 막기, 78 절대 방어 </summary>
 public class GuardBuff
 {
+    ///<summary> 스킬 이름 </summary>
     public string name;
 
-    //버프 횟수
-    public int buffTime;
+    ///<summary> 방어 횟수 </summary>
+    public int shieldCount;
 
-    //반격 여부
+    ///<summary> 반격 여부 </summary>
     public bool isReturn;
-
-    public int objectIdx;
+    ///<summary> 방어력 상승 정도
     public float rate;
-    public bool isMulti;
 
-    public GuardBuff(string name = "", int time = 0, bool ret = false, int obj = 0, float rate = 0, bool mul = false)
+    public GuardBuff(string name = "", int buffCount = 0, bool ret = false, float rate = 0)
     {
         this.name = name;
-        buffTime = time;
+        shieldCount = buffCount;
         isReturn = ret;
-        objectIdx = obj;
         this.rate = rate;
-        isMulti = mul;
     }
 }

@@ -172,7 +172,7 @@ public class Dungeon
             case RoomType.Negative:
                 {
                     var events = from token in eventPools
-                                 where token.eventType == r.type && (token.region == 0 || token.region == GameManager.instance.slotData.region)
+                                 where token.eventType == r.type && (token.region == 0 || token.region == GameManager.Instance.slotData.region)
                                  select token.idx;
                     r.roomEventIdx = events.Skip(Random.Range(0, events.Count())).First();
                     break;
@@ -317,7 +317,7 @@ public class Dungeon
                 r.type = (RoomType)i;
                 
                 var events = from token in eventPools
-                                 where token.eventType == r.type && (token.region == 0 || token.region == GameManager.instance.slotData.region)
+                                 where token.eventType == r.type && (token.region == 0 || token.region == GameManager.Instance.slotData.region)
                                  select token.idx;
                 r.roomEventIdx = events.Skip(Random.Range(0, events.Count())).First();
             }

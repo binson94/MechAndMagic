@@ -33,7 +33,7 @@ public class SkillbookPanel : MonoBehaviour, ITownPanel
         LoadReqSkillInfo();
         
 
-        bool learned = GameManager.instance.slotData.itemData.IsLearned(SP.SelectedSkillbook.Value.idx);
+        bool learned = GameManager.Instance.slotData.itemData.IsLearned(SP.SelectedSkillbook.Value.idx);
         canLearn &= !learned;
 
         Color color = canLearn ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0.5f);
@@ -72,15 +72,15 @@ public class SkillbookPanel : MonoBehaviour, ITownPanel
     ///<summary> 선행 스킬 정보 불러오기 </summary>
     void LoadReqSkillInfo()
     {
-        Skill skill = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, SP.SelectedSkillbook.Value.idx);
+        Skill skill = SkillManager.GetSkill(GameManager.SlotClass, SP.SelectedSkillbook.Value.idx);
         reqSkillTxt.text = string.Empty;
         for (int i = 0; i < 3; i++)
-            if (skill.reqskills[i] != 0 && GameManager.instance.slotData.itemData.learnedSkills.Contains(skill.reqskills[i]))
-                reqSkillTxt.text = $"{reqSkillTxt.text}{SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skill.reqskills[i]).name}\n";
+            if (skill.reqskills[i] != 0 && GameManager.Instance.slotData.itemData.learnedSkills.Contains(skill.reqskills[i]))
+                reqSkillTxt.text = $"{reqSkillTxt.text}{SkillManager.GetSkill(GameManager.SlotClass, skill.reqskills[i]).name}\n";
             else if (skill.reqskills[i] != 0)
             {
                 canLearn = false;
-                reqSkillTxt.text = $"{reqSkillTxt.text}<color=#ed2929>{SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skill.reqskills[i]).name}</color>\n";
+                reqSkillTxt.text = $"{reqSkillTxt.text}<color=#ed2929>{SkillManager.GetSkill(GameManager.SlotClass, skill.reqskills[i]).name}</color>\n";
             }
         if (reqSkillTxt.text == string.Empty) reqSkillTxt.text = "없음";
     }

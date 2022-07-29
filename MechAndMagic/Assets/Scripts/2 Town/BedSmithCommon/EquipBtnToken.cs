@@ -98,7 +98,7 @@ public class EquipBtnToken : MonoBehaviour
         if(categorizedSkillbooks != null)
             for (; i < 4 && startPos + i < categorizedSkillbooks.Count; i++)
             {
-                Skill skill = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, categorizedSkillbooks[startPos + i].Value.idx);
+                Skill skill = SkillManager.GetSkill(GameManager.SlotClass, categorizedSkillbooks[startPos + i].Value.idx);
 
                 skillbookInfos[i] = categorizedSkillbooks[startPos + i];
                 iconImages[i].sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
@@ -116,7 +116,7 @@ public class EquipBtnToken : MonoBehaviour
     ///<summary> 장비 선택 버튼 </summary>
     public void Btn_Equip(int idx)
     {
-        SoundManager.instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX(22);
         if (SP != null)
         {
             if (tokenKind == 0)

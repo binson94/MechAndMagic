@@ -49,13 +49,20 @@ public class DropToken : MonoBehaviour
                     ebp = ItemManager.GetEBP(drops[i].second);
                     dropIconImages[i].sprite = SpriteGetter.instance.GetRecipeIcon();
                     colorIdx[i] = ebp.rarity - Rarity.Common;
-                    scripts[i] = $"제작법 : {ebp.name}";
+
+                    if(GameManager.Instance.slotData.region == 10)
+                        scripts[i] = $"설계도 : {ebp.name}";
+                    else
+                        scripts[i] = $"비법서 : {ebp.name}";
                     break;
                 case DropType.Skillbook:
-                    Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, drops[i].second);
+                    Skill s = SkillManager.GetSkill(GameManager.SlotClass, drops[i].second);
                     dropIconImages[i].sprite = SpriteGetter.instance.GetSkillIcon(s.icon);
                     colorIdx[i] = 5;
-                    scripts[i] = $"교본 : {s.name}";
+                    if(GameManager.Instance.slotData.region == 10)
+                        scripts[i] = $"교본 : {s.name}";
+                    else
+                        scripts[i] = $"마법서 : {s.name}";
                     break;
             }
         }

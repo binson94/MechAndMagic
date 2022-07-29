@@ -53,7 +53,7 @@ public class RepairPanel : MonoBehaviour
 
 
     private void Start() {
-        nameTxt.text = GameManager.instance.slotData.className;
+        nameTxt.text = GameManager.Instance.slotData.className;
         LoadEquipInfo();
         LoadSkillInfo();
     }
@@ -71,12 +71,12 @@ public class RepairPanel : MonoBehaviour
     public void Btn_Equip(int part)
     {
         potionPanel.InfoUpdate(0);
-        equipPanel.InfoUpdate(GameManager.instance.slotData.itemData.equipmentSlots[part]);
+        equipPanel.InfoUpdate(GameManager.Instance.slotData.itemData.equipmentSlots[part]);
     }
     public void Btn_Potion(int slotIdx)
     {
         equipPanel.InfoUpdate(null as Equipment);
-        potionPanel.InfoUpdate(GameManager.instance.slotData.potionSlot[slotIdx], GameManager.instance.slotData.dungeonData.potionUse[slotIdx]);
+        potionPanel.InfoUpdate(GameManager.Instance.slotData.potionSlot[slotIdx], GameManager.Instance.slotData.dungeonData.potionUse[slotIdx]);
     }
     ///<summary> 장착 중인 스킬 세부 정보 보이기 </summary>
     public void Btn_Skill(int skillSlotIdx)
@@ -92,16 +92,16 @@ public class RepairPanel : MonoBehaviour
     {
         for (int i = 0; i < 7; i++)
         {
-            if(GameManager.instance.slotData.itemData.equipmentSlots[i + 1] != null)
+            if(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1] != null)
             {
-                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1]?.ebp);
-                equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
-                equipSetImages[i].sprite = SpriteGetter.instance.GetSetIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set);
-                equipSetImages[i].gameObject.SetActive(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set > 0);
+                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1]?.ebp);
+                equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
+                equipSetImages[i].sprite = SpriteGetter.instance.GetSetIcon(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp.set);
+                equipSetImages[i].gameObject.SetActive(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp.set > 0);
 
                 equipSlotImages[i].transform.parent.gameObject.SetActive(true);
                 for(int j = 0;j < 3;j++)
-                    stars[i * 3 + j].SetActive(j < GameManager.instance.slotData.itemData.equipmentSlots[i + 1].star);
+                    stars[i * 3 + j].SetActive(j < GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].star);
             }
             else
             {
@@ -112,10 +112,10 @@ public class RepairPanel : MonoBehaviour
             }
         }
 
-        equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[0]);
-        equipSlotImages[7].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
-        equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[1]);
-        equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
+        equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.Instance.slotData.potionSlot[0]);
+        equipSlotImages[7].transform.parent.gameObject.SetActive(GameManager.Instance.slotData.potionSlot[0] > 0);
+        equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.Instance.slotData.potionSlot[1]);
+        equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.Instance.slotData.potionSlot[1] > 0);
 
         LoadSetInfo();
 
@@ -144,13 +144,12 @@ public class RepairPanel : MonoBehaviour
     ///<summary> 스텟 정보 불러오기 </summary>
     void LoadStatInfo()
     {
-        int lvl = GameManager.instance.slotData.lvl;
-        statTxts[0].text = $"{lvl}";
+        statTxts[0].text = $"{GameManager.SlotLvl}";
 
-        if (lvl <= 9)
+        if (GameManager.SlotLvl <= 9)
         {
-            statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[lvl]}";
-            expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[lvl];
+            statTxts[1].text = $"{GameManager.Instance.slotData.exp} / {GameManager.GetReqExp()}";
+            expSlider.value = GameManager.Instance.slotData.exp / (float)GameManager.GetReqExp();
         }
         else
         {
@@ -163,7 +162,7 @@ public class RepairPanel : MonoBehaviour
         for (i = j = 2; i < 13; i++, j++)
         {
             if (i == 3) i++;
-            statTxts[j].text = GameManager.instance.slotData.itemStats[i].ToString();
+            statTxts[j].text = GameManager.Instance.slotData.itemStats[i].ToString();
         }
 
         statTxts[8].text = $"{statTxts[8].text}%";
@@ -173,7 +172,7 @@ public class RepairPanel : MonoBehaviour
     void LoadDropInfo()
     {
         ResetDropInfo();
-        List<Triplet<DropType, int, int>> drops = GameManager.instance.slotData.dungeonData.dropList;
+        List<Triplet<DropType, int, int>> drops = GameManager.Instance.slotData.dungeonData.dropList;
 
         DropToken token;
         List<Triplet<DropType, int, int>> idxs = new List<Triplet<DropType, int, int>>();

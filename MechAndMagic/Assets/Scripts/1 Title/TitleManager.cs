@@ -31,6 +31,7 @@ public class TitleManager : MonoBehaviour
     ///<summary> 슬롯 삭제 시 재확인창 </summary>
     [SerializeField] GameObject slotDeletePanel;
     #endregion GameSlot
+    [SerializeField] Text testTxt;
 
     TitleState state;
 
@@ -40,16 +41,16 @@ public class TitleManager : MonoBehaviour
         
         PanelSet();
         SlotUpdate();
-        SoundManager.instance.PlayBGM(BGMList.Title);
+        SoundManager.Instance.PlayBGM(BGMList.Title);
     }
 
     #region Start
     ///<summary> 진행 중이던 슬롯 불러옴 </summary>
     public void Btn_LoadSlot(int slot)
     {
-        GameManager.instance.LoadSlotData(slot);
+        GameManager.Instance.LoadSlotData(slot);
         ItemManager.LoadSetData();
-        GameManager.instance.LoadScene(GameManager.instance.slotData.nowScene);
+        GameManager.Instance.LoadScene(GameManager.Instance.slotData.nowScene);
     }
 
     #region start_New
@@ -80,9 +81,10 @@ public class TitleManager : MonoBehaviour
     ///<summary> 캐릭터 선택 확정 - 게임 시작 </summary>
     public void Btn_ConfirmClassSelect()
     {
-        GameManager.instance.CreateNewSlot(currSlot, currClass);
+        GameManager.Instance.CreateNewSlot(currSlot, currClass);
         ItemManager.LoadSetData();
-        GameManager.instance.LoadScene(SceneKind.Story);
+        
+        GameManager.Instance.LoadScene(SceneKind.Story);
     }
     ///<summary> 캐릭터 선택 취소 - 캐릭터 선택 창 보여줌 </summary>
     public void Btn_CancelClassSelect()
@@ -102,7 +104,7 @@ public class TitleManager : MonoBehaviour
     ///<summary> 슬롯 삭제 확인 </summary>
     public void Btn_ConfirmDeleteSlot()
     {
-        GameManager.instance.DeleteSlot(currSlot);
+        GameManager.Instance.DeleteSlot(currSlot);
         currSlot = -1;
 
         slotDeletePanel.SetActive(false);
@@ -142,7 +144,22 @@ public class TitleManager : MonoBehaviour
             uiPanels[i].SetActive(i == (int)state);
         creditPanel.SetActive(false);
     }
+
+    public void Btn_Login()
+    {
+        GPGSManager.Instance.Login((isSuccess, userData) =>
+        {
+            if(isSuccess)
+            {
+                testTxt.text = $"{userData.userName}, {userData.id}, {userData.userName}";
+            }
+        });
+    }
+    public void Btn_LogOut()
+    {
+        GPGSManager.Instance.Logout();
+    }
     
-    public void Btn_Sound() => SoundManager.instance.PlaySFX(22);
+    public void Btn_Sound() => SoundManager.Instance.PlaySFX(22);
     public void Btn_Title_Exit() => Application.Quit();
 }

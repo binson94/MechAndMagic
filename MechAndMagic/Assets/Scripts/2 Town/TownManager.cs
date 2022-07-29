@@ -52,10 +52,11 @@ public class TownManager : MonoBehaviour
     #endregion PlayerInfoPanel
 
     [SerializeField] GameObject optionPanel;
+    [SerializeField] CashPanel cashPanel;
 
     private void Start()
     {
-        bgImage.sprite = bgSprites[2 * (GameManager.instance.slotData.slotClass / 5) + ((GameManager.instance.slotData.chapter - 1) / 2)];
+        bgImage.sprite = bgSprites[2 * (GameManager.SlotClass / 5) + ((GameManager.Instance.slotData.chapter - 1) / 2)];
 
         //ITownPanel GetComponent로 얻음
         townPanels = new ITownPanel[uiPanels.Length];
@@ -65,12 +66,15 @@ public class TownManager : MonoBehaviour
         //Lobby 판넬에서 시작
         Btn_SelectPanel(0);
 
-        SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Town{(GameManager.instance.slotData.chapter + 1) / 2}"));
+        SoundManager.Instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Town{(GameManager.Instance.slotData.chapter + 1) / 2}"));
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Btn_OpenOption();
+        {
+            cashPanel.gameObject.SetActive(false);
+            optionPanel.SetActive(true);
+        }
     }
 
     ///<summary> 판넬 선택 버튼 </summary>
@@ -127,15 +131,15 @@ public class TownManager : MonoBehaviour
         ///<summary> 플레이어 레벨 및 직업 표시 </summary>
         void LoadPlayerInfo()
         {
-            classTxt.text = GameManager.instance.slotData.className;
-            lvlTxt.text = $"Lv.{GameManager.instance.slotData.lvl}";
+            classTxt.text = GameManager.Instance.slotData.className;
+            lvlTxt.text = $"Lv.{GameManager.SlotLvl}";
         }
         ///<summary> 현재 장착한 장비 정보 불러오기, 장비 정보 창에 적용 </summary>
         void LoadItemInfo()
         {
             for (int i = 0; i < 7; i++)
             {
-                Equipment e = GameManager.instance.slotData.itemData.equipmentSlots[i + 1];
+                Equipment e = GameManager.Instance.slotData.itemData.equipmentSlots[i + 1];
                 if (e == null)
                     equipInfos[i].SetImage(equipFrameSprites[0], e);
                 else
@@ -161,12 +165,15 @@ public class TownManager : MonoBehaviour
         }
     }
 
-    public void Btn_OpenOption() => optionPanel.SetActive(true);
+    public void Btn_OpenCashPanel()
+    {
+        cashPanel.ResetAllState();
+        cashPanel.gameObject.SetActive(true);
+    }
     public void Btn_GoToTitle()
     {
-        GameManager.instance.slotData = null;
-        GameManager.instance.LoadScene(SceneKind.Title);
+        GameManager.Instance.slotData = null;
+        GameManager.Instance.LoadScene(SceneKind.Title);
     }
-
-    public void Btn_SFX() => SoundManager.instance.PlaySFX(22);
+    public void Btn_SFX() => SoundManager.Instance.PlaySFX(22);
 }

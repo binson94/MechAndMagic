@@ -40,10 +40,6 @@ public class Skill
     [Header("Target Select")]
     ///<summary> 타겟 선택 여부(0 : x, 1 : 선택) </summary>
     public int targetSelect;
-
-    //밑의 두 개는 TargetSelect가 1이어야 유효
-    ///<summary> 타겟 선택 시 소속(0 : 아군, 1 : 적군, 2 : 소환수, 3 : 미구분) </summary>
-    public int targetSide;
     ///<summary> 타겟 선택 수(1 ~ 4) </summary>
     public int targetCount;
 
@@ -87,5 +83,14 @@ public class Skill
         effectTurn = new int[effectCount];
         effectDispel = new int[effectCount];
         effectVisible = new int[effectCount];
+    }
+
+    ///<summary> 스킬에 디버프 존재 여부 반환, 드루이드가 사용 </summary>
+    public bool HasDebuff()
+    {
+        for(int i = 0;i < effectCount;i++)
+            if(effectType[i] == (int)EffectType.Active_Debuff && (effectTarget[i] == 1 || (4 <= effectTarget[i] && effectTarget[i] <= 6)))
+                return true;
+        return false;
     }
 }

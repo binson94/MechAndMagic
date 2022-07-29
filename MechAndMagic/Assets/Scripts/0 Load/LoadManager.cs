@@ -8,8 +8,8 @@ public class LoadManager : MonoBehaviour
     [SerializeField] UnityEngine.UI.Text stateTxt;
     [SerializeField] bool canStart = false;
     private async void Start() {
-        Task bgmTask = SoundManager.instance.LoadBGM();
-        Task sfxTask = SoundManager.instance.LoadSFX();
+        Task bgmTask = SoundManager.Instance.LoadBGM();
+        Task sfxTask = SoundManager.Instance.LoadSFX();
         await Task.WhenAll(bgmTask, sfxTask);
 
         stateTxt.text = "터치하여 시작";

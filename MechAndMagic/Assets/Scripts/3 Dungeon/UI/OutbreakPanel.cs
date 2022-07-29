@@ -18,7 +18,7 @@ public class OutbreakPanel : MonoBehaviour
     ///<summary> 돌발 퀘스트 방 도달 시 호출 </summary>
     public void OnOutbreakRoom()
     {
-        QuestManager.AcceptQuest(true, GameManager.instance.slotData.dungeonData.currRoomEvent);
+        QuestManager.AcceptQuest(true, GameManager.Instance.slotData.dungeonData.currRoomEvent);
         QuestBlueprint qbp = QuestManager.GetProceedingQuestData()[3].Key;
         outbreakTxt.text = $"{qbp.getScript}\n<color=#7cd1e8>- {qbp.script}</color>";
         DM.LoadQuestData();
@@ -35,7 +35,7 @@ public class OutbreakPanel : MonoBehaviour
     {
         isReroll = true;
 
-        int newQuest = GameManager.instance.slotData.dungeonData.currDungeon.GetNewOutbreak(GameManager.instance.slotData.dungeonData.currRoomEvent);
+        int newQuest = GameManager.Instance.slotData.dungeonData.currDungeon.GetNewOutbreak(GameManager.Instance.slotData.dungeonData.currRoomEvent);
         QuestManager.AcceptQuest(true, newQuest);
 
         rerollBtn.color = new Color(1, 1, 1, 100f / 255);

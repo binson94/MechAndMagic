@@ -17,9 +17,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 3,
      "sfx": 0,
      "effectType": [
         3,
@@ -37,8 +36,8 @@
      ],
      "effectTarget": [
         0,
-        0,
-        1,
+        4,
+        4,
         0,
         0
      ],
@@ -57,14 +56,14 @@
         0
      ],
      "effectRate": [
-        40,
+        0.4,
         20,
         0.9,
         0,
         0
      ],
      "effectCalc": [
-        0,
+        1,
         0,
         0,
         0,
@@ -110,9 +109,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 5,
      "sfx": 0,
      "effectType": [
         3,
@@ -203,7 +201,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -243,14 +240,14 @@
         0
      ],
      "effectRate": [
-        40,
+        0.4,
         0,
         0,
         0,
         0
      ],
      "effectCalc": [
-        0,
+        1,
         0,
         0,
         0,
@@ -296,9 +293,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 2,
      "sfx": 0,
      "effectType": [
         1,
@@ -315,7 +311,7 @@
         0
      ],
      "effectTarget": [
-        1,
+        4,
         12,
         0,
         0,
@@ -389,7 +385,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -482,9 +477,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 2,
      "sfx": 0,
      "effectType": [
         3,
@@ -575,9 +569,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 4,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         2,
@@ -608,7 +601,7 @@
         0
      ],
      "effectStat": [
-        20,
+        2,
         0,
         0,
         0,
@@ -668,7 +661,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -701,14 +693,14 @@
         0
      ],
      "effectStat": [
-        20,
+        2,
         0,
         0,
         0,
         0
      ],
      "effectRate": [
-        0.2,
+        0.15,
         0,
         0,
         0,
@@ -744,7 +736,7 @@
      ]
   },
    {
-     "name": "기본 공격",
+     "name": "골렘 펀치",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -761,7 +753,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,

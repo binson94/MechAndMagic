@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ReportPanel : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class ReportPanel : MonoBehaviour
     public void LoadData(bool isClear)
     {
         successTxt.text = isClear ? "- <color=#86ff64>성공</color>" : "- <color=#F43021>실패</color>";
+
         LoadOutbreakData();
         LoadExpData();
         LoadDropData();
@@ -40,7 +42,7 @@ public class ReportPanel : MonoBehaviour
     void LoadOutbreakData()
     {
         KeyValuePair<QuestBlueprint, int> outbreak = QuestManager.GetProceedingQuestData()[3];
-        QuestProceed outbreakProceed = GameManager.instance.slotData.questData.outbreakProceed;
+        QuestProceed outbreakProceed = GameManager.Instance.slotData.questData.outbreakProceed;
 
         //돌발 퀘스트 없음 -> 돌발 퀘스트 정보 제거
         if(outbreakProceed.state == QuestState.NotReceive || outbreakProceed.idx <= 0)
@@ -70,18 +72,17 @@ public class ReportPanel : MonoBehaviour
     ///<summary> 경험치 획득 정보 불러오기 </summary>
     void LoadExpData()
     {
-        int lvl = GameManager.instance.slotData.lvl;
-        if (lvl <= 9)
-            expSlider.value = (float)GameManager.instance.slotData.exp / GameManager.reqExp[lvl];
+        if (GameManager.SlotLvl <= 9)
+            expSlider.value = (float)GameManager.Instance.slotData.exp / GameManager.GetReqExp();
         else
             expSlider.value = 1;
-        expTxt.text =$"+ {GameManager.instance.slotData.dungeonData.dropExp} exp";
-        lvlUpTxt.SetActive(GameManager.instance.slotData.dungeonData.isLvlUp);
+        expTxt.text =$"+ {GameManager.Instance.slotData.dungeonData.dropExp} exp";
+        lvlUpTxt.SetActive(GameManager.Instance.slotData.dungeonData.isLvlUp);
     }
     ///<summary> 아이템 획득 정보 불러오기 </summary>
     void LoadDropData()
     {
-        List<Triplet<DropType, int, int>> drops = GameManager.instance.slotData.dungeonData.dropList;
+        List<Triplet<DropType, int, int>> drops = GameManager.Instance.slotData.dungeonData.dropList;
 
         DropToken token;
         List<Triplet<DropType, int, int>> idxs = new List<Triplet<DropType, int, int>>();
@@ -99,6 +100,6 @@ public class ReportPanel : MonoBehaviour
     }
 
     ///<summary> 마을로 돌아가기 버튼 </summary>
-    public void Btn_GoToTown() => GameManager.instance.LoadScene(SceneKind.Town);
+    public void Btn_GoToTown() => GameManager.Instance.LoadScene(SceneKind.Town);
     
 }

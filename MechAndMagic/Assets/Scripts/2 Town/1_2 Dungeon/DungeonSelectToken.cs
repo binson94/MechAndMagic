@@ -40,7 +40,7 @@ public class DungeonSelectToken : MonoBehaviour
         nameTxt.text = json[jsonIdx]["name"].ToString();
         recLvlTxt.text = $"권장 레벨 : Lv.{(int)json[jsonIdx]["reclvl"]}";
 
-        if(GameManager.instance.slotData.lvl < (tmp = (int)json[jsonIdx]["reqlvl"]))
+        if(GameManager.SlotLvl < (tmp = (int)json[jsonIdx]["reqlvl"]))
         {
             isLock = true; lockReasonTxt.text = $"레벨 {tmp} 달성 필요";
         }
@@ -55,11 +55,11 @@ public class DungeonSelectToken : MonoBehaviour
         startBtn.SetActive(false);
     }
     
-    public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
+    public void Btn_PlaySFX() => SoundManager.Instance.PlaySFX(22);
     public void ToggleStartBtn(bool show) => startBtn.gameObject.SetActive(show);
 
     ///<summary> 던전 이름 누를 시, 설명 보여주기 토글 </summary>
-    public void Btn_ToggleScript() { mgr.Btn_SelectDungeon(dungeonIdx); SoundManager.instance.PlaySFX(22); }
+    public void Btn_ToggleScript() { mgr.Btn_SelectDungeon(dungeonIdx); SoundManager.Instance.PlaySFX(22); }
     ///<summary> 던전 시작 버튼 </summary>
-    public void Btn_StartDungeon() { mgr.Btn_StartDungeon(dungeonIdx); SoundManager.instance.PlaySFX(22); }
+    public void Btn_StartDungeon() { mgr.Btn_StartDungeon(dungeonIdx); SoundManager.Instance.PlaySFX(22); }
 }

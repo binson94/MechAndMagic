@@ -6,8 +6,7 @@ using System.Linq;
 public class Character : Unit
 {
     int debuffImmune = 0;
-    bool immunePotion = false;
-    //전투 시작 시 1번만 호출
+    ///<summary> 미스틱 세트 0 이번 턴 스킬 사용 횟수, 1 전투 내 스킬 사용 횟수 </summary>
     int[] skillCount = new int[2];
 
     public override void OnBattleStart(BattleManager BM)
@@ -23,15 +22,18 @@ public class Character : Unit
         //아이언하트 2세트 - 체력 비례 방어력 상승
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(25);
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, buffStat[(int)Obj.체력], set.Value[0], 0, 99, 0, 1));
-        //아이언하트 4세트 - CRC 상승
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, buffStat[(int)Obj.체력], set.Value[0], 0, 99));
+        //아이언하트 4세트 - 최대 체력 비례 방무 상승, CRC 상승
         if (set.Value[2] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99, 0, 1));
+        {
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력무시, buffStat[(int)Obj.체력], set.Value[2], 0, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99));
+        }
 
         set = ItemManager.GetSetData(26);
         //시계탑의 대리인 2세트 - AP 최대값 상승
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.행동력, 1, set.Value[0], 0, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.행동력, 1, set.Value[0], 0, 99));
 
         //메탈 그리드 4세트 - 매 전투 1번 디버프 면역
         if (ItemManager.GetSetData(28).Value[1] > 0)
@@ -40,7 +42,7 @@ public class Character : Unit
         //완벽한 톱니바퀴 2세트 - ACC 상승
         set = ItemManager.GetSetData(29);
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[0], 1, 1, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[0], 1, 99));
 
         set = ItemManager.GetSetData(27);
         List<Unit> targets = GetEffectTarget(null, null, 6);
@@ -59,13 +61,20 @@ public class Character : Unit
         //행운의 클로버 2세트 - CRC, CRB가 LVL 비례 상승
         if (set.Value[0] > 0)
         {
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타율, set.Value[0], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.치명타피해, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.치명타율,LVL, set.Value[0], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.치명타피해,LVL, set.Value[0], 1, 99));
         }
     }
     public override void OnTurnStart()
     {
         base.OnTurnStart();
+
+        for (int i = 0; i < 6; i++)
+        {
+            cooldowns[i]--;
+            if (cooldowns[i] < 0)
+                cooldowns[i] = 0;
+        }
 
         //메탈 그리드 2세트 - 매 턴 1회 피격 DEF 상승
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(28);
@@ -91,7 +100,9 @@ public class Character : Unit
         if (set.Value[0] > 0)
         {
             int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
-            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[0], buffStat[(int)Obj.방어력무시], crit);
+            List<Unit> targets = GetEffectTarget(null, null, 4);
+            if(targets.Count > 0)
+                GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[0], buffStat[(int)Obj.방어력무시], crit);
         }
 
         set = ItemManager.GetSetData(32);
@@ -99,12 +110,10 @@ public class Character : Unit
         if (set.Value[1] > 0)
             GetHeal(set.Value[1] * (buffStat[(int)Obj.체력] - buffStat[(int)Obj.currHP]));
 
-        immunePotion = false;
         skillCount[1] = 0;
     }
     public override void OnTurnEnd()
     {
-        base.OnTurnEnd();
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(26);
 
         //시계탑의 대리인 3세트 - 턴 종 시 SPD 상승(무제한)
@@ -116,13 +125,17 @@ public class Character : Unit
         if (set.Value[1] > 0)
         {
             int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
-            GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[1], buffStat[(int)Obj.방어력무시], crit);
+            List<Unit> targets = GetEffectTarget(null, null, 4);
+            if(targets.Count > 0)
+                GetEffectTarget(null, null, 4)[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[1], buffStat[(int)Obj.방어력무시], crit);
         }
 
         set = ItemManager.GetSetData(32);
         //밀물과 썰물 4세트 - 턴 종료 시, 이번 턴에 준 피해 비례 회복
         if (set.Value[2] > 0)
             GetHeal(set.Value[2] * dmgs[0]);
+
+        StatUpdate_Turn();
     }
 
     protected void CountSkill()
@@ -152,11 +165,14 @@ public class Character : Unit
         //스타더스트 4세트 - 적 처치 시 랜덤 적 1인 2타 피해
         if (set.Value[2] > 0)
         {
-            Unit u = GetEffectTarget(null, null, 4)[0];
-            for (int i = 0; i < 2; i++)
+            List<Unit> targets = GetEffectTarget(null, null, 4);
+            if(targets.Count > 0)
             {
-                int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
-                u.GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[2], buffStat[(int)Obj.방어력무시], crit);
+                for (int i = 0; i < 2; i++)
+                {
+                    int crit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] ? buffStat[(int)Obj.치명타피해] : 100;
+                    targets[0].GetDamage(this, buffStat[(int)Obj.공격력] * set.Value[2], buffStat[(int)Obj.방어력무시], crit);
+                }
             }
         }
 
@@ -231,9 +247,17 @@ public class Character : Unit
 
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
+        float beforeRate = (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력];
+
         KeyValuePair<bool, int> killed = base.GetDamage(caster, dmg, pen, crb);
 
-        KeyValuePair<string, float[]> set = ItemManager.GetSetData(28);
+        KeyValuePair<string, float[]> set = ItemManager.GetSetData(25);
+
+        //아이언 하트 3세트 - 체력 40% 이하로 떨어질 때 디버프 한 개 제거
+        if(set.Value[1] > 0 && beforeRate > 0.4f && (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력] <= 0.4f)
+            RemoveDebuff(1);
+        
+        set = ItemManager.GetSetData(28);
 
         if (set.Value[0] > 0)
             turnBuffs.buffs.RemoveAll(x => x.name == set.Key);
@@ -241,17 +265,13 @@ public class Character : Unit
         return killed;
     }
 
-    public override void AddDebuff(Unit caster, int order, Skill s, int effectIdx, float rate)
+    public override void AddDebuff(Unit caster, int order, Skill s, int effectIdx, float stat)
     {
         //메탈 그리드 4세트 - 디버프 면역
-        if (caster != null && caster != this && (debuffImmune > 0 || immunePotion))
-        {
-            if (!immunePotion)
-                debuffImmune--;
+        if (caster != null && caster != this && (debuffImmune > 0))
             return;
-        }
 
-        base.AddDebuff(caster, order, s, effectIdx, rate);
+        base.AddDebuff(caster, order, s, effectIdx, stat);
     }
     public override void GetHeal(float heal)
     {
@@ -262,6 +282,6 @@ public class Character : Unit
     public override void StatLoad()
     {
         for (int i = 0; i <= 12; i++)
-            dungeonStat[i] = GameManager.instance.slotData.itemStats[i];
+            dungeonStat[i] = GameManager.Instance.slotData.itemStats[i];
     }
 }

@@ -6,17 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //singleton
-    static GameObject container;
     static GameManager _instance = null;
-    public static GameManager instance
+    public static GameManager Instance
     {
         get
         {
             if(_instance == null)
             {
-                container = new GameObject();
-                container.name = "GameManager";
+                GameObject container = new GameObject();
+                container.name = "Game Manager";
                 
                 _instance = container.AddComponent<GameManager>();
 
@@ -35,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public static int[] baseStats = new int[13];
     public static int[] reqExp = new int[10];
+    public static int GetReqExp() => Instance.slotData.lvl > 9 ? 1 : reqExp[Instance.slotData.lvl];
     static void LoadBasicStat()
     {
 
@@ -42,7 +41,8 @@ public class GameManager : MonoBehaviour
         baseStats[1] = baseStats[2] = 40;
         baseStats[3] = baseStats[4] = 6;
         baseStats[5] = 5;
-        baseStats[7] = 70;
+        baseStats[6] = 5;
+        baseStats[7] = 60;
 
         baseStats[10] = 150;
         baseStats[12] = 5;
@@ -64,6 +64,25 @@ public class GameManager : MonoBehaviour
     ///<summary> 현재 플레이 중인 슬롯 데이터 관리 </summary>
     public SlotData slotData;
 
+    public static int SlotLvl
+    {
+        get
+        {
+            if(Instance.slotData != null)
+                return Instance.slotData.lvl;
+            return 1;
+        }
+    }
+    public static int SlotClass
+    {
+        get
+        {
+            if(Instance.slotData != null)
+                return Instance.slotData.slotClass;
+            return 1;
+        }
+    }
+
     #region SlotManage
     ///<summary> 새로운 슬롯 생성 </summary>
     public void CreateNewSlot(int slot, int slotClass)
@@ -78,7 +97,7 @@ public class GameManager : MonoBehaviour
     ///<summary> 슬롯 불러오기 </summary>
     public void LoadSlotData(int slot) => slotData = HexToObj<SlotData>(PlayerPrefs.GetString($"Slot{currSlot = slot}"));
     ///<summary> 슬롯 데이터 저장 </summary>
-    public void SaveSlotData() => PlayerPrefs.SetString($"Slot{currSlot}", ObjToHex(slotData));
+    public void SaveSlotData() => PlayerPrefs.SetString($"Slot{currSlot}", ObjToHexString(slotData));
     ///<summary> 씬 전환 시 호출, 로드 시 불러올 씬 변경 </summary>
     public void SwitchSceneData(SceneKind kind)
     {
@@ -147,14 +166,18 @@ public class GameManager : MonoBehaviour
     public void EventGetHeal(float rate)
     {
         int heal = Mathf.RoundToInt(slotData.itemStats[(int)Obj.체력] * rate / 100);
-        slotData.dungeonData.currHP = Mathf.Min(slotData.dungeonData.currHP + heal, slotData.itemStats[(int)Obj.체력]);
+        if(slotData.dungeonData.currHP > 0)
+            slotData.dungeonData.currHP = Mathf.Min(slotData.dungeonData.currHP + heal, slotData.itemStats[(int)Obj.체력]);
         SaveSlotData();
     }
     ///<summary> 부정 이벤트 - 피해 </summary>
     public void EventGetDamage(float rate)
     {
         int dmg = Mathf.RoundToInt(slotData.itemStats[(int)Obj.체력] * rate / 100);
-        slotData.dungeonData.currHP = Mathf.Max(slotData.dungeonData.currHP - dmg, 1);
+        if(slotData.dungeonData.currHP < 0)
+            slotData.dungeonData.currHP = Mathf.Max(slotData.itemStats[(int)Obj.체력] - dmg, 1);
+        else
+            slotData.dungeonData.currHP = Mathf.Max(slotData.dungeonData.currHP - dmg, 1);
     }
     ///<summary> 긍정 이벤트 - 버프 </summary>
     public void EventAddBuff(DungeonBuff b)
@@ -199,7 +222,7 @@ public class GameManager : MonoBehaviour
         else SceneManager.LoadScene((int)kind + (slotData.region / 11) * 4);
     }
 
-    public static string ObjToHex<T>(T obj)
+    public static string ObjToHexString<T>(T obj)
     {
         if (obj == null)
             return string.Empty;
@@ -212,6 +235,16 @@ public class GameManager : MonoBehaviour
             return default(T);
         else
             return JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));
+    }
+
+    public static void SaveToGoogle()
+    {
+        
+    }
+
+    public static void LoadToGoogle()
+    {
+
     }
 
     public static T GetToken<T>(Queue<T> pool, RectTransform parent, T prefab) where T : MonoBehaviour

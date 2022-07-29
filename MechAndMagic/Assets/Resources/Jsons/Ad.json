@@ -1,0 +1,82 @@
+[
+  {
+    "resource": 20,
+    "Legendary": 0,
+    "Unique": 0,
+    "Rare": 0,
+    "Uncommon": 0.6,
+    "Common": 0.4
+  },
+  {
+    "resource": 50,
+    "Legendary": 0,
+    "Unique": 0,
+    "Rare": 0,
+    "Uncommon": 1,
+    "Common": 0
+  },
+  {
+    "resource": 10,
+    "Legendary": 0,
+    "Unique": 0.12,
+    "Rare": 0.36,
+    "Uncommon": 0.31,
+    "Common": 0.21
+  },
+  {
+    "resource": 25,
+    "Legendary": 0,
+    "Unique": 0.11,
+    "Rare": 0.35,
+    "Uncommon": 0.3,
+    "Common": 0.2
+  },
+  {
+    "resource": 45,
+    "Legendary": 0.04,
+    "Unique": 0.11,
+    "Rare": 0.35,
+    "Uncommon": 0.3,
+    "Common": 0.2
+  },
+  {
+    "resource": 70,
+    "Legendary": 0.07,
+    "Unique": 0.18,
+    "Rare": 0.4,
+    "Uncommon": 0.35,
+    "Common": 0
+  },
+  {
+    "resource": 100,
+    "Legendary": 0.04,
+    "Unique": 0.11,
+    "Rare": 0.35,
+    "Uncommon": 0.3,
+    "Common": 0.2
+  },
+  {
+    "resource": 10,
+    "Legendary": 0.07,
+    "Unique": 0.18,
+    "Rare": 0.4,
+    "Uncommon": 0.35,
+    "Common": 0
+  },
+  {
+    "resource": 20,
+    "Legendary": 0.04,
+    "Unique": 0.11,
+    "Rare": 0.35,
+    "Uncommon": 0.3,
+    "Common": 0.2
+  },
+  {
+    "resource": 30,
+    "Legendary": 0.07,
+    "Unique": 0.18,
+    "Rare": 0.4,
+    "Uncommon": 0.35,
+    "Common": 0
+  }
+ ]

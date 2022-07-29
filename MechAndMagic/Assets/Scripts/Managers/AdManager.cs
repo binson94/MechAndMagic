@@ -19,7 +19,7 @@ public class AdManager : MonoBehaviour
                 GameObject container = new GameObject();
                 container.name = "Ad Manager";
                 _instance = container.AddComponent<AdManager>();
-                container.transform.SetParent(GameManager.instance.transform);
+                container.transform.SetParent(GameManager.Instance.transform);
             }
 
             return _instance;

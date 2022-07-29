@@ -70,20 +70,20 @@ public class DungeonManager : MonoBehaviour
     ///<summary> 방 이미지 생성, 퀘스트 정보 불러오기, 플레이어 정보 불러오기, 옵션 불러오기 </summary>
     private void Start()
     {
-        int chapter = GameManager.instance.slotData.dungeonData.currDungeon.chapter;
-        bgImage.sprite = bgSprites[GameManager.instance.slotData.region / 11 * 4 + chapter - 1];
+        int chapter = GameManager.Instance.slotData.dungeonData.currDungeon.chapter;
+        bgImage.sprite = bgSprites[GameManager.Instance.slotData.region / 11 * 4 + chapter - 1];
         MakeRoomImage();
         LoadQuestData();
         LoadPlayerInfo();
         BuffIconUpdate();
 
-        SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
+        SoundManager.Instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
     }
     ///<summary> 방 버튼 이미지 생성 </summary>
     private void MakeRoomImage()
     {
         //현재 던전 정보 불러오기
-        Dungeon dungeon = GameManager.instance.slotData.dungeonData.currDungeon;
+        Dungeon dungeon = GameManager.Instance.slotData.dungeonData.currDungeon;
 
         //층 수에 따라 scrollView 크기 조절
         mapScrollContent.sizeDelta = new Vector2(1063, Mathf.Max(1920, dungeon.floorCount * 400));
@@ -126,7 +126,7 @@ public class DungeonManager : MonoBehaviour
             }
 
         //스크롤 정도 불러오기
-        scroll.verticalNormalizedPosition = (float)GameManager.instance.slotData.dungeonData.mapScroll;
+        scroll.verticalNormalizedPosition = (float)GameManager.Instance.slotData.dungeonData.mapScroll;
     }
     ///<summary> 현재 수행 중인 퀘스트 정보 로드하여 표시 </summary>
     public void LoadQuestData()
@@ -140,52 +140,52 @@ public class DungeonManager : MonoBehaviour
     public void LoadPlayerInfo()
     {
         //플레이어 이미지 설정
-        playerIcon.sprite = playerSprites[GameManager.instance.slotData.slotClass - 1];
+        playerIcon.sprite = playerSprites[GameManager.SlotClass - 1];
         playerIcon.transform.SetParent(mapScrollContent);
         SetPlayerImagePos();
 
         //체력바와 레벨 설정
-        int hpValue = GameManager.instance.slotData.dungeonData.currHP > 0 ? GameManager.instance.slotData.dungeonData.currHP : GameManager.instance.slotData.itemStats[(int)Obj.체력];
+        int hpValue = GameManager.Instance.slotData.dungeonData.currHP > 0 ? GameManager.Instance.slotData.dungeonData.currHP : GameManager.Instance.slotData.itemStats[(int)Obj.체력];
         hpTxt.text = hpValue.ToString();
-        hpBar.value = hpValue / (float)GameManager.instance.slotData.itemStats[(int)Obj.체력];
-        lvlTxt.text = GameManager.instance.slotData.lvl.ToString();
+        hpBar.value = hpValue / (float)GameManager.Instance.slotData.itemStats[(int)Obj.체력];
+        lvlTxt.text = GameManager.SlotLvl.ToString();
     }
     ///<summary> 플레이어 이미지 위치 설정 </summary>
     void SetPlayerImagePos()
     {
-        int[] currPos = GameManager.instance.slotData.dungeonData.currPos;
+        int[] currPos = GameManager.Instance.slotData.dungeonData.currPos;
         //플레이어 표시 이미지 스프라이트 및 위치 설정
         playerIcon.rectTransform.anchoredPosition = roomImages[currPos[0]][currPos[1]].rect.anchoredPosition + new Vector2(0, 100);
 
     }
     
     ///<summary> 모든 버튼에 할당, 효과음 재생 </summary>
-    public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
+    public void Btn_PlaySFX() => SoundManager.Instance.PlaySFX(22);
     ///<summary> 방 버튼 클릭 시 호출 
     ///<para> 이동 가능 시 이동 </para> </summary>
     public void Btn_RoomSelect(params int[] pos)
     {
         //이동 불가능한 경우 예외 처리
-        if (!GameManager.instance.CanMove(pos)) return;
+        if (!GameManager.Instance.CanMove(pos)) return;
 
         //이동한 위치 및 현재 스크롤 상태 저장
-        GameManager.instance.DungeonMove(pos, scroll.verticalNormalizedPosition);
+        GameManager.Instance.DungeonMove(pos, scroll.verticalNormalizedPosition);
         //방 입장 퀘스트 업데이트
         QuestManager.QuestUpdate(QuestType.Room, 0, 1);
 
         //방 정보에 맞는 씬 불러오기
-        RoomType type = GameManager.instance.slotData.dungeonData.GetCurrRoom().type;
+        RoomType type = GameManager.Instance.slotData.dungeonData.GetCurrRoom().type;
 
         //몬스터 및 보스 - 전투 씬 로드
         if (type == RoomType.Monster || type == RoomType.Boss)
         {
-            GameManager.instance.SwitchSceneData(SceneKind.Battle);
-            GameManager.instance.LoadScene(SceneKind.Battle);
+            GameManager.Instance.SwitchSceneData(SceneKind.Battle);
+            GameManager.Instance.LoadScene(SceneKind.Battle);
         }
         //돌발 퀘스트 - 다른 돌발퀘스트 방 이벤트로 변경, 퀘스트 수락
         else if (type == RoomType.Quest)
         {
-            GameManager.instance.OutbreakDetermine(pos);
+            GameManager.Instance.OutbreakDetermine(pos);
             outbreakPanel.gameObject.SetActive(true);
             outbreakPanel.OnOutbreakRoom();
             SetPlayerImagePos();
@@ -209,15 +209,15 @@ public class DungeonManager : MonoBehaviour
     {
         reportPanel.LoadData(false);
         reportPanel.gameObject.SetActive(true);
-        GameManager.instance.RemoveDungeonData();
-        GameManager.instance.SwitchSceneData(SceneKind.Town);
+        GameManager.Instance.RemoveDungeonData();
+        GameManager.Instance.SwitchSceneData(SceneKind.Town);
     }
 
     public void BuffIconUpdate()
     {
         BuffIconReset();
 
-        List<DungeonBuff> buffList = GameManager.instance.slotData.dungeonData.dungeonBuffs;
+        List<DungeonBuff> buffList = GameManager.Instance.slotData.dungeonData.dungeonBuffs;
 
         foreach(DungeonBuff buff in buffList)
         {
@@ -227,7 +227,7 @@ public class DungeonManager : MonoBehaviour
             token.gameObject.SetActive(true);
         }
 
-         buffList = GameManager.instance.slotData.dungeonData.dungeonDebuffs;
+         buffList = GameManager.Instance.slotData.dungeonData.dungeonDebuffs;
 
         foreach(DungeonBuff buff in buffList)
         {

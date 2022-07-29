@@ -10,7 +10,7 @@ public class BedMainPanel : MonoBehaviour, ITownPanel
 
     private void Awake() 
     {
-        characterIllust.sprite = charSprites[GameManager.instance.slotData.slotClass];
+        characterIllust.sprite = charSprites[GameManager.SlotClass];
     }
 
     public void ResetAllState()

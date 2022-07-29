@@ -54,7 +54,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     Coroutine proceedDialog;
     #endregion Dialog
 
-    void Start() => charIllusts[0].sprite = playerSprites[GameManager.instance.slotData.slotClass];
+    void Start() => charIllusts[0].sprite = playerSprites[GameManager.SlotClass];
 
     //최초 상태로 되돌리기
     public void ResetAllState()
@@ -137,7 +137,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             //선행 퀘스트 클리어, 관련 퀘스트 클리어 안함, 레벨 넘김
             return (clearedQuestList.Contains(reqQuest) &&
                     (linkedQuest == 0 || !clearedQuestList.Contains(linkedQuest)) &&
-                    GameManager.instance.slotData.lvl >= npc.dialogs[idx].lvl);
+                    GameManager.SlotLvl >= npc.dialogs[idx].lvl);
         }
     }
 
@@ -168,7 +168,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     }
 
     #region Dialog
-    public void Btn_ScriptSFX() => SoundManager.instance.PlaySFX(23);
+    public void Btn_ScriptSFX() => SoundManager.Instance.PlaySFX(23);
     ///<summary> 대화 진행 버튼 - 다음 대사 로드 </summary>
     public void Btn_NextDialog()
     {
@@ -229,7 +229,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                     break;
                 case DialogToken.Player:
                     charIllusts[0].color = Color.white; charIllusts[1].color = illustGrayColor;
-                    dialogTalkerTxt.text = GameManager.instance.slotData.className;
+                    dialogTalkerTxt.text = GameManager.Instance.slotData.className;
                     state = DialogState.Proceed;
                     proceedDialog = StartCoroutine(ProceedDialog());
                     break;
@@ -284,7 +284,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     #region NormalDialog
     IEnumerator ProceedDialog()
     {
-        float time = 0.1f - 0.035f * SoundManager.instance.GetTxtSpd();
+        float time = 0.1f - 0.035f * SoundManager.Instance.GetTxtSpd();
         if (state != DialogState.Proceed)
             yield break;
 
@@ -323,17 +323,20 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     }
     #endregion NormalDialog
 
-    void PlaySFX(int idx) => SoundManager.instance.PlaySFX(idx);
+    void PlaySFX(int idx) => SoundManager.Instance.PlaySFX(idx);
     void PlayStory(int storyIdx)
     {
-        GameManager.instance.slotData.storyIdx = storyIdx;
-        GameManager.instance.SwitchSceneData(SceneKind.Story);
-        GameManager.instance.LoadScene(SceneKind.Story);
+        GameManager.Instance.slotData.storyIdx = storyIdx;
+        GameManager.Instance.SwitchSceneData(SceneKind.Story);
+        GameManager.Instance.LoadScene(SceneKind.Story);
     }
     void NewQuest(int idx) => QuestManager.AcceptQuest(false, idx);
     void ClearQuest(int idx) => QuestManager.ClearQuest(idx);
     void EndDialog()
     {
+        if(currDialog.idx == 26)
+            TM.Btn_SelectPanel(0);
+
         state = DialogState.Start;
         dialogTxt.text = string.Empty;
         dialogTalkerTxt.text = string.Empty;

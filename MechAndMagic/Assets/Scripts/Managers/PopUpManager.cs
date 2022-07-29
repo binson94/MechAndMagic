@@ -13,7 +13,7 @@ public class PopUpManager : MonoBehaviour
     {
         popup.SetParent(btnRect);
         popup.anchoredPosition = new Vector2(0, 0);
-        popup.position = new Vector3(Mathf.Min(popup.position.x, 1020 - popup.rect.width), popup.position.y, popup.position.z);
+        popup.position = new Vector3(Mathf.Min(popup.position.x, 1080 - popup.rect.width), popup.position.y, popup.position.z);
         popup.SetParent(viewPoint);
         popupTxt.color = txtColor;
         popupTxt.text = script;

@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
     public int shieldAmount;
     public int shieldMax;
 
-    //0:이번 턴 가한 데미지, 1:이전 턴 가한 데미지, 2:이번 턴 받은 데미지, 3:이전 턴 받은 데미지
+    ///<summary> 0:이번 턴 가한 데미지, 1:이전 턴 가한 데미지, 2:이번 턴 받은 데미지, 3:이전 턴 받은 데미지 </summary>
     [HideInInspector] public int[] dmgs = new int[4];
     #endregion Stat
 
@@ -64,13 +64,6 @@ public class Unit : MonoBehaviour
         dmgs[1] = dmgs[0]; dmgs[3] = dmgs[2];
         dmgs[0] = dmgs[2] = 0;
 
-        for (int i = 0; i < 5; i++)
-        {
-            cooldowns[i]--;
-            if (cooldowns[i] < 0)
-                cooldowns[i] = 0;
-        }
-
         HealBuffUpdate();
 
         //버프 지속시간 최신화
@@ -86,7 +79,7 @@ public class Unit : MonoBehaviour
             shieldBuffs.TurnUpdate();
         }
     }
-    public virtual void OnTurnEnd() {}
+    public virtual void OnTurnEnd() {StatUpdate_Turn();}
 
     #region Skill
     #region Skill Condition
@@ -148,11 +141,8 @@ public class Unit : MonoBehaviour
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
+        
 
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
 
@@ -169,12 +159,10 @@ public class Unit : MonoBehaviour
     {
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
-        float stat;
 
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -183,7 +171,7 @@ public class Unit : MonoBehaviour
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach(Unit u in effectTargets)
@@ -214,46 +202,57 @@ public class Unit : MonoBehaviour
                                 LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
                             }
                         }
-                        
                         break;
                     }
-                case EffectType.Heal:
+                case EffectType.DoNothing:
+                    break;
+                default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    break;
+            }
+        }
+    }
+    
+    ///<summary> 캐릭터 별 스킬 효과가 특이점 없으면 이 함수 호출
+    ///<para> 회복, 버프, 디버프, 버프 제거, 디버프 제거 </para> </summary>
+    protected void ActiveDefaultCase(Skill skill, int effectIdx, List<Unit> effectTargets, float stat)
+    {
+        switch((EffectType)skill.effectType[effectIdx])
+        {
+            case EffectType.Heal:
                     {
-                        float heal = stat * skill.effectRate[i];
+                        float heal = stat * skill.effectRate[effectIdx];
 
                         foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
+                            u.GetHeal(skill.effectCalc[effectIdx] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
                         break;
                     }
                 case EffectType.Active_Buff:
                     {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
+                        if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
                             foreach (Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, i, stat);
+                                u.AddBuff(this, orderIdx, skill, effectIdx, stat);
                         break;
                     }
                 case EffectType.Active_Debuff:
                     {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
+                        if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
                             foreach (Unit u in effectTargets)
-                                AddDebuff(this, orderIdx, skill, i, stat);
+                                u.AddDebuff(this, orderIdx, skill, effectIdx, stat);
                         break;
                     }
                 case EffectType.Active_RemoveBuff:
                     {
                         foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
+                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[effectIdx]));
                         break;
                     }
                 case EffectType.Active_RemoveDebuff:
                     {
                         foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
+                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[effectIdx]));
                         break;
                     }
-                default:
-                    break;
-            }
         }
     }
     protected List<Unit> GetEffectTarget(List<Unit> selects, List<Unit> dmged, int effectTarget)
@@ -325,10 +324,12 @@ public class Unit : MonoBehaviour
                 switch ((EffectType)s.effectType[j])
                 {
                     case EffectType.Passive_CritHitBuff:
-                        AddBuff(this, orderIdx, s, j, 0);
+                        if(isCrit)
+                            AddBuff(this, orderIdx, s, j, 0);
                         break;
                     case EffectType.Passive_CritHitDebuff:
-                        AddDebuff(this, orderIdx, s, j, 0);
+                        if(isCrit)
+                            AddDebuff(this, orderIdx, s, j, 0);
                         break;
                 }
             }
@@ -344,7 +345,7 @@ public class Unit : MonoBehaviour
 
             for (int i = 0; i < skill.effectCount; i++)
             {
-                if (active.category != 0 && active.category != skill.effectCond[i])
+                if (skill.effectCond[i] != 0 && active.category != skill.effectCond[i])
                     continue;
 
                 switch ((EffectType)skill.effectType[i])
@@ -374,16 +375,14 @@ public class Unit : MonoBehaviour
     {
         float stat;
         if (s.effectStat[effectIdx] <= 0) stat = 1;
-        else if (s.effectStat[effectIdx] <= 12)
-            stat = dungeonStat[s.effectStat[effectIdx]];
-        else if (s.effectStat[effectIdx] == (int)Obj.보호막)
-        {
-            AddShield(s, effectIdx);
-            return;
-        }
+        else if (s.effectStat[effectIdx] <= 12 && caster != null)
+            stat = caster.dungeonStat[s.effectStat[effectIdx]];
         else
             stat = rate;
-        if(s.effectObject[effectIdx] == (int)Obj.APCost)
+
+        if (s.effectObject[effectIdx] == (int)Obj.보호막)
+            AddShield(s, effectIdx, stat);
+        else if(s.effectObject[effectIdx] == (int)Obj.APCost)
         {
             Buff b = new Buff(BuffType.AP, new BuffOrder(caster, order), s.name, s.effectCond[effectIdx], 1, s.effectRate[effectIdx], s.effectCalc[effectIdx], s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]);
             turnBuffs.Add(b);
@@ -403,8 +402,8 @@ public class Unit : MonoBehaviour
     {
         float stat;
         if (s.effectStat[effectIdx] <= 0) stat = 1;
-        else if (s.effectStat[effectIdx] <= 12)
-            stat = dungeonStat[s.effectStat[effectIdx]];
+        else if (s.effectStat[effectIdx] <= 12 && caster != null)
+            stat = caster.dungeonStat[s.effectStat[effectIdx]];
         else
             stat = rate;
 
@@ -424,11 +423,10 @@ public class Unit : MonoBehaviour
 
         StatUpdate_Turn();
     }
-    public void AddShield(Skill s, int effectIdx)
+    public void AddShield(Skill s, int effectIdx, float stat)
     {
-        float rate = buffStat[s.effectStat[effectIdx]] * s.effectRate[effectIdx];
-        turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, (int)Obj.보호막, 1, rate, 0, s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]));
-        ShieldUpdate(rate);
+        turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, (int)Obj.보호막, stat, s.effectRate[effectIdx], 0, s.effectTurn[effectIdx], s.effectDispel[effectIdx], s.effectVisible[effectIdx]));
+        ShieldUpdate(stat * s.effectRate[effectIdx]);
     }
     #endregion Add
 
@@ -443,7 +441,7 @@ public class Unit : MonoBehaviour
         float[] mulPivot = new float[13];
         float[] addPivot = new float[13];
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i <= 12; i++)
         {
             mulPivot[i] = 1;
             addPivot[i] = 0;
@@ -452,9 +450,12 @@ public class Unit : MonoBehaviour
         turnBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
         turnDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i <= 12; i++)
             if (i != (int)Obj.currHP && i != (int)Obj.currAP)
-                buffStat[i] = Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]);
+                if(i == (int)Obj.치명타피해)
+                    buffStat[i] = Mathf.Max(100, Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]));
+                else
+                    buffStat[i] = Mathf.Max(0, Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]));
 
     }
     protected virtual void StatUpdate_Skill(Skill s)
@@ -462,7 +463,7 @@ public class Unit : MonoBehaviour
         float[] mulPivot = new float[13];
         float[] addPivot = new float[13];
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i <= 12; i++)
         {
             mulPivot[i] = 1;
             addPivot[i] = 0;
@@ -473,9 +474,9 @@ public class Unit : MonoBehaviour
         skillBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
         skillDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
 
-        for (int i = 0; i < 13; i++)
+        for (int i = 0; i <= 12; i++)
             if (i != 1 && i != 3)
-                buffStat[i] = Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]);
+                buffStat[i] = Mathf.Max(0, Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]));
     }
     #endregion StatUpdate
 
@@ -485,15 +486,22 @@ public class Unit : MonoBehaviour
     {
         float[] addPivot = new float[2];
 
-        foreach (Buff b in turnBuffs.buffs)
-            if (b.type == BuffType.Stat)
-                for (int i = 0; i < b.count; i++)
-                    if (b.objectIdx[i] == (int)Obj.currHP)
-                        addPivot[0] += b.buffRate[i];
-                    else if (b.objectIdx[i] == (int)Obj.currAP)
-                        addPivot[1] += b.buffRate[i];
-                    else if (b.objectIdx[i] == (int)Obj.순환)
-                        addPivot[0] += b.buffRate[i];
+        //348 환골탈태 - 매 턴 20% 체력 감소
+        Skill magicalRogue348 = SkillManager.GetSkill(8, 348);
+
+        if (!turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.중독)))
+            foreach (Buff b in turnBuffs.buffs)
+                if (b.type == BuffType.Stat)
+                    if(b.name == magicalRogue348.name)
+                        addPivot[0] -= magicalRogue348.effectRate[3] * buffStat[(int)Obj.체력];
+                    else
+                        for (int i = 0; i < b.count; i++)
+                            if (b.objectIdx[i] == (int)Obj.currHP)
+                                addPivot[0] += b.buffRate[i];
+                            else if (b.objectIdx[i] == (int)Obj.currAP)
+                                addPivot[1] += b.buffRate[i];
+                            else if (b.objectIdx[i] == (int)Obj.순환)
+                                addPivot[0] += b.buffRate[i];
 
         foreach (Buff b in turnDebuffs.buffs)
             if (b.type == BuffType.Stat)
@@ -507,7 +515,9 @@ public class Unit : MonoBehaviour
                     else if (b.objectIdx[i] == (int)Obj.저주)
                         addPivot[0] -= b.buffRate[i];
                     else if (b.objectIdx[i] == (int)Obj.맹독)
-                        addPivot[0] -= b.buffRate[i] / (1 + 0.1f * buffStat[(int)Obj.방어력]);
+                        addPivot[0] -= b.buffRate[i];
+                    else if(b.objectIdx[i] == (int)Obj.악령빙의)
+                        addPivot[0] -= 0.1f * buffStat[(int)Obj.체력];
 
         for (int i = 0; i < 2; i++)
             buffStat[2 * i + 1] = Mathf.Min(buffStat[2 * i + 2], Mathf.RoundToInt(buffStat[2 * i + 1] + addPivot[i]));
@@ -528,12 +538,9 @@ public class Unit : MonoBehaviour
     public virtual KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
         float beforeRate = (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력];
-        
-        //아이언하트 4세트 - 받는 피해 감소
-        float ironHeartDEF = 1 - ItemManager.GetSetData(25).Value[2];
 
         float finalDEF = Mathf.Max(0, buffStat[(int)Obj.방어력] * (100 - pen) / 100f);
-        int finalDmg = Mathf.RoundToInt(dmg / (1 + 0.1f * finalDEF) * ironHeartDEF * crb / 100);
+        int finalDmg = Mathf.Max(1, Mathf.RoundToInt(dmg / (1 + 0.1f * finalDEF) * crb / 100));
 
         if (shieldAmount - finalDmg >= 0)
             shieldAmount -= finalDmg;
@@ -550,28 +557,17 @@ public class Unit : MonoBehaviour
             LogManager.instance.AddLog($"{name}(이)가 피해 {finalDmg}를 입었습니다.");
         else
             LogManager.instance.AddLog($"{name}(이)가 치명타 피해 {finalDmg}를 입었습니다.");
-        
-        //아이언하트 3세트 - 체력 40% 이하로 떨어질 때 디버프 하나 해제
-        if(ItemManager.GetSetData(25).Value[1] > 0 && (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력] < 0.4f && beforeRate >= 0.4f)
-            RemoveDebuff(1);
 
         bool killed = false;
         if (buffStat[(int)Obj.currHP] <= 0)
-        {
             killed = true;
 
-            if(implantBomb != null)
-            {
-                List<Unit> targets = BM.GetEffectTarget(6);
-
-                foreach (Unit u in targets)
-                    u.GetDamage(implantBomb.caster, implantBomb.dmg, implantBomb.pen, 100);
-            }
-        }
-
-        return new KeyValuePair<bool, int>(killed, -finalDmg);
+        return new KeyValuePair<bool, int>(killed, finalDmg);
     }
-    public virtual void GetHeal(float heal) => buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.체력], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
+    public virtual void GetHeal(float heal){
+        if(!turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.중독)))
+            buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.체력], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
+    }
     public void GetAPHeal(float heal) => buffStat[(int)Obj.currAP] = Mathf.Min(buffStat[(int)Obj.행동력], Mathf.RoundToInt(buffStat[(int)Obj.currAP] + heal));
 
     public virtual bool IsBoss() => false;

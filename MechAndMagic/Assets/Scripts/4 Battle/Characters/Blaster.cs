@@ -15,6 +15,15 @@ public class ImplantBomb
         dmg = d;
         pen = p;
     }
+
+    public void Bomb(BattleManager BM, Unit died)
+    {
+        List<Unit> targets = BM.GetEffectTarget(6);
+        targets.Remove(died);
+
+        foreach (Unit u in targets)
+            u.GetDamage(caster, dmg, pen, 100);
+    }
 }
 
 public class Blaster : Character
@@ -35,12 +44,13 @@ public class Blaster : Character
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 1, 1, 1));
         }
 
-        if (currHeat >= 4)
+        if (currHeat >= 5)
         {
             //무한동력 4세트 - 쿨링히트 되지 않음
             if (ItemManager.GetSetData(7).Value[1] == 0)
             {
-                turnDebuffs.Add(new Buff(BuffType.None, new BuffOrder(this, orderIdx), "쿨링히트", 0, 0, 0, 0, 0, 0, 1));
+                turnDebuffs.Add(new Buff(BuffType.None, new BuffOrder(this, orderIdx), "쿨링히트", (int)Obj.쿨링히트, 0, 0, 0, 1, 0, 1));
+                LoseHeat(5);
 
                 //혹한기 작전 2세트 - 쿨링 히트시 30% 회복
                 if(ItemManager.GetSetData(9).Value[0] > 0)
@@ -49,7 +59,7 @@ public class Blaster : Character
                 //106 악천후 회피 - 회피율 상승
                 if (HasSkill(106))
                 {
-                    Skill s = SkillManager.GetSkill(classIdx, 147);
+                    Skill s = SkillManager.GetSkill(classIdx, 106);
                     AddBuff(this, orderIdx, s, 0, 0);
                 }
                 //115 바이오 쿨링 - 디버프 해제
@@ -108,18 +118,15 @@ public class Blaster : Character
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
+        
 
         Passive_SkillCast(skill);
 
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
-        SoundManager.instance.PlaySFX(skill.sfx);
+        SoundManager.Instance.PlaySFX(skill.sfx);
 
         //109 캐논 예열, 125 극도로 정밀한 계산 - 매 턴 처음 스킬에만 적용
         if (HasSkill(109))
@@ -141,12 +148,10 @@ public class Blaster : Character
     {
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
-        float stat;
 
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -155,7 +160,7 @@ public class Blaster : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -180,15 +185,19 @@ public class Blaster : Character
                                 //123 타이탄 킬러 - 적 체력 비례 추뎀
                                 if (HasSkill(123))
                                 {
-                                    Skill tmp = SkillManager.GetSkill(classIdx, 164);
-                                    u.GetDamage(this, dmg + u.buffStat[(int)Obj.currHP] * tmp.effectRate[0], 999, isCrit ? buffStat[(int)Obj.치명타피해] : 100);
+                                    Skill tmp = SkillManager.GetSkill(classIdx, 123);
+                                    u.GetDamage(this, dmg + u.buffStat[(int)Obj.currHP] * tmp.effectRate[0], buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
                                 }
                                 else
                                     u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
 
                                 //112 임플란트 봄
                                 if (skill.idx == 112)
-                                    u.implantBomb = new ImplantBomb(this, buffStat[(int)Obj.공격력] * 1.5f, buffStat[(int)Obj.방어력무시]);
+                                {
+                                    u.implantBomb = new ImplantBomb(this, buffStat[(int)Obj.공격력], buffStat[(int)Obj.방어력무시]);
+                                    if(u.buffStat[(int)Obj.currHP] <= 0)
+                                        u.implantBomb.Bomb(BM, u);
+                                }
                                 damaged.Add(u);
 
                                 Passive_SkillHit(skill);
@@ -202,47 +211,22 @@ public class Blaster : Character
 
                         break;
                     }
-                case EffectType.Heal:
-                    {
-                        float heal = stat * skill.effectRate[i];
-
-                        foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
-                case EffectType.Active_Buff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                u.AddDebuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
                 case EffectType.Active_RemoveBuff:
                     {
                         int count = 0;
                         foreach (Unit u in effectTargets)
                             count += u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
 
-                        if (HasSkill(149))
+                        //108 취약점 발견
+                        if (HasSkill(108) && count > 0)
                         {
-                            Skill tmp = SkillManager.GetSkill(classIdx, 149);
+                            Skill tmp = SkillManager.GetSkill(classIdx, 108);
                             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], count, tmp.effectRate[0], tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
                         }
                         break;
                     }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
+                case EffectType.DoNothing:
+                    break;
                 case EffectType.CharSpecial1:
                     {
                         //TP 감소
@@ -262,6 +246,7 @@ public class Blaster : Character
                         break;
                     }
                 default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
                     break;
             }
         }
@@ -280,7 +265,7 @@ public class Blaster : Character
                 //중화기 전문가 3세트 - 숙련된 포격술 강화
                 float rate = 1 + ItemManager.GetSetData(8).Value[0];
                 for (int i = 0; i < 3; i++)
-                    skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", tmp.effectObject[i], tmp.effectStat[i], tmp.effectRate[i] * rate, tmp.effectCalc[0], tmp.effectTurn[0]));
+                    skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", tmp.effectObject[i], buffStat[tmp.effectStat[i]], tmp.effectRate[i] * rate, tmp.effectCalc[0], tmp.effectTurn[0]));
                 continue;
             }
 
@@ -315,13 +300,13 @@ public class Blaster : Character
         //107 맑아진 정신 - 디버프 해제 시 명중 버프
         if (HasSkill(107))
         {
-            Skill s = SkillManager.GetSkill(classIdx, 148);
+            Skill s = SkillManager.GetSkill(classIdx, 107);
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), s.name, s.effectObject[0], cnt, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
             
             KeyValuePair<string, float[]> set = ItemManager.GetSetData(9);
             //혹한기 작전 3세트 - 맑아진 정신이 최대 AP 버프
             if(set.Value[1] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), s.name, (int)Obj.행동력, cnt, set.Value[1], 0, s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.행동력, cnt, set.Value[1], 0, 2, s.effectDispel[0], s.effectVisible[0]));
         }
 
         return cnt;
@@ -332,29 +317,33 @@ public class Blaster : Character
         //89 - 열기 : 강화, 98 - 열기 : 가속
         bool heatPower = HasSkill(89);
         bool heatSpeed = HasSkill(98);
+
         if (heatPower || heatSpeed)
         {
-            currHeat = Mathf.RoundToInt(Mathf.Min(4, currHeat + amt));
+            currHeat = Mathf.RoundToInt(Mathf.Min(5, currHeat + amt));
             if (heatPower)
             {
                 Skill s = SkillManager.GetSkill(classIdx, 89);
+                turnBuffs.buffs.RemoveAll(x=>x.name == s.name);
                 float rate = s.effectRate[0] * (1 + ItemManager.GetSetData(7).Value[1]);
                 turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
             }
             if (heatSpeed)
             {
                 Skill s = SkillManager.GetSkill(classIdx, 98);
-                float rate = 1 + ItemManager.GetSetData(7).Value[1];  
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[1], currHeat, s.effectRate[1] * rate, s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
+                turnBuffs.buffs.RemoveAll(x=>x.name == s.name);
+                float rate = s.effectRate[0] * (1 + ItemManager.GetSetData(7).Value[1]);
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
             }
 
             //126 용광로 코어
-            if (HasSkill(126) && currHeat >= 4)
+            if (HasSkill(126) && currHeat == 4)
             {
                 Skill s = SkillManager.GetSkill(classIdx, 126);
-                turnBuffs.Add(new Buff(BuffType.AP, new BuffOrder(this), s.name, (int)Obj.행동력, 1, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-            }
+                AddBuff(this, -1, s, 0, 0);
+                }
+            else
+                turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 126).name);
 
         }
 
@@ -363,26 +352,40 @@ public class Blaster : Character
     {
         bool heatPower = HasSkill(89);
         bool heatSpeed = HasSkill(98);
+
+        //117 캐논 과부화
+        if(HasSkill(117))
+            amt++;
+        //118 캐논 안정화
+        if(HasSkill(118))
+            amt--;
+
         if (heatPower || heatSpeed)
         {
             currHeat = Mathf.RoundToInt(Mathf.Max(0, currHeat - amt));
             if (heatPower)
             {
                 Skill s = SkillManager.GetSkill(classIdx, 89);
+                turnBuffs.buffs.RemoveAll(x=>x.name == s.name);
                 float rate = s.effectRate[0] * (1 + ItemManager.GetSetData(7).Value[1]);
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                if(currHeat > 0)
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
             }
             if (heatSpeed)
             {
                 Skill s = SkillManager.GetSkill(classIdx, 98);
-                float rate = 1 + ItemManager.GetSetData(7).Value[1];  
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[1], currHeat, s.effectRate[1] * rate, s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
+                turnBuffs.buffs.RemoveAll(x=>x.name == s.name);
+                float rate = 1 + ItemManager.GetSetData(7).Value[1];
+                if (currHeat > 0)
+                {
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[1], currHeat, s.effectRate[1] * rate, s.effectCalc[1], s.effectTurn[1], s.effectDispel[1], s.effectVisible[1]));
+                }
             }
 
             //126 용광로 코어
-            if (HasSkill(126) && currHeat < 4)
-                turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 167).name);
+            if (HasSkill(126) && currHeat != 4)
+                turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 126).name);
         }
     }
 }

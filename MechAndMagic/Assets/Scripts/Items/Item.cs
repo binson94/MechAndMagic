@@ -27,9 +27,6 @@ public class EquipBluePrint
     ///<summary> 제작에 필요한 재료
     ///<para> Key : 재료 idx, Value : 재료 요구 갯수 </para> </summary>
     public List<Pair<int, int>> requireResources = new List<Pair<int, int>>();
-
-    ///<summary> 0인 경우 보조 스텟이 없는 장비거나 범위 내 랜덤, 그 외엔 지정 </summary>
-    public Obj subStat;
     ///<summary> 0이면 없음, 13이면 랜덤, 그 외엔 지정 </summary>
     public int[] commonStats;
 
@@ -54,7 +51,6 @@ public class EquipBluePrint
         set = (int)equipJson[jsonIdx]["set"];
         reqlvl = (int)equipJson[jsonIdx]["reqlvl"];
         rarity = (Rarity)(int)equipJson[jsonIdx]["rarity"];
-        subStat = (Obj)(int)equipJson[jsonIdx]["subStat"];
 
         commonStats = new int[3];
         for (int i = 0; i < 3; i++)
@@ -80,7 +76,7 @@ public class EquipBluePrint
 
 public class Equipment
 {
-    public readonly EquipBluePrint ebp;
+    public EquipBluePrint ebp;
 
     ///<summary> 장비 성급, 1성 시작, 융합 시 최대 3성 </summary>
     public int star;
@@ -193,45 +189,34 @@ public class Equipment
     {
         if (ebp.rarity >= Rarity.Uncommon)
         {
-            if (ebp.subStat == Obj.None)
+            switch (ebp.part)
             {
-                switch (ebp.part)
-                {
-                    case EquipPart.Weapon:
-                        subStat = weaponSubstatKindPool[Random.Range(0, 5)];
-                        break;
-                    case EquipPart.Top:
-                        subStat = Obj.체력;
-                        break;
-                    case EquipPart.Pants:
-                        subStat = Obj.회피율;
-                        break;
-                    case EquipPart.Gloves:
-                        subStat = Obj.명중률;
-                        break;
-                    case EquipPart.Shoes:
-                        subStat = Obj.속도;
-                        break;
-                    case EquipPart.Ring:
-                        do
-                            subStat = ringStatKindPool[Random.Range(0, 4)];
-                        while (mainStat == subStat);
-                        break;
-                    case EquipPart.Necklace:
-                        do
-                            subStat = necklaceStatKindPool[Random.Range(0, 4)];
-                        while (mainStat == subStat);
-                        break;
-                }
+                case EquipPart.Weapon:
+                    subStat = weaponSubstatKindPool[Random.Range(0, 5)];
+                    break;
+                case EquipPart.Top:
+                    subStat = Obj.체력;
+                    break;
+                case EquipPart.Pants:
+                    subStat = Obj.회피율;
+                    break;
+                case EquipPart.Gloves:
+                    subStat = Obj.행동력;
+                    break;
+                case EquipPart.Shoes:
+                    subStat = Obj.속도;
+                    break;
+                case EquipPart.Ring:
+                    do
+                        subStat = ringStatKindPool[Random.Range(0, 4)];
+                    while (mainStat == subStat);
+                    break;
+                case EquipPart.Necklace:
+                    do
+                        subStat = necklaceStatKindPool[Random.Range(0, 4)];
+                    while (mainStat == subStat);
+                    break;
             }
-            else
-            {
-                subStat = ebp.subStat;
-            }
-        }
-        else
-        {
-            subStat = Obj.None;
         }
     }
     ///<summary> 공통 옵션 종류 결정

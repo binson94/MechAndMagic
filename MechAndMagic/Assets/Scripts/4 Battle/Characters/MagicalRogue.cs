@@ -5,11 +5,13 @@ using System.Linq;
 
 public class MagicalRogue : Character
 {
+    ///<summary> 가장 최근에 시전한 스킬 카테고리, 1형 1019, 2형 1020, 3형 1021 </summary>
     int resentCategory = 0;
 
-    bool cast340 = false;
+    ///<summary> 340 어둠속으로 시전 시, 다음 턴 시작할 때 치명타율 버프 </summary>
+    bool castInDark = false;
 
-    //341, 342 1, 2형 교활함 스킬 사용 수 저장
+    ///<summary> 341, 342 1, 2형 교활함 스킬 사용 수 저장 </summary>
     int[] guileCount = new int[2];
 
     public override void OnTurnStart()
@@ -17,9 +19,9 @@ public class MagicalRogue : Character
         base.OnTurnStart();
         resentCategory = 0;
 
-        if (cast340)
+        if (castInDark)
             AddBuff(this, orderIdx, SkillManager.GetSkill(classIdx, 340), 2, 0);
-        cast340 = false;
+        castInDark = false;
     }
 
     public override string CanCastSkill(int idx)
@@ -45,11 +47,7 @@ public class MagicalRogue : Character
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
 
         //콤비네이션 3세트 - 3형 무술 CRC, CRB 상승
         set = ItemManager.GetSetData(22);
@@ -83,30 +81,33 @@ public class MagicalRogue : Character
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
-        SoundManager.instance.PlaySFX(skill.sfx);
+        SoundManager.Instance.PlaySFX(skill.sfx);
 
         //321 맹독 부여
-        if (HasSkill(321))
-        {
-            Buff b = turnBuffs.buffs.Find(x => x.name == SkillManager.GetSkill(classIdx, 321).name);
-            if (b != null)
-            {
-                b.buffRate[0]--;
-                if (b.buffRate[0] <= 0)
-                    turnBuffs.buffs.Remove(b);
-            }
-        }
+        if(skill.idx == 321)
+            turnBuffs.Add(new Buff(BuffType.None, new BuffOrder(this, orderIdx), skill.name, (int)Obj.맹독부여, 1, 2, 0, 99, 1, 1));
         //340 3형:어둠 속으로 - 다음 턴 치확 상승
         if (skill.idx == 340)
-            cast340 = true;
+            castInDark = true;
 
         //344 그림자 돌진
         if (HasSkill(344)) turnBuffs.buffs.RemoveAll(x => x.name == SkillManager.GetSkill(classIdx, 344).name);
 
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
-        if (skill.effectType.Any(x => x == (int)EffectType.CharSpecial2))
-            buffStat[(int)Obj.currAP] += 2;
+        
+        //322 나비처럼 날아서 - 행동력 일부 반환
+        if (skill.idx == 322)
+            GetAPHeal(2);
+        //328 구르기 - 행동력 일부 반환
+        else if(skill.idx == 328)
+            GetAPHeal(1);
+        //337 꼬리 잡기 - 행동력 일부 반환
+        else if (skill.idx == 337)
+            GetAPHeal(1);
+        //344 그림자 돌진 - 행동력 일부 반환
+        else if (skill.idx == 344)
+            GetAPHeal(2);
 
         cooldowns[slotIdx] = skill.cooldown;
         resentCategory = skill.category;
@@ -141,9 +142,9 @@ public class MagicalRogue : Character
         {
             Skill tmp = SkillManager.GetSkill(classIdx, 341);
 
-            //두려운 악마 4세트 - 1형 교활함 강화, 기민한 맹공 3세트 - 1형 강화 스킬 강화
-            float rate = 1 + set.Value[2] + ItemManager.GetSetData(24).Value[1];
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            //두려운 악마 4세트 - 1형 교활함 강화
+            float rate = tmp.effectRate[0] + set.Value[2];
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], 1, rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
             guileCount[0] = 0;
         }
         //2형 교활함 - 2형 2번 사용 시 행동력 상승
@@ -152,8 +153,8 @@ public class MagicalRogue : Character
             Skill tmp = SkillManager.GetSkill(classIdx, 342);
 
             //두려운 악마 4세트 - 2형 교활함 강화
-            float rate = 1 + set.Value[2];
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            float rate = tmp.effectRate[0] + set.Value[2];
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], 1, rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
             guileCount[1] = 0;
         }
 
@@ -163,7 +164,6 @@ public class MagicalRogue : Character
     {
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
-        float stat;
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(23);
 
         for (int i = 0; i < skill.effectCount; i++)
@@ -173,7 +173,6 @@ public class MagicalRogue : Character
                 effectTargets = GetEffectTarget(selects, damaged, 5);
             else
                 effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -182,7 +181,7 @@ public class MagicalRogue : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -200,7 +199,7 @@ public class MagicalRogue : Character
                             if (Random.Range(0, 100) < acc)
                             {
                                 isAcc = true;
-                                //329 깊이 찌르기
+                                //329 깊이 찌르기 - 상처 대상 치명타 확률 증가
                                 int crcAdd = u.turnDebuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 329).name) ? 20 : 0;
                                 //크리티컬 연산 - dmg * CRB
                                 isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] + crcAdd;
@@ -208,11 +207,27 @@ public class MagicalRogue : Character
                                 KeyValuePair<bool, int> kill = u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
                                 //348 환골탈태 - 생명력 흡수
                                 if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 348).name))
-                                    GetHeal(kill.Value * 0.1f);
-                                //321 맹독 부여
-                                if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 321).name))
-                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "맹독", (int)Obj.맹독, buffStat[(int)Obj.공격력], 0.6f, 0, 2, 1, 1));
-
+                                    GetHeal(kill.Value * skill.effectRate[4]);
+                                
+                                //321 맹독 부여 - 공격 시 맹독 부여
+                                if(HasSkill(321))
+                                {
+                                    var buffs = from token in turnBuffs.buffs where token.objectIdx[0] == (int)Obj.맹독부여 select token;
+                                    if(buffs.Count() > 0)
+                                    {
+                                        u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "맹독", (int)Obj.맹독, buffStat[(int)Obj.공격력], 0.1f, 0, 2, 1, 1));
+                                        foreach(Buff b in buffs)
+                                        {
+                                            b.buffRate[0]--;
+                                            if(b.buffRate[0] <= 0)
+                                                turnBuffs.buffs.Remove(b);
+                                        }
+                                    }
+                                }
+                                //깊이 찌르기 - 상처 부여
+                                if(skill.idx == 329)
+                                    u.turnDebuffs.Add(new Buff(BuffType.None, new BuffOrder(this, orderIdx),skill.name, (int)Obj.상처, 0, 0, 0, 0, 1, 1));
+                                    
                                 damaged.Add(u);
                                 
                                 if (kill.Key)
@@ -231,50 +246,15 @@ public class MagicalRogue : Character
 
                         break;
                     }
-                case EffectType.Heal:
-                    {
-                        float heal = stat * skill.effectRate[i];
-
-                        foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
-                case EffectType.Active_Buff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                            {
-                                u.AddDebuff(this, orderIdx, skill, i, stat);
-                                if(skill.effectObject[i] == (int)Obj.악령빙의)
-                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, (int)Obj.속도, 1, 0.5f, 1, skill.effectTurn[i], skill.effectDispel[i], skill.effectVisible[i]));
-                            }
-                        break;
-                    }
-                case EffectType.Active_RemoveBuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
+                case EffectType.DoNothing:
+                    break;
                 case EffectType.CharSpecial1:
                     {
                         //TP 감소
                         BM.ReduceTP(effectTargets, Mathf.RoundToInt(skill.effectRate[i]));
                         return;
                     }
+                //347 잔인한 난도질
                 case EffectType.CharSpecial3:
                     {
                         Unit u = effectTargets[0];
@@ -306,10 +286,22 @@ public class MagicalRogue : Character
                                 int heal = u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100).Value;
                                 //348 환골탈태 - 생명력 흡수
                                 if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 348).name))
-                                    GetHeal(heal * 0.1f);
-                                //321 맹독 부여
-                                if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 321).name))
-                                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "맹독", (int)Obj.맹독, buffStat[(int)Obj.공격력], 0.6f, 0, 2, 1, 1));
+                                    GetHeal(heal * skill.effectRate[4]);
+                                //321 맹독 부여 - 공격 시 맹독 부여
+                                if(HasSkill(321))
+                                {
+                                    var buffs = from token in turnBuffs.buffs where token.objectIdx[0] == (int)Obj.맹독부여 select token;
+                                    if(buffs.Count() > 0)
+                                    {
+                                        u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "맹독", (int)Obj.맹독, buffStat[(int)Obj.공격력], 0.1f, 0, 2, 1, 1));
+                                        foreach(Buff b in buffs)
+                                        {
+                                            b.buffRate[0]--;
+                                            if(b.buffRate[0] <= 0)
+                                                turnBuffs.buffs.Remove(b);
+                                        }
+                                    }
+                                }
 
                                 damaged.Add(u);
 
@@ -326,6 +318,7 @@ public class MagicalRogue : Character
                         break;
                     }
                 default:
+                    ActiveDefaultCase(skill, i , effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
                     break;
             }
         }
@@ -354,18 +347,19 @@ public class MagicalRogue : Character
             {
                 set = ItemManager.GetSetData(22);
                 float rate = 1 + set.Value[2];
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], skill.effectStat[0], skill.effectRate[0] * rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], 1, skill.effectRate[0] * rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
                 continue;
             }
             //두려운 악마 4세트 - 3형 교활함 강화 (1, 2형은 ActiveSkill 함수에서)
             if (skill.idx == 343)
             {
                 set = ItemManager.GetSetData(23);
-                float rate = 1 + set.Value[2];
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], skill.effectStat[0], skill.effectRate[0] * rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+                float rate = skill.effectRate[0] + set.Value[2];
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], 1, rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
                 continue;
             }
 
+            //기민한 맹공 3세트 - 1형 강화 스킬 추가 강화
             if(skill.idx == 317 || skill.idx == 325 || skill.idx == 333 || skill.idx == 349)
                 set = ItemManager.GetSetData(24);
 

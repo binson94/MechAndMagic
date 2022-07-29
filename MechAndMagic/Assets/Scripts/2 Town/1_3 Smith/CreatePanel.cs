@@ -58,8 +58,8 @@ public class CreatePanel : MonoBehaviour, ITownPanel
             Pair<int, int> resourceInfo = SP.SelectedEBP.requireResources[i];
             resourceIcons[i].sprite = SpriteGetter.instance.GetResourceIcon(resourceInfo.Key);
             resourceIcons[i].gameObject.SetActive(true);
-            resourceTxts[i].text = $"({GameManager.instance.slotData.itemData.basicMaterials[resourceInfo.Key]} / {resourceInfo.Value})";
-            if(GameManager.instance.slotData.itemData.basicMaterials[resourceInfo.Key] < resourceInfo.Value)
+            resourceTxts[i].text = $"({GameManager.Instance.slotData.itemData.basicMaterials[resourceInfo.Key]} / {resourceInfo.Value})";
+            if(GameManager.Instance.slotData.itemData.basicMaterials[resourceInfo.Key] < resourceInfo.Value)
             {
                 resourceTxts[i].text = $"<color=#f93f3d>{resourceTxts[i].text}</color>";
                 canCreate = false;
@@ -99,7 +99,7 @@ public class CreatePanel : MonoBehaviour, ITownPanel
 
         //재제작 가능 여부 - 보조 스텟 또는 공통 옵션
         canReroll = (SP.SelectedEBP.part >= EquipPart.Ring) ||
-                    (SP.SelectedEBP.rarity >= Rarity.Uncommon && SP.SelectedEBP.subStat == Obj.None && SP.SelectedEBP.part == EquipPart.Weapon) ||
+                    (SP.SelectedEBP.rarity >= Rarity.Uncommon && SP.SelectedEBP.part == EquipPart.Weapon) ||
                     (SP.SelectedEBP.commonStats.Any(x => x == 13));
 
         Color color = canReroll ? new Color(1, 1, 1, 1f) : new Color(1, 1, 1, 0.5f);
@@ -123,7 +123,7 @@ public class CreatePanel : MonoBehaviour, ITownPanel
     void OnAdReward(object sender, GoogleMobileAds.Api.Reward reward)
     {
         createdEquip.ReCreate();
-        GameManager.instance.SaveSlotData();
+        GameManager.Instance.SaveSlotData();
 
         canReroll = false;
         rerollBtn.color = new Color(1, 1, 1, 0.5f);

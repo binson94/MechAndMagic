@@ -6,12 +6,15 @@ public class APBar : MonoBehaviour
 {
     [SerializeField] UnityEngine.UI.Text apTxt;
     [SerializeField] RectTransform[] pivots;
-    [SerializeField] GameObject barPrefab;
-    [SerializeField] Transform barParent;
-    const float length = 164;
     const float intervalLength = 3;
 
+    ///<summary> AP 오브젝트 프리팹 </summary>
+    [SerializeField] GameObject barPrefab;
+    ///<summary> AP 오브젝트 부모 오브젝트 </summary>
+    [SerializeField] Transform barParent;
+    ///<summary> AP 오브젝트 풀 </summary>
     Queue<GameObject> pool = new Queue<GameObject>();
+    ///<summary> AP 오브젝트 리스트 </summary>
     List<GameObject> barImages = new List<GameObject>();
 
     public void SetValue(int currAP, int maxAP)
@@ -19,23 +22,23 @@ public class APBar : MonoBehaviour
         Reset();
 
         int interval = maxAP - 1;
-        float length = (APBar.length - intervalLength * interval) / maxAP;
-        float pos = pivots[0].anchoredPosition.x + length / 2;
+        float length = (pivots[1].anchoredPosition.x - pivots[0].anchoredPosition.x - intervalLength * interval) / maxAP;
+        float pos = pivots[0].anchoredPosition.x;
 
         for(int i = 0;i < currAP;i++)
         {
             GameObject go = NewBarToken();
-            go.transform.SetParent(barParent);
+            RectTransform rect = go.GetComponent<RectTransform>();
 
-            go.GetComponent<RectTransform>().sizeDelta = new Vector2(length, 22);
-            go.transform.localPosition = new Vector3(pos, -0.5f, 0);
+            rect.sizeDelta = new Vector2(length, 22);
+            rect.anchoredPosition = new Vector2(pos, -0.5f);
             pos += length + intervalLength;
 
             go.SetActive(true);
             barImages.Add(go);
         }
 
-        apTxt.text = $"{currAP}/{maxAP}";
+        apTxt.text = $"{Mathf.Max(0, currAP)}/{Mathf.Max(0, maxAP)}";
     }
 
     void Reset()

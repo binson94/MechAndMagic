@@ -85,7 +85,7 @@ public class SkillBtnToken : MonoBehaviour
         }
         else
         {
-            Skill s = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillSlotIdx < 6 ? GameManager.instance.slotData.activeSkills[skillSlotIdx] : GameManager.instance.slotData.passiveSkills[skillSlotIdx - 6]);
+            Skill s = SkillManager.GetSkill(GameManager.SlotClass, skillSlotIdx < 6 ? GameManager.Instance.slotData.activeSkills[skillSlotIdx] : GameManager.Instance.slotData.passiveSkills[skillSlotIdx - 6]);
             skillIconImage.sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
             skillIconImage.gameObject.SetActive(true);
 
@@ -98,13 +98,13 @@ public class SkillBtnToken : MonoBehaviour
 
     public void Btn_Select()
     {
-        SoundManager.instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX(22);
         if (BM != null)
             BM.Btn_SkillToken(skillIdx, state);
     }
     public void Btn_Learn()
     {
-        SoundManager.instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX(22);
         if(BM != null) BM.BedToSkillLearn(skillIdx);
     }
 

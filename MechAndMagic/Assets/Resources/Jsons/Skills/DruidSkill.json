@@ -17,9 +17,8 @@
      "apCost": 1,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
-     "effectCount": 2,
+     "effectCount": 3,
      "sfx": 19,
      "effectType": [
         1,
@@ -100,7 +99,6 @@
      "apCost": 2,
      "cool": 0,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 1,
      "sfx": 8,
@@ -183,7 +181,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 8,
@@ -218,7 +215,7 @@
         0
      ],
      "effectRate": [
-        0.5,
+        0.4,
         1.2,
         0,
         0
@@ -266,7 +263,6 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 3,
@@ -349,7 +345,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -432,7 +427,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -515,7 +509,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -598,7 +591,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -681,7 +673,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 19,
@@ -764,7 +755,6 @@
      "apCost": 4,
      "cool": 0,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 8,
@@ -811,7 +801,7 @@
         0
      ],
      "effectTurn": [
-        0,
+        -1,
         0,
         0,
         0
@@ -847,7 +837,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 2,
      "effectCount": 2,
      "sfx": 8,
@@ -930,7 +919,6 @@
      "apCost": 3,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 19,
@@ -1013,7 +1001,6 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 3,
@@ -1096,7 +1083,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -1179,7 +1165,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 0,
      "sfx": 0,
@@ -1262,7 +1247,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -1321,7 +1305,7 @@
         0
      ],
      "effectVisible": [
-        0,
+        1,
         0,
         0,
         0
@@ -1345,7 +1329,6 @@
      "apCost": 5,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 3,
@@ -1428,9 +1411,8 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
-     "effectCount": 3,
+     "effectCount": 4,
      "sfx": 19,
      "effectType": [
         3,
@@ -1511,9 +1493,8 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 4,
      "sfx": 19,
      "effectType": [
         4,
@@ -1594,7 +1575,6 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 3,
@@ -1677,9 +1657,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -1760,9 +1739,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -1843,7 +1821,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 0,
      "sfx": 0,
@@ -1926,7 +1903,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 0,
      "sfx": 0,
@@ -2009,9 +1985,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2092,14 +2067,13 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 8,
      "effectType": [
         4,
         1,
-        16,
+        0,
         0
      ],
      "effectCond": [
@@ -2117,7 +2091,7 @@
      "effectObject": [
         7,
         1,
-        7,
+        0,
         0
      ],
      "effectStat": [
@@ -2129,13 +2103,13 @@
      "effectRate": [
         0.35,
         1.5,
-        0.2,
+        0,
         0
      ],
      "effectCalc": [
         1,
         0,
-        1,
+        0,
         0
      ],
      "effectTurn": [
@@ -2175,7 +2149,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 4,
      "sfx": 19,
@@ -2258,7 +2231,6 @@
      "apCost": 5,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 8,
@@ -2281,7 +2253,7 @@
         0
      ],
      "effectObject": [
-        0,
+        5,
         1,
         0,
         0
@@ -2299,13 +2271,13 @@
         0
      ],
      "effectCalc": [
-        0,
+        1,
         0,
         0,
         0
      ],
      "effectTurn": [
-        0,
+        -1,
         0,
         0,
         0
@@ -2341,7 +2313,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 3,
@@ -2409,7 +2380,7 @@
    {
      "name": "가시 덩굴 갑옷",
      "script": "[생명력 1 획득] 피해의 일부를 적에게 반사하는 갑옷 두름",
-     "script_pos": "자신\n생명력 1 필요\n입을 피해의 40%만큼 2턴 피해 반사",
+     "script_pos": "자신\n생명력 1 획득\n입을 피해의 40%만큼 2턴 피해 반사",
      "script_neg": "",
      "idx": 242,
      "icon": 4,
@@ -2424,7 +2395,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 19,
@@ -2471,19 +2441,19 @@
         0
      ],
      "effectTurn": [
-        2,
+        0,
         0,
         0,
         0
      ],
      "effectDispel": [
-        1,
+        0,
         0,
         0,
         0
      ],
      "effectVisible": [
-        1,
+        0,
         0,
         0,
         0
@@ -2507,9 +2477,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2590,9 +2559,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2673,9 +2641,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2756,9 +2723,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2773,7 +2739,7 @@
         0
      ],
      "effectTarget": [
-        7,
+        4,
         0,
         0,
         0
@@ -2839,12 +2805,11 @@
      "apCost": 4,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
      "effectType": [
-        16,
+        18,
         0,
         0,
         0
@@ -2874,7 +2839,7 @@
         0
      ],
      "effectRate": [
-        2,
+        6,
         0,
         0,
         0
@@ -2922,7 +2887,6 @@
      "apCost": 7,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 3,
      "sfx": 8,
@@ -3005,9 +2969,8 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 3,
      "sfx": 19,
      "effectType": [
         4,
@@ -3054,7 +3017,7 @@
      "effectTurn": [
         -2,
         0,
-        1,
+        2,
         0
      ],
      "effectDispel": [
@@ -3088,7 +3051,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 19,
@@ -3136,7 +3098,7 @@
      ],
      "effectTurn": [
         0,
-        2,
+        3,
         0,
         0
      ],
@@ -3171,7 +3133,6 @@
      "apCost": 5,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -3218,7 +3179,7 @@
         0
      ],
      "effectTurn": [
-        3,
+        4,
         0,
         0,
         0
@@ -3254,9 +3215,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -3337,9 +3297,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 2,
      "sfx": 0,
      "effectType": [
         16,
@@ -3420,7 +3379,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 0,
      "sfx": 0,
@@ -3503,9 +3461,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 0,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,

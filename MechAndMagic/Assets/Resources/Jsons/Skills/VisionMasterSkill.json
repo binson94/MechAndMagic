@@ -1,6 +1,6 @@
 ﻿[
    {
-     "name": "권법 : 양",
+     "name": "권법",
      "script": "[선택] 부정확한 공격 & 정확하지만 약한 공격",
      "script_pos": "적 1개체\n공격력의 90% 데미지\n명중률 90%",
      "script_neg": "적 1개체\n공격력의 70% 데미지\n명중률 110%",
@@ -17,7 +17,6 @@
      "apCost": 2,
      "cool": 0,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 1,
@@ -140,7 +139,6 @@
      "apCost": 2,
      "cool": 0,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 1,
@@ -246,7 +244,7 @@
      ]
   },
    {
-     "name": "기의 흐름 : 양",
+     "name": "기의 흐름",
      "script": "[선택] 생명력 흡수하는 공격 & 2인 공격",
      "script_pos": "적 1개체\n공격력의 110% 데미지\n명중률 85%\n피해의 20% 회복",
      "script_neg": "무작위 적\n공격력의 90% 데미지\n명중률 85%",
@@ -263,7 +261,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 3,
      "sfx": 2,
@@ -386,9 +383,8 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 2,
      "sfx": 2,
      "effectType": [
         4,
@@ -492,7 +488,7 @@
      ]
   },
    {
-     "name": "온기 : 양",
+     "name": "온기",
      "script": "[선택] 방어력 일부 무시하는 공격 & 방어력 상승",
      "script_pos": "적 1개체\n공격력의 90% 데미지\n방어력 무시 +15%",
      "script_neg": "자신\n2턴 방어력 +15%",
@@ -509,7 +505,6 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 1,
@@ -632,7 +627,6 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -738,7 +732,7 @@
      ]
   },
    {
-     "name": "비전력 부여 : 양",
+     "name": "비전력 부여",
      "script": "[선택] 공격력 상승 & 공격력 감소시키는 약한 공격",
      "script_pos": "자신\n2턴 공격력 +20%",
      "script_neg": "적 1개체\n공격력의 140% 데미지\n명중률 75%",
@@ -755,7 +749,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -877,15 +870,14 @@
      ],
      "apCost": 3,
      "cool": 1,
-     "targetSelect": 0,
-     "targetSide": 0,
-     "targetCount": 0,
-     "effectCount": 3,
+     "targetSelect": 1,
+     "targetCount": 1,
+     "effectCount": 2,
      "sfx": 2,
      "effectType": [
         4,
         1,
-        4,
+        0,
         0,
         0,
         0,
@@ -905,7 +897,7 @@
      "effectTarget": [
         0,
         1,
-        12,
+        0,
         0,
         0,
         0,
@@ -915,7 +907,7 @@
      "effectObject": [
         7,
         1,
-        5,
+        0,
         0,
         0,
         0,
@@ -935,7 +927,7 @@
      "effectRate": [
         0.25,
         1.4,
-        0.2,
+        0,
         0,
         0,
         0,
@@ -945,7 +937,7 @@
      "effectCalc": [
         1,
         0,
-        1,
+        0,
         0,
         0,
         0,
@@ -955,7 +947,7 @@
      "effectTurn": [
         -2,
         0,
-        2,
+        0,
         0,
         0,
         0,
@@ -965,7 +957,7 @@
      "effectDispel": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0,
@@ -975,7 +967,7 @@
      "effectVisible": [
         0,
         0,
-        1,
+        0,
         0,
         0,
         0,
@@ -1001,7 +993,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -1124,7 +1115,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -1247,7 +1237,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -1353,7 +1342,7 @@
      ]
   },
    {
-     "name": "분노의 외침 : 양",
+     "name": "분노의 외침",
      "script": "[선택] 치명타 확률 상승 & 전체 치명타 확률 감소",
      "script_pos": "자신\n2턴 치명타 확률 +40%",
      "script_neg": "적 전체\n2턴 치명타 확률 -20%",
@@ -1370,7 +1359,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -1493,7 +1481,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -1568,7 +1555,7 @@
         0
      ],
      "effectTurn": [
-        2,
+        3,
         0,
         0,
         0,
@@ -1599,7 +1586,7 @@
      ]
   },
    {
-     "name": "비전 연쇄 : 양",
+     "name": "비전 연쇄",
      "script": "[선택] 부정확한 2인 공격 & 부정확한 전체 공격",
      "script_pos": "무작위 적\n공격력의 130% 데미지\n명중률 80%",
      "script_neg": "적 전체\n공격력의 110% 데미지\n명중률 80%",
@@ -1616,9 +1603,8 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 2,
      "sfx": 20,
      "effectType": [
         4,
@@ -1739,7 +1725,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 20,
@@ -1845,7 +1830,7 @@
      ]
   },
    {
-     "name": "비전 파동 : 양",
+     "name": "비전 파동",
      "script": "[선택] 지정 적 3타 공격 & 무작위 적 2타 공격",
      "script_pos": "적 1개체\n공격력의 200% 데미지",
      "script_neg": "무작위 적\n공격력의 180% 데미지",
@@ -1862,7 +1847,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 3,
      "sfx": 20,
@@ -1985,7 +1969,6 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 20,
@@ -2091,7 +2074,7 @@
      ]
   },
    {
-     "name": "정기 순환 : 양",
+     "name": "정기 순환",
      "script": "[선택] 체력 소량 회복 & 무작위 2인 부정확한 약한 공격, 적중한 적은 명중률 감소",
      "script_pos": "자신\n공격력의 60% 회복",
      "script_neg": "무작위 적\n공격력의 120% 데미지\n적중한 적 2턴 명중률 -15%\n명중률 85%",
@@ -2108,7 +2091,6 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -2231,7 +2213,6 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 1,
@@ -2308,7 +2289,7 @@
      "effectTurn": [
         -2,
         0,
-        2,
+        3,
         0,
         0,
         0,
@@ -2354,9 +2335,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2477,9 +2457,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2600,9 +2579,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -2706,7 +2684,7 @@
      ]
   },
    {
-     "name": "정화 : 양",
+     "name": "정화",
      "script": "[선택] 내게 걸린 디버프 1개 해제 & 적 2인 버프 1개 해제",
      "script_pos": "자신\n무작위 디버프 1개 해제",
      "script_neg": "적 2개체\n무작위 버프 1개 해제",
@@ -2723,7 +2701,6 @@
      "apCost": 3,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -2846,7 +2823,6 @@
      "apCost": 3,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -2952,7 +2928,7 @@
      ]
   },
    {
-     "name": "비전 일격 : 양",
+     "name": "비전 일격",
      "script": "[선택] 최대체력 비례 강한 공격 & 정확한 무작위 적 공격",
      "script_pos": "적 1개체\n공격력의 200% 데미지\n적 최대체력 비례 추가피해",
      "script_neg": "무작위 적\n공격력의 220% 데미지\n명중률 125%",
@@ -2969,7 +2945,6 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 1,
@@ -3092,7 +3067,6 @@
      "apCost": 5,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 1,
@@ -3198,7 +3172,7 @@
      ]
   },
    {
-     "name": "비전 폭발 : 양",
+     "name": "비전 폭발",
      "script": "[선택] 방어력 많이 무시하는 약한 전체 공격 & 정확한 전체 공격",
      "script_pos": "적 전체\n공격력의 100% 데미지\n방어력 무시 +40%",
      "script_neg": "적 전체\n공격력의 100% 데미지\n명중률 130%",
@@ -3215,7 +3189,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 2,
@@ -3338,7 +3311,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 2,
@@ -3444,7 +3416,7 @@
      ]
   },
    {
-     "name": "뇌전격 : 양",
+     "name": "뇌전격",
      "script": "[선택] 부정확한 치명적인 전체 공격 & 매우 치명적인 공격",
      "script_pos": "적 전체\n공격력의 100% 데미지\n치명타 피해 +35%\n명중률 70%",
      "script_neg": "적 1개체\n공격력의 220% 데미지\n치명타 확률, 치명타 피해 +35%",
@@ -3461,7 +3433,6 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 20,
@@ -3518,7 +3489,7 @@
      "effectRate": [
         35,
         0.3,
-        0.9,
+        1,
         0,
         0,
         0,
@@ -3584,9 +3555,8 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 3,
      "sfx": 20,
      "effectType": [
         3,
@@ -3707,12 +3677,11 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
-        16,
+        0,
         0,
         0,
         0,
@@ -3762,7 +3731,7 @@
         0
      ],
      "effectRate": [
-        1,
+        0,
         0,
         0,
         0,
@@ -3830,9 +3799,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -3953,9 +3921,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -4059,7 +4026,7 @@
      ]
   },
    {
-     "name": "차크라 : 양",
+     "name": "차크라",
      "script": "[선택] 공격력, 방어력 무시 상승 & 체력 회복, 방어력 상승",
      "script_pos": "자신\n2턴간 공격력, 방어력 무시 +30%",
      "script_neg": "자신\n공격력의 80% 회복\n2턴간 방어력 +30%",
@@ -4076,7 +4043,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 3,
@@ -4199,7 +4165,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 3,
@@ -4305,7 +4270,7 @@
      ]
   },
    {
-     "name": "비전 나선탄 : 양",
+     "name": "비전 나선탄",
      "script": "[선택] 정확하고 강한 전체 공격 & 부정확하고 강한 2인 공격",
      "script_pos": "적 전체\n공격력의 140% 데미지\n명중률 140%",
      "script_neg": "적 2개체\n공격력의 190% 데미지\n명중률 70%",
@@ -4322,7 +4287,6 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 20,
@@ -4445,7 +4409,6 @@
      "apCost": 7,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 20,
@@ -4551,7 +4514,7 @@
      ]
   },
    {
-     "name": "비전 방패 : 양",
+     "name": "비전 방패",
      "script": "[선택] 일시적인 보호막 획득 & 이번 턴과 다음 턴에 보호막 획득",
      "script_pos": "자신\n1턴간 공격력의 40% 보호막",
      "script_neg": "자신\n1턴간 공격력의 40% 보호막\n다음 턴에 반복",
@@ -4568,7 +4531,6 @@
      "apCost": 5,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 3,
@@ -4691,9 +4653,8 @@
      "apCost": 5,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 3,
      "effectType": [
         3,
@@ -4766,7 +4727,7 @@
         0
      ],
      "effectTurn": [
-        1,
+        2,
         0,
         0,
         0,
@@ -4797,7 +4758,7 @@
      ]
   },
    {
-     "name": "질풍 차기 : 양",
+     "name": "질풍 차기",
      "script": "[선택] 부정확한 4타 무작위 적 공격 & 부정확한 3타 지정 적 공격",
      "script_pos": "무작위 적\n공격력의 280% 데미지\n명중률 70%",
      "script_neg": "적 1개체\n공격력의 240% 데미지\n명중률 70%",
@@ -4814,7 +4775,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 8,
      "sfx": 2,
@@ -4831,11 +4791,11 @@
      "effectCond": [
         0,
         0,
+        1,
         0,
+        1,
         0,
-        0,
-        0,
-        0,
+        1,
         0
      ],
      "effectTarget": [
@@ -4889,7 +4849,7 @@
         0
      ],
      "effectTurn": [
-        -2,
+        -1,
         0,
         -1,
         0,
@@ -4937,7 +4897,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 6,
      "sfx": 2,
@@ -4954,9 +4913,9 @@
      "effectCond": [
         0,
         0,
+        1,
         0,
-        0,
-        0,
+        1,
         0,
         0,
         0
@@ -5012,7 +4971,7 @@
         0
      ],
      "effectTurn": [
-        -2,
+        -1,
         0,
         -1,
         0,
@@ -5060,9 +5019,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -5183,9 +5141,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -5306,9 +5263,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -5381,7 +5337,7 @@
         0
      ],
      "effectTurn": [
-        1,
+        2,
         0,
         0,
         0,
@@ -5412,10 +5368,10 @@
      ]
   },
    {
-     "name": "각성 : 양",
+     "name": "각성",
      "script": "명중률, 최대 행동력 대폭 상승, [선택] 내 모든 디버프 해제 & 무작위 적 모든 버프 해제",
-     "script_pos": "자신\n2턴간 명중률 +25%, 최대 행동력 +3",
-     "script_neg": "내 모든 디버프 해제\n무작위 적 모든 버프 해제",
+     "script_pos": "자신\n2턴간 명중률 +25%, 최대 행동력 +3\n내 모든 디버프 해제",
+     "script_neg": "자신\n2턴간 명중률 +25%, 최대 행동력 +3\n무작위 적 모든 버프 해제",
      "idx": 300,
      "icon": 4,
      "category": 1023,
@@ -5429,7 +5385,6 @@
      "apCost": 7,
      "cool": 4,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 3,
@@ -5505,7 +5460,7 @@
      ],
      "effectTurn": [
         2,
-        2,
+        3,
         0,
         0,
         0,
@@ -5552,7 +5507,6 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 3,
@@ -5628,7 +5582,7 @@
      ],
      "effectTurn": [
         2,
-        2,
+        3,
         0,
         0,
         0,
@@ -5658,9 +5612,9 @@
      ]
   },
    {
-     "name": "비전 대폭격 : 양",
+     "name": "비전 대폭격",
      "script": "스킬 사용 시 버프 효과 2배 적용, [선택] 방어력 대폭 무시하는 공격 & 기본 강한 공격",
-     "script_pos": "적 1개체\n공격력의 140% 데미지\n방어력 무시 +55%\n버프 효과 2배 적용",
+     "script_pos": "적 1개체\n공격력의 140% 데미지\n방어력 무시 +50%\n버프 효과 2배 적용",
      "script_neg": "적 1개체\n공격력의 220% 데미지\n버프 효과 2배 적용",
      "idx": 302,
      "icon": 1,
@@ -5675,9 +5629,8 @@
      "apCost": 8,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 2,
      "sfx": 20,
      "effectType": [
         3,
@@ -5701,7 +5654,7 @@
      ],
      "effectTarget": [
         0,
-        0,
+        1,
         0,
         0,
         0,
@@ -5730,7 +5683,7 @@
         0
      ],
      "effectRate": [
-        55,
+        50,
         1.4,
         0,
         0,
@@ -5798,9 +5751,8 @@
      "apCost": 8,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 20,
      "effectType": [
         1,
@@ -5823,7 +5775,7 @@
         0
      ],
      "effectTarget": [
-        0,
+        1,
         0,
         0,
         0,
@@ -5904,7 +5856,7 @@
      ]
   },
    {
-     "name": "궁극원기옥 : 양",
+     "name": "궁극원기옥",
      "script": "정확하고 치명적이며 강한 공격, [선택] 기본 공격 & 잃은 체력 비례하여 강해지는 공격",
      "script_pos": "적 1개체\n공격력의 120% 데미지\n명중률 +40%\n치명타 확률,피해 +50%",
      "script_neg": "적 1개체\n공격력의 120% 데미지\n적 잃은 체력 비례 추가 피해, 명중률 +40%\n치명타 확률, 피해 +50%",
@@ -5921,7 +5873,6 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 4,
      "sfx": 20,
@@ -5949,7 +5900,7 @@
         0,
         0,
         0,
-        6,
+        1,
         0,
         0,
         0,
@@ -6044,7 +5995,6 @@
      "apCost": 7,
      "cool": 4,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 5,
      "sfx": 20,
@@ -6073,7 +6023,7 @@
         0,
         0,
         0,
-        6,
+        1,
         0,
         0,
         0
@@ -6150,7 +6100,7 @@
      ]
   },
    {
-     "name": "심판의 용 : 양",
+     "name": "심판의 용",
      "script": "[선택] 무조건 적중하는 강한 공격 & 매우 부정확한 무작위 적 6타 강한 공격",
      "script_pos": "적 1개체\n공격력의 220% 데미지\n무조건 적중",
      "script_neg": "무작위 적\n공격력의 260% 데미지\n명중률 70%",
@@ -6167,7 +6117,6 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 2,
      "sfx": 20,
@@ -6290,7 +6239,6 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 7,
      "sfx": 20,
@@ -6365,7 +6313,7 @@
         0
      ],
      "effectTurn": [
-        -2,
+        -1,
         0,
         0,
         0,
@@ -6413,9 +6361,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -6490,7 +6437,7 @@
      "effectTurn": [
         -1,
         0,
-        999,
+        99,
         0,
         0,
         0,
@@ -6536,9 +6483,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -6611,7 +6557,7 @@
         0
      ],
      "effectTurn": [
-        2,
+        3,
         0,
         0,
         0,
@@ -6659,9 +6605,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 4,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,

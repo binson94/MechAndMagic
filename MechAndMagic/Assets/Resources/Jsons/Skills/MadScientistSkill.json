@@ -17,7 +17,6 @@
      "apCost": 1,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 5,
@@ -130,7 +129,6 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 5,
@@ -200,7 +198,7 @@
      "effectTurn": [
         -2,
         0,
-        1,
+        2,
         0,
         0,
         0,
@@ -243,7 +241,6 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 3,
      "sfx": 10,
@@ -268,7 +265,7 @@
      "effectTarget": [
         1,
         0,
-        1,
+        4,
         0,
         0,
         0,
@@ -356,13 +353,12 @@
      "apCost": 2,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 2,
      "sfx": 11,
      "effectType": [
         1,
-        0,
+        1,
         0,
         0,
         0,
@@ -380,7 +376,7 @@
      ],
      "effectTarget": [
         7,
-        0,
+        7,
         0,
         0,
         0,
@@ -389,7 +385,7 @@
      ],
      "effectObject": [
         1,
-        0,
+        1,
         0,
         0,
         0,
@@ -398,7 +394,7 @@
      ],
      "effectStat": [
         5,
-        0,
+        5,
         0,
         0,
         0,
@@ -407,7 +403,7 @@
      ],
      "effectRate": [
         1,
-        0,
+        1,
         0,
         0,
         0,
@@ -469,7 +465,6 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 12,
@@ -582,7 +577,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 0,
@@ -695,7 +689,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 0,
@@ -808,7 +801,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 0,
@@ -906,7 +898,7 @@
    {
      "name": "컨트롤 : 호밍 킥",
      "script": "[골렘 명령] 정확하고 방어력 일부 무시하는 공격을 명령함",
-     "script_pos": "무작위 적\n공격력의 90% 데미지\n명중률 +40,방어력 무시 +20",
+     "script_pos": "무작위 적\n공격력의 90% 데미지\n명중률 +40%,방어력 무시 +20",
      "script_neg": "",
      "idx": 135,
      "icon": 6,
@@ -920,10 +912,9 @@
      ],
      "apCost": 3,
      "cool": 1,
-     "targetSelect": 1,
-     "targetSide": 1,
-     "targetCount": 1,
-     "effectCount": 4,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -1033,10 +1024,9 @@
      ],
      "apCost": 3,
      "cool": 1,
-     "targetSelect": 1,
-     "targetSide": 1,
-     "targetCount": 1,
-     "effectCount": 5,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -1147,9 +1137,8 @@
      "apCost": 3,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -1260,7 +1249,6 @@
      "apCost": 4,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 5,
@@ -1330,7 +1318,7 @@
      "effectTurn": [
         -2,
         0,
-        1,
+        2,
         0,
         0,
         0,
@@ -1373,9 +1361,8 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 5,
+     "effectCount": 7,
      "sfx": 10,
      "effectType": [
         1,
@@ -1383,8 +1370,8 @@
         1,
         4,
         1,
-        0,
-        0
+        4,
+        1
      ],
      "effectCond": [
         0,
@@ -1398,11 +1385,11 @@
      "effectTarget": [
         7,
         0,
-        1,
+        7,
         0,
-        1,
+        7,
         0,
-        0
+        7
      ],
      "effectObject": [
         1,
@@ -1410,8 +1397,8 @@
         1,
         7,
         1,
-        0,
-        0
+        7,
+        1
      ],
      "effectStat": [
         5,
@@ -1420,7 +1407,7 @@
         0,
         5,
         0,
-        0
+        5
      ],
      "effectRate": [
         0.8,
@@ -1428,8 +1415,8 @@
         0.8,
         0.1,
         0.8,
-        0,
-        0
+        0.1,
+        0.8
      ],
      "effectCalc": [
         0,
@@ -1437,7 +1424,7 @@
         0,
         1,
         0,
-        0,
+        1,
         0
      ],
      "effectTurn": [
@@ -1446,7 +1433,7 @@
         0,
         -1,
         0,
-        0,
+        -1,
         0
      ],
      "effectDispel": [
@@ -1486,9 +1473,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 2,
      "sfx": 0,
      "effectType": [
         16,
@@ -1599,9 +1585,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 2,
      "sfx": 0,
      "effectType": [
         16,
@@ -1712,9 +1697,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -1810,7 +1794,7 @@
    {
      "name": "골렘 갑옷 강화",
      "script": "<골렘 무기 강화와 동시 장착 불가> 골렘 방어력 상승",
-     "script_pos": "골렘 방어력 -25%",
+     "script_pos": "골렘 방어력 +25%",
      "script_neg": "",
      "idx": 143,
      "icon": 6,
@@ -1825,9 +1809,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         16,
@@ -1938,9 +1921,8 @@
      "apCost": 2,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 0,
      "sfx": 11,
      "effectType": [
         0,
@@ -2051,7 +2033,6 @@
      "apCost": 5,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 9,
@@ -2164,7 +2145,6 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 3,
      "sfx": 12,
@@ -2234,7 +2214,7 @@
      "effectTurn": [
         -2,
         0,
-        2,
+        3,
         0,
         0,
         0,
@@ -2277,7 +2257,6 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
      "effectCount": 3,
      "sfx": 5,
@@ -2347,7 +2326,7 @@
      "effectTurn": [
         -2,
         0,
-        2,
+        3,
         0,
         0,
         0,
@@ -2374,7 +2353,7 @@
   },
    {
      "name": "업그레이드 파츠",
-     "script": "[순수 계열] 지정 아군 공격력 및 방어력 상승",
+     "script": "[순수 계열] 무작위 아군 공격력 및 방어력 상승",
      "script_pos": "아군 1개체\n2턴간 공격력, 방어력 +20%",
      "script_neg": "",
      "idx": 148,
@@ -2389,14 +2368,13 @@
      ],
      "apCost": 4,
      "cool": 2,
-     "targetSelect": 1,
-     "targetSide": 0,
+     "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 14,
      "effectType": [
-        3,
-        3,
+        16,
+        16,
         0,
         0,
         0,
@@ -2413,8 +2391,8 @@
         0
      ],
      "effectTarget": [
-        1,
-        0,
+        2,
+        2,
         0,
         0,
         0,
@@ -2503,9 +2481,8 @@
      "apCost": 4,
      "cool": 1,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 4,
      "sfx": 11,
      "effectType": [
         1,
@@ -2616,7 +2593,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -2684,7 +2660,7 @@
         0
      ],
      "effectTurn": [
-        0,
+        -1,
         0,
         0,
         0,
@@ -2729,7 +2705,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -2797,7 +2772,7 @@
         0
      ],
      "effectTurn": [
-        0,
+        -1,
         0,
         0,
         0,
@@ -2842,9 +2817,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,
@@ -2955,7 +2929,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -3067,10 +3040,9 @@
      ],
      "apCost": 6,
      "cool": 1,
-     "targetSelect": 1,
-     "targetSide": 2,
-     "targetCount": 1,
-     "effectCount": 3,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -3180,10 +3152,9 @@
      ],
      "apCost": 6,
      "cool": 2,
-     "targetSelect": 1,
-     "targetSide": 2,
-     "targetCount": 1,
-     "effectCount": 3,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -3293,10 +3264,9 @@
      ],
      "apCost": 6,
      "cool": 2,
-     "targetSelect": 1,
-     "targetSide": 2,
-     "targetCount": 1,
-     "effectCount": 4,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -3407,9 +3377,8 @@
      "apCost": 8,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 9,
      "effectType": [
         3,
@@ -3520,7 +3489,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 12,
@@ -3589,7 +3557,7 @@
      ],
      "effectTurn": [
         0,
-        2,
+        3,
         0,
         0,
         0,
@@ -3633,7 +3601,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 12,
@@ -3746,9 +3713,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,
@@ -3859,9 +3825,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,
@@ -3972,9 +3937,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 1,
      "sfx": 0,
      "effectType": [
         9,
@@ -4085,9 +4049,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,
@@ -4198,9 +4161,8 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 6,
      "sfx": 11,
      "effectType": [
         3,
@@ -4208,7 +4170,7 @@
         1,
         1,
         1,
-        0,
+        1,
         0
      ],
      "effectCond": [
@@ -4226,7 +4188,7 @@
         7,
         7,
         7,
-        0,
+        7,
         0
      ],
      "effectObject": [
@@ -4235,7 +4197,7 @@
         1,
         1,
         1,
-        0,
+        1,
         0
      ],
      "effectStat": [
@@ -4244,7 +4206,7 @@
         5,
         5,
         5,
-        0,
+        5,
         0
      ],
      "effectRate": [
@@ -4253,7 +4215,7 @@
         0.8,
         0.8,
         0.8,
-        0,
+        0.8,
         0
      ],
      "effectCalc": [
@@ -4266,7 +4228,7 @@
         0
      ],
      "effectTurn": [
-        -2,
+        -1,
         0,
         0,
         0,
@@ -4311,9 +4273,8 @@
      "apCost": 9,
      "cool": 4,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 3,
+     "effectCount": 2,
      "sfx": 14,
      "effectType": [
         16,
@@ -4424,7 +4385,6 @@
      "apCost": 6,
      "cool": 2,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 12,
@@ -4537,9 +4497,8 @@
      "apCost": 7,
      "cool": 3,
      "targetSelect": 1,
-     "targetSide": 1,
      "targetCount": 1,
-     "effectCount": 7,
+     "effectCount": 6,
      "sfx": 10,
      "effectType": [
         1,
@@ -4554,7 +4513,7 @@
         0,
         0,
         0,
-        0,
+        1,
         0,
         0,
         0
@@ -4564,7 +4523,7 @@
         12,
         12,
         0,
-        1,
+        4,
         12,
         12
      ],
@@ -4606,12 +4565,12 @@
      ],
      "effectTurn": [
         0,
-        2,
-        2,
+        3,
+        3,
         -2,
         0,
-        2,
-        2
+        3,
+        3
      ],
      "effectDispel": [
         0,
@@ -4634,8 +4593,8 @@
   },
    {
      "name": "컨트롤 : 유토피아",
-     "script": "[골렘 명령] 모든 아군의 체력을 일정 비율 회복시킬 것을 명령함",
-     "script_pos": "아군 전체\n아군 최대체력의 25%만큼 회복",
+     "script": "[골렘 명령] 모든 아군의 체력을 회복시킬 것을 명령함",
+     "script_pos": "아군 전체\n골렘 체력의 25%만큼 회복",
      "script_neg": "",
      "idx": 168,
      "icon": 3,
@@ -4649,10 +4608,9 @@
      ],
      "apCost": 7,
      "cool": 2,
-     "targetSelect": 1,
-     "targetSide": 2,
-     "targetCount": 1,
-     "effectCount": 2,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -4747,8 +4705,8 @@
   },
    {
      "name": "컨트롤 : 디스토피아",
-     "script": "[골렘 명령] 모든 적군에게 적 체력의 일정 비율만큼 피해입힐 것을 명령함",
-     "script_pos": "적군 전체\n적 최대체력의 20%만큼 데미지",
+     "script": "[골렘 명령] 모든 적군에게 피해입힐 것을 명령함",
+     "script_pos": "적군 전체\n골렘 체력의 15%만큼 데미지",
      "script_neg": "",
      "idx": 169,
      "icon": 2,
@@ -4762,10 +4720,9 @@
      ],
      "apCost": 7,
      "cool": 3,
-     "targetSelect": 1,
-     "targetSide": 2,
-     "targetCount": 1,
-     "effectCount": 2,
+     "targetSelect": 0,
+     "targetCount": 0,
+     "effectCount": 1,
      "sfx": 13,
      "effectType": [
         17,
@@ -4876,7 +4833,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -4962,7 +4918,7 @@
         0
      ],
      "effectVisible": [
-        1,
+        0,
         0,
         0,
         0,
@@ -4989,9 +4945,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 2,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,
@@ -5086,7 +5041,7 @@
   },
    {
      "name": "상태 왜곡 장치",
-     "script": "자신이 스킬한 사용에 대해 자기자신은 효과를 반대로 적용",
+     "script": "자신이 사용한 스킬에 대해 자기자신은 효과를 반대로 적용",
      "script_pos": "피해는 회복으로 적용\n능력치 감소는 증가로 적용",
      "script_neg": "회복은 피해로 적용\n능력치 증가는 감소로 적용",
      "idx": 172,
@@ -5102,9 +5057,8 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
-     "effectCount": 1,
+     "effectCount": 0,
      "sfx": 0,
      "effectType": [
         0,

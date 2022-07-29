@@ -16,7 +16,7 @@ public enum BGMList
 public class SoundManager : MonoBehaviour
 {
     static SoundManager _instance = null;
-    public static SoundManager instance {get {return _instance;}}
+    public static SoundManager Instance {get {return _instance;}}
 
     [SerializeField] AudioMixer mixer;
     [SerializeField] AudioSource BGM;
@@ -77,8 +77,8 @@ public class SoundManager : MonoBehaviour
     public void PlayBGM(BGMList idx)
     {
         int pos = (int)idx;
-        if(GameManager.instance.slotData != null)
-            pos += GameManager.instance.slotData.region == 10 ? 1 : 0;
+        if(GameManager.Instance.slotData != null)
+            pos += GameManager.Instance.slotData.region == 10 ? 1 : 0;
         AudioClip clip = bgms[pos];
 
         if(BGM.clip != clip)

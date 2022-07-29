@@ -28,7 +28,7 @@ public class MetalKnight : Character
     }
 
     //44 빠르게 막기, 78 절대 방어
-    List<GuardBuff> guardBuffList = new List<GuardBuff>();
+    public List<GuardBuff> guardBuffList = new List<GuardBuff>();
 
     //55 방어구 파괴
     Dictionary<Unit, int> armorBreakCount = new Dictionary<Unit, int>();
@@ -47,11 +47,7 @@ public class MetalKnight : Character
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
 
         Passive_SkillCast(skill);
 
@@ -61,12 +57,7 @@ public class MetalKnight : Character
             Skill tmp = SkillManager.GetSkill(2, 58);
             //엘리트 스나이퍼 3세트 - CRB 상승폭 증가
             float rate = tmp.effectRate[0] * (1 + ItemManager.GetSetData(5).Value[1]);
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, tmp.name, tmp.effectObject[0], tmp.effectStat[0], rate, tmp.effectCalc[0], tmp.effectTurn[0]));
-        }
-        //63 신속 사격
-        if(skill.idx == 63 && resentSkillCategory == 1004)
-        {
-            AddBuff(this, orderIdx, skill, 0, 0);
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, tmp.name, tmp.effectObject[0], buffStat[tmp.effectStat[0]], rate, tmp.effectCalc[0], tmp.effectTurn[0]));
         }
         //69 상처 벌리기
         if(skill.idx == 69 && selects[0].turnDebuffs.buffs.Any(x=>x.objectIdx.Any(y=>y == (int)Obj.출혈)))
@@ -84,7 +75,8 @@ public class MetalKnight : Character
         //79 현상금 사냥
         if(skill.idx == 79 && selects[0].turnDebuffs.buffs.Any(x=>x.name == "표식"))
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, 100, 0, -1, 0, 0));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, 999, 0, -1, 0, 0));
+            AddBuff(this, orderIdx, skill, 0, 0);
         }
         
         
@@ -105,14 +97,11 @@ public class MetalKnight : Character
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
-        SoundManager.instance.PlaySFX(skill.sfx);
+        SoundManager.Instance.PlaySFX(skill.sfx);
 
         //79 현상금 사냥
         if (skill.idx == 79 && selects[0].turnDebuffs.buffs.Any(x => x.name == "표식"))
-        {
             selects[0].turnDebuffs.buffs.RemoveAll(x => x.name == "표식");
-            AddBuff(this, orderIdx, skill, 1, 0);
-        }
 
         orderIdx++;
         if(!huntKill)
@@ -130,22 +119,21 @@ public class MetalKnight : Character
     {
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
-        float stat = 0;
 
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
                 //데미지 - 스킬 버프 계산 후 
                 case EffectType.Damage:
                     {
+                        damaged.Clear();
                         StatUpdate_Skill(skill);
 
                         //skillEffectRate가 기본적으로 음수
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach(Unit u in effectTargets)
                         {
@@ -163,6 +151,7 @@ public class MetalKnight : Character
                                 isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
 
                                 bool kill = u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100).Key;
+                                damaged.Add(u);
 
                                 //55 방어구 파괴, 73 난도질
                                 if (HasSkill(55) || HasSkill(73))
@@ -190,7 +179,7 @@ public class MetalKnight : Character
                                             armorBreakCount.Add(u, 1);
                                 }
                                 //57 자신감
-                                if (kill && HasSkill(57))
+                                if (kill && skill.category == 1005 && HasSkill(57))
                                     AddBuff(this, orderIdx, SkillManager.GetSkill(2, 57), 0, 0);
 
                                 huntKill = skill.idx == 79 && kill && ItemManager.GetSetData(5).Value[2] > 0;
@@ -205,46 +194,22 @@ public class MetalKnight : Character
                         
                         break;
                     }
-                case EffectType.Heal:
-                    {
-                        float heal = stat * skill.effectRate[i];
-
-                        foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
                 case EffectType.Active_Buff:
                     {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
+                        float stat = GetEffectStat((skill.idx == 52) ? selects : effectTargets, skill.effectStat[i]);
+                        if (skill.effectCond[i] == 0 || (skill.effectCond[i] == 1 && isAcc) || (skill.effectCond[i] == 2 && isCrit))
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
                         break;
                     }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                u.AddDebuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_RemoveBuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
+                case EffectType.DoNothing:
+                    break;
                 case EffectType.CharSpecial1:
                     {
                         //철벽 2세트 - 막기 버프 방어력 상승량 증가
                         float rate = skill.effectRate[0] * (1 + ItemManager.GetSetData(4).Value[0]);
-                        //막기 버프
-                        guardBuffList.Add(new GuardBuff(skill.name, skill.effectTurn[i], skill.idx == 78, skill.effectObject[i], rate, skill.effectCalc[i] == 1));
+                        //막기 버프 (44 빠르게 막기, 78 절대 방어)
+                        guardBuffList.Add(new GuardBuff(skill.name, skill.effectTurn[i], skill.idx == 78, rate));
                         break;
                     }
                 case EffectType.CharSpecial2:
@@ -252,19 +217,22 @@ public class MetalKnight : Character
                         //표식 부여
                         if(isAcc)
                         {
-                            effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.방어력, 1, 20, 1, 1, 1, 1));
-                            effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.회피율, 1, 20, 1, 1, 1, 1));
+                            effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.방어력, 1, 0.2f, 1, 2, 1, 1));
+                            effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.회피율, 1, 0.2f, 1, 2, 1, 1));
 
                             //대상 무력화
                             if (HasSkill(82))
                             {
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.명중률, 1, 15, 1, 1, 1, 1));
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.치명타율, 1, 15, 1, 1, 1, 1));
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.속도, 1, 15, 1, 1, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.명중률, 1, 0.15f, 1, 2, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.치명타율, 1, 0.15f, 1, 2, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.속도, 1, 0.15f, 1, 2, 1, 1));
                             }
                         }
                         break;
                     }
+                default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    break;
             }
         }
     }
@@ -282,8 +250,8 @@ public class MetalKnight : Character
             //75 균형잡힌 전투법
             if (s.idx == 75)
             {
-                if (activeIdxs.Count(x => SkillManager.GetSkill(2, x).category == 1004) == activeIdxs.Count(x => SkillManager.GetSkill(2, x).category == 1005))                
-                    turnBuffs.Add(new Buff(BuffType.AP, new BuffOrder(this), s.name, (int)Obj.APCost, 1, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));                
+                if (activeIdxs.Count(x => SkillManager.GetSkill(2, x).category == 1004) == 3 && activeIdxs.Count(x => SkillManager.GetSkill(2, x).category == 1005) == 3)
+                    turnBuffs.Add(new Buff(BuffType.AP, new BuffOrder(this), s.name, 0, 1, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));                
                 continue;
             }
             //84 한길만을 걷다
@@ -395,14 +363,14 @@ public class MetalKnight : Character
         {
             Skill s = SkillManager.GetSkill(classIdx, passiveIdxs[i]);
 
-            //74 헤드샷
+            //74 헤드샷 스트릭
             if (s.idx == 74)
             {
                 if (active.category == 1005 && isCrit)
                 {
                     float rate = s.effectRate[0] * (1 + ItemManager.GetSetData(5).Value[1]);
                     //엘리트 스나이퍼 3세트 - CRB 상승률 증가
-                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), s.name, s.effectObject[0], s.effectStat[0], rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), s.name, s.effectObject[0], buffStat[s.effectStat[0]], rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
                 }
                 continue;
             }
@@ -435,7 +403,7 @@ public class MetalKnight : Character
 
         turnBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
         turnDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
-        CalcGuardBuffPivot(ref addPivot, ref mulPivot);
+        CalcGuardBuffPivot(ref mulPivot);
 
         for (int i = 0; i < 13; i++)
             if (i != 1 && i != 3)
@@ -457,21 +425,16 @@ public class MetalKnight : Character
         turnDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
         skillBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
         skillDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
-        CalcGuardBuffPivot(ref addPivot, ref mulPivot);
+        CalcGuardBuffPivot(ref mulPivot);
 
         for (int i = 0; i < 13; i++)
             if (i != 1 && i != 3)
                 buffStat[i] = Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]);
     }
-    void CalcGuardBuffPivot(ref float[] add, ref float[] mul)
+    void CalcGuardBuffPivot(ref float[] mul)
     {
         foreach(GuardBuff s in guardBuffList)
-        {
-            if (s.isMulti)
-                mul[s.objectIdx] += s.rate;
-            else
-                add[s.objectIdx] += s.rate;
-        }
+                mul[(int)Obj.방어력] += s.rate;
     }
 
     public override void AddDebuff(Unit caster, int order, Skill s, int effectIdx, float rate)
@@ -485,6 +448,7 @@ public class MetalKnight : Character
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
         KeyValuePair<bool, int> killed = base.GetDamage(caster, dmg, pen, crb);
+        bool isUpdate = false;
         
          if (guardBuffList.Count > 0)
         {
@@ -501,7 +465,7 @@ public class MetalKnight : Character
 
                 //철벽 4세트 - 가드 아드레날린이 공격력도 올려줌
                 if(set.Value[1] > 0)
-                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.공격력, 1, set.Value[1], 1, tmp.effectTurn[0], 1, 1));
+                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[1], 1, 2, 1, 1));
             }
         }
 
@@ -510,13 +474,18 @@ public class MetalKnight : Character
 
         for (int i = 0; i < guardBuffList.Count; i++)
         {
-            guardBuffList[i].buffTime--;
-            if (guardBuffList[i].buffTime == 0)
+            guardBuffList[i].shieldCount--;
+            if (guardBuffList[i].shieldCount <= 0)
             {
                 guardBuffList.RemoveAt(i);
                 i--;
+
+                isUpdate = true;
             }
         }
+
+        if(isUpdate)
+            StatUpdate_Turn();
 
         return killed;
     }

@@ -11,7 +11,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 ///<summary> 전투 제어 클래스 </summary>
 public class BattleManager : MonoBehaviour
 {
-    enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, EnemyTurn, Win, Lose }
+    enum BattleState { Start, Calc, AllieTurnStart, AllieSkillSelected, AllieTargetSelected, AllieTurnEnd, EnemyTurn, Win, Lose }
 
     #region Variables
     [SerializeField] BattleState state;
@@ -22,7 +22,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Unit[] allChars = new Unit[5];
     ///<summary> 플레이어 프리팹 
     ///<para> 1 ~ 8 캐릭터, 9 골렘, 10 정령 </para> </summary>
-    [SerializeField] Character[] alliePrefabs;
+    [SerializeField] Unit[] alliePrefabs;
     ///<summary> 적 프리팹 </summary>
     [SerializeField] Monster enemyPrefab;
     ///<summary> 더미 유닛 </summary>
@@ -67,8 +67,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Image[] enemyIilusts;
     ///<summary> 플레이어 AP 표시 UI </summary>
     [SerializeField] APBar apBar;
-    ///<summary> Show Player Stat Txt </summary>
+    ///<summary> 소환수 스텟 보기 버튼 </summary>
+    [SerializeField] GameObject statusChangeBtn;
+    ///<summary> 플레이어 스텟 정보 표시 텍스트들
+    ///<para> 0 ATK, 1 DEF, 2 ACC, 3 DOG, 4 CRC, 5 CRB, 6 PEN, 7 SPD </para> </summary>
     [SerializeField] Text[] statusTxts;
+    ///<summary> 소환수 스텟 정보 표시 텍스트들
+    ///<para> 0 ATK, 1 DEF, 2 ACC, 3 DOG, 4 CRC, 5 CRB, 6 PEN, 7 SPD </para> </summary>
+    [SerializeField] Text[] summonStatusTxts;
     ///<summary> 포션 버튼 </summary>
     [SerializeField] Image[] potionBtns;
     public BuffToken buffTokenPrefab;
@@ -94,6 +100,8 @@ public class BattleManager : MonoBehaviour
     int isMinus = 0;
     ///<summary> 비전 마스터 스킬 선택 UI </summary>
     [SerializeField] GameObject skillChoosePanel;
+    ///<summary> 비전 마스터 스킬 선택 버튼 </summary>
+    [SerializeField] SkillButton[] visionChooseBtns;
 
     ///<summary> 타겟 선택 UI, 스킬 선택 시 활성화 </summary>
     [SerializeField] GameObject targetBtnPanel;
@@ -111,23 +119,26 @@ public class BattleManager : MonoBehaviour
     [SerializeField] Animator winTxtAnimator;
     ///<summary> 던전 종료 UI, 패배, 보스 승리 시 보여줌 </summary>
     [SerializeField] ReportPanel reportPanel;
+
+    bool isMechEnding = false;
     #endregion Variables
 
     #region Function_Start
     ///<summary> BGM 재생, 몬스터 및 캐릭터 생성 </summary>
     private void Start()
     {
-        int chapter = GameManager.instance.slotData.dungeonData.currDungeon.chapter;
+        int chapter = GameManager.Instance.slotData.dungeonData.currDungeon.chapter;
+        skillBtnPanel.SetActive(false);
 
         //BGM 재생
-        if(chapter >= 2 && GameManager.instance.slotData.dungeonData.currPos[0] == GameManager.instance.slotData.dungeonData.currDungeon.floorCount - 1)
-            SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Boss{chapter - 1}"));
+        if(chapter >= 2 && GameManager.Instance.slotData.dungeonData.currPos[0] == GameManager.Instance.slotData.dungeonData.currDungeon.floorCount - 1)
+            SoundManager.Instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Boss{chapter - 1}"));
         else
-            SoundManager.instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
+            SoundManager.Instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
         //방 몬스터 및 보상 정보 로드
-        roomInfo = new RoomInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
+        roomInfo = new RoomInfo(GameManager.Instance.slotData.dungeonData.currRoomEvent);
         //배경 설정
-        bgImage.sprite = bgSprites[GameManager.instance.slotData.region / 11 * 4 + chapter - 1];
+        bgImage.sprite = bgSprites[GameManager.Instance.slotData.region / 11 * 4 + chapter - 1];
 
         //캐릭터 및 몬스터 생성
         Spawn();
@@ -149,25 +160,27 @@ public class BattleManager : MonoBehaviour
         int i;
 
         //아군 캐릭터 생성
-        Character c = Instantiate(alliePrefabs[GameManager.instance.slotData.slotClass]);
-        c.name = GameManager.instance.slotData.className;
+        Character c = Instantiate(alliePrefabs[GameManager.SlotClass] as Character);
+        c.name = GameManager.Instance.slotData.className;
+        c.LVL = GameManager.Instance.slotData.lvl;
 
         for (i = 0; i < c.activeIdxs.Length; i++)
-            c.activeIdxs[i] = GameManager.instance.slotData.activeSkills[i];
+            c.activeIdxs[i] = GameManager.Instance.slotData.activeSkills[i];
         for (i = 0; i < c.passiveIdxs.Length; i++)
-            c.passiveIdxs[i] = GameManager.instance.slotData.passiveSkills[i];
+            c.passiveIdxs[i] = GameManager.Instance.slotData.passiveSkills[i];
 
         allChars[0] = c;
 
 
         //골렘 생성
-        if (GameManager.instance.slotData.dungeonData.golemHP >= 0)
+        if (GameManager.Instance.slotData.dungeonData.golemHP >= 0)
         {
-            Golem g = Instantiate(alliePrefabs[9]).GetComponent<Golem>();
+            Golem g = Instantiate(alliePrefabs[9]) as Golem;
             g.GolemInit(allChars[0] as MadScientist);
             g.name = "타이탄 골렘";
             allChars[1] = g;
             summonTPIcon.sprite = summonTPSprites[0];
+            statusChangeBtn.SetActive(true);
         }
         else
         {
@@ -214,26 +227,26 @@ public class BattleManager : MonoBehaviour
     void LoadDungeonBuff()
     {
         //던전 이벤트로 생긴 버프, 디버프 처리
-        foreach (DungeonBuff b in GameManager.instance.slotData.dungeonData.dungeonBuffs)
+        foreach (DungeonBuff b in GameManager.Instance.slotData.dungeonData.dungeonBuffs)
             allChars[0].turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
-        foreach (DungeonBuff b in GameManager.instance.slotData.dungeonData.dungeonDebuffs)
+        foreach (DungeonBuff b in GameManager.Instance.slotData.dungeonData.dungeonDebuffs)
             allChars[0].turnDebuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, b.name, b.objIdx, 1, (float)b.rate, 1, 99, 0, 1));
     }
     void LoadHPData()
     {
         //캐릭터 현재 체력 불러오기 - 던전 최초 시작 시 -1로 설정되어 있음 -> 음수인 경우 최대 체력 로드
-        if (GameManager.instance.slotData.dungeonData.currHP > 0)
-            allChars[0].buffStat[(int)Obj.currHP] = GameManager.instance.slotData.dungeonData.currHP;
+        if (GameManager.Instance.slotData.dungeonData.currHP > 0)
+            allChars[0].buffStat[(int)Obj.currHP] = GameManager.Instance.slotData.dungeonData.currHP;
         else
             allChars[0].buffStat[(int)Obj.currHP] = allChars[0].buffStat[(int)Obj.체력];
 
         //드루이드 - 부활 여부 불러오기
         if (allChars[0].classIdx == 6)
-            allChars[0].GetComponent<Druid>().revive = GameManager.instance.slotData.dungeonData.druidRevive;
+            allChars[0].GetComponent<Druid>().revive = GameManager.Instance.slotData.dungeonData.druidRevive;
         //매드 사이언티스트 - 골렘 체력 불러오기
-        if (GameManager.instance.slotData.dungeonData.golemHP > 0)
-            allChars[1].buffStat[(int)Obj.currHP] = GameManager.instance.slotData.dungeonData.golemHP;
-        else if (GameManager.instance.slotData.dungeonData.golemHP == 0)
+        if (GameManager.Instance.slotData.dungeonData.golemHP > 0)
+            allChars[1].buffStat[(int)Obj.currHP] = GameManager.Instance.slotData.dungeonData.golemHP;
+        else if (GameManager.Instance.slotData.dungeonData.golemHP == 0)
             allChars[1].buffStat[(int)Obj.currHP] = allChars[1].buffStat[(int)Obj.체력];
     }
     void SetStatusTxt()
@@ -241,7 +254,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < allChars.Length; i++)
         {
             if (!allChars[i].isActiveAndEnabled) continue;
-            unitStatus[i].StatusInit(allChars[i]);
+            unitStatus[i].StatusUpdate(allChars[i]);
         }
         for (int i = 2; i < 5; i++)
             if(allChars[i].isActiveAndEnabled)
@@ -249,9 +262,9 @@ public class BattleManager : MonoBehaviour
 
         for(int i = 0;i < 2;i++)
         {
-            potionBtns[i].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[i]);
-            potionBtns[i].gameObject.SetActive(GameManager.instance.slotData.potionSlot[i] > 0);
-            potionBtns[i].color = GameManager.instance.slotData.dungeonData.potionUse[i] ? new Color(1, 1, 1, 0.5f) : Color.white;
+            potionBtns[i].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.Instance.slotData.potionSlot[i]);
+            potionBtns[i].gameObject.SetActive(GameManager.Instance.slotData.potionSlot[i] > 0);
+            potionBtns[i].color = GameManager.Instance.slotData.dungeonData.potionUse[i] ? new Color(1, 1, 1, 0.5f) : Color.white;
         }
     }
     ///<summary> 전투 시작 시 1번만 호출, 아군, 적군 정보 불러오기, 버프 및 디버프 설정, TP값 초기화 </summary>
@@ -271,7 +284,7 @@ public class BattleManager : MonoBehaviour
     {
         for (int i = 0; i < skillBtns.Length; i++)
         {
-            if (GameManager.instance.slotData.activeSkills[i] > 0)
+            if (GameManager.Instance.slotData.activeSkills[i] > 0)
             {
                 skillBtns[i].gameObject.SetActive(true);
                 skillBtns[i].Init(allChars[0], i);
@@ -423,8 +436,17 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < 8; i++)
                 statusTxts[i].text = allChars[0].buffStat[i + 5].ToString();
 
-            statusTxts[4].text = $"{statusTxts[5].text}%";
-            statusTxts[5].text = $"{statusTxts[6].text}%";
+            statusTxts[4].text = $"{statusTxts[4].text}%";
+            statusTxts[5].text = $"{statusTxts[5].text}%";
+
+            if(allChars[1].isActiveAndEnabled)
+            {
+                for(int i = 0;i < 8;i++)
+                    summonStatusTxts[i].text = allChars[1].buffStat[i + 5].ToString();
+                
+                summonStatusTxts[4].text = $"{summonStatusTxts[4].text}%";
+                summonStatusTxts[5].text = $"{summonStatusTxts[5].text}%";
+            }
         }
     }
     ///<summary> 스킬 AP 소모량 표시 최신화 </summary>
@@ -444,7 +466,6 @@ public class BattleManager : MonoBehaviour
 
         currCaster.OnTurnStart();
         StatusUpdate();
-        SkillBtnUpdate();
         foreach(GameObject high in targetBtnHighlights) high.SetActive(false);
 
         //정령, 골렘, 기절 중 - 알아서 행동 후 턴 종료
@@ -456,6 +477,8 @@ public class BattleManager : MonoBehaviour
         else
         {
             turnEndBtn.SetActive(true);
+            skillBtnPanel.SetActive(true);
+            SkillBtnUpdate();
             apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
             Btn_SkillCancel();
@@ -478,21 +501,20 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.instance.slotData.activeSkills[buttonIdx]);
+        Skill skill = SkillManager.GetSkill(currCaster.classIdx, GameManager.Instance.slotData.activeSkills[buttonIdx]);
         //골렘, 정령 관련 스킬 시전 가능 여부 확인
         if (IsUniqueCondition()) return;
             
         //같은 스킬 두 번 선택 시 시전(하이라이트 된 스킬 선택)
         if (selectSkillBtnIdx == buttonIdx)
-        {
-            foreach(Text txt in skillTxts) txt.text = string.Empty;
-            
+        {  
             //비전 마스터 선택 스킬
             if (skill.category == 1023)
             {
                 //둘 다 시전
                 if (currCaster.GetComponent<VisionMaster>().skillState > 1)
                 {
+                    foreach(Text txt in skillTxts) txt.text = string.Empty;
                     isBoth = true;
                     state = BattleState.AllieSkillSelected;
 
@@ -529,11 +551,15 @@ public class BattleManager : MonoBehaviour
                     skillBtnPanel.SetActive(false);
                     skillChoosePanel.SetActive(true);
                     selectSkillBtnIdx = buttonIdx;
+
+                    for(int i = 0;i < visionChooseBtns.Length;i++)
+                        visionChooseBtns[i].ValueUpdate(currCaster as VisionMaster, selectSkillBtnIdx, i);
                 }
             }
             //그 외 스킬
             else
             {
+                foreach(Text txt in skillTxts) txt.text = string.Empty;
                 //타겟 선택 스킬
                 if (skill.targetSelect == 1)
                 {
@@ -559,7 +585,7 @@ public class BattleManager : MonoBehaviour
         //스킬 한 번 선택 시 스킬 정보 보여줌
         else
         {
-            skillTxts[0].text = skill.name;
+            skillTxts[0].text = skill.script;
             skillTxts[1].text = skill.posScript; skillTxts[2].text= skill.negScript;
             selectSkillBtnIdx = buttonIdx;
 
@@ -569,18 +595,18 @@ public class BattleManager : MonoBehaviour
 
         bool IsUniqueCondition()
         {
-            if (109 <= skill.idx && skill.idx <= 111)
+            if (197 <= skill.idx && skill.idx <= 199)
             {
-                Elemental e = allChars[1].GetComponent<Elemental>();
+                Elemental e = allChars[1] as Elemental;
                 if (!allChars[1].isActiveAndEnabled || e == null || e.type != skill.category || e.isUpgraded)
                 {
                     LogManager.instance.AddLog("정령을 소환한 후 사용해야 합니다.");
                     return true;
                 }
             }
-            if (skill.idx == 121)
+            if (skill.idx == 209)
             {
-                Elemental e = allChars[1].GetComponent<Elemental>();
+                Elemental e = allChars[1] as Elemental;
                 if (!allChars[1].isActiveAndEnabled || e == null || !e.isUpgraded)
                 {
                     LogManager.instance.AddLog("강화된 정령이 필요합니다.");
@@ -599,6 +625,7 @@ public class BattleManager : MonoBehaviour
     ///<param name="isMinus"> 0 양, 1 음 </param>
     public void Btn_SkillChoose(int isMinus)
     {
+        foreach (Text txt in skillTxts) txt.text = string.Empty;
         //음 스킬은 양 스킬 idx + 1
         Skill skill = SkillManager.GetSkill(currCaster.classIdx, currCaster.activeIdxs[selectSkillBtnIdx] + isMinus);
         //음 스킬 시전 여부 전달
@@ -680,6 +707,8 @@ public class BattleManager : MonoBehaviour
         else
             currCaster.ActiveSkill(selectSkillBtnIdx, targets);
 
+        int skillIdx = GameManager.Instance.slotData.activeSkills[selectSkillBtnIdx];
+
         apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
         StatusUpdate();
@@ -688,21 +717,24 @@ public class BattleManager : MonoBehaviour
 
         if (IsWin()) Win();
         else if (IsLose()) Lose();
+        //차징 펀치 시전 시 턴 종료
+        else if(skillIdx == 26)
+            Btn_TurnEnd();
     }
     ///<summary> 포션 사용 버튼 </summary>
     public void Btn_UsePotion(int slotIdx)
     {
         if (!(BattleState.AllieTurnStart <= state && state <= BattleState.AllieTargetSelected)) return;
 
-        if(GameManager.instance.slotData.potionSlot[slotIdx] == 0)
+        if(GameManager.Instance.slotData.potionSlot[slotIdx] == 0)
             LogManager.instance.AddLog("착용한 포션이 없습니다.");
-        else if (GameManager.instance.slotData.dungeonData.potionUse[slotIdx])
+        else if (GameManager.Instance.slotData.dungeonData.potionUse[slotIdx])
             LogManager.instance.AddLog("이미 사용했습니다.");
-        else if(GameManager.instance.slotData.potionSlot[slotIdx] == 4 && !GameManager.instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2])
+        else if(GameManager.Instance.slotData.potionSlot[slotIdx] == 4 && !GameManager.Instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2])
             LogManager.instance.AddLog("다른 포션을 아직 사용할 수 있습니다.");
         else
         {
-            switch(GameManager.instance.slotData.potionSlot[slotIdx])
+            switch(GameManager.Instance.slotData.potionSlot[slotIdx])
             {
                 //행동력 포션 - 행동력 최대로 회복
                 case 1:
@@ -737,13 +769,13 @@ public class BattleManager : MonoBehaviour
                     break;
                 //재활용 포션 - 다른 포션 재사용 가능
                 case 4:
-                    GameManager.instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2] = false;
+                    GameManager.Instance.slotData.dungeonData.potionUse[(slotIdx + 1) % 2] = false;
                     potionBtns[(slotIdx + 1) % 2].color = Color.white;
                     LogManager.instance.AddLog("다른 포션이 사용 가능해졌습니다.");
                     break;
             }
 
-            GameManager.instance.slotData.dungeonData.potionUse[slotIdx] = true;
+            GameManager.Instance.slotData.dungeonData.potionUse[slotIdx] = true;
             potionBtns[slotIdx].color = new Color(1, 1, 1, 0.5f);
             
             StatusUpdate();
@@ -755,6 +787,7 @@ public class BattleManager : MonoBehaviour
         if (!(BattleState.AllieTurnStart <= state && state <= BattleState.AllieTargetSelected)) return;
 
         Btn_SkillCancel();
+        skillBtnPanel.SetActive(false);
         turnEndBtn.SetActive(false);
 
         currCaster.OnTurnEnd();
@@ -766,12 +799,15 @@ public class BattleManager : MonoBehaviour
         }
         else
             charTP[currCaster][0] = 0;
+
+        TPMaxUpdate();
         TPImageUpdate();
         StatusUpdate();
         StartCoroutine(AllieTurnEnd());
     }
     IEnumerator AllieTurnEnd()
     {
+        state = BattleState.AllieTurnEnd;
         yield return new WaitForSeconds(0.5f);
 
         SelectNextCaster();
@@ -786,14 +822,17 @@ public class BattleManager : MonoBehaviour
             return;
         currCaster.OnTurnStart();
 
+        StatusUpdate();
+        
         if (IsLose()) Lose();
         else if (IsWin()) Win();
         else
         {
             currCaster.OnTurnEnd();
             charTP[currCaster][0] = 0;
+
+            TPMaxUpdate();
             TPImageUpdate();
-            StatusUpdate();
             StartCoroutine(EnemyTurnEnd());
         }
     }
@@ -825,6 +864,7 @@ public class BattleManager : MonoBehaviour
     bool IsLose()
     {
         foreach (Unit u in allChars) if (u.buffStat[(int)Obj.currHP] <= 0) u.gameObject.SetActive(false);
+        statusChangeBtn.SetActive(allChars[1].isActiveAndEnabled);
 
         for (int i = 0; i < 2; i++) if (allChars[i].isActiveAndEnabled) return false;
         return true;
@@ -840,7 +880,7 @@ public class BattleManager : MonoBehaviour
         //보상 획득
         for (int i = 0; i < roomInfo.ItemCount; i++)
             ItemManager.ItemDrop(roomInfo.ItemIdx[i], roomInfo.ItemChance[i]);
-        GameManager.instance.GetExp(roomInfo.roomExp);
+        GameManager.Instance.GetExp(roomInfo.roomExp);
 
         //전투 진행 퀘스트 업데이트
         QuestManager.QuestUpdate(QuestType.Battle, 0, 1);
@@ -848,35 +888,39 @@ public class BattleManager : MonoBehaviour
         QuestManager.DiehardUpdate((float)allChars[0].buffStat[(int)Obj.currHP] / allChars[0].buffStat[(int)Obj.체력]);
 
         //체력 상태 저장
-        GameManager.instance.slotData.dungeonData.currHP = allChars[0].buffStat[(int)Obj.currHP];
+        GameManager.Instance.slotData.dungeonData.currHP = allChars[0].buffStat[(int)Obj.currHP];
         //골렘 체력 저장
         if (allChars[0].classIdx == 4 && allChars[1].isActiveAndEnabled)
-            GameManager.instance.slotData.dungeonData.golemHP = allChars[1].buffStat[(int)Obj.currHP];
+            GameManager.Instance.slotData.dungeonData.golemHP = allChars[1].buffStat[(int)Obj.currHP];
         else
-            GameManager.instance.slotData.dungeonData.golemHP = -1;
+            GameManager.Instance.slotData.dungeonData.golemHP = -1;
         //드루이드 부활 여부 저장
         if (allChars[0].classIdx == 6)
-            GameManager.instance.slotData.dungeonData.druidRevive = allChars[0].GetComponent<Druid>().revive;
+            GameManager.Instance.slotData.dungeonData.druidRevive = allChars[0].GetComponent<Druid>().revive;
 
         LogManager.instance.AddLog("승리했습니다.");
 
         //보스방 승리 -> 보고서 보이기
-        if (GameManager.instance.slotData.dungeonData.currPos[0] == GameManager.instance.slotData.dungeonData.currDungeon.floorCount - 1)
+        if (GameManager.Instance.slotData.dungeonData.currPos[0] == GameManager.Instance.slotData.dungeonData.currDungeon.floorCount - 1)
         {
-            if (GameManager.instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Over || GameManager.instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Under) 
-                GameManager.instance.slotData.questData.outbreakProceed.state = QuestState.CanClear;
+            if (GameManager.Instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Over || GameManager.Instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Under) 
+                GameManager.Instance.slotData.questData.outbreakProceed.state = QuestState.CanClear;
 
-            QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.instance.slotData.dungeonIdx, 1);
+            QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.Instance.slotData.dungeonIdx, 1);
+
+            isMechEnding = GameManager.Instance.slotData.dungeonIdx == 23 && QuestManager.GetCurrQuest().Any(x => x.idx == 26);
+            if(isMechEnding)
+                QuestManager.ClearQuest(26);
 
             reportPanel.LoadData(true);
             reportPanel.gameObject.SetActive(true);
-            GameManager.instance.RemoveDungeonData();
-            GameManager.instance.SwitchSceneData(SceneKind.Town);
+            GameManager.Instance.RemoveDungeonData();
+            GameManager.Instance.SwitchSceneData(SceneKind.Town);
         }
         else
         {
-            GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
-            GameManager.instance.UpdateDungeonBuff();
+            GameManager.Instance.SwitchSceneData(SceneKind.Dungeon);
+            GameManager.Instance.UpdateDungeonBuff();
             winPanel.SetActive(true);
             winTxtAnimator.SetBool("loaded", true);
         }
@@ -893,8 +937,8 @@ public class BattleManager : MonoBehaviour
 
         reportPanel.LoadData(false);
         reportPanel.gameObject.SetActive(true);
-        GameManager.instance.RemoveDungeonData();
-        GameManager.instance.SwitchSceneData(SceneKind.Town);
+        GameManager.Instance.RemoveDungeonData();
+        GameManager.Instance.SwitchSceneData(SceneKind.Town);
     }
     ///<summary> 방 승리 -> 던전으로 돌아가기 </summary>
     public void Btn_BackToMap()
@@ -904,7 +948,7 @@ public class BattleManager : MonoBehaviour
             enemyIilusts[i].sprite = null;
             Addressables.Release(enemyIilustHandles[i]);
         }
-        GameManager.instance.LoadScene(SceneKind.Dungeon);
+        GameManager.Instance.LoadScene(SceneKind.Dungeon);
     }
     ///<summary> 던전 승리 또는 패배 -> 마을로 돌아가기 </summary>
     public void Btn_BackToTown()
@@ -914,7 +958,15 @@ public class BattleManager : MonoBehaviour
             enemyIilusts[i].sprite = null;
             Addressables.Release(enemyIilustHandles[i]);
         }
-        GameManager.instance.LoadScene(SceneKind.Town);
+
+        if(isMechEnding)
+        {
+            GameManager.Instance.slotData.storyIdx = 5;
+            GameManager.Instance.SwitchSceneData(SceneKind.Story);
+            GameManager.Instance.LoadScene(SceneKind.Story);
+        }
+        else
+            GameManager.Instance.LoadScene(SceneKind.Town);
     }
     #endregion
 
@@ -924,15 +976,16 @@ public class BattleManager : MonoBehaviour
     {
         foreach (Unit u in targets)
             charTP[u][0] = Mathf.Max(0, charTP[u][0] - amt);
+        TPImageUpdate();
     }
 
     ///<summary> 매드 사이언티스트 골렘 생존 여부 </summary>
-    public bool HasGolem() => allChars[1].isActiveAndEnabled;
+    public bool HasGolem() => allChars[1].isActiveAndEnabled && (allChars[1] as Golem != null);
     ///<summary> 매드 사이언티스트 골렘 조종 스킬 </summary>
     public void GolemControl(KeyValuePair<int, List<Unit>> token)
     {
         if (HasGolem())
-            allChars[1].GetComponent<Golem>().AddControl(token);
+            (allChars[1] as Golem).AddControl(token);
     }
 
     ///<summary> 엘리멘탈 컨트롤러 정령 소환 </summary>
@@ -945,7 +998,7 @@ public class BattleManager : MonoBehaviour
             Destroy(tmp.gameObject);
 
 
-        Elemental e = Instantiate(alliePrefabs[10]).GetComponent<Elemental>();
+        Elemental e = Instantiate(alliePrefabs[10]) as Elemental;
         e.Summon(this, caster, type);
         switch(type)
         {
@@ -962,6 +1015,8 @@ public class BattleManager : MonoBehaviour
 
         charTP.Add(e, new int[2] { 0, 0 });
         allChars[1] = e;
+        StatusUpdate();
+        statusChangeBtn.SetActive(true);
 
         TPMaxUpdate();
     }
@@ -974,7 +1029,7 @@ public class BattleManager : MonoBehaviour
         if (tmp != dummyUnit)
             Destroy(tmp.gameObject);
 
-        Elemental e = Instantiate(alliePrefabs[10]).GetComponent<Elemental>();
+        Elemental e = Instantiate(alliePrefabs[10])as Elemental;
         e.Summon(this, caster, type, true);
         switch(type)
         {
@@ -991,6 +1046,7 @@ public class BattleManager : MonoBehaviour
 
         charTP.Add(e, new int[2] { 0, 0 });
         allChars[1] = e;
+        StatusUpdate();
 
         TPMaxUpdate();
     }
@@ -998,10 +1054,10 @@ public class BattleManager : MonoBehaviour
     public int SacrificeElemental(ElementalController caster, Skill skill)
     {
         int type = -1;
-        if (allChars[1].GetComponent<Elemental>())
+        if (allChars[1] is Elemental)
         {
             Unit tmp = allChars[1];
-            type = tmp.GetComponent<Elemental>().type;
+            type = (tmp as Elemental).type;
 
             charTP.Remove(tmp);
             casterQueue.Remove(tmp);
@@ -1045,10 +1101,11 @@ public class BattleManager : MonoBehaviour
     {
         Unit m = GetEffectTarget(4)[0];
         charTP[m][0] = charTP[m][1];
+        TPImageUpdate();
     }
     #endregion Function_CharSkills
 
-    public void Btn_PlaySFX() => SoundManager.instance.PlaySFX(22);
+    public void Btn_PlaySFX() => SoundManager.Instance.PlaySFX(22);
     public void Btn_Retire() => Lose();
 
     ///<summary> 효과 대상 반환 </summary>

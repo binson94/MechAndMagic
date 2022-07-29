@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class SkillManager
 {
     static SkillDB[] skillDB = new SkillDB[13];
     static Skill dummySkill = new Skill();
@@ -37,8 +37,8 @@ public class SkillManager : MonoBehaviour
     public static Skill GetSlotSkill(int slotIdx)
     {
         if(slotIdx < 6)
-            return GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.activeSkills[slotIdx]);
+            return GetSkill(GameManager.SlotClass, GameManager.Instance.slotData.activeSkills[slotIdx]);
         else
-            return GetSkill(GameManager.instance.slotData.slotClass, GameManager.instance.slotData.passiveSkills[slotIdx - 6]);
+            return GetSkill(GameManager.SlotClass, GameManager.Instance.slotData.passiveSkills[slotIdx - 6]);
     }
 }

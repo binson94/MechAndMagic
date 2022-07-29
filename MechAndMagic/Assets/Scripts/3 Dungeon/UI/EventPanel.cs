@@ -35,7 +35,7 @@ public class EventPanel : MonoBehaviour
     public void OnEventRoom()
     {
         //이벤트 정보 불러오기
-        eventInfo = new EventInfo(GameManager.instance.slotData.dungeonData.currRoomEvent);
+        eventInfo = new EventInfo(GameManager.Instance.slotData.dungeonData.currRoomEvent);
         //설명 및 아이콘 설정
         eventTxt.text = eventInfo.script;
         eventIcon.sprite = iconSprites[eventInfo.eventType - 2];
@@ -62,6 +62,7 @@ public class EventPanel : MonoBehaviour
 
         adBtnImage.color = new Color(1, 1, 1, 100f / 255);
         adTxt.color = new Color(1, 1, 1, 100f / 255);
+        QuestManager.QuestUpdate(QuestType.Event, eventInfo.idx, 1);
     }
 
     ///<summary> 부정적 효과 그냥 받기 </summary>
@@ -74,35 +75,37 @@ public class EventPanel : MonoBehaviour
 
     void EventEffect()
     {
+        QuestManager.QuestUpdate(QuestType.Event, eventInfo.idx, 1);
+
         for (int i = 0; i < eventInfo.typeCount; i++)
         {
             switch ((EventType)eventInfo.type[i])
             {
                 case EventType.GetEXP:
-                    GameManager.instance.EventGetExp(eventInfo.typeRate[i]);
+                    GameManager.Instance.EventGetExp(eventInfo.typeRate[i]);
                     break;
                 case EventType.LossExp:
-                    GameManager.instance.EventLoseExp(eventInfo.typeRate[i]);
+                    GameManager.Instance.EventLoseExp(eventInfo.typeRate[i]);
                     break;
                 case EventType.GetItem:
                     int category = 0, amt;
-                    amt = eventInfo.typeRate[i] > 0 ? Mathf.RoundToInt(eventInfo.typeRate[i]) : GameManager.instance.slotData.lvl;
+                    amt = eventInfo.typeRate[i] > 0 ? Mathf.RoundToInt(eventInfo.typeRate[i]) : GameManager.SlotLvl;
                     switch ((EventItem)eventInfo.typeObj[i])
                     {
                         //19, 20, 21, 22, 23 - 97531
                         case EventItem.Skillbook:
-                            category = 23 - (GameManager.instance.slotData.lvl - 1) / 2;
+                            category = 23 - (GameManager.SlotLvl - 1) / 2;
                             break;
                         //13, 14, 15 - 상중하
                         case EventItem.CommonEquipMaterial:
-                            category = 15 - GameManager.instance.slotData.lvl / 4;
+                            category = 15 - GameManager.SlotLvl / 4;
                             break;
                         //1, 2, 3 - 상중하
                         case EventItem.CommonSkillMaterial:
-                            category = 3 - GameManager.instance.slotData.lvl / 4;
+                            category = 3 - GameManager.SlotLvl / 4;
                             break;
                         case EventItem.Recipe:
-                            switch (GameManager.instance.slotData.lvl)
+                            switch (GameManager.SlotLvl)
                             {
                                 case 1:
                                 case 2:
@@ -128,25 +131,25 @@ public class EventPanel : MonoBehaviour
                             break;
                         //4, 5, 6, 7, 8, 9, 10, 11, 12 - 상무상방상장 중무중방중장 하무하방하장
                         case EventItem.SpecialEquipMaterial:
-                            category = 10 - GameManager.instance.slotData.lvl / 4 * 3 + Random.Range(0, 3);
+                            category = 10 - GameManager.SlotLvl / 4 * 3 + Random.Range(0, 3);
                             break;
                     }
                     ItemManager.ItemDrop(category, amt);
                     break;
                 case EventType.Heal:
-                    GameManager.instance.EventGetHeal(eventInfo.typeRate[i]);
+                    GameManager.Instance.EventGetHeal(eventInfo.typeRate[i]);
                     DM.LoadPlayerInfo();
                     break;
                 case EventType.Damage:
-                    GameManager.instance.EventGetDamage(eventInfo.typeRate[i]);
+                    GameManager.Instance.EventGetDamage(eventInfo.typeRate[i]);
                     DM.LoadPlayerInfo();
                     break;
                 case EventType.Buff:
-                    GameManager.instance.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    GameManager.Instance.EventAddBuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     DM.BuffIconUpdate();
                     break;
                 case EventType.Debuff:
-                    GameManager.instance.EventAddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
+                    GameManager.Instance.EventAddDebuff(new DungeonBuff(eventInfo.name, eventInfo.typeObj[i], eventInfo.typeRate[i]));
                     DM.BuffIconUpdate();
                     break;
             }
@@ -184,23 +187,25 @@ public class EventInfo
 
     static EventInfo() => json = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Dungeons/Event").text);
 
-    public EventInfo(int idx)
+    public EventInfo(int eventIdx)
     {
-        this.idx = idx;
-        name = json[idx]["name"].ToString();
-        script = json[idx]["script"].ToString();
-        eventType = (int)json[idx]["event"];
+        this.idx = eventIdx;
+        int jsonIdx = eventIdx - (int)json[0]["idx"];
 
-        typeCount = (int)json[idx]["typeCount"];
+        name = json[jsonIdx]["name"].ToString();
+        script = json[jsonIdx]["script"].ToString();
+        eventType = (int)json[jsonIdx]["event"];
+
+        typeCount = (int)json[jsonIdx]["typeCount"];
         type = new int[typeCount];
         typeObj = new int[typeCount];
         typeRate = new float[typeCount];
 
         for (int i = 0; i < typeCount; i++)
         {
-            type[i] = (int)json[idx]["type"][i];
-            typeObj[i] = (int)json[idx]["typeObj"][i];
-            typeRate[i] = float.Parse(json[idx]["typeRate"][i].ToString());
+            type[i] = (int)json[jsonIdx]["type"][i];
+            typeObj[i] = (int)json[jsonIdx]["typeObj"][i];
+            typeRate[i] = float.Parse(json[jsonIdx]["typeRate"][i].ToString());
         }
     }
 }

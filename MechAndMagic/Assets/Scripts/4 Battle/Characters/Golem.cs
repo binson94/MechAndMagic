@@ -3,67 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Golem : Character
+public class Golem : Unit
 {
 
     MadScientist ms;
     Queue<KeyValuePair<int, List<Unit>>> skillQueue = new Queue<KeyValuePair<int, List<Unit>>>();
     bool isImmuneCrit = false;
 
+    ///<summary> Battle Start보다 먼저 호출, 매드 사이언티스트 연결, 패시브 처리 </summary>
     public void GolemInit(MadScientist ms)
     {
         this.ms = ms;
+        LVL = ms.LVL;
+        
+        Skill skill;
         //궁극의 피조물 2세트 - 140 ~ 143 버프율 상승, 기초 과학자 3세트 - 140 ~ 143 버프율 상승
-        float rate = 1 + ItemManager.GetSetData(11).Value[0] + ItemManager.GetSetData(12).Value[1];
+        float stat = 1 + ItemManager.GetSetData(11).Value[0] + ItemManager.GetSetData(12).Value[1];
+
         //140 골렘 경량화 - 속도 상승, 최대 체력 감소
         if (ms.HasSkill(140))
         {
-            Skill tmp = SkillManager.GetSkill(ms.classIdx, 140);
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            AddBuff(ms, -1, tmp, 0, 0);
-            AddDebuff(ms, -1, tmp, 1, 0);
+            skill = SkillManager.GetSkill(ms.classIdx, 140);
+
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), skill.name, skill.effectObject[0], stat, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+            AddDebuff(ms, -1, skill, 1, 0);
         }
         //141 골렘 중량화 - 체력 상승, 속도 감소
         if (ms.HasSkill(141))
         {
-            Skill tmp = SkillManager.GetSkill(ms.classIdx, 141);
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            AddDebuff(ms, -1, tmp, 1, 0);
+            skill = SkillManager.GetSkill(ms.classIdx, 141);
+
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), skill.name, skill.effectObject[0], stat, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+            AddDebuff(ms, -1, skill, 1, 0);
         }
-        //142 골렘 무기 강화 - 공증
+        //142 골렘 무기 강화 - 공격력 증가
         if (ms.HasSkill(142))
         {
-            Skill tmp = SkillManager.GetSkill(ms.classIdx, 142);
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            skill = SkillManager.GetSkill(ms.classIdx, 142);
+
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), skill.name, skill.effectObject[0], stat, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
         }
+        //143 골렘 갑옷 강화 - 방어력 증가
         if (ms.HasSkill(143))
         {
-            Skill tmp = SkillManager.GetSkill(ms.classIdx, 143);
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), tmp.name, tmp.effectObject[0], tmp.effectStat[0], tmp.effectRate[0] * rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+            skill = SkillManager.GetSkill(ms.classIdx, 143);
+
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ms), skill.name, skill.effectObject[0], stat, skill.effectRate[0], skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
         }
+        
         isImmuneCrit = ms.HasSkill(163);
     }
 
+    public override void OnBattleStart(BattleManager BM)
+    {
+        base.OnBattleStart(BM);
+        StatUpdate_Turn();
+    }
     public override void OnTurnStart()
     {
         base.OnTurnStart();
-        if (skillQueue.Count <= 0)
-            ActiveSkill(9, new List<Unit>());
-        else
-            while (skillQueue.Count > 0)
-            {
-                KeyValuePair<int, List<Unit>> token = skillQueue.Dequeue();
-                ActiveSkill(token.Key, token.Value);
-            }
+
+        if (!IsStun())
+            if (skillQueue.Count <= 0)
+                ActiveSkill(9, new List<Unit>());
+            else
+                while (skillQueue.Count > 0)
+                {
+                    KeyValuePair<int, List<Unit>> token = skillQueue.Dequeue();
+                    ActiveSkill(token.Key, token.Value);
+                }
     }
     public override void OnTurnEnd()
     {
-        base.OnTurnEnd();
+        StatUpdate_Turn();
         skillQueue.Clear();
     }
 
     public override void ActiveSkill(int skillIdx, List<Unit> selects)
-    { //적중 성공 여부
+    { 
+        //적중 성공 여부
         isAcc = true;
         //크리티컬 성공 여부
         isCrit = false;
@@ -75,11 +93,7 @@ public class Golem : Character
         skillBuffs.Clear();
         skillDebuffs.Clear();
 
-        if (skill == null)
-        {
-            Debug.LogError("skill is null");
-            return;
-        }
+        if (skill == null) return;
 
         LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         Passive_SkillCast(skill);
@@ -98,12 +112,10 @@ public class Golem : Character
     {
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
-        float stat;
 
         for (int i = 0; i < skill.effectCount; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
             
             switch ((EffectType)skill.effectType[i])
             {
@@ -112,7 +124,7 @@ public class Golem : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach(Unit u in effectTargets)
@@ -149,52 +161,30 @@ public class Golem : Character
                         
                         break;
                     }
-                case EffectType.Heal:
-                    {
-                        float heal = stat * skill.effectRate[i];
-
-                        foreach (Unit u in effectTargets)
-                            u.GetHeal(skill.effectCalc[i] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
-                case EffectType.Active_Buff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
-                            foreach (Unit u in effectTargets)
-                                AddDebuff(this, orderIdx, skill, i, stat);
-                        break;
-                    }
-                case EffectType.Active_RemoveBuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
-                        foreach (Unit u in effectTargets)
-                            u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[i]));
-                        break;
-                    }
+                case EffectType.DoNothing:
+                    break;
                 default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
                     break;
             }
         }
     }
     
-
-
     public override KeyValuePair<bool, int> GetDamage(Unit caster, float dmg, int pen, int crb)
     {
         if (isImmuneCrit) crb = 100;
         return base.GetDamage(caster, dmg, pen, crb);
     }
     public void AddControl(KeyValuePair<int, List<Unit>> token) => skillQueue.Enqueue(token);
+
+    ///<summary> 스텟 정보 불러오기, 치명타율, 치명타피해, 방어력 무시는 1.2배 </summary>
+    public override void StatLoad()
+    {
+        dungeonStat[0] = 1;
+        for (Obj i = Obj.체력; i <= Obj.속도; i++)
+            if(Obj.치명타율 <= i && i <= Obj.방어력무시)
+                dungeonStat[(int)i] = Mathf.RoundToInt(1.2f * ms.dungeonStat[(int)i]);
+            else
+                dungeonStat[(int)i] = ms.dungeonStat[(int)i];
+    }
 }

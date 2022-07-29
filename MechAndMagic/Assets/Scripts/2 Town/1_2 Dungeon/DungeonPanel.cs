@@ -29,7 +29,7 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
 
     public void ResetAllState()
     {
-        LoadChapter(GameManager.instance.slotData.chapter);
+        LoadChapter(GameManager.Instance.slotData.chapter);
     }
 
     ///<summary> 현재 보여주는 던전 앤트리들 모두 pool에 넣음 </summary>
@@ -56,7 +56,7 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
 
         for (int i = 0; i < json.Count; i++)
         {
-            if((int)json[i]["chapter"] != chapter || (int)json[i]["region"] != GameManager.instance.slotData.region)
+            if((int)json[i]["chapter"] != chapter || (int)json[i]["region"] != GameManager.Instance.slotData.region)
                 continue;
 
             //이름 토큰
@@ -97,10 +97,10 @@ public class DungeonPanel : MonoBehaviour, ITownPanel
     ///<summary> 던전 시작 버튼 누를 시, 새로운 던전 생성 및 씬 전환 </summary>
     public void Btn_StartDungeon(int dungeonIdx)
     {
-        GameManager.instance.SetNewDungeon(dungeonIdx);
+        GameManager.Instance.SetNewDungeon(dungeonIdx);
         QuestManager.RemoveOutbreak();
-        GameManager.instance.SwitchSceneData(SceneKind.Dungeon);
+        GameManager.Instance.SwitchSceneData(SceneKind.Dungeon);
         
-        GameManager.instance.LoadScene(SceneKind.Dungeon);
+        GameManager.Instance.LoadScene(SceneKind.Dungeon);
     }
 }

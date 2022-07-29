@@ -39,7 +39,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
     ///<summary> 새로 선택한 장비 정보 표시 UI Set </summary>
     [SerializeField] EquipInfoPanel selectedEquipPanel;
     ///<summary> 장비 및 대장간으로 버튼 표기/숨김을 위한 오브젝트 </summary>
-    [SerializeField] GameObject equipBtns;
+    [SerializeField] GameObject[] equipBtns;
     ///<summary> 아무것도 선택하지 않은 상태를 위한 더미 오브젝트 </summary>
     static KeyValuePair<int, Equipment> dummyEquip = new KeyValuePair<int, Equipment>(-1, null);
 
@@ -196,15 +196,16 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         SlotInfoPanelUpdate();
         SelectedInfoPanelUpdate();
 
-        equipBtns.SetActive(false);
-        potionSlotPanel.InfoUpdate(GameManager.instance.slotData.potionSlot[slotIdx]);
+        equipBtns[0].SetActive(false);
+        equipBtns[1].SetActive(false);
+        potionSlotPanel.InfoUpdate(GameManager.Instance.slotData.potionSlot[slotIdx]);
         selectedPotionPanel.InfoUpdate(0);
     }
     ///<summary> 포션 선택 버튼 </summary>
     ///<param name="potionIdx" 1 활력(AP 전체 회복), 2 정화(모든 디버프 해제), 3 회복(HP 전체 회복), 4 재활용(재사용 가능) </summary>
     public void Btn_SelectPotion(int potionIdx)
     {
-        if (GameManager.instance.slotData.potionSlot[0] == potionIdx || GameManager.instance.slotData.potionSlot[1] == potionIdx)
+        if (GameManager.Instance.slotData.potionSlot[0] == potionIdx || GameManager.Instance.slotData.potionSlot[1] == potionIdx)
         {
             selectedPotion = 0;
             potionSlotPanel.InfoUpdate(potionIdx);
@@ -214,7 +215,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         else
         {
             selectedPotion = potionIdx;
-            potionSlotPanel.InfoUpdate(GameManager.instance.slotData.potionSlot[0]);
+            potionSlotPanel.InfoUpdate(GameManager.Instance.slotData.potionSlot[0]);
             selectedPotionPanel.InfoUpdate(potionIdx);
             potionEquipBtn.SetActive(true);
         }
@@ -314,12 +315,14 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
         if (selectedEquip.Equals(dummyEquip))
         {
             selectedEquipPanel.InfoUpdate(null as Equipment);
-            equipBtns.SetActive(false);
+            equipBtns[0].SetActive(false);
+            equipBtns[1].SetActive(false);
         }
         else
         {
             selectedEquipPanel.InfoUpdate(selectedEquip.Value);
-            equipBtns.SetActive(true);
+            equipBtns[0].SetActive(selectedEquip.Value.ebp.reqlvl <= GameManager.SlotLvl);
+            equipBtns[1].SetActive(true);
 
             int[] newDelta = ItemManager.GetStatDelta(selectedEquip.Value);
             for (int i = 0; i < 10; i++)

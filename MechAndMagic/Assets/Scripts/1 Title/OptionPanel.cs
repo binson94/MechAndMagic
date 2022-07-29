@@ -11,15 +11,15 @@ public class OptionPanel : MonoBehaviour
     [SerializeField] Slider txtSpdSlider;
 
     private void Start() {
-        bgmSlider.value = (float)SoundManager.instance.option.bgm;
-        sfxSlider.value = (float)SoundManager.instance.option.sfx;
-        txtSpdSlider.value = SoundManager.instance.option.txtSpd / 2f;
+        bgmSlider.value = (float)SoundManager.Instance.option.bgm;
+        sfxSlider.value = (float)SoundManager.Instance.option.sfx;
+        txtSpdSlider.value = SoundManager.Instance.option.txtSpd / 2f;
     }
-    public void Slider_BGM() => SoundManager.instance.BGMSet(bgmSlider.value);
-    public void Slider_SFX() => SoundManager.instance.SFXSet(sfxSlider.value);
+    public void Slider_BGM() => SoundManager.Instance.BGMSet(bgmSlider.value);
+    public void Slider_SFX() => SoundManager.Instance.SFXSet(sfxSlider.value);
     public void Slider_TxtSpd()
     {
         txtSpdSlider.value = Mathf.RoundToInt(txtSpdSlider.value * 2) / 2f;
-        SoundManager.instance.TxtSet(txtSpdSlider.value);
+        SoundManager.Instance.TxtSet(txtSpdSlider.value);
     }
 }

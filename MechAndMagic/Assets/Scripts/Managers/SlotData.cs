@@ -111,7 +111,11 @@ public class SlotData
         storyIdx = 1 + region / 11 * 5;
 
         for (int i = 0; i <= 12; i++)
-            itemStats[i] = GameManager.baseStats[i];
+            if(slotClass == 4 && i != 4)
+                itemStats[i] = Mathf.RoundToInt(GameManager.baseStats[i] * 0.8f);
+            else
+                itemStats[i] = GameManager.baseStats[i];
+
         activeSkills[0] = SkillManager.GetSkillData(classIdx)[0].idx;
 
         nowScene = SceneKind.Story;
@@ -202,7 +206,7 @@ public class DungeonData
         currDungeon = new Dungeon(dungeonIdx);
         mapScroll = 0;
 
-        currHP = -1; druidRevive = 0; golemHP = GameManager.instance.slotData.slotClass == 4 ? 0 : -1;
+        currHP = -1; druidRevive = 0; golemHP = GameManager.SlotClass == 4 ? 0 : -1;
         potionUse[0] = potionUse[1] = false;
         currPos = new int[2] { 0, 0 };
     }
@@ -447,7 +451,7 @@ public class QuestData
             //레벨 달성 퀘스트인 경우, 레벨 값으로 설정
             if (qp.state == QuestState.Proceeding && qp.type == QuestType.Level)
             {
-                qp.objectCurr = GameManager.instance.slotData.lvl;
+                qp.objectCurr = GameManager.SlotLvl;
                 if (qp.objectCurr >= qp.objectReq)
                     qp.state = QuestState.CanClear;
             }

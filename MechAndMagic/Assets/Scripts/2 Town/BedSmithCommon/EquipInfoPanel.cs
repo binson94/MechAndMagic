@@ -81,10 +81,14 @@ public class EquipInfoPanel : MonoBehaviour
         foreach(GameObject go in starImages) go.SetActive(false);
         setIconImage.gameObject.SetActive(false);
 
-        Skill skill = SkillManager.GetSkill(GameManager.instance.slotData.slotClass, skillbook.idx);
+        Skill skill = SkillManager.GetSkill(GameManager.SlotClass, skillbook.idx);
         if (skill != null)
         {
-            itemTxts[0].text = $"교본 : {skill.name}";
+            if(GameManager.Instance.slotData.region <= 10)
+                itemTxts[0].text = $"교본 : {skill.name}";
+            else
+                itemTxts[0].text = $"마법서 : {skill.name}";
+                
             itemTxts[1].text = $"Lv.{skill.reqLvl}";
             itemTxts[3].text = skill.script;
             gridImage.sprite = SpriteGetter.instance.GetGrid((Rarity)(skill.reqLvl / 2 + 1));
@@ -103,7 +107,11 @@ public class EquipInfoPanel : MonoBehaviour
         foreach(GameObject go in starImages) go.SetActive(false);
         if (ebp != null)
         {
-            itemTxts[0].text = $"제작법 : {ebp.name}";
+            if(GameManager.Instance.slotData.region == 10)
+                itemTxts[0].text = $"설계도 : {ebp.name}";
+            else
+                itemTxts[0].text = $"비법서 : {ebp.name}";
+
             itemTxts[1].text = $"Lv.{ebp.reqlvl}";
             
             switch(ebp.rarity)
@@ -142,7 +150,7 @@ public class EquipInfoPanel : MonoBehaviour
                     itemTxts[3].text = "무작위 메인 스텟\n";
                     break;
             }
-            if (ebp.rarity >= Rarity.Uncommon && ebp.subStat == Obj.None)
+            if (ebp.rarity >= Rarity.Uncommon)
             {
                 switch (ebp.part)
                 {
@@ -167,9 +175,6 @@ public class EquipInfoPanel : MonoBehaviour
                         break;
                 }
             }
-            else if (ebp.rarity >= Rarity.Uncommon)
-                itemTxts[3].text += $"{ebp.subStat}";
-
 
             itemTxts[4].text = string.Empty;
             for (int i = 0; i < ebp.commonStats.Length; i++)

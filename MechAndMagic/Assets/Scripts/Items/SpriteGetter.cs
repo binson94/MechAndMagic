@@ -72,7 +72,7 @@ public class SpriteGetter : MonoBehaviour
         if(ebp.part <= EquipPart.Weapon)
             return weaponSprites[(ebp.useClass - 1) * 5 + (int)ebp.reqlvl / 2];
         else if (ebp.part <= EquipPart.Shoes)
-            return armorSprites[(ebp.useClass / 11 * 20) + (ebp.part - EquipPart.Top) * 5 + ebp.reqlvl / 2];
+            return armorSprites[(GameManager.Instance.slotData.region / 11 * 20) + (ebp.part - EquipPart.Top) * 5 + ebp.reqlvl / 2];
         else
             return accessorySprites[((int)ebp.part / 7 * 5) + (int)ebp.reqlvl / 2];
     }
@@ -83,7 +83,7 @@ public class SpriteGetter : MonoBehaviour
     ///<summary> 포션 아이콘 반환 </summary>
     public Sprite GetPotionIcon(int potionIdx) => potionSprites[Mathf.Max(0, potionIdx - 1)];
     ///<summary> 레시피 아이콘 반환 </summary>
-    public Sprite GetRecipeIcon() => recipeSprites[GameManager.instance.slotData.region / 11];
+    public Sprite GetRecipeIcon() => recipeSprites[GameManager.Instance.slotData.region / 11];
     ///<summary> 자원 아이콘 반환 
     ///<para> 1 ~ 3 : 스킬 재화(상중하) </para>
     ///<para> 4 ~ 6 : 무기 재화(상중하) </para>
@@ -94,15 +94,15 @@ public class SpriteGetter : MonoBehaviour
     {
         int pivot = (resourceIdx - 1) % 3;
         if(resourceIdx <= 3)
-            return skillResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
+            return skillResourceSprites[GameManager.Instance.slotData.region / 11 * 3 + pivot];
         if(resourceIdx <= 6)
-            return weaponResourceSprites[(GameManager.instance.slotData.slotClass - 1) * 3 + pivot];
+            return weaponResourceSprites[(GameManager.SlotClass - 1) * 3 + pivot];
         else if(resourceIdx <= 9)
-            return armorResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
+            return armorResourceSprites[GameManager.Instance.slotData.region / 11 * 3 + pivot];
         else if(resourceIdx <= 12)
             return accessoryResourceSprites[pivot];
         else
-            return commonResourceSprites[GameManager.instance.slotData.region / 11 * 3 + pivot];
+            return commonResourceSprites[GameManager.Instance.slotData.region / 11 * 3 + pivot];
     }
 
     ///<summary> 스킬 아이콘 반환 </summary>

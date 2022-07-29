@@ -1,6 +1,6 @@
 [
    {
-     "name": "화염 공격",
+     "name": "불의 힘",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -17,7 +17,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -83,7 +82,7 @@
      ]
   },
    {
-     "name": "화염 버프",
+     "name": "불의 버프",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -100,7 +99,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -166,7 +164,7 @@
      ]
   },
    {
-     "name": "물 공격",
+     "name": "물의 힘",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -183,7 +181,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -249,7 +246,7 @@
      ]
   },
    {
-     "name": "물 버프",
+     "name": "물의 버프",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -266,7 +263,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -332,7 +328,7 @@
      ]
   },
    {
-     "name": "바람 공격",
+     "name": "바람의 힘",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -349,7 +345,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -415,7 +410,7 @@
      ]
   },
    {
-     "name": "바람 버프",
+     "name": "바람의 버프",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -432,7 +427,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -498,7 +492,7 @@
      ]
   },
    {
-     "name": "화염 강공격",
+     "name": "강한 불의 힘",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -515,7 +509,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 4,
      "sfx": 0,
@@ -581,7 +574,7 @@
      ]
   },
    {
-     "name": "화염 강버프",
+     "name": "강한 불의 버프",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -598,7 +591,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -664,7 +656,7 @@
      ]
   },
    {
-     "name": "물 강공격",
+     "name": "강한 물의 힘",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -681,7 +673,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 3,
      "sfx": 0,
@@ -716,13 +707,13 @@
         0
      ],
      "effectRate": [
-        30,
-        0,
+        0.3,
+        0.5,
         0,
         0
      ],
      "effectCalc": [
-        0,
+        1,
         0,
         0,
         0
@@ -747,7 +738,7 @@
      ]
   },
    {
-     "name": "물 강버프",
+     "name": "강한 물의 버프",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -764,7 +755,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,
@@ -830,7 +820,7 @@
      ]
   },
    {
-     "name": "바람 강공격",
+     "name": "강한 바람의 힘",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -847,7 +837,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 2,
      "sfx": 0,
@@ -913,7 +902,7 @@
      ]
   },
    {
-     "name": "바람 강버프",
+     "name": "강한 바람의 버프",
      "script": "",
      "script_pos": "",
      "script_neg": "",
@@ -930,7 +919,6 @@
      "apCost": 0,
      "cool": 0,
      "targetSelect": 0,
-     "targetSide": 0,
      "targetCount": 0,
      "effectCount": 1,
      "sfx": 0,

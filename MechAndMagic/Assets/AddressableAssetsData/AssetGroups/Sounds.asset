@@ -25,7 +25,7 @@ MonoBehaviour:
     m_Address: BGM
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: dc96a7ca1923f064ebd5f31bf354f178
+  - m_GUID: 8939c9250fb8e9646a8271aa07f9be3a
     m_Address: BGM
     m_ReadOnly: 0
     m_SerializedLabels: []
@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Address: BGM
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8939c9250fb8e9646a8271aa07f9be3a
+  - m_GUID: dc96a7ca1923f064ebd5f31bf354f178
     m_Address: BGM
     m_ReadOnly: 0
     m_SerializedLabels: []

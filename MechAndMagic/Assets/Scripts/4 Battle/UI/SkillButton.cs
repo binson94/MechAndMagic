@@ -50,6 +50,21 @@ public class SkillButton : MonoBehaviour
         }
     }
 
+    ///<summary> 비전 마스터 선택 버튼 업데이트 </summary>
+    public void ValueUpdate(VisionMaster vision, int skillSlotIdx, int pivot)
+    {
+        Skill skill = SkillManager.GetSkill(vision.classIdx, vision.activeIdxs[skillSlotIdx] + pivot);
+        skillIcon.sprite = SpriteGetter.instance.GetSkillIcon(skill.icon);
+
+        skillTxts[0].text = pivot <= 0 ? $"{skill.name} : 양" : skill.name;
+        skillTxts[1].text = $"<color=#ed2929>{vision.GetSkillCost(skill)}</color> AP";
+        skillTxts[2].text = $"<color=#ed2929>{skill.cooldown}</color> CD";
+        skillTxts[3].text = string.Empty;
+        
+        btnImage.color = skillIcon.color = colors[0];
+        skillTxts[0].color = colors[0];
+    }
+
     public void Highlight(bool isHigh) => highlight.SetActive(isHigh);
     
 }

@@ -53,7 +53,7 @@ public class QuestProceed
 }
 
 //퀘스트 정보 관리
-public class QuestManager : MonoBehaviour
+public class QuestManager
 {
     const int QUEST_AMT = 62;
     const int OUTBREAK_AMT = 22;
@@ -71,21 +71,21 @@ public class QuestManager : MonoBehaviour
     }
 
     ///<summary> 현재 수행 중인 퀘스트 정보 반환 </summary>
-    public static List<QuestProceed> GetCurrQuest() => GameManager.instance.slotData.questData.GetCurrQuest();
+    public static List<QuestProceed> GetCurrQuest() => GameManager.Instance.slotData.questData.GetCurrQuest();
     public static KeyValuePair<QuestBlueprint, int>[] GetProceedingQuestData()
     {
         QuestProceed qp;
         KeyValuePair<QuestBlueprint, int>[] list = new KeyValuePair<QuestBlueprint, int>[4];
         int i;
-        for(i = 0;i < GameManager.instance.slotData.questData.proceedingQuestList.Count;i++)
+        for(i = 0;i < GameManager.Instance.slotData.questData.proceedingQuestList.Count;i++)
         {
-            qp = GameManager.instance.slotData.questData.proceedingQuestList[i];
+            qp = GameManager.Instance.slotData.questData.proceedingQuestList[i];
             list[i] = new KeyValuePair<QuestBlueprint, int>(questData[qp.idx], qp.objectCurr);
         }
         for(;i < 3;i++)
             list[i] = new KeyValuePair<QuestBlueprint, int>(null, 0);
 
-        qp = GameManager.instance.slotData.questData.outbreakProceed;
+        qp = GameManager.Instance.slotData.questData.outbreakProceed;
         if(qp.state == QuestState.Proceeding || qp.state == QuestState.CanClear)
             list[3] = new KeyValuePair<QuestBlueprint, int>(outbreakData[qp.idx], qp.objectCurr);
         else
@@ -93,7 +93,7 @@ public class QuestManager : MonoBehaviour
 
         return list;
     }
-    public static List<int> GetClearedQuest() => GameManager.instance.slotData.questData.GetClearedQuest();
+    public static List<int> GetClearedQuest() => GameManager.Instance.slotData.questData.GetClearedQuest();
     public static string GetQuestName(bool isOutbreak, int questIdx)
     {
         if(isOutbreak)
@@ -113,19 +113,19 @@ public class QuestManager : MonoBehaviour
     ///<summary> 퀘스트 진행 업데이트 </summary>
     public static void QuestUpdate(QuestType type, int idx, int amt)
     {
-        GameManager.instance.slotData.questData.QuestUpdate(type, idx, amt);
+        GameManager.Instance.slotData.questData.QuestUpdate(type, idx, amt);
         SaveData();
     }
     ///<summary> 체력유지 돌발 퀘스트 업데이트 </summary>
-    public static void DiehardUpdate(float rate) => GameManager.instance.slotData.questData.DiehardUpdate(rate);
+    public static void DiehardUpdate(float rate) => GameManager.Instance.slotData.questData.DiehardUpdate(rate);
 
     ///<summary> 새 퀘스트 받기, 마을 메뉴 또는 던전 돌발퀘 방에서 호출 </summary>
     public static void AcceptQuest(bool isOutbreak, int questIdx)
     {
         if (isOutbreak)
-            GameManager.instance.slotData.questData.AcceptOutbreak(outbreakData[questIdx]);
+            GameManager.Instance.slotData.questData.AcceptOutbreak(outbreakData[questIdx]);
         else
-            GameManager.instance.slotData.questData.AcceptQuest(questData[questIdx]);
+            GameManager.Instance.slotData.questData.AcceptQuest(questData[questIdx]);
 
         SaveData();
     }
@@ -133,28 +133,28 @@ public class QuestManager : MonoBehaviour
     ///<summary> 퀘스트 클리어 </summary>
     public static void ClearQuest(int questIdx)
     {
-        GameManager.instance.slotData.questData.ClearQuest(questIdx);
+        GameManager.Instance.slotData.questData.ClearQuest(questIdx);
         GetReward(questData[questIdx]);
         SaveData();
     }
     ///<summary> 돌발 퀘스트 클리어 </summary>
     public static void ClearOutbreak()
     {
-        int outbreakIdx = GameManager.instance.slotData.questData.outbreakProceed.idx;
+        int outbreakIdx = GameManager.Instance.slotData.questData.outbreakProceed.idx;
         if (outbreakIdx > 0)
         {
             GetReward(outbreakData[outbreakIdx]);
-            GameManager.instance.slotData.questData.ClearOutbreak();
+            GameManager.Instance.slotData.questData.ClearOutbreak();
         }
         else
-            GameManager.instance.slotData.questData.RemoveOutbreak();
+            GameManager.Instance.slotData.questData.RemoveOutbreak();
 
         SaveData();
     }
     ///<summary> 돌발 퀘스트 수행 정보 제거(중도 포기) </summary>
     public static void RemoveOutbreak()
     {
-        GameManager.instance.slotData.questData.RemoveOutbreak();
+        GameManager.Instance.slotData.questData.RemoveOutbreak();
         SaveData();
     }
     ///<summary> 퀘스트 클리어에 따른 보상 획득
@@ -166,5 +166,5 @@ public class QuestManager : MonoBehaviour
     }
     #endregion QuestProgress
 
-    static void SaveData() => GameManager.instance.SaveSlotData();
+    static void SaveData() => GameManager.Instance.SaveSlotData();
 }

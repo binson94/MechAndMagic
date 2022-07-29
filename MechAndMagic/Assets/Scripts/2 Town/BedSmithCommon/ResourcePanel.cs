@@ -17,7 +17,7 @@ public class ResourcePanel : MonoBehaviour, ITownPanel
         {
             resourceIcons[i].sprite = SpriteGetter.instance.GetResourceIcon(i);
             resourceNames[i].text = ItemManager.GetResourceName(i);
-            resourceCounts[i].text = $"{GameManager.instance.slotData.itemData.basicMaterials[i]}";
+            resourceCounts[i].text = $"{GameManager.Instance.slotData.itemData.basicMaterials[i]}";
         }
     }
 }

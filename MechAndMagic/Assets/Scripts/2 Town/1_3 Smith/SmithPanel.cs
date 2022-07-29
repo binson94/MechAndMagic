@@ -115,14 +115,13 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     ///<summary> 플레이어 스텟 표시 텍스트 업데이트 </summary>
     void StatTxtUpdate()
     {
-        classTxt.text = GameManager.instance.slotData.className;
+        classTxt.text = GameManager.Instance.slotData.className;
 
-        int lvl = GameManager.instance.slotData.lvl;
-        statTxts[0].text = $"{lvl}";
-        if(lvl <= 9)
+        statTxts[0].text = $"{GameManager.SlotLvl}";
+        if(GameManager.SlotLvl <= 9)
         {
-            statTxts[1].text = $"{GameManager.instance.slotData.exp} / {GameManager.reqExp[GameManager.instance.slotData.lvl]}";
-            expSlider.value = GameManager.instance.slotData.exp / (float)GameManager.reqExp[GameManager.instance.slotData.lvl];
+            statTxts[1].text = $"{GameManager.Instance.slotData.exp} / {GameManager.GetReqExp()}";
+            expSlider.value = GameManager.Instance.slotData.exp / (float)GameManager.GetReqExp();
         }
         else
         {
@@ -134,7 +133,7 @@ public class SmithPanel : MonoBehaviour, ITownPanel
         for (i = j = 2; i < 13; i++, j++)
         {
             if (i == 3) i++;
-            statTxts[j].text = GameManager.instance.slotData.itemStats[i].ToString();
+            statTxts[j].text = GameManager.Instance.slotData.itemStats[i].ToString();
         }
 
         statTxts[8].text = $"{statTxts[8].text}%";
@@ -145,16 +144,16 @@ public class SmithPanel : MonoBehaviour, ITownPanel
     {
         for (int i = 0; i < 7; i++)
         {
-            if(GameManager.instance.slotData.itemData.equipmentSlots[i + 1] != null)
+            if(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1] != null)
             {
-                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp);
-                equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
-                equipSetImages[i].sprite = SpriteGetter.instance.GetSetIcon(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set);
-                equipSetImages[i].gameObject.SetActive(GameManager.instance.slotData.itemData.equipmentSlots[i + 1].ebp.set > 0);
+                equipSlotImages[i].sprite = SpriteGetter.instance.GetEquipIcon(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp);
+                equipSlotGridImages[i].sprite = SpriteGetter.instance.GetGrid(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp.rarity);
+                equipSetImages[i].sprite = SpriteGetter.instance.GetSetIcon(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp.set);
+                equipSetImages[i].gameObject.SetActive(GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].ebp.set > 0);
 
                 equipSlotImages[i].transform.parent.gameObject.SetActive(true);
                 for(int j = 0;j < 3;j++)
-                    stars[i * 3 + j].SetActive(j < GameManager.instance.slotData.itemData.equipmentSlots[i + 1].star);
+                    stars[i * 3 + j].SetActive(j < GameManager.Instance.slotData.itemData.equipmentSlots[i + 1].star);
             }
             else
             {
@@ -165,10 +164,10 @@ public class SmithPanel : MonoBehaviour, ITownPanel
             }
         }
 
-        equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[0]);
-        equipSlotImages[7].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[0] > 0);
-        equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.instance.slotData.potionSlot[1]);
-        equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.instance.slotData.potionSlot[1] > 0);
+        equipSlotImages[7].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.Instance.slotData.potionSlot[0]);
+        equipSlotImages[7].transform.parent.gameObject.SetActive(GameManager.Instance.slotData.potionSlot[0] > 0);
+        equipSlotImages[8].sprite = SpriteGetter.instance.GetPotionIcon(GameManager.Instance.slotData.potionSlot[1]);
+        equipSlotImages[8].transform.parent.gameObject.SetActive(GameManager.Instance.slotData.potionSlot[1] > 0);
     }
     #endregion LoadPlayerInfo
 

@@ -38,9 +38,9 @@ public class LobbyPanel : MonoBehaviour, ITownPanel
 
         //npc Idx 및 일러스트 설정
         int npcStart = 0;
-        if (GameManager.instance.slotData.chapter >= 3)
+        if (GameManager.Instance.slotData.chapter >= 3)
             npcStart += 2;
-        if (GameManager.instance.slotData.slotClass >= 5)
+        if (GameManager.SlotClass >= 5)
             npcStart += 4;
         npcIdx[0] = npcStart; npcIdx[1] = npcStart + 1;
         for (int i = 0; i < 2; i++)
@@ -49,11 +49,11 @@ public class LobbyPanel : MonoBehaviour, ITownPanel
         //npc 퀘스트 아이콘 불러오기
         LoadNPCQuestIcon();
 
-        //기계 리플레이서 21번 퀘스트 이후 숨김
-        if (QuestManager.GetClearedQuest().Contains(21) || QuestManager.GetCurrQuest().Any(x => x.idx == 21))
+        //기계 리플레이서 26번 퀘스트 이후 숨김
+        if (QuestManager.GetClearedQuest().Contains(26) || QuestManager.GetCurrQuest().Any(x => x.idx == 26))
         {
-            npcImages[1].gameObject.SetActive(false);
-            npcQuestIconImages[1].gameObject.SetActive(false);
+            npcImages[0].gameObject.SetActive(false);
+            npcQuestIconImages[0].gameObject.SetActive(false);
         }
 
 
@@ -146,7 +146,7 @@ public class LobbyPanel : MonoBehaviour, ITownPanel
             //선행 퀘스트 클리어, 관련 퀘스트 클리어 안함, 레벨 넘김
             return (clearedQuestList.Contains(reqQuest) &&
                     (linkedQuest == 0 || !clearedQuestList.Contains(linkedQuest)) &&
-                    GameManager.instance.slotData.lvl >= npc.dialogs[idx].lvl);
+                    GameManager.SlotLvl >= npc.dialogs[idx].lvl);
         }
 
     }
