@@ -145,7 +145,7 @@ public class TitleManager : MonoBehaviour
         creditPanel.SetActive(false);
     }
 
-    public void Btn_Login()
+/*    public void Btn_Login()
     {
         GPGSManager.Instance.Login((isSuccess, userData) =>
         {
@@ -158,7 +158,7 @@ public class TitleManager : MonoBehaviour
     public void Btn_LogOut()
     {
         GPGSManager.Instance.Logout();
-    }
+    }*/
     
     public void Btn_Sound() => SoundManager.Instance.PlaySFX(22);
     public void Btn_Title_Exit() => Application.Quit();

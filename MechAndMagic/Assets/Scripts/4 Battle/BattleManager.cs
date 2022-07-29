@@ -1096,6 +1096,18 @@ public class BattleManager : MonoBehaviour
 
         return true;
     }
+    
+    ///<summary> 간부 사격 명령 </summary>
+    public void ShotCommand()
+    {
+        for(int i = 2; i < 5; i++)
+        {
+            Monster mon;
+            if ((mon = allChars[i] as Monster) != null && mon.monsterIdx == 39)
+                mon.ActiveSkill(56, new List<Unit>());     
+        }
+
+    }
     ///<summary> 돈키호테 - 무작위 적 1기 TP 최대로 </summary>
     public void Quixote()
     {
