@@ -31,7 +31,29 @@ public class TitleManager : MonoBehaviour
     ///<summary> 슬롯 삭제 시 재확인창 </summary>
     [SerializeField] GameObject slotDeletePanel;
     #endregion GameSlot
-    [SerializeField] Text testTxt;
+
+    ///<summary> 로그인 실패 시 보이는 UI Set </summary>
+    [Header("GPGS Service")]
+    [SerializeField] GameObject failedLoginPanel;
+
+    ///<summary> 로그인 전 보이는 UI Set </summary>
+    [SerializeField] GameObject beforeLoginPanel;
+    ///<summary> 로그인 중 보이는 UI Set </summary>
+    [SerializeField] GameObject tryLoginPanel;
+    ///<summary> 로그인 후 보이는 UI Set </summary>
+    [SerializeField] GameObject afterLoginPanel;
+
+    ///<summary> 저장 중 보이는 UI Set </summary>
+    [SerializeField] GameObject trySavePanel;
+    ///<summary> 저장 성공 후 보이는 UI Set </summary>
+    [SerializeField] GameObject successSavePanel;
+    ///<summary> 불러오기 중 보이는 UI Set </summary>
+    [SerializeField] GameObject tryLoadPanel;
+    ///<summary> 불러오기 성공 후 보이는 UI Set </summary>
+    [SerializeField] GameObject successLoadPanel;
+
+    ///<summary> 자동 로그인, 로그인 실패 시 자동 로그인 비활성화 </summary>
+    static bool isSuccess = true;
 
     TitleState state;
 
@@ -41,6 +63,10 @@ public class TitleManager : MonoBehaviour
         
         PanelSet();
         SlotUpdate();
+
+        if (isSuccess)
+            Btn_Login();
+
         SoundManager.Instance.PlayBGM(BGMList.Title);
     }
 
@@ -145,20 +171,64 @@ public class TitleManager : MonoBehaviour
         creditPanel.SetActive(false);
     }
 
-/*    public void Btn_Login()
+    #region GPGS_Service
+    ///<summary> 구글 로그인 </summary>
+    public void Btn_Login()
     {
+        tryLoginPanel.SetActive(true);
+
         GPGSManager.Instance.Login((isSuccess, userData) =>
         {
+            tryLoginPanel.SetActive(false);
+            TitleManager.isSuccess = isSuccess;
+
             if(isSuccess)
             {
-                testTxt.text = $"{userData.userName}, {userData.id}, {userData.userName}";
+                beforeLoginPanel.SetActive(false);
+                afterLoginPanel.SetActive(true);
+            }
+            else
+            {
+                failedLoginPanel.SetActive(true);
             }
         });
     }
+    ///<summary> 구글 로그아웃 </summary>
     public void Btn_LogOut()
     {
+        beforeLoginPanel.SetActive(true);
+        afterLoginPanel.SetActive(false);
         GPGSManager.Instance.Logout();
-    }*/
+    }
+
+    ///<summary> 구글 클라우드 저장 </summary>
+    public void Btn_SaveToCloud()
+    {
+        trySavePanel.SetActive(true);
+        GameManager.SaveToGoogle(OnSaved);
+    } 
+    ///<summary> 구글 클라우드에서 로드 </summary>
+    public void Btn_LoadFromCloud()
+    {
+        tryLoadPanel.SetActive(true);
+        GameManager.LoadFromGoogle(OnLoaded);
+    }
+    
+    ///<summary> 세이브 완료 시 콜백 </summary>
+    void OnSaved(bool isSuccess)
+    {
+        trySavePanel.SetActive(false);
+        successSavePanel.SetActive(isSuccess);
+    }
+
+    ///<summary> 로드 완료 시 콜백 </summary>
+    void OnLoaded(bool isSuccess)
+    {
+        tryLoadPanel.SetActive(false);
+        successLoadPanel.SetActive(isSuccess);
+        if(isSuccess) SlotUpdate();
+    }
+    #endregion GPGS_Service
     
     public void Btn_Sound() => SoundManager.Instance.PlaySFX(22);
     public void Btn_Title_Exit() => Application.Quit();

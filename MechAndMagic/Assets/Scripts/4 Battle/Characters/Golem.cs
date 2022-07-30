@@ -7,7 +7,7 @@ public class Golem : Unit
 {
 
     MadScientist ms;
-    Queue<KeyValuePair<int, List<Unit>>> skillQueue = new Queue<KeyValuePair<int, List<Unit>>>();
+    Queue<int> skillQueue = new Queue<int>();
     bool isImmuneCrit = false;
 
     ///<summary> Battle Start보다 먼저 호출, 매드 사이언티스트 연결, 패시브 처리 </summary>
@@ -65,12 +65,17 @@ public class Golem : Unit
 
         if (!IsStun())
             if (skillQueue.Count <= 0)
+            {
                 ActiveSkill(9, new List<Unit>());
+                SoundManager.Instance.PlaySFX(SkillManager.GetSkill(classIdx, 9).sfx);
+            }
             else
                 while (skillQueue.Count > 0)
                 {
-                    KeyValuePair<int, List<Unit>> token = skillQueue.Dequeue();
-                    ActiveSkill(token.Key, token.Value);
+                    int skillIdx = skillQueue.Dequeue();
+                    ActiveSkill(skillIdx, new List<Unit>());
+                    if(skillQueue.Count <= 0)
+                        SoundManager.Instance.PlaySFX(SkillManager.GetSkill(classIdx, skillIdx).sfx);
                 }
     }
     public override void OnTurnEnd()
@@ -175,7 +180,7 @@ public class Golem : Unit
         if (isImmuneCrit) crb = 100;
         return base.GetDamage(caster, dmg, pen, crb);
     }
-    public void AddControl(KeyValuePair<int, List<Unit>> token) => skillQueue.Enqueue(token);
+    public void AddControl(int skillIdx) => skillQueue.Enqueue(skillIdx);
 
     ///<summary> 스텟 정보 불러오기, 치명타율, 치명타피해, 방어력 무시는 1.2배 </summary>
     public override void StatLoad()

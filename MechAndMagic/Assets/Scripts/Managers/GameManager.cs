@@ -1,5 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
+using System;
+using System.Text;
+
 using UnityEngine;
 using LitJson;
 using UnityEngine.SceneManagement;
@@ -31,31 +35,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static int[] baseStats = new int[13];
-    public static int[] reqExp = new int[10];
-    public static int GetReqExp() => Instance.slotData.lvl > 9 ? 1 : reqExp[Instance.slotData.lvl];
+    public static int[] BaseStats = new int[13];
+    public static int[] ReqExp = new int[10];
+    public static int GetReqExp() => Instance.slotData.lvl > 9 ? 1 : ReqExp[Instance.slotData.lvl];
     static void LoadBasicStat()
     {
+        JsonData json = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/BaseStat").text);
 
-        baseStats[0] = 1;
-        baseStats[1] = baseStats[2] = 40;
-        baseStats[3] = baseStats[4] = 6;
-        baseStats[5] = 5;
-        baseStats[6] = 5;
-        baseStats[7] = 60;
-
-        baseStats[10] = 150;
-        baseStats[12] = 5;
-
-        reqExp[1] = 100;
-        reqExp[2] = 200;
-        reqExp[3] = 400;
-        reqExp[4] = 600;
-        reqExp[5] = 900;
-        reqExp[6] = 1200;
-        reqExp[7] = 1600;
-        reqExp[8] = 2000;
-        reqExp[9] = 2500;
+        for(Obj i = Obj.None; i <= Obj.속도;i++)
+            BaseStats[(int)i] = (int)json[$"{i}"];
+        for(int i = 1;i <= 9; i++)
+            ReqExp[i] = (int)json[$"{i}"];
     }
 
     public const int SLOTMAX = 4;
@@ -154,13 +144,13 @@ public class GameManager : MonoBehaviour
     public void EventGetExp(float rate)
     {
         if(slotData.lvl <= 9)
-            GetExp(Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
+            GetExp(Mathf.RoundToInt(ReqExp[slotData.lvl] * rate / 100f));
     }
     ///<summary> 부정 이벤트 - 경험치 손실 </summary>
     public void EventLoseExp(float rate)
     {
         if(slotData.lvl <= 9)
-            slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(reqExp[slotData.lvl] * rate / 100f));
+            slotData.exp = Mathf.Max(0, slotData.exp - Mathf.RoundToInt(ReqExp[slotData.lvl] * rate / 100f));
     }
     ///<summary> 긍정 이벤트 - 회복 </summary>
     public void EventGetHeal(float rate)
@@ -227,24 +217,58 @@ public class GameManager : MonoBehaviour
         if (obj == null)
             return string.Empty;
         else
-            return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonMapper.ToJson(obj)));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonMapper.ToJson(obj)));
     }
     public static T HexToObj<T>(string s)
     {
         if (s == string.Empty || s == null)
             return default(T);
         else
-            return JsonMapper.ToObject<T>(System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(s)));
+            return JsonMapper.ToObject<T>(Encoding.UTF8.GetString(Convert.FromBase64String(s)));
     }
 
-    public static void SaveToGoogle()
+    public static void SaveToGoogle(System.Action<bool> onSaved)
     {
-        
+        //암호화된 정보 복호화하여 gameData에 저장, 모든 슬롯 데이터가 #으로 연결
+        string gameData = string.Empty;
+        if(PlayerPrefs.HasKey("Slot0"))
+            gameData = Encoding.UTF8.GetString(Convert.FromBase64String(PlayerPrefs.GetString("Slot0")));
+
+        for(int i = 1;i < 4;i++)
+        {
+            //암호화되어 저장된 슬롯 데이터
+            string encodedSlotString = PlayerPrefs.GetString($"Slot{i}");
+            if(encodedSlotString == string.Empty) gameData += "#";
+            //복호화하여 gameData에 저장, #으로 연결
+            else
+                gameData += $"#{Encoding.UTF8.GetString(Convert.FromBase64String(encodedSlotString))}";
+        }
+
+        //gameData 전체를 암호화하여 구글로 저장
+        GPGSManager.Instance.SaveCloud("GameData", Encoding.UTF8.GetBytes(gameData), onSaved);
     }
 
-    public static void LoadToGoogle()
+    public static void LoadFromGoogle(System.Action<bool> onLoaded)
     {
+        GPGSManager.Instance.LoadCloud("GameData", (isSuccess, loadedData) =>
+        {
+            if(isSuccess)
+            {
+                //복호화한 정보, 슬롯 데이터가 #으로 연결
+                string gameData = Encoding.UTF8.GetString(loadedData);
+                string[] slotStrings = gameData.Split('#');
 
+                //다시 암호화하여 저장
+                for(int i = 0;i < slotStrings.Length;i++)
+                    if(slotStrings[i] != string.Empty)
+                        PlayerPrefs.SetString($"Slot{i}", Convert.ToBase64String(Encoding.UTF8.GetBytes(slotStrings[i])));
+                    else
+                        PlayerPrefs.DeleteKey($"Slot{i}");
+
+            }
+
+            onLoaded.Invoke(isSuccess);
+        });
     }
 
     public static T GetToken<T>(Queue<T> pool, RectTransform parent, T prefab) where T : MonoBehaviour

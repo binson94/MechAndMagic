@@ -112,9 +112,9 @@ public class SlotData
 
         for (int i = 0; i <= 12; i++)
             if(slotClass == 4 && i != 4)
-                itemStats[i] = Mathf.RoundToInt(GameManager.baseStats[i] * 0.8f);
+                itemStats[i] = Mathf.RoundToInt(GameManager.BaseStats[i] * 0.8f);
             else
-                itemStats[i] = GameManager.baseStats[i];
+                itemStats[i] = GameManager.BaseStats[i];
 
         activeSkills[0] = SkillManager.GetSkillData(classIdx)[0].idx;
 
@@ -144,9 +144,9 @@ public class SlotData
             if (dungeonData != null)
                 dungeonData.dropExp += amt;
 
-            while (lvl < 10 && exp >= GameManager.reqExp[lvl])
+            while (lvl < 10 && exp >= GameManager.ReqExp[lvl])
             {
-                exp -= GameManager.reqExp[lvl];
+                exp -= GameManager.ReqExp[lvl];
                 lvl++;
 
                 if (dungeonData != null)

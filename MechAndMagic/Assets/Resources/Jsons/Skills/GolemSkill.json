@@ -19,7 +19,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 3,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         3,
         3,
@@ -111,7 +111,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 5,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         3,
         3,
@@ -203,7 +203,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         3,
         0,
@@ -295,7 +295,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         1,
         4,
@@ -387,7 +387,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         3,
         3,
@@ -479,7 +479,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         3,
         16,
@@ -571,7 +571,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         2,
         0,
@@ -663,7 +663,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         1,
         0,
@@ -755,7 +755,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 0,
+     "sfx": 1,
      "effectType": [
         1,
         0,

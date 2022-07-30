@@ -289,9 +289,9 @@ public class ItemManager
         {
             int statValue;
             if(GameManager.Instance.slotData.slotClass == 4 && i != 4)
-                statValue = Mathf.RoundToInt(0.8f * (GameManager.baseStats[i] + addPivots[i]));
+                statValue = Mathf.RoundToInt(0.8f * (GameManager.BaseStats[i] + addPivots[i]));
             else
-                statValue = GameManager.baseStats[i] + addPivots[i];
+                statValue = GameManager.BaseStats[i] + addPivots[i];
 
             GameManager.Instance.slotData.itemStats[i] = statValue;
         }

@@ -244,7 +244,7 @@ public class MadScientist : Character
                 case EffectType.CharSpecial1:
                     {
                         //골렘 조종 스킬
-                        BM.GolemControl(new KeyValuePair<int, List<Unit>>((int)skill.effectRate[i], selects));
+                        BM.GolemControl((int)skill.effectRate[i]);
                         break;
                     }
                 default:

@@ -982,10 +982,10 @@ public class BattleManager : MonoBehaviour
     ///<summary> 매드 사이언티스트 골렘 생존 여부 </summary>
     public bool HasGolem() => allChars[1].isActiveAndEnabled && (allChars[1] as Golem != null);
     ///<summary> 매드 사이언티스트 골렘 조종 스킬 </summary>
-    public void GolemControl(KeyValuePair<int, List<Unit>> token)
+    public void GolemControl(int skillIdx)
     {
         if (HasGolem())
-            (allChars[1] as Golem).AddControl(token);
+            (allChars[1] as Golem).AddControl(skillIdx);
     }
 
     ///<summary> 엘리멘탈 컨트롤러 정령 소환 </summary>
