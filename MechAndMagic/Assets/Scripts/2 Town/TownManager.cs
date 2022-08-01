@@ -175,5 +175,5 @@ public class TownManager : MonoBehaviour
         GameManager.Instance.slotData = null;
         GameManager.Instance.LoadScene(SceneKind.Title);
     }
-    public void Btn_SFX() => SoundManager.Instance.PlaySFX(22);
+    public void Btn_SFX() => SoundManager.Instance.PlaySFX((int)SFXList.Button);
 }

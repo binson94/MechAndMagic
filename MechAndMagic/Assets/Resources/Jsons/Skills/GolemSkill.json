@@ -19,7 +19,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 3,
-     "sfx": 1,
+     "sfx": 8,
      "effectType": [
         3,
         3,
@@ -36,7 +36,7 @@
      ],
      "effectTarget": [
         0,
-        4,
+        0,
         4,
         0,
         0
@@ -56,7 +56,7 @@
         0
      ],
      "effectRate": [
-        0.4,
+        0.8,
         20,
         0.9,
         0,
@@ -111,7 +111,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 5,
-     "sfx": 1,
+     "sfx": 5,
      "effectType": [
         3,
         3,
@@ -163,7 +163,7 @@
      ],
      "effectTurn": [
         -1,
-        -2,
+        -1,
         0,
         0,
         0
@@ -203,7 +203,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 1,
+     "sfx": 9,
      "effectType": [
         3,
         0,
@@ -295,7 +295,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
-     "sfx": 1,
+     "sfx": 22,
      "effectType": [
         1,
         4,
@@ -387,7 +387,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
-     "sfx": 1,
+     "sfx": 3,
      "effectType": [
         3,
         3,
@@ -479,7 +479,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,
-     "sfx": 1,
+     "sfx": 15,
      "effectType": [
         3,
         16,
@@ -516,7 +516,7 @@
         0
      ],
      "effectRate": [
-        0.25,
+        0.5,
         0.6,
         0,
         0,
@@ -571,7 +571,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 1,
+     "sfx": 11,
      "effectType": [
         2,
         0,
@@ -663,7 +663,7 @@
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 1,
-     "sfx": 1,
+     "sfx": 11,
      "effectType": [
         1,
         0,

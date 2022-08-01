@@ -67,6 +67,8 @@ public class SkillBtnToken : MonoBehaviour
 
         skillIdx = skill.idx;
         skillTxts[0].text = skill.name;
+            if(this.state == SkillState.Equip)
+                skillTxts[0].text = $"<color=#D65D00>{skillTxts[0].text}</color>";
         skillTxts[1].text = $"Lv.{skill.reqLvl}";
         skillTxts[2].text = $"{skill.apCost}";
     }
@@ -98,13 +100,13 @@ public class SkillBtnToken : MonoBehaviour
 
     public void Btn_Select()
     {
-        SoundManager.Instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX((int)SFXList.Button);
         if (BM != null)
             BM.Btn_SkillToken(skillIdx, state);
     }
     public void Btn_Learn()
     {
-        SoundManager.Instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX((int)SFXList.Button);
         if(BM != null) BM.BedToSkillLearn(skillIdx);
     }
 

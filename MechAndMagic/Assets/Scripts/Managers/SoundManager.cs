@@ -13,6 +13,11 @@ public enum BGMList
     Boss1 = 15, Boss2 = 17, Boss3 = 19, End = 21
 }
 
+public enum SFXList
+{
+    Button = 25, Talk = 26
+}
+
 public class SoundManager : MonoBehaviour
 {
     static SoundManager _instance = null;
@@ -89,6 +94,8 @@ public class SoundManager : MonoBehaviour
     }
     public void PlaySFX(int idx)
     {
+        if(idx <= 0) return;
+        
         SFX.PlayOneShot(sfxs[Mathf.Max(0, idx - 1)]);
     }
     public int GetTxtSpd() => option.txtSpd;

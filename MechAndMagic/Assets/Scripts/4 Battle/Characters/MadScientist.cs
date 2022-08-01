@@ -177,9 +177,11 @@ public class MadScientist : Character
                             {
                                 int acc = 20;
                                 if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                    acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                    acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                                 else
-                                    acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                    acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+
+                                acc = Mathf.Max(20, acc);
 
                                 //명중 시
                                 if (Random.Range(0, 100) < acc)
@@ -288,9 +290,9 @@ public class MadScientist : Character
                 }
 
                 //기초 과학자 2세트 - 1레벨 패시브 강화
-                if (s.idx == 132 || s.idx == 133 || s.idx == 134)
+                if ((s.idx == 132 || s.idx == 133 || s.idx == 134) && s.effectType[i] == (int)EffectType.Passive_EternalBuff)
                 {
-                    turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], buffStat[s.effectStat[0]], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
+                    turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, s.name, s.effectObject[i], dungeonStat[s.effectStat[i]], s.effectRate[i] * rate, s.effectCalc[i], s.effectTurn[i], s.effectDispel[i], s.effectVisible[i]));
                     continue;
                 }
                 switch ((EffectType)s.effectType[i])
@@ -299,26 +301,26 @@ public class MadScientist : Character
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
-                                    u.AddBuff(this, -2, s, i, 0);
+                                    u.AddBuff(this, 0, s, i, 0);
                             break;
                         }
                     case EffectType.Passive_HasSkillDebuff:
                         {
                             if (HasSkill(s.effectCond[i], true))
                                 foreach (Unit u in effectTargets)
-                                    u.AddDebuff(this, -2, s, i, 0);
+                                    u.AddDebuff(this, 0, s, i, 0);
                             break;
                         }
                     case EffectType.Passive_EternalBuff:
                         {
                                 foreach (Unit u in effectTargets)
-                                    u.AddBuff(this, -2, s, i, 0);
+                                    u.AddBuff(this, 0, s, i, 0);
                             break;
                         }
                     case EffectType.Passive_EternalDebuff:
                         {
                                 foreach (Unit u in effectTargets)
-                                    u.AddDebuff(this, -2, s, i, 0);
+                                    u.AddDebuff(this, 0, s, i, 0);
                             break;
                         }
                     default:

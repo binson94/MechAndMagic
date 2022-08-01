@@ -42,6 +42,7 @@ public class ArmedFighter : Character
             if (chargingPunch.target.isActiveAndEnabled && !IsStun())
             {
                 SoundManager.Instance.PlaySFX(1);
+
                 if (Random.Range(0, 100) < chargingPunch.acc)
                 {
                     chargingPunch.target.GetDamage(this, chargingPunch.atk, buffStat[(int)Obj.방어력무시], 100);
@@ -137,9 +138,11 @@ public class ArmedFighter : Character
                         {
                             int acc = 20;
                             if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
 
                             if (Random.Range(0, 100) < acc)
                             {
@@ -190,8 +193,15 @@ public class ArmedFighter : Character
                 case EffectType.CharSpecial2:
                     {
                         StatUpdate_Skill(skill);
+                        int acc;
+                        if (buffStat[(int)Obj.명중률] >= selects[0].buffStat[(int)Obj.회피율])
+                            acc = 6 * (buffStat[(int)Obj.명중률] - selects[0].buffStat[(int)Obj.회피율]) / (selects[0].LVL + 2);
+                        else
+                            acc = 6 * (buffStat[(int)Obj.명중률] - selects[0].buffStat[(int)Obj.회피율]) / (LVL + 2);
 
-                        chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.공격력], buffStat[(int)Obj.명중률]);
+                        acc = Mathf.Max(20, acc);
+
+                        chargingPunch = new ChargingPunch(selects[0], buffStat[(int)Obj.공격력], acc);
                         break;
                     }
                 default:

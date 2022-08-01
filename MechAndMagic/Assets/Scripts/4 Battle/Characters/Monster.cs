@@ -10,7 +10,6 @@ public class Monster : Unit
 
     public bool isBoss;
     public int monsterIdx;
-    public int region;
 
     public int skillCount;
     public float[] skillChance;
@@ -121,6 +120,8 @@ public class Monster : Unit
         
 
         Active_Effect(skill, selects);
+        if(skill.sfx > 0)
+            SoundManager.Instance.PlaySFX(skill.sfx);
 
         //57 사격 진행
         if(skill.idx == 57)
@@ -170,9 +171,11 @@ public class Monster : Unit
                             //명중 연산 - 최소 명중률 10%
                             int acc = 20;
                             if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
@@ -330,7 +333,6 @@ public class Monster : Unit
         isBoss = monsterIdx >= 90;
 
         name = json[jsonIdx]["name"].ToString();
-        region = (int)json[jsonIdx]["region"];
         LVL = (int)json[jsonIdx]["lvl"];
         dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.체력] = (int)json[jsonIdx]["HP"];
         dungeonStat[(int)Obj.공격력] = (int)json[jsonIdx]["ATK"];

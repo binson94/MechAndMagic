@@ -1117,7 +1117,7 @@ public class BattleManager : MonoBehaviour
     }
     #endregion Function_CharSkills
 
-    public void Btn_PlaySFX() => SoundManager.Instance.PlaySFX(22);
+    public void Btn_PlaySFX() => SoundManager.Instance.PlaySFX((int)SFXList.Button);
     public void Btn_Retire() => Lose();
 
     ///<summary> 효과 대상 반환 </summary>

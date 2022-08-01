@@ -288,7 +288,7 @@ public class ItemManager
         for (int i = 1; i <= 12; i++)
         {
             int statValue;
-            if(GameManager.Instance.slotData.slotClass == 4 && i != 4)
+            if(GameManager.Instance.slotData.slotClass == 4 && i != 4 && i != 7)
                 statValue = Mathf.RoundToInt(0.8f * (GameManager.BaseStats[i] + addPivots[i]));
             else
                 statValue = GameManager.BaseStats[i] + addPivots[i];

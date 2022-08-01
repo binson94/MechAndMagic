@@ -192,9 +192,11 @@ public class MagicalRogue : Character
                             //명중 연산 - 최소 명중률 10%
                             int acc = 20;
                             if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
@@ -271,9 +273,11 @@ public class MagicalRogue : Character
                             //명중 연산 - 최소 명중률 10%
                             int acc = 20;
                             if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
@@ -373,7 +377,7 @@ public class MagicalRogue : Character
                     case EffectType.Passive_CastBuff:
                         {
                             if (skill.idx == 317 || skill.idx == 325 || skill.idx == 333 || skill.idx == 349)
-                                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[i], skill.effectStat[i], skill.effectRate[i] * (1 + set.Value[1]), skill.effectCalc[i], skill.effectTurn[i], skill.effectDispel[i], skill.effectVisible[i]));
+                                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[i], buffStat[skill.effectStat[i]], skill.effectRate[i] * (1 + set.Value[1]), skill.effectCalc[i], skill.effectTurn[i], skill.effectDispel[i], skill.effectVisible[i]));
                             else
                                 AddBuff(this, orderIdx, skill, i, 0);
                             break;

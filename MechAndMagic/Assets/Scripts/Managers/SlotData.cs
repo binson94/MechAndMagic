@@ -111,18 +111,21 @@ public class SlotData
         storyIdx = 1 + region / 11 * 5;
 
         for (int i = 0; i <= 12; i++)
-            if(slotClass == 4 && i != 4)
+            if(slotClass == 4 && i != 4 && i != 7)
                 itemStats[i] = Mathf.RoundToInt(GameManager.BaseStats[i] * 0.8f);
             else
                 itemStats[i] = GameManager.BaseStats[i];
-
-        activeSkills[0] = SkillManager.GetSkillData(classIdx)[0].idx;
 
         nowScene = SceneKind.Story;
 
         itemData = new ItemData(slotClass);
         questData = new QuestData(slotClass);
         dungeonData = null;
+
+        for (int i = 0, j = 1; i < 6 && j < itemData.learnedSkills.Count; i++, j++)
+            activeSkills[i] = itemData.learnedSkills[j];
+
+        potionSlot[0] = 3; potionSlot[1] = 1;
     }
     ///<summary> 던전 진행 중 획득한 아이템 정보 저장(결과창 용) </summary>
     public void DropSave(DropType type, int idx, int amt = 1)

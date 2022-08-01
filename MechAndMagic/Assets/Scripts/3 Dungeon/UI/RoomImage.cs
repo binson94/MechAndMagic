@@ -45,7 +45,7 @@ public class RoomImage : MonoBehaviour
 
     public void Btn_Select() 
     {
-        SoundManager.Instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX((int)SFXList.Button);
         dungeonMgr.Btn_RoomSelect(room.floor, room.roomNumber);
     }
 }

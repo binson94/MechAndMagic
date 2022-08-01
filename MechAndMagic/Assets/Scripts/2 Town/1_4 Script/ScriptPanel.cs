@@ -168,7 +168,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     }
 
     #region Dialog
-    public void Btn_ScriptSFX() => SoundManager.Instance.PlaySFX(23);
+    public void Btn_ScriptSFX() => SoundManager.Instance.PlaySFX((int)SFXList.Talk);
     ///<summary> 대화 진행 버튼 - 다음 대사 로드 </summary>
     public void Btn_NextDialog()
     {

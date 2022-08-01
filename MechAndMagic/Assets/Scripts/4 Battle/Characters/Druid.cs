@@ -250,9 +250,11 @@ public class Druid : Character
                             //명중 연산 - 최소 명중률 10%
                             int acc = 20;
                             if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
 
                             //238 거인의 프레일 - 적 속도 반비례 명중 상승
                             if (skill.idx == 238)

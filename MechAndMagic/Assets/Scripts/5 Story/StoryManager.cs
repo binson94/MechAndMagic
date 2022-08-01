@@ -27,7 +27,7 @@ public class StoryManager : MonoBehaviour
 
     public void Btn_GoToTown()
     {
-        SoundManager.Instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX((int)SFXList.Button);
         GameManager.Instance.SwitchSceneData(SceneKind.Town);
 
         if(GameManager.Instance.slotData.storyIdx % 5 == 0)

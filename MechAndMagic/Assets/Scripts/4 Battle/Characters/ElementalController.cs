@@ -165,9 +165,11 @@ public class ElementalController : Character
                             //명중 연산 - 최소 명중률 10%
                             int acc = 20;
                             if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                             else
-                                acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
                             //명중 시
                             if (Random.Range(0, 100) < acc)
                             {
@@ -222,9 +224,11 @@ public class ElementalController : Character
 
                                         int acc = 20;
                                         if (buffStat[(int)Obj.명중률] >= target.buffStat[(int)Obj.회피율])
-                                            acc = 60 + 6 * (buffStat[(int)Obj.명중률] - target.buffStat[(int)Obj.회피율]) / (target.LVL + 2);
+                                            acc = 6 * (buffStat[(int)Obj.명중률] - target.buffStat[(int)Obj.회피율]) / (target.LVL + 2);
                                         else
-                                            acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - target.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                            acc = 6 * (buffStat[(int)Obj.명중률] - target.buffStat[(int)Obj.회피율]) / (LVL + 2);
+
+                                        acc = Mathf.Max(20, acc);
                                         //명중 시
                                         if (Random.Range(0, 100) < acc)
                                         {
@@ -270,9 +274,11 @@ public class ElementalController : Character
 
                                         int acc = 20;
                                         if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                            acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                            acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                                         else
-                                            acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                                            acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+
+                                        acc = Mathf.Max(20, acc);
                                         //명중 시
                                         if (Random.Range(0, 100) < acc)
                                         {
@@ -356,7 +362,7 @@ public class ElementalController : Character
                                 foreach (Unit u in effectTargets)
                                     //진정한 지배자 2세트 - 원소 활용 강화
                                     if (s.idx == 196 && set.Value[0] > 0)
-                                        u.turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[i], buffStat[s.effectStat[i]], s.effectRate[i] * (1 + set.Value[0]), s.effectCalc[i], s.effectTurn[i], s.effectDispel[i], s.effectVisible[i]));
+                                        u.turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[i], dungeonStat[s.effectStat[i]], s.effectRate[i] * (1 + set.Value[0]), s.effectCalc[i], s.effectTurn[i], s.effectDispel[i], s.effectVisible[i]));
                                     else
                                         u.AddBuff(this, -1, s, i, 0);
                             break;

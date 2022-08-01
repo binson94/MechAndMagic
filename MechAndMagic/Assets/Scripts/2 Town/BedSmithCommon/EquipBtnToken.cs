@@ -116,7 +116,7 @@ public class EquipBtnToken : MonoBehaviour
     ///<summary> 장비 선택 버튼 </summary>
     public void Btn_Equip(int idx)
     {
-        SoundManager.Instance.PlaySFX(22);
+        SoundManager.Instance.PlaySFX((int)SFXList.Button);
         if (SP != null)
         {
             if (tokenKind == 0)

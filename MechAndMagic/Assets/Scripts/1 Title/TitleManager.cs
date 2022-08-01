@@ -230,6 +230,6 @@ public class TitleManager : MonoBehaviour
     }
     #endregion GPGS_Service
     
-    public void Btn_Sound() => SoundManager.Instance.PlaySFX(22);
+    public void Btn_Sound() => SoundManager.Instance.PlaySFX((int)SFXList.Button);
     public void Btn_Title_Exit() => Application.Quit();
 }

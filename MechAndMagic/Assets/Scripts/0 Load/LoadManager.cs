@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 public class LoadManager : MonoBehaviour
 {
     [SerializeField] UnityEngine.UI.Text stateTxt;
-    [SerializeField] bool canStart = false;
+    bool canStart = false;
     private async void Start() {
         Task bgmTask = SoundManager.Instance.LoadBGM();
         Task sfxTask = SoundManager.Instance.LoadSFX();

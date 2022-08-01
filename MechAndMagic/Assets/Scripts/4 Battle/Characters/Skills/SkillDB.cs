@@ -41,6 +41,7 @@ public class SkillDB
         {
             skills[i].name = json[i]["name"].ToString();
             skills[i].idx = (int)json[i]["idx"];
+            skills[i].sfx = (int)json[i]["sfx"];
 
             //클래스 스킬에만 적용(몬스터 제외)
             if (classIdx != 10)
@@ -49,7 +50,6 @@ public class SkillDB
                 skills[i].posScript = json[i]["script_pos"].ToString();
                 skills[i].negScript = json[i]["script_neg"].ToString();
                 skills[i].icon = (int)json[i]["icon"];
-                skills[i].sfx = (int)json[i]["sfx"];
                 skills[i].category = (int)json[i]["category"];
                 skills[i].useType = (int)json[i]["usetype"];
                 skills[i].reqLvl = (int)json[i]["reqlvl"];
