@@ -253,7 +253,7 @@ public class MetalKnight : Character
             if (s.idx == 75)
             {
                 if (activeIdxs.Count(x => SkillManager.GetSkill(2, x).category == 1004) == 3 && activeIdxs.Count(x => SkillManager.GetSkill(2, x).category == 1005) == 3)
-                    turnBuffs.Add(new Buff(BuffType.AP, new BuffOrder(this), s.name, 0, 1, s.effectRate[0], s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));                
+                    AddBuff(this, 0, s, 0, 0);
                 continue;
             }
             //84 한길만을 걷다

@@ -269,7 +269,10 @@ public class Character : Unit
     {
         //메탈 그리드 4세트 - 디버프 면역
         if (caster != null && caster != this && (debuffImmune > 0))
+        {
+            debuffImmune = 0;
             return;
+        }
 
         base.AddDebuff(caster, order, s, effectIdx, stat);
     }

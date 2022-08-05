@@ -72,6 +72,7 @@ public class EventPanel : MonoBehaviour
     {
         if(eventInfo.eventType == 4 && !isWatch)
             EventEffect();
+        DM.LoadQuestData();
         gameObject.SetActive(false);
     }
 

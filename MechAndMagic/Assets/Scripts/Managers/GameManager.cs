@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System;
 using System.Text;
+using System.Linq;
 
 using UnityEngine;
 using LitJson;
@@ -54,7 +55,8 @@ public class GameManager : MonoBehaviour
     ///<summary> 현재 플레이 중인 슬롯 데이터 관리 </summary>
     public SlotData slotData;
 
-    public string Debug_Data() => PlayerPrefs.GetString($"Slot{currSlot}");
+    public int questExp;
+    public List<Triplet<DropType, int, int>> questDrops = new List<Triplet<DropType, int, int>>();
 
     public static int SlotLvl
     {
@@ -135,10 +137,20 @@ public class GameManager : MonoBehaviour
         SaveSlotData();
     }
     ///<summary> 아이템 드롭 정보 저장 </summary>
-    public void DropSave(DropType type, int idx)
+    public void DropSave(DropType type, int idx, int amt, bool isQuest)
     {
-        slotData.DropSave(type, idx);
-        SaveSlotData();
+        if(isQuest)
+        {
+            if (questDrops.Any(x => x.first == type && x.second == idx))
+                questDrops.FindAll(x => x.first == type && x.second == idx).First().third += amt;
+            else
+                questDrops.Add(new Triplet<DropType, int, int>(type, idx, amt));
+        }
+        else
+        {
+            slotData.DropSave(type, idx, amt);
+            SaveSlotData();
+        }
     }
 
     #region Event

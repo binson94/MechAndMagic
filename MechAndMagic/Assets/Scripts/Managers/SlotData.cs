@@ -136,7 +136,7 @@ public class SlotData
         potionSlot[0] = 3; potionSlot[1] = 1;
     }
     ///<summary> 던전 진행 중 획득한 아이템 정보 저장(결과창 용) </summary>
-    public void DropSave(DropType type, int idx, int amt = 1)
+    public void DropSave(DropType type, int idx, int amt)
     {
         if (dungeonData == null)
             return;
@@ -455,8 +455,10 @@ public class QuestData
         QuestUpdate(QuestType.Level, 0, 0);
     }
     ///<summary> 적 처치 등 퀘스트 요구 사항 관련 변경점 있을 때마다 호출 </summary>
-    public void QuestUpdate(QuestType type, int objectIdx, int amt)
+    public void QuestUpdate(QuestType type, int? objectIdx, int amt)
     {
+        if(objectIdx is null) return;
+        
         foreach (QuestProceed qp in proceedingQuestList)
         {
             //레벨 달성 퀘스트인 경우, 레벨 값으로 설정
@@ -495,7 +497,6 @@ public class QuestData
     ///<summary> 전투 끝날 때마다 호출 </summary>
     public void DiehardUpdate(float rate)
     {
-        Debug.Log($"{rate}, {outbreakProceed.objectReq}, {outbreakProceed.state}");
         if (outbreakProceed.state == QuestState.Proceeding)
             if ((outbreakProceed.type == QuestType.Diehard_Over && 100 * rate < outbreakProceed.objectReq) || (outbreakProceed.type == QuestType.Diehard_Under && 100 * rate > outbreakProceed.objectReq))
                 outbreakProceed.state = QuestState.Fail; 

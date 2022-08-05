@@ -31,9 +31,29 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     ///<summary> 현재 대사 중인 캐릭터 이름 표시 텍스트 </summary>
     [SerializeField] Text dialogTalkerTxt;
 
+    [SerializeField] GameObject rewardPanel;
+
     [SerializeField] GameObject[] jumpBtns;
     [SerializeField] Text[] jumpTxts;
     #endregion UI
+
+    #region Reward
+    ///<summary> 퀘스트 보상 경험치 표시 텍스트 </summary>
+    [Header("Reward")]
+    [SerializeField] Text expTxt;
+    ///<summary> 퀘스트 보상 토큰 </summary>
+    [SerializeField] DropToken dropTokenPrefab;
+    ///<summary> 퀘스트 보상 토큰 부모 오브젝트 </summary>
+    [SerializeField] RectTransform tokenParent;
+    ///<summary> 퀘스트 보상 풀 부모 오브젝트 </summary>
+    [SerializeField] RectTransform poolParent;
+    ///<summary> 퀘스트 보상 풀 </summary>
+    Queue<DropToken> tokenPool = new Queue<DropToken>();
+    ///<summary> 퀘스트 보상 토큰 리스트 </summary>
+    List<DropToken> tokenList = new List<DropToken>();
+    ///<summary> 퀘스트 보상 팝업 매니저 </summary>
+    [SerializeField] PopUpManager pm;
+    #endregion Reward
 
     Color illustGrayColor = new Color(0.7f, 0.7f, 0.7f, 1);
 
@@ -71,6 +91,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
         dialogList.Clear();
         questSelectBtns.SetActive(false);
+
+        rewardPanel.SetActive(false);
     }
 
     ///<summary> 선택한 npc의 대화 목록 불러오기 </summary>
@@ -247,9 +269,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
                     break;
                 //퀘스트 클리어
                 case DialogToken.QuestClear:
+                    state = DialogState.End;
                     ClearQuest(currDialog.linkedQuest);
-                    pos++;
-                    NextToken();
                     break;
                 //선택지 구문
                 case DialogToken.Select:
@@ -330,8 +351,17 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         GameManager.Instance.SwitchSceneData(SceneKind.Story);
         GameManager.Instance.LoadScene(SceneKind.Story);
     }
-    void NewQuest(int idx) => QuestManager.AcceptQuest(false, idx);
-    void ClearQuest(int idx) => QuestManager.ClearQuest(idx);
+    void NewQuest(int questIdx) => QuestManager.AcceptQuest(false, questIdx);
+    void ClearQuest(int questIdx)
+    {
+        dialogTxt.text = string.Empty;
+        dialogTalkerTxt.text = string.Empty;
+        charIllusts[0].color = illustGrayColor; charIllusts[1].color = illustGrayColor;
+
+        QuestManager.ClearQuest(questIdx);
+        LoadReward();
+        rewardPanel.SetActive(true);
+    } 
     void EndDialog()
     {
         if(currDialog.idx == 21)
@@ -349,6 +379,56 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     }
     #endregion DialogTokens
     #endregion Dialog
+
+    void LoadReward()
+    {
+        ResetDropInfo();
+        List<Triplet<DropType, int, int>> drops = GameManager.Instance.questDrops;
+
+        DropToken token;
+        List<Triplet<DropType, int, int>> idxs = new List<Triplet<DropType, int, int>>();
+
+        for(int i = 0;i < drops.Count;i++)
+        {
+            token = GameManager.GetToken(tokenPool, tokenParent, dropTokenPrefab);
+
+            for(int j = 0;j < 5 && i < drops.Count;i++, j++)
+                idxs.Add(drops[i]);
+
+            token.Initialize(pm, idxs);
+            tokenList.Add(token);
+            token.gameObject.SetActive(true);
+            idxs.Clear();
+        }
+
+        if(GameManager.Instance.questExp >0)
+            expTxt.text = $"경험치 +{GameManager.Instance.questExp}";
+        else
+            expTxt.text = string.Empty;
+
+
+        void ResetDropInfo()
+        {
+            for(int i = 0;i < tokenList.Count;i++)
+            {
+                tokenList[i].gameObject.SetActive(false);
+                tokenList[i].transform.SetParent(poolParent);
+                tokenPool.Enqueue(tokenList[i]);
+            }
+
+            tokenList.Clear();
+        }
+    }
+    public void Btn_CloseReward()
+    {
+        state = DialogState.Start;
+        currDialog = null;
+        LoadDialogList();
+
+        dialogSelectPanel.SetActive(true);
+        questSelectBtns.SetActive(false);
+        rewardPanel.SetActive(false);
+    }
 
     enum DialogToken
     {

@@ -94,7 +94,7 @@ public class Monster : Unit
         Passive_SkillCast(skill);
 
         //16 발사 - 포탄 버프 소모
-        if (skill.idx == 16)
+        if (skill.idx == 16 || skill.idx == 18)
             turnBuffs.buffs.RemoveAll(x => x.name == "포탄");
         //30 붕괴
         else if (skill.idx == 30)
@@ -324,8 +324,6 @@ public class Monster : Unit
                 implantBomb.Bomb(BM, this);
                 implantBomb = null;
             }
-
-            QuestManager.QuestUpdate(QuestType.Kill, monsterIdx, 1);
         }
 
         return new KeyValuePair<bool, int>(killed, finalDmg);

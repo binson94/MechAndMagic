@@ -863,6 +863,7 @@ public class BattleManager : MonoBehaviour
                 allChars[i].gameObject.SetActive(false);
                 tpSliders[i].gameObject.SetActive(false);
                 LogManager.instance.AddLog($"{allChars[i].name}(이)가 쓰러졌습니다.");
+                QuestManager.QuestUpdate(QuestType.Kill, (allChars[i] as Monster)?.monsterIdx, 1);
                 enemyIilusts[i - 2].gameObject.SetActive(false);
             }
 

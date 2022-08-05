@@ -111,10 +111,10 @@ public class QuestManager
 
     #region QuestProgress
     ///<summary> 퀘스트 진행 업데이트 </summary>
-    public static void QuestUpdate(QuestType type, int idx, int amt)
+    public static void QuestUpdate(QuestType type, int? idx, int amt)
     {
         GameManager.Instance.slotData.questData.QuestUpdate(type, idx, amt);
-        SaveData();
+        GameManager.Instance.SaveSlotData();
     }
     ///<summary> 체력유지 돌발 퀘스트 업데이트 </summary>
     public static void DiehardUpdate(float rate) => GameManager.Instance.slotData.questData.DiehardUpdate(rate);
@@ -127,7 +127,7 @@ public class QuestManager
         else
             GameManager.Instance.slotData.questData.AcceptQuest(questData[questIdx]);
 
-        SaveData();
+        GameManager.Instance.SaveSlotData();
     }
 
     ///<summary> 퀘스트 클리어 </summary>
@@ -135,7 +135,7 @@ public class QuestManager
     {
         GameManager.Instance.slotData.questData.ClearQuest(questIdx);
         GetReward(questData[questIdx]);
-        SaveData();
+        GameManager.Instance.SaveSlotData();
     }
     ///<summary> 돌발 퀘스트 클리어 </summary>
     public static void ClearOutbreak()
@@ -149,22 +149,22 @@ public class QuestManager
         else
             GameManager.Instance.slotData.questData.RemoveOutbreak();
 
-        SaveData();
+        GameManager.Instance.SaveSlotData();
     }
     ///<summary> 돌발 퀘스트 수행 정보 제거(중도 포기) </summary>
     public static void RemoveOutbreak()
     {
         GameManager.Instance.slotData.questData.RemoveOutbreak();
-        SaveData();
+        GameManager.Instance.SaveSlotData();
     }
     ///<summary> 퀘스트 클리어에 따른 보상 획득
     ///<para> ClearQuest에서 호출</summary>
     static void GetReward(QuestBlueprint qbp)
     {
+        GameManager.Instance.questDrops.Clear();
+        GameManager.Instance.questExp = 0;
         for (int i = 0; i < qbp.rewardCount; i++)
-            ItemManager.ItemDrop(qbp.rewardIdx[i], qbp.rewardAmt[i]);    
+            ItemManager.ItemDrop(qbp.rewardIdx[i], qbp.rewardAmt[i], true);
     }
     #endregion QuestProgress
-
-    static void SaveData() => GameManager.Instance.SaveSlotData();
 }

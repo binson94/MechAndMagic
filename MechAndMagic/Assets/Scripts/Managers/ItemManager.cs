@@ -38,42 +38,57 @@ public class ItemManager
     public static void LoadSetData() => setManager.SetComfirm(GameManager.Instance.slotData.itemData);
     #region ItemDrop
     ///<summary> 아이템 드롭 </summary>
-    public static void ItemDrop(int category, float prob)
+    public static void ItemDrop(int category, float prob, bool isQuest = false)
     {
-        if(category == 150)
-            GameManager.Instance.GetExp((int)prob);
-
-        while(prob >= 1f)
+        if(category <= 15)
         {
-            AddItem();
-            prob -= 1;
+            int count = 0;
+            while (prob >= 1f)
+            {
+                count++;
+                prob -= 1;
+            }
+            if (Random.Range(0, 1f) < prob)
+                count++;
+
+            if(count <= 0) return;
+
+            GameManager.Instance.slotData.itemData.basicMaterials[category] += count;
+            GameManager.Instance.DropSave(DropType.Material, category, count, isQuest);
         }
-        
-        if (Random.Range(0, 1f) < prob)
-            AddItem();
+        else if(category == 150)
+        {
+            GameManager.Instance.GetExp((int)prob);
+            if(isQuest) GameManager.Instance.questExp = (int)prob;
+        }
+        else
+        {
+            while (prob >= 1f)
+            {
+                AddItem();
+                prob -= 1;
+            }
+
+            if (Random.Range(0, 1f) < prob)
+                AddItem();
+        }
 
         GameManager.Instance.SaveSlotData();
 
         void AddItem()
         {
-            //기본 재료
-            if (category <= 15)
-            {
-                GameManager.Instance.slotData.itemData.basicMaterials[category]++;
-                GameManager.Instance.DropSave(DropType.Material, category);
-            }
             //스킬북
-            else if (category <= 23)
-                SkillbookDrop(category);
+            if (category <= 23)
+                SkillbookDrop(category, isQuest);
             //장비
             else if (category <= 86)
-                EquipmentDrop(category);
+                EquipmentDrop(category, isQuest);
             //제작법
             else if (category <= 149)
-                RecipeDrop(category);
+                RecipeDrop(category, isQuest);
         }
     }
-    static void EquipmentDrop(int category)
+    static void EquipmentDrop(int category, bool isQuest)
     {
         int classIdx = GameManager.SlotClass;
         int region = GameManager.Instance.slotData.region;
@@ -87,12 +102,12 @@ public class ItemManager
 
         EquipBluePrint ebp = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First();
 
-        GameManager.Instance.DropSave(DropType.Equip, ebp.idx);
+        GameManager.Instance.DropSave(DropType.Equip, ebp.idx, 1, isQuest);
         GameManager.Instance.slotData.itemData.EquipDrop(ebp);
     }
     ///<summary> 스킬북 드롭 </summary>
     ///<param name="category"> 19 9lv, 20 7lv, 21 5lv, 22 3lv, 23 1lv </param>
-    static void SkillbookDrop(int category)
+    static void SkillbookDrop(int category, bool isQuest)
     {
         int lvl = 47 - 2 * category;
         Skill[] s = SkillManager.GetSkillData(GameManager.SlotClass);
@@ -112,10 +127,10 @@ public class ItemManager
 
         int skillbookIdx = possibleList[Random.Range(0, possibleList.Count)];
         GameManager.Instance.slotData.itemData.SkillBookDrop(skillbookIdx);
-        GameManager.Instance.DropSave(DropType.Skillbook, skillbookIdx);
+        GameManager.Instance.DropSave(DropType.Skillbook, skillbookIdx, 1, isQuest);
         GameManager.Instance.SaveSlotData();
     }
-    static void RecipeDrop(int category)
+    static void RecipeDrop(int category, bool isQuest)
     {
         category -= 63;
         int classIdx = GameManager.SlotClass;
@@ -130,7 +145,7 @@ public class ItemManager
         int recipeIdx = possibleList.Skip(Random.Range(0, possibleList.Count())).Take(1).First().idx;
 
         if (GameManager.Instance.slotData.itemData.RecipeDrop(recipeIdx))
-            GameManager.Instance.DropSave(DropType.Recipe, bluePrints[recipeIdx - bluePrints[0].idx].idx);
+            GameManager.Instance.DropSave(DropType.Recipe, bluePrints[recipeIdx - bluePrints[0].idx].idx, 1, isQuest);
 
         GameManager.Instance.SaveSlotData();
     }
@@ -146,7 +161,7 @@ public class ItemManager
         }
         else
             for(int i = 0;i <bluePrints.Length;i++)
-                if(bluePrints[i].reqlvl == lvl && !GameManager.Instance.slotData.itemData.equipRecipes.Contains(bluePrints[i].idx))
+                if (bluePrints[i].reqlvl == lvl && IsPreferClass(bluePrints[i].useClass) && !GameManager.Instance.slotData.itemData.equipRecipes.Contains(bluePrints[i].idx))
                     lists[bluePrints[i].rarity - Rarity.Common].Add(bluePrints[i].idx);
 
         return lists;
@@ -253,7 +268,7 @@ public class ItemManager
         int lvl = SkillManager.GetSkill(GameManager.SlotClass, skillbook.Value.idx).reqLvl;
         GameManager.Instance.slotData.itemData.DisassembleSkillbook(skillbook.Key);
         for(int i = 1;i <= 3;i++)
-            GameManager.Instance.slotData.itemData.basicMaterials[i] += Mathf.Max(1, (int)skillLearnJson[lvl / 2][$"resource{i}"] / 2);
+            GameManager.Instance.slotData.itemData.basicMaterials[i] += Mathf.CeilToInt((int)skillLearnJson[lvl / 2][$"resource{i}"] / 4f);
         GameManager.Instance.SaveSlotData();
     }
     #endregion SmithSkill

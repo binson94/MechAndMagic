@@ -296,11 +296,11 @@ public class Unit : MonoBehaviour
                 return (float)targets[0].buffStat[(int)Obj.currHP] / targets[0].buffStat[(int)Obj.체력];
             //버프 갯수
             case Obj.BuffCnt:
-                return turnBuffs.Count;
+                return turnBuffs.buffs.Count(x => x.isVisible);
             //타겟 디버프 갯수
             case Obj.DebuffCnt:
                 if (targets.Count <= 0) return 0;
-                return targets[0].turnDebuffs.Count;
+                return targets[0].turnDebuffs.buffs.Count(x => x.isVisible);
             //타겟 최대 체력
             case Obj.MaxHP:
                 if (targets.Count <= 0) return 1;
