@@ -36,8 +36,6 @@ public class Unit : MonoBehaviour
     public BuffSlot skillBuffs = new BuffSlot();
     public BuffSlot skillDebuffs = new BuffSlot();
 
-    protected BuffSlot shieldBuffs = new BuffSlot();
-
     public ImplantBomb implantBomb = null;
     #endregion
 
@@ -64,11 +62,11 @@ public class Unit : MonoBehaviour
         dmgs[1] = dmgs[0]; dmgs[3] = dmgs[2];
         dmgs[0] = dmgs[2] = 0;
 
-        HealBuffUpdate();
-
         //버프 지속시간 최신화
         TurnBuffUpdate();
         StatUpdate_Turn();
+
+        HealBuffUpdate();
 
         buffStat[(int)Obj.currAP] = buffStat[(int)Obj.행동력];
 
@@ -76,7 +74,8 @@ public class Unit : MonoBehaviour
         {
             turnBuffs.TurnUpdate();
             turnDebuffs.TurnUpdate();
-            shieldBuffs.TurnUpdate();
+
+            ShieldUpdate();
         }
     }
     public virtual void OnTurnEnd() {StatUpdate_Turn();}
@@ -568,7 +567,11 @@ public class Unit : MonoBehaviour
     }
     public virtual void GetHeal(float heal){
         if(!turnDebuffs.buffs.Any(x => x.objectIdx.Any(y => y == (int)Obj.중독)))
-            buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.체력], Mathf.RoundToInt(buffStat[(int)Obj.currHP] + heal));
+        {
+            int healValue = Mathf.RoundToInt(heal);
+            buffStat[(int)Obj.currHP] = Mathf.Min(buffStat[(int)Obj.체력], buffStat[(int)Obj.currHP] + healValue);
+            LogManager.instance.AddLog($"{name}(이)가 체력 {healValue}을 회복하였습니다.");
+        }
     }
     public void GetAPHeal(float heal) => buffStat[(int)Obj.currAP] = Mathf.Min(buffStat[(int)Obj.행동력], Mathf.RoundToInt(buffStat[(int)Obj.currAP] + heal));
 

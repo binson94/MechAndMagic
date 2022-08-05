@@ -334,7 +334,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     void ClearQuest(int idx) => QuestManager.ClearQuest(idx);
     void EndDialog()
     {
-        if(currDialog.idx == 26)
+        if(currDialog.idx == 21)
             TM.Btn_SelectPanel(0);
 
         state = DialogState.Start;

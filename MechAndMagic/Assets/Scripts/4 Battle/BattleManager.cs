@@ -436,16 +436,16 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < 8; i++)
                 statusTxts[i].text = allChars[0].buffStat[i + 5].ToString();
 
-            statusTxts[4].text = $"{statusTxts[4].text}%";
-            statusTxts[5].text = $"{statusTxts[5].text}%";
+            for (int i = 4; i <= 6; i++)
+                statusTxts[i].text = $"{statusTxts[i].text}%";
 
             if(allChars[1].isActiveAndEnabled)
             {
                 for(int i = 0;i < 8;i++)
                     summonStatusTxts[i].text = allChars[1].buffStat[i + 5].ToString();
                 
-                summonStatusTxts[4].text = $"{summonStatusTxts[4].text}%";
-                summonStatusTxts[5].text = $"{summonStatusTxts[5].text}%";
+                for(int i = 4;i <= 6;i++)
+                    summonStatusTxts[i].text = $"{summonStatusTxts[i].text}%";
             }
         }
     }
@@ -616,6 +616,7 @@ public class BattleManager : MonoBehaviour
             if(skill.category == 1028 && !HasGolem())
             {
                 LogManager.instance.AddLog("골렘이 필요합니다.");
+                return true;
             }
 
             return false;
@@ -724,6 +725,8 @@ public class BattleManager : MonoBehaviour
     ///<summary> 포션 사용 버튼 </summary>
     public void Btn_UsePotion(int slotIdx)
     {
+        int healValue;
+
         if (!(BattleState.AllieTurnStart <= state && state <= BattleState.AllieTargetSelected)) return;
 
         if(GameManager.Instance.slotData.potionSlot[slotIdx] == 0)
@@ -743,9 +746,10 @@ public class BattleManager : MonoBehaviour
                         LogManager.instance.AddLog("행동력이 최대치입니다.");
                         return;
                     }
-                    allChars[0].GetAPHeal(allChars[0].buffStat[(int)Obj.행동력]);
+                    healValue = Mathf.RoundToInt(allChars[0].buffStat[(int)Obj.행동력] / 2f);
+                    allChars[0].GetAPHeal(healValue);
                     apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
-                    LogManager.instance.AddLog("행동력을 전부 회복하였습니다.");
+                    LogManager.instance.AddLog($"행동력을 {healValue}만큼 회복하였습니다.");
                     break;
                 //정화 포션 - 모든 디버프 제거
                 case 2:
@@ -764,8 +768,13 @@ public class BattleManager : MonoBehaviour
                         LogManager.instance.AddLog("체력이 최대치입니다.");
                         return;
                     }
-                    allChars[0].GetHeal(allChars[0].buffStat[(int)Obj.체력]);
-                    LogManager.instance.AddLog("체력을 전부 회복하였습니다.");
+                    healValue = Mathf.RoundToInt(allChars[0].buffStat[(int)Obj.체력] / 2f);
+                    allChars[0].GetHeal(healValue);
+                    if (allChars[0].classIdx == 4 && allChars[1].isActiveAndEnabled)
+                    {
+                        healValue = Mathf.RoundToInt(allChars[1].buffStat[(int)Obj.체력] / 2f);
+                        allChars[1].GetHeal(healValue);
+                    }
                     break;
                 //재활용 포션 - 다른 포션 재사용 가능
                 case 4:
@@ -903,7 +912,7 @@ public class BattleManager : MonoBehaviour
         //보스방 승리 -> 보고서 보이기
         if (GameManager.Instance.slotData.dungeonData.currPos[0] == GameManager.Instance.slotData.dungeonData.currDungeon.floorCount - 1)
         {
-            if (GameManager.Instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Over || GameManager.Instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Under) 
+            if (GameManager.Instance.slotData.questData.outbreakProceed.state == QuestState.Proceeding && (GameManager.Instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Over || GameManager.Instance.slotData.questData.outbreakProceed.type == QuestType.Diehard_Under))
                 GameManager.Instance.slotData.questData.outbreakProceed.state = QuestState.CanClear;
 
             QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.Instance.slotData.dungeonIdx, 1);

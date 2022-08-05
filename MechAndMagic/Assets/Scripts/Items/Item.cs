@@ -269,8 +269,9 @@ public class Equipment
             if(subStat != Obj.None) subStatValue = (int)json[ebp.reqlvl / 2 * 5 + (ebp.rarity - Rarity.Common)][$"{subStat}"];
         }
 
-        mainStatValue = Mathf.RoundToInt(mainStatValue * (1f + star) / 2);
-        subStatValue = Mathf.RoundToInt(subStatValue * (1f + star) / 2);
+        float pivot = star <= 1 ? 1 : star <= 2 ? 1.2f : 1.5f;
+        mainStatValue = Mathf.RoundToInt(mainStatValue * pivot);
+        subStatValue = Mathf.RoundToInt(subStatValue * pivot);
     }
 
     ///<summary> 옵션 변환 가능 여부 - 레어 이상 장비 </summary>

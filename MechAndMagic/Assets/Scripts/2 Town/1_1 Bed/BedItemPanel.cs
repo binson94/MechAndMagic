@@ -329,7 +329,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
                 if (newDelta[i] > 0)
                 {
                     statDelta[i].text = $"+{newDelta[i]}";
-                    if (i == 6 || i == 7)
+                    if (6 <= i && i <= 8)
                         statDelta[i].text = $"{statDelta[i].text}%";
 
                     statDelta[i].text = $"<color=#82e67c>{statDelta[i].text}</color>";
@@ -337,7 +337,7 @@ public class BedItemPanel : MonoBehaviour, ITownPanel
                 else if (newDelta[i] < 0)
                 {
                     statDelta[i].text = newDelta[i].ToString();
-                    if (i == 6 || i == 7)
+                    if (6 <= i && i <= 8)
                         statDelta[i].text = $"{statDelta[i].text}%";
 
                     statDelta[i].text = $"<color=#f93f3d>{statDelta[i].text}</color>";

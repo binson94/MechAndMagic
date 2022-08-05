@@ -100,8 +100,8 @@ public class BedPanel : MonoBehaviour, ITownPanel
             statTxts[j].text = GameManager.Instance.slotData.itemStats[i].ToString();
         }
 
-        statTxts[8].text = $"{statTxts[8].text}%";
-        statTxts[9].text = $"{statTxts[9].text}%";
+        for (i = 8; i <= 10; i++)
+            statTxts[i].text = $"{statTxts[i].text}%";
 
         foreach(Text t in statDelta)
             t.text = string.Empty;

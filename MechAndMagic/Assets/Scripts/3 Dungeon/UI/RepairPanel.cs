@@ -165,8 +165,8 @@ public class RepairPanel : MonoBehaviour
             statTxts[j].text = GameManager.Instance.slotData.itemStats[i].ToString();
         }
 
-        statTxts[8].text = $"{statTxts[8].text}%";
-        statTxts[9].text = $"{statTxts[9].text}%";
+        for(i = 8;i <= 10;i++)
+            statTxts[i].text = $"{statTxts[i].text}%";
     }
     ///<summary> 드랍된 아이템 정보 불러오기 </summary>
     void LoadDropInfo()

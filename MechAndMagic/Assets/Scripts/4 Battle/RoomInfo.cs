@@ -35,6 +35,7 @@ public class RoomInfo
         ItemCount = (int)json[jsonIdx]["ItemCount"];
         ItemIdx = new int[ItemCount];
         ItemChance = new float[ItemCount];
+
         for (int i = 0; i < ItemCount; i++)
         {
             ItemIdx[i] = (int)json[jsonIdx]["ItemIdx"][i];

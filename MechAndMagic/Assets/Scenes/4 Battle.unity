@@ -1027,16 +1027,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 9d7b7ae3f441e774383218588046d5a5, type: 3}
     m_FontSize: 25
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 55
+    m_MaxSize: 25
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99<color=#F9DC3C>+33</color>
+  m_Text: 999<color=#F9DC3C>+333</color>
 --- !u!222 &82197481
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82434d2b2c83ef4b9f74b3585516a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewPoint: {fileID: 2110122350}
+  viewPoint: {fileID: 1499014028}
   popupTxt: {fileID: 647339855}
   popup: {fileID: 447544880}
 --- !u!1 &125749417
@@ -4223,7 +4223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82434d2b2c83ef4b9f74b3585516a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewPoint: {fileID: 332448056}
+  viewPoint: {fileID: 1499014028}
   popupTxt: {fileID: 605827613}
   popup: {fileID: 548258110}
 --- !u!1 &259894839
@@ -12788,7 +12788,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99<color=#F9DC3C>+33</color>
+  m_Text: 999<color=#F9DC3C>+333</color>
 --- !u!222 &900457194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14927,7 +14927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82434d2b2c83ef4b9f74b3585516a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewPoint: {fileID: 158490182}
+  viewPoint: {fileID: 1499014028}
   popupTxt: {fileID: 690381566}
   popup: {fileID: 789740888}
 --- !u!1 &996750289
@@ -18345,7 +18345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82434d2b2c83ef4b9f74b3585516a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewPoint: {fileID: 1069192091}
+  viewPoint: {fileID: 1863454764}
   popupTxt: {fileID: 1754988440}
   popup: {fileID: 2087234064}
 --- !u!224 &1358308141
@@ -19092,7 +19092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82434d2b2c83ef4b9f74b3585516a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewPoint: {fileID: 378100819}
+  viewPoint: {fileID: 2002461022}
   popupTxt: {fileID: 744539349}
   popup: {fileID: 376789786}
 --- !u!1 &1499014027
@@ -21619,16 +21619,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 9d7b7ae3f441e774383218588046d5a5, type: 3}
     m_FontSize: 25
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 55
+    m_MaxSize: 25
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99<color=#F9DC3C>+33</color>
+  m_Text: 999<color=#F9DC3C>+333</color>
 --- !u!222 &1716961825
 CanvasRenderer:
   m_ObjectHideFlags: 0

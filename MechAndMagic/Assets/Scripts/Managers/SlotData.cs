@@ -86,7 +86,7 @@ public class SlotData
                 className = "암드파이터";
                 break;
             case 2:
-                className = "메탈나이트";
+                className = "메탈 나이트";
                 break;
             case 3:
                 className = "블래스터";
@@ -122,8 +122,16 @@ public class SlotData
         questData = new QuestData(slotClass);
         dungeonData = null;
 
-        for (int i = 0, j = 1; i < 6 && j < itemData.learnedSkills.Count; i++, j++)
-            activeSkills[i] = itemData.learnedSkills[j];
+        if (slotClass == 7)
+            for (int i = 0, j = 1; i < 6 && j < itemData.learnedSkills.Count; j++)
+            {
+                Skill skill;
+                if ((skill = SkillManager.GetSkill(slotClass, itemData.learnedSkills[j])).category == 1023)
+                    activeSkills[i++] = itemData.learnedSkills[j];
+            }
+        else
+            for (int i = 0, j = 1; i < 6 && j < itemData.learnedSkills.Count; i++, j++)
+                activeSkills[i] = itemData.learnedSkills[j];
 
         potionSlot[0] = 3; potionSlot[1] = 1;
     }
@@ -487,12 +495,11 @@ public class QuestData
     ///<summary> 전투 끝날 때마다 호출 </summary>
     public void DiehardUpdate(float rate)
     {
-        if (outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard_Over)
-            if (100 * rate < outbreakProceed.objectReq)
-                outbreakProceed.state = QuestState.Fail;
-        else if(outbreakProceed.state == QuestState.Proceeding && outbreakProceed.type == QuestType.Diehard_Under)
-            if(100 * rate > outbreakProceed.objectReq)
-                outbreakProceed.state = QuestState.Fail;
+        Debug.Log($"{rate}, {outbreakProceed.objectReq}, {outbreakProceed.state}");
+        if (outbreakProceed.state == QuestState.Proceeding)
+            if ((outbreakProceed.type == QuestType.Diehard_Over && 100 * rate < outbreakProceed.objectReq) || (outbreakProceed.type == QuestType.Diehard_Under && 100 * rate > outbreakProceed.objectReq))
+                outbreakProceed.state = QuestState.Fail; 
+            
     }
     ///<summary> 퀘스트 클리어 판정 </summary>
     public void ClearQuest(int idx)

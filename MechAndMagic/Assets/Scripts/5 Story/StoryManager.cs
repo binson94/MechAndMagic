@@ -18,6 +18,9 @@ public class StoryManager : MonoBehaviour
             storyNameTxt.text = $"엔딩";
         else
             storyNameTxt.text = $"{storyIdx % 5 - 1}챕터";
+
+        if(storyIdx % 5 == 3)
+            GameManager.Instance.slotData.questData.proceedingQuestList.Clear();
         
         storyTxt.text = Resources.Load<TextAsset>($"Storys/{storyIdx}").text;
 
@@ -31,7 +34,10 @@ public class StoryManager : MonoBehaviour
         GameManager.Instance.SwitchSceneData(SceneKind.Town);
 
         if(GameManager.Instance.slotData.storyIdx % 5 == 0)
+        {
+            GameManager.Instance.slotData = null;
             GameManager.Instance.LoadScene(SceneKind.Title);
+        }
         else
             GameManager.Instance.LoadScene(SceneKind.Town);
     }

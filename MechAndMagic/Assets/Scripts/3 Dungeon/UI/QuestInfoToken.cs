@@ -16,7 +16,11 @@ public class QuestInfoToken : MonoBehaviour
         {
             questNameTxt.text = proceed.Key.name;
             if(proceed.Key.type == QuestType.Diehard_Over || proceed.Key.type == QuestType.Diehard_Under)
+            {
                 questScriptTxt.text = $"{proceed.Key.script}";
+                if(GameManager.Instance.slotData.questData.outbreakProceed.state == QuestState.Fail)
+                    questScriptTxt.text += "<color=#ed2929> (실패)</color>";
+            }
             else
                 questScriptTxt.text = $"{proceed.Key.script} ({proceed.Value}/{proceed.Key.objectAmt})";
         }

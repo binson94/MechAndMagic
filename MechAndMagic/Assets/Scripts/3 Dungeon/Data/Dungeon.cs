@@ -149,9 +149,9 @@ public class Dungeon
         {
             float rand = Random.Range(0, 1f);
 
-            int roomType;
-            float roomPivot = dbp.roomKindChances[0];
-            for (roomType = 0; rand > roomPivot && roomType < 5; roomPivot += dbp.roomKindChances[++roomType]) ;
+            RoomType roomType;
+            float roomPivot = dbp.roomKindChances[1];
+            for (roomType = RoomType.Monster; rand > roomPivot && roomType < RoomType.Quest; roomPivot += dbp.roomKindChances[(int)++roomType]) ;
             r.type = (RoomType)roomType;
         }
 
@@ -312,14 +312,18 @@ public class Dungeon
             if (r.type == RoomType.Quest && !(r.floor == pos[0] && r.roomNumber == pos[1])) 
             {
                 float rand = Random.Range(0, probMax);
-                int i;
-                for (i = 2; rand < dbp.roomKindChances[i] && i < 4; i++) ;
-                r.type = (RoomType)i;
+                float probSum = dbp.roomKindChances[(int)RoomType.Positive];
+                RoomType type;
+                for (type = RoomType.Positive; rand > probSum && type < RoomType.Negative; probSum += dbp.roomKindChances[(int)++type]) ;
+                r.type = type;
                 
                 var events = from token in eventPools
                                  where token.eventType == r.type && (token.region == 0 || token.region == GameManager.Instance.slotData.region)
                                  select token.idx;
-                r.roomEventIdx = events.Skip(Random.Range(0, events.Count())).First();
+                if(events.Count() <= 0)
+                    r.roomEventIdx = 1;
+                else
+                    r.roomEventIdx = events.Skip(Random.Range(0, events.Count())).First();
             }
         }
     }

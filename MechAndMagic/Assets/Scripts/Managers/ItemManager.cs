@@ -42,10 +42,14 @@ public class ItemManager
     {
         if(category == 150)
             GameManager.Instance.GetExp((int)prob);
-        else if (prob >= 1f)
-            for (float i = 0; i < prob; i += 1f)
-                AddItem();
-        else if (Random.Range(0, 1f) < prob)
+
+        while(prob >= 1f)
+        {
+            AddItem();
+            prob -= 1;
+        }
+        
+        if (Random.Range(0, 1f) < prob)
             AddItem();
 
         GameManager.Instance.SaveSlotData();
@@ -249,7 +253,7 @@ public class ItemManager
         int lvl = SkillManager.GetSkill(GameManager.SlotClass, skillbook.Value.idx).reqLvl;
         GameManager.Instance.slotData.itemData.DisassembleSkillbook(skillbook.Key);
         for(int i = 1;i <= 3;i++)
-            GameManager.Instance.slotData.itemData.basicMaterials[i] += Mathf.Min(1, Mathf.RoundToInt((int)skillLearnJson[lvl / 2][$"resource{i}"] * 0.4f));
+            GameManager.Instance.slotData.itemData.basicMaterials[i] += Mathf.Max(1, (int)skillLearnJson[lvl / 2][$"resource{i}"] / 2);
         GameManager.Instance.SaveSlotData();
     }
     #endregion SmithSkill
@@ -527,6 +531,8 @@ public class SetOptionManager
     ///<summary> 현재 장착 중인 장비 세트 업데이트 </summary>
     public void SetComfirm(ItemData itemData)
     {
+        bool hasGolemSkill = currSetInfos.Any(x=>x.Key == 11 && x.Value >= 4);
+
         currSetInfos.Clear();
         Dictionary<int, int> count = new Dictionary<int, int>();
 
@@ -549,7 +555,7 @@ public class SetOptionManager
                 currSetInfos.Add(token.Key, token.Value);
 
         //궁극의 피조물 세트, 패시브 동시 장착 해제
-        if (!currSetInfos.Any(x => x.Key == 11 && x.Value >= 4))
+        if (hasGolemSkill && !currSetInfos.Any(x => x.Key == 11 && x.Value >= 4))
         {
             List<int> madSkills = new List<int>();
             madSkills.Add(140); madSkills.Add(141); madSkills.Add(142); madSkills.Add(143);

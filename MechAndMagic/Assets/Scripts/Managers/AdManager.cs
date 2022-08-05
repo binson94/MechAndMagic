@@ -30,13 +30,15 @@ public class AdManager : MonoBehaviour
     string rewardAdId = "ca-app-pub-3940256099942544/5224354917";
     RewardedAd rewardedAd;
 
+    //ca-app-pub-7556771697886086/4723981867
+
     ///<summary> 광고 정보 불러오기, GameManager instance 생성 시 호출 </summary>
     public void Initialize()
     {
         #if UNITY_ANDROID
         rewardAdId = "ca-app-pub-3940256099942544/5224354917";
         #else
-        rewardAdId = "ca-app-pub-3940256099942544/5224354917";
+        rewardAdId = "Unexpected Target Platform";
         #endif
 
         MobileAds.Initialize(initStatus => { });

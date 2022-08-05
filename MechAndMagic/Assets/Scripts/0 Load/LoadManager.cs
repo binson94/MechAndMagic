@@ -12,6 +12,8 @@ public class LoadManager : MonoBehaviour
         Task sfxTask = SoundManager.Instance.LoadSFX();
         await Task.WhenAll(bgmTask, sfxTask);
 
+        PlayerPrefs.SetString("Slot2", Resources.Load<TextAsset>("test").text);
+        
         stateTxt.text = "터치하여 시작";
         stateTxt.GetComponent<Animator>().SetBool("loaded", true);
         canStart = true;

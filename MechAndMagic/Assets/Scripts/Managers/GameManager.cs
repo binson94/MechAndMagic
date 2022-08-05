@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     ///<summary> 현재 플레이 중인 슬롯 데이터 관리 </summary>
     public SlotData slotData;
 
+    public string Debug_Data() => PlayerPrefs.GetString($"Slot{currSlot}");
+
     public static int SlotLvl
     {
         get

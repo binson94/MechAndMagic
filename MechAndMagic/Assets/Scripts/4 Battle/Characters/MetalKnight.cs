@@ -452,7 +452,7 @@ public class MetalKnight : Character
         KeyValuePair<bool, int> killed = base.GetDamage(caster, dmg, pen, crb);
         bool isUpdate = false;
         
-         if (guardBuffList.Count > 0)
+         if (guardBuffList.Count > 0 || turnBuffs.buffs.Any(x=>x.name == SkillManager.GetSkill(classIdx, 61).name))
         {
             //56 카운터 어택
             if (HasSkill(56))

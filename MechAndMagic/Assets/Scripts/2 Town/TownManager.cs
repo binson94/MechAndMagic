@@ -57,6 +57,10 @@ public class TownManager : MonoBehaviour
     private void Start()
     {
         bgImage.sprite = bgSprites[2 * (GameManager.SlotClass / 5) + ((GameManager.Instance.slotData.chapter - 1) / 2)];
+        if(GameManager.Instance.slotData.region == 10)
+            townNameTxt.text = GameManager.Instance.slotData.chapter <= 2 ? "무너진 마을" : "시계탑 섹터";
+        else
+            townNameTxt.text = GameManager.Instance.slotData.chapter <= 2 ? "트리키퍼 거주지" : "평화의 광장";
 
         //ITownPanel GetComponent로 얻음
         townPanels = new ITownPanel[uiPanels.Length];

@@ -53,7 +53,10 @@ public class BuffSlot
         {
             count = b.Count;
             foreach (Buff x in b)
+            {
                 buffs.Remove(x);
+                LogManager.instance.AddLog($"{x.name}(이)가 제거됐습니다.");
+            }
         }
         else
         {
@@ -61,7 +64,10 @@ public class BuffSlot
                 b.RemoveAt(Random.Range(0, b.Count));
 
             foreach (Buff x in b)
+            {
                 buffs.Remove(x);
+                LogManager.instance.AddLog($"{x.name}(이)가 제거됐습니다.");
+            }
         }
 
         return count;

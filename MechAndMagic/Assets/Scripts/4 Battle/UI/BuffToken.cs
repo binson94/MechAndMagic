@@ -130,6 +130,13 @@ public class BuffToken : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 case Obj.상처:
                     buffExplain += "\n공격 대상의 치명타율 증가";
                     break;
+                case Obj.치명타율:
+                case Obj.치명타피해:
+                case Obj.방어력무시:
+                    buffExplain += $"\n{(Obj)buff.objectIdx[effectIdx]} ";
+                    buffExplain += buff.isMulti[effectIdx] ? $"{buff.buffRate[effectIdx] * 100}%" : $"{buff.buffRate[effectIdx]}%p";
+                    buffExplain += isBuff ? " 증가" : " 감소";
+                    break;
                 default:
                     buffExplain += $"\n{(Obj)buff.objectIdx[effectIdx]} ";
                     buffExplain += buff.isMulti[effectIdx] ? $"{buff.buffRate[effectIdx] * 100}%" : $"{buff.buffRate[effectIdx]}";

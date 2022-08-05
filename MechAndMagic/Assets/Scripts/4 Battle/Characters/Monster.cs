@@ -8,14 +8,21 @@ public class Monster : Unit
 {
     static JsonData json = null;
 
+    ///<summary> 보스 여부 </summary>
     public bool isBoss;
+    ///<summary> 몬스터 인덱스 </summary>
     public int monsterIdx;
 
+    ///<summary> 스킬 갯수 </summary>
     public int skillCount;
+    ///<summary> 각 스킬 별 확률 </summary>
     public float[] skillChance;
 
+    ///<summary> 패턴 유닛인 경우, 현재 패턴 번호 </summary>
     int currSkillIdx;
-    int maxSkillIdx;
+    ///<summary> 패턴 길이 </summary>
+    int pattenLength;
+    ///<summary> 패턴 문자열 </summary>
     public string pattern;
     Active UseSkill;
 
@@ -33,10 +40,11 @@ public class Monster : Unit
 
     void UseSkillByProb()
     {
-        float rand = Random.Range(0, 1);
+        float rand = Random.Range(0, 1f);
         float prob = skillChance[0];
+
         int slotIdx;
-        for (slotIdx = 0; rand > prob && slotIdx < maxSkillIdx - 1; prob += skillChance[++slotIdx]);
+        for (slotIdx = 0; rand > prob && slotIdx < skillCount - 1; prob += skillChance[++slotIdx]);
 
         ActiveSkill(activeIdxs[slotIdx], new List<Unit>());
     }
@@ -62,7 +70,7 @@ public class Monster : Unit
         else
         {
             ActiveSkill(activeIdxs[pattern[currSkillIdx] - '1'], new List<Unit>());
-            currSkillIdx = (currSkillIdx + 1) % maxSkillIdx;
+            currSkillIdx = (currSkillIdx + 1) % pattenLength;
         }
     }
 
@@ -288,6 +296,8 @@ public class Monster : Unit
                         acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
                     else
                         acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                    acc = Mathf.Max(20, acc);
+                    
                     //명중 시
                     if (Random.Range(0, 100) < acc)
                     {
@@ -351,16 +361,21 @@ public class Monster : Unit
         {
             UseSkill = UseSkillByPattern;
             currSkillIdx = 0;
-            maxSkillIdx = pattern.Length;
+            pattenLength = pattern.Length;
         }
 
-        skillCount = 4;
-        activeIdxs = new int[skillCount];
-        skillChance = new float[skillCount];
+        skillCount = 0;
+        activeIdxs = new int[4];
+        skillChance = new float[4];
         for (int i = 0; i < 4; i++)
         {
-            activeIdxs[i] = (int)json[jsonIdx]["skillIdx"][i];
-            skillChance[i] = float.Parse(json[jsonIdx]["skillChance"][i].ToString());
+            int tmp;
+            if((tmp = (int)json[jsonIdx]["skillIdx"][i]) > 0)
+            {
+                activeIdxs[i] = tmp;
+                skillChance[i] = float.Parse(json[jsonIdx]["skillChance"][i].ToString());
+                skillCount++;
+            }
         }
 
         for(int i = 0;i<dungeonStat.Length;i++)

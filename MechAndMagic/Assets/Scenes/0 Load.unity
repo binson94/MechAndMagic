@@ -419,7 +419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateTxt: {fileID: 2117220576}
-  canStart: 0
 --- !u!4 &880300401
 Transform:
   m_ObjectHideFlags: 0

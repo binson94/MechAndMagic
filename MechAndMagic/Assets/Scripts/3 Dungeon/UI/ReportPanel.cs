@@ -63,7 +63,7 @@ public class ReportPanel : MonoBehaviour
         //돌발 퀘스트 실패
         else
         {
-            outbreakTxts[0].text = outbreak.Key.name;
+            outbreakTxts[0].text = outbreak.Key?.name;
             outbreakTxts[1].text = "실패";
             outbreakTxts[1].color = new Color(0xed / 255f, 0x29 / 255f, 0x29 / 255f, 1);
             outbreakTxts[2].text = outbreakTxts[3].text = string.Empty;

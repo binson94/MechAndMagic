@@ -164,7 +164,7 @@ public class EquipInfoPanel : MonoBehaviour
                         itemTxts[3].text += "회피율";
                         break;
                     case EquipPart.Gloves:
-                        itemTxts[3].text += "명중률";
+                        itemTxts[3].text += "행동력";
                         break;
                     case EquipPart.Shoes:
                         itemTxts[3].text += "속도";

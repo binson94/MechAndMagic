@@ -40,6 +40,8 @@ public class EventPanel : MonoBehaviour
         eventTxt.text = eventInfo.script;
         eventIcon.sprite = iconSprites[eventInfo.eventType - 2];
 
+        isWatch = false;
+
         if(eventInfo.eventType != 4)
             EventEffect();
 

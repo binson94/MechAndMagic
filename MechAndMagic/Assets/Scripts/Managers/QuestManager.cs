@@ -86,7 +86,7 @@ public class QuestManager
             list[i] = new KeyValuePair<QuestBlueprint, int>(null, 0);
 
         qp = GameManager.Instance.slotData.questData.outbreakProceed;
-        if(qp.state == QuestState.Proceeding || qp.state == QuestState.CanClear)
+        if(qp.idx > 0)
             list[3] = new KeyValuePair<QuestBlueprint, int>(outbreakData[qp.idx], qp.objectCurr);
         else
             list[3] = new KeyValuePair<QuestBlueprint, int>(null, 0);
