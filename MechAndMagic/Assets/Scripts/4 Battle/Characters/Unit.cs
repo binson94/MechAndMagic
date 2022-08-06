@@ -88,9 +88,9 @@ public class Unit : MonoBehaviour
         if (buffStat[(int)Obj.currAP] < GetSkillCost(s))
             return $"{s.name}(을)를 사용하기 위한 행동력이 부족합니다.";
         else if (cooldowns[skillSlotIdx] > 0)
-            return $"{SkillManager.GetSkill(classIdx, activeIdxs[skillSlotIdx]).name}(은)는 아직 쿨타임입니다.";
+            return $"{s.name}(은)는 아직 쿨타임입니다.";
         return string.Empty;
-    }   
+    }  
     public virtual int GetSkillCost(Skill s)
     {
         float addPivot = 0, mulPivot = 0;
@@ -179,10 +179,10 @@ public class Unit : MonoBehaviour
                                 continue;
 
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
 
@@ -221,39 +221,42 @@ public class Unit : MonoBehaviour
         switch((EffectType)skill.effectType[effectIdx])
         {
             case EffectType.Heal:
-                    {
-                        float heal = stat * skill.effectRate[effectIdx];
+                {
+                    float heal = stat * skill.effectRate[effectIdx];
 
+                    if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
                         foreach (Unit u in effectTargets)
                             u.GetHeal(skill.effectCalc[effectIdx] == 1 ? heal * u.buffStat[(int)Obj.체력] : heal);
-                        break;
-                    }
-                case EffectType.Active_Buff:
-                    {
-                        if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
-                            foreach (Unit u in effectTargets)
-                                u.AddBuff(this, orderIdx, skill, effectIdx, stat);
-                        break;
-                    }
-                case EffectType.Active_Debuff:
-                    {
-                        if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
-                            foreach (Unit u in effectTargets)
-                                u.AddDebuff(this, orderIdx, skill, effectIdx, stat);
-                        break;
-                    }
-                case EffectType.Active_RemoveBuff:
-                    {
+                    break;
+                }
+            case EffectType.Active_Buff:
+                {
+                    if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
+                        foreach (Unit u in effectTargets)
+                            u.AddBuff(this, orderIdx, skill, effectIdx, stat);
+                    break;
+                }
+            case EffectType.Active_Debuff:
+                {
+                    if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
+                        foreach (Unit u in effectTargets)
+                            u.AddDebuff(this, orderIdx, skill, effectIdx, stat);
+                    break;
+                }
+            case EffectType.Active_RemoveBuff:
+                {
+                    if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
                         foreach (Unit u in effectTargets)
                             u.RemoveBuff(Mathf.RoundToInt(skill.effectRate[effectIdx]));
-                        break;
-                    }
-                case EffectType.Active_RemoveDebuff:
-                    {
+                    break;
+                }
+            case EffectType.Active_RemoveDebuff:
+                {
+                    if (skill.effectCond[effectIdx] == 0 || (skill.effectCond[effectIdx] == 1 && isAcc) || (skill.effectCond[effectIdx] == 2 && isCrit))
                         foreach (Unit u in effectTargets)
                             u.RemoveDebuff(Mathf.RoundToInt(skill.effectRate[effectIdx]));
-                        break;
-                    }
+                    break;
+                }
         }
     }
     protected List<Unit> GetEffectTarget(List<Unit> selects, List<Unit> dmged, int effectTarget)
@@ -374,6 +377,8 @@ public class Unit : MonoBehaviour
     #region Add
     public void AddBuff(Unit caster, int order, Skill s, int effectIdx, float rate)
     {
+        if(s.effectObject[effectIdx] == (int)Obj.중독) return;
+
         float stat;
         if (s.effectStat[effectIdx] <= 0) stat = 1;
         else if (s.effectStat[effectIdx] <= 12 && caster != null)

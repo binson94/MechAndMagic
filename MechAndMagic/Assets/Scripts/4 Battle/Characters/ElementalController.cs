@@ -63,7 +63,7 @@ public class ElementalController : Character
                 skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, 999, 0, -1));
             //물 -> 무조건 명중
             else if (resentCategory == 1008)
-                skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, 999, 0, -1));
+                skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, 999, 0, -1));
         }
         //208 응축된 조화
         if(skill.idx == 208)
@@ -72,12 +72,12 @@ public class ElementalController : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(15);
         //삼위 일체 2세트 - 원소 스킬 ACC 상승
         if(set.Value[0] > 0 && (skill.category == 1007 || skill.category == 1008 || skill.category == 1009))
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[0], 1, -1));
         //삼위일체 4세트 - 불 CRC상승,ACC감소, 물ACC상승,ATK감소, 바람ATK상승,CRC감소
         if(set.Value[2] > 0 && (skill.category == 1007 || skill.category == 1008 || skill.category == 1009))
         {
-            Obj up = skill.category == 1007 ? Obj.치명타율 : skill.category == 1008 ? Obj.명중률 : Obj.공격력;
-            Obj down = skill.category == 1007 ? Obj.명중률 : skill.category == 1008 ? Obj.공격력 : Obj.치명타율;
+            Obj up = skill.category == 1007 ? Obj.치명타율 : skill.category == 1008 ? Obj.명중 : Obj.공격력;
+            Obj down = skill.category == 1007 ? Obj.명중 : skill.category == 1008 ? Obj.공격력 : Obj.치명타율;
 
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)up, 1, set.Value[2], 1, -1));
             skillDebuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)down, 1, set.Value[2], 1, -1));
@@ -162,12 +162,12 @@ public class ElementalController : Character
                             if (!u.isActiveAndEnabled)
                                 continue;
 
-                            //명중 연산 - 최소 명중률 10%
+                            //명중 연산 - 최소 명중 10%
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
                             //명중 시
@@ -223,10 +223,10 @@ public class ElementalController : Character
                                         float dmg = buffStat[skill.effectStat[1]] * skill.effectRate[1];
 
                                         int acc = 20;
-                                        if (buffStat[(int)Obj.명중률] >= target.buffStat[(int)Obj.회피율])
-                                            acc = 6 * (buffStat[(int)Obj.명중률] - target.buffStat[(int)Obj.회피율]) / (target.LVL + 2);
+                                        if (buffStat[(int)Obj.명중] >= target.buffStat[(int)Obj.회피])
+                                            acc = 6 * (buffStat[(int)Obj.명중] - target.buffStat[(int)Obj.회피]) / (target.LVL + 2);
                                         else
-                                            acc = 6 * (buffStat[(int)Obj.명중률] - target.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                            acc = 6 * (buffStat[(int)Obj.명중] - target.buffStat[(int)Obj.회피]) / (LVL + 2);
 
                                         acc = Mathf.Max(20, acc);
                                         //명중 시
@@ -273,10 +273,10 @@ public class ElementalController : Character
                                             continue;
 
                                         int acc = 20;
-                                        if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                            acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                        if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                            acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                                         else
-                                            acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                            acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
 
                                         acc = Mathf.Max(20, acc);
                                         //명중 시

@@ -348,6 +348,10 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     void PlayStory(int storyIdx)
     {
         GameManager.Instance.slotData.storyIdx = storyIdx;
+        
+        if(currDialog.linkedQuest > 0)
+            QuestManager.ClearQuest(currDialog.linkedQuest);
+
         GameManager.Instance.SwitchSceneData(SceneKind.Story);
         GameManager.Instance.LoadScene(SceneKind.Story);
     }
@@ -421,13 +425,10 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     }
     public void Btn_CloseReward()
     {
-        state = DialogState.Start;
-        currDialog = null;
-        LoadDialogList();
-
-        dialogSelectPanel.SetActive(true);
-        questSelectBtns.SetActive(false);
         rewardPanel.SetActive(false);
+        pos++;
+        state = DialogState.Next;
+        NextToken();
     }
 
     enum DialogToken

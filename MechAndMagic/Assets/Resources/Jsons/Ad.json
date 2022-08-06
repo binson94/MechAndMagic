@@ -48,7 +48,7 @@
     "Common": 0
   },
   {
-    "resource": 100,
+    "resource": 10,
     "Legendary": 0.04,
     "Unique": 0.11,
     "Rare": 0.35,
@@ -56,7 +56,7 @@
     "Common": 0.2
   },
   {
-    "resource": 10,
+    "resource": 20,
     "Legendary": 0.07,
     "Unique": 0.18,
     "Rare": 0.4,
@@ -64,7 +64,7 @@
     "Common": 0
   },
   {
-    "resource": 20,
+    "resource": 35,
     "Legendary": 0.04,
     "Unique": 0.11,
     "Rare": 0.35,
@@ -72,7 +72,7 @@
     "Common": 0.2
   },
   {
-    "resource": 30,
+    "resource": 50,
     "Legendary": 0.07,
     "Unique": 0.18,
     "Rare": 0.4,

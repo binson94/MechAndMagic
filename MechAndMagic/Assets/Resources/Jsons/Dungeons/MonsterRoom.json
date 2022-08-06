@@ -5545,7 +5545,7 @@
         0,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -5584,7 +5584,7 @@
         0,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -5623,7 +5623,7 @@
         81,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -5662,7 +5662,7 @@
         82,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -5701,7 +5701,7 @@
         80,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -5740,7 +5740,7 @@
         82,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -5779,7 +5779,7 @@
         81,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -5818,7 +5818,7 @@
         82,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -5855,9 +5855,9 @@
      "monsterIdx": [
         80,
         81,
-        55
+        102
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -5894,9 +5894,9 @@
      "monsterIdx": [
         81,
         82,
-        55
+        102
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -5932,10 +5932,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         83,
-        0,
+        102,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -5971,10 +5971,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         84,
-        0,
+        102,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -6010,10 +6010,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         85,
-        0,
+        102,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6052,7 +6052,7 @@
         81,
         82
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6091,7 +6091,7 @@
         80,
         81
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6130,7 +6130,7 @@
         82,
         82
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6169,7 +6169,7 @@
         84,
         80
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6208,7 +6208,7 @@
         85,
         81
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6247,7 +6247,7 @@
         85,
         82
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6286,7 +6286,7 @@
         86,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6325,7 +6325,7 @@
         87,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6364,7 +6364,7 @@
         88,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6403,7 +6403,7 @@
         86,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6442,7 +6442,7 @@
         87,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6481,7 +6481,7 @@
         88,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6520,7 +6520,7 @@
         89,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -6559,7 +6559,7 @@
         84,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -6598,7 +6598,7 @@
         85,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -6637,7 +6637,7 @@
         85,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -6676,7 +6676,7 @@
         83,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6715,7 +6715,7 @@
         84,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6754,7 +6754,7 @@
         85,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6793,7 +6793,7 @@
         0,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -6832,7 +6832,7 @@
         0,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -6871,7 +6871,7 @@
         0,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -6910,7 +6910,7 @@
         0,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -7729,7 +7729,7 @@
         0,
         0
      ],
-     "roomExp": 45,
+     "roomExp": 76,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -7768,7 +7768,7 @@
         0,
         0
      ],
-     "roomExp": 50,
+     "roomExp": 85,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -7807,7 +7807,7 @@
         0,
         0
      ],
-     "roomExp": 55,
+     "roomExp": 93,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -7846,7 +7846,7 @@
         80,
         82
      ],
-     "roomExp": 45,
+     "roomExp": 76,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -7885,7 +7885,7 @@
         84,
         85
      ],
-     "roomExp": 50,
+     "roomExp": 85,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -13537,10 +13537,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         69,
-        0,
+        123,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -13576,10 +13576,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         71,
-        0,
+        127,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -13618,7 +13618,7 @@
         68,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -13657,7 +13657,7 @@
         70,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -13693,10 +13693,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         72,
-        0,
+        123,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -13735,7 +13735,7 @@
         72,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -13774,7 +13774,7 @@
         72,
         0
      ],
-     "roomExp": 10,
+     "roomExp": 17,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -13813,7 +13813,7 @@
         68,
         70
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -13852,7 +13852,7 @@
         70,
         70
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -13891,7 +13891,7 @@
         69,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -13930,7 +13930,7 @@
         71,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -13969,7 +13969,7 @@
         73,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14008,7 +14008,7 @@
         74,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14044,10 +14044,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         74,
-        0,
+        127,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14086,7 +14086,7 @@
         73,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14125,7 +14125,7 @@
         76,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14164,7 +14164,7 @@
         78,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14203,7 +14203,7 @@
         79,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14242,7 +14242,7 @@
         77,
         79
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14281,7 +14281,7 @@
         76,
         78
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14320,7 +14320,7 @@
         78,
         79
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14359,7 +14359,7 @@
         78,
         79
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14398,7 +14398,7 @@
         76,
         77
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14437,7 +14437,7 @@
         77,
         79
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14476,7 +14476,7 @@
         76,
         78
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -14515,7 +14515,7 @@
         70,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -14554,7 +14554,7 @@
         69,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -14593,7 +14593,7 @@
         71,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -14632,7 +14632,7 @@
         72,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         33,
@@ -14671,7 +14671,7 @@
         72,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14710,7 +14710,7 @@
         73,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14749,7 +14749,7 @@
         73,
         0
      ],
-     "roomExp": 11,
+     "roomExp": 18,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14788,7 +14788,7 @@
         69,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -14827,7 +14827,7 @@
         71,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -14863,10 +14863,10 @@
      "monsterCount": 1,
      "monsterIdx": [
         74,
-        0,
+        123,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -14905,7 +14905,7 @@
         73,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         30,
@@ -14944,7 +14944,7 @@
         73,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -14983,7 +14983,7 @@
         74,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -15022,7 +15022,7 @@
         74,
         0
      ],
-     "roomExp": 13,
+     "roomExp": 22,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -15841,7 +15841,7 @@
         0,
         0
      ],
-     "roomExp": 45,
+     "roomExp": 76,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -15880,7 +15880,7 @@
         72,
         73
      ],
-     "roomExp": 50,
+     "roomExp": 85,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -15919,7 +15919,7 @@
         0,
         0
      ],
-     "roomExp": 55,
+     "roomExp": 93,
      "ItemCount": 12,
      "ItemIdx": [
         24,
@@ -15958,7 +15958,7 @@
         64,
         67
      ],
-     "roomExp": 45,
+     "roomExp": 76,
      "ItemCount": 12,
      "ItemIdx": [
         27,
@@ -15997,7 +15997,7 @@
         0,
         0
      ],
-     "roomExp": 50,
+     "roomExp": 85,
      "ItemCount": 12,
      "ItemIdx": [
         27,

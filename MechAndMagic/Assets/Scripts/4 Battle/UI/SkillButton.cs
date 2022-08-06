@@ -33,7 +33,13 @@ public class SkillButton : MonoBehaviour
 
         if (unit.cooldowns[skillSlotIdx] <= 0)
         {
-            skillTxts[1].text = $"<color=#ed2929>{unit.GetSkillCost(skill)}</color> AP";
+            if (unit is VisionMaster)
+            {
+                Skill minus = SkillManager.GetSkill(unit.classIdx, unit.activeIdxs[skillSlotIdx] + 1);
+                skillTxts[1].text = $"<color=#ed2929>{Mathf.Min(unit.GetSkillCost(minus), unit.GetSkillCost(skill))}</color> AP";
+            }
+            else
+                skillTxts[1].text = $"<color=#ed2929>{unit.GetSkillCost(skill)}</color> AP";
             skillTxts[2].text = $"<color=#ed2929>{skill.cooldown}</color> CD";
             skillTxts[3].text = string.Empty;
 

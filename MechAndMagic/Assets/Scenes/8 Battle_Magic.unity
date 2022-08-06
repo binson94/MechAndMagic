@@ -3372,7 +3372,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD68C\uD53C\uC728"
+  m_Text: "\uD68C\uD53C"
 --- !u!222 &178252323
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10821,7 +10821,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBA85\uC911\uB960"
+  m_Text: "\uBA85\uC911"
 --- !u!222 &719204833
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19359,7 +19359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82434d2b2c83ef4b9f74b3585516a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewPoint: {fileID: 344529107}
+  viewPoint: {fileID: 2002461022}
   popupTxt: {fileID: 744539349}
   popup: {fileID: 376789786}
 --- !u!1 &1499014027
@@ -24192,7 +24192,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBA85\uC911\uB960"
+  m_Text: "\uBA85\uC911"
 --- !u!222 &1883246267
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25716,7 +25716,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD68C\uD53C\uC728"
+  m_Text: "\uD68C\uD53C"
 --- !u!222 &1979407412
 CanvasRenderer:
   m_ObjectHideFlags: 0

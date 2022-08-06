@@ -158,7 +158,7 @@ public class Druid : Character
         if (skill.category == 1014 && set.Value[0] > 0)
         {
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[0], 1, -1));
         }
 
 
@@ -247,12 +247,12 @@ public class Druid : Character
                             if (!u.isActiveAndEnabled)
                                 continue;
 
-                            //명중 연산 - 최소 명중률 10%
+                            //명중 연산 - 최소 명중 10%
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
 
@@ -383,7 +383,7 @@ public class Druid : Character
     {
         currVitality = Mathf.Min(maxVitality, currVitality + rate);
 
-        //253 강력한 수호자 - 생명력 비례 공격력, 명중률 상승 
+        //253 강력한 수호자 - 생명력 비례 공격력, 명중 상승 
         if (HasSkill(253))
         {
             Skill s = SkillManager.GetSkill(6, 253);

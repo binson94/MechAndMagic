@@ -60,10 +60,10 @@ public class Elemental : Unit
                     case Obj.방어력:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.6f * ec.dungeonStat[(int)i]);
                         break;
-                    case Obj.명중률:
+                    case Obj.명중:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.7f * ec.dungeonStat[(int)i]);
                         break;
-                    case Obj.회피율:
+                    case Obj.회피:
                     case Obj.속도:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.8f * ec.dungeonStat[(int)i]);
                         break;
@@ -83,13 +83,13 @@ public class Elemental : Unit
                     case Obj.방어력:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.4f * ec.dungeonStat[(int)i]);
                         break;
-                    case Obj.명중률:
+                    case Obj.명중:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.6f * ec.dungeonStat[(int)i]);
                         break;
                     case Obj.속도:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.7f * ec.dungeonStat[(int)i]);
                         break;
-                    case Obj.회피율:
+                    case Obj.회피:
                     case Obj.치명타율:
                     case Obj.치명타피해:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.8f * ec.dungeonStat[(int)i]);

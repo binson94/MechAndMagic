@@ -32,7 +32,7 @@ public class ArmedFighter : Character
         set = ItemManager.GetSetData(2);
         //소닉붐 2세트 - SPD 비례 DOG 향상
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.회피율, dungeonStat[(int)Obj.속도], set.Value[0], 0, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.회피, dungeonStat[(int)Obj.속도], set.Value[0], 0, 99, 0, 1));
     }
     public override void OnTurnStart()
     {
@@ -137,10 +137,10 @@ public class ArmedFighter : Character
                         foreach (Unit u in effectTargets)
                         {
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
 
@@ -194,10 +194,10 @@ public class ArmedFighter : Character
                     {
                         StatUpdate_Skill(skill);
                         int acc;
-                        if (buffStat[(int)Obj.명중률] >= selects[0].buffStat[(int)Obj.회피율])
-                            acc = 6 * (buffStat[(int)Obj.명중률] - selects[0].buffStat[(int)Obj.회피율]) / (selects[0].LVL + 2);
+                        if (buffStat[(int)Obj.명중] >= selects[0].buffStat[(int)Obj.회피])
+                            acc = 6 * (buffStat[(int)Obj.명중] - selects[0].buffStat[(int)Obj.회피]) / (selects[0].LVL + 2);
                         else
-                            acc = 6 * (buffStat[(int)Obj.명중률] - selects[0].buffStat[(int)Obj.회피율]) / (LVL + 2);
+                            acc = 6 * (buffStat[(int)Obj.명중] - selects[0].buffStat[(int)Obj.회피]) / (LVL + 2);
 
                         acc = Mathf.Max(20, acc);
 

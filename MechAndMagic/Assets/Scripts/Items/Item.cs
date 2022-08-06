@@ -127,11 +127,11 @@ public class Equipment
     ///<summary> json 데이터 로드 </summary>
     static Equipment()
     {
-        weaponSubstatKindPool[0] = Obj.행동력; weaponSubstatKindPool[1] = Obj.명중률;
+        weaponSubstatKindPool[0] = Obj.행동력; weaponSubstatKindPool[1] = Obj.명중;
         weaponSubstatKindPool[2] = Obj.치명타율; weaponSubstatKindPool[3] = Obj.방어력무시; weaponSubstatKindPool[4] = Obj.속도;
 
-        necklaceStatKindPool[0] = Obj.체력; necklaceStatKindPool[1] = Obj.방어력; necklaceStatKindPool[2] = Obj.회피율; necklaceStatKindPool[3] = Obj.속도;
-        ringStatKindPool[0] = Obj.공격력; ringStatKindPool[1] = Obj.명중률; ringStatKindPool[2] = Obj.치명타율; ringStatKindPool[3] = Obj.방어력무시;
+        necklaceStatKindPool[0] = Obj.체력; necklaceStatKindPool[1] = Obj.방어력; necklaceStatKindPool[2] = Obj.회피; necklaceStatKindPool[3] = Obj.속도;
+        ringStatKindPool[0] = Obj.공격력; ringStatKindPool[1] = Obj.명중; ringStatKindPool[2] = Obj.치명타율; ringStatKindPool[3] = Obj.방어력무시;
 
         weaponStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/WeaponStat").text);
         armorStatJson = JsonMapper.ToObject(Resources.Load<TextAsset>("Jsons/Items/ArmorStat").text);
@@ -198,7 +198,7 @@ public class Equipment
                     subStat = Obj.체력;
                     break;
                 case EquipPart.Pants:
-                    subStat = Obj.회피율;
+                    subStat = Obj.회피;
                     break;
                 case EquipPart.Gloves:
                     subStat = Obj.행동력;

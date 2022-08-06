@@ -40,7 +40,7 @@ public class Blaster : Character
         if(set.Value[2] > 0 && beforeCool)
         {
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 1, 1, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[2], 1, 1, 1, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중, 1, set.Value[2], 1, 1, 1, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 1, 1, 1));
         }
 
@@ -56,7 +56,7 @@ public class Blaster : Character
                 if(ItemManager.GetSetData(9).Value[0] > 0)
                     GetHeal(0.3f * buffStat[(int)Obj.체력]);
 
-                //106 악천후 회피 - 회피율 상승
+                //106 악천후 회피 - 회피 상승
                 if (HasSkill(106))
                 {
                     Skill s = SkillManager.GetSkill(classIdx, 106);
@@ -169,10 +169,10 @@ public class Blaster : Character
                                 continue;
 
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
 

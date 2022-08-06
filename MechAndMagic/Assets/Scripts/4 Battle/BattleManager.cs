@@ -482,8 +482,11 @@ public class BattleManager : MonoBehaviour
             apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
 
             Btn_SkillCancel();
+            
 
             if (IsWin()) Win();
+            else if (IsLose()) Lose();
+            else if (!currCaster.isActiveAndEnabled) Btn_TurnEnd();
         }
     }
     ///<summary> 스킬 선택 버튼, 타겟 선택 창 활성화 </summary>
@@ -494,8 +497,13 @@ public class BattleManager : MonoBehaviour
 
         //스킬 시전 가능 여부 확인(쿨타임, AP, 생명력, 열기, 매지컬 로그 콤보)
         string castLog = currCaster.CanCastSkill(buttonIdx);
+        string minusLog = "a";
 
-        if (castLog != string.Empty)
+        if(currCaster is VisionMaster)
+            minusLog = (currCaster as VisionMaster).CanCastSkill(buttonIdx, true);
+        
+
+        if (castLog != string.Empty && minusLog != string.Empty)
         {
             LogManager.instance.AddLog(castLog);
             return;
@@ -626,6 +634,15 @@ public class BattleManager : MonoBehaviour
     ///<param name="isMinus"> 0 양, 1 음 </param>
     public void Btn_SkillChoose(int isMinus)
     {
+        //스킬 시전 가능 여부 확인(쿨타임, AP, 생명력, 열기, 매지컬 로그 콤보)
+        string castLog = (currCaster as VisionMaster).CanCastSkill(selectSkillBtnIdx, isMinus == 1); 
+
+        if (castLog != string.Empty)
+        {
+            LogManager.instance.AddLog(castLog);
+            return;
+        }
+
         foreach (Text txt in skillTxts) txt.text = string.Empty;
         //음 스킬은 양 스킬 idx + 1
         Skill skill = SkillManager.GetSkill(currCaster.classIdx, currCaster.activeIdxs[selectSkillBtnIdx] + isMinus);
@@ -746,10 +763,9 @@ public class BattleManager : MonoBehaviour
                         LogManager.instance.AddLog("행동력이 최대치입니다.");
                         return;
                     }
-                    healValue = Mathf.RoundToInt(allChars[0].buffStat[(int)Obj.행동력] / 2f);
-                    allChars[0].GetAPHeal(healValue);
+                    allChars[0].GetAPHeal(allChars[0].buffStat[(int)Obj.행동력]);
                     apBar.SetValue(currCaster.buffStat[(int)Obj.currAP], currCaster.buffStat[(int)Obj.행동력]);
-                    LogManager.instance.AddLog($"행동력을 {healValue}만큼 회복하였습니다.");
+                    LogManager.instance.AddLog("행동력을 최대로 회복하였습니다.");
                     break;
                 //정화 포션 - 모든 디버프 제거
                 case 2:

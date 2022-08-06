@@ -115,11 +115,11 @@ public class ItemManager
         List<int> possibleList;
         if (lvl == 1)
             possibleList = (from token in s
-                            where lvl == token.reqLvl && token.useType == 1
+                            where lvl == token.reqLvl && token.category != 1024 && token.useType == 1
                             select token.idx).ToList();
         else
             possibleList = (from token in s
-                            where lvl == token.reqLvl
+                            where lvl == token.reqLvl && token.category != 1024
                             select token.idx).ToList();
 
         if (possibleList.Count() <= 0)
@@ -174,11 +174,11 @@ public class ItemManager
         List<int> possibleList;
         if (lvl == 1)
             possibleList = (from token in skills
-                            where lvl == token.reqLvl && token.useType == 1
+                            where lvl == token.reqLvl && token.category != 1024 && token.useType == 1
                             select token.idx).ToList();
         else
             possibleList = (from token in skills
-                            where lvl == token.reqLvl
+                            where lvl == token.reqLvl && token.category != 1024
                             select token.idx).ToList();
         
         int skillbookIdx = possibleList[Random.Range(0, possibleList.Count)];

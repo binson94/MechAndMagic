@@ -31,8 +31,8 @@ public class VisionMaster : Character
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.행동력, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.명중률, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.회피율, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.명중, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.회피, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.치명타피해, 1, set.Value[2], 1, 99, 0, 1));
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.방어력무시, 1, set.Value[2], 1, 99, 0, 1));
@@ -47,6 +47,7 @@ public class VisionMaster : Character
         //294 비전 방패 : 음 - 다음 턴 시작 시 보호막 리필
         if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 294).name))
             shieldAmount = shieldMax;
+        resentCategory = 0;
     }
     public override void OnTurnEnd()
     {
@@ -73,7 +74,7 @@ public class VisionMaster : Character
             //웅장한 월광 3세트 - 마이너스 비전이 DOG도 버프
             set = ItemManager.GetSetData(20);
             if (set.Value[1] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.회피율, 1, set.Value[1], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.회피, 1, set.Value[1], 1, 1, 1, 1));
 
         }
         //299 플랫 비전 - 이번 턴에 양, 음 스킬 사용 수가 같을 시 방어력 버프
@@ -89,7 +90,18 @@ public class VisionMaster : Character
     public override int GetSkillCost(Skill s)
     {
         //286 조화 - 반대 스킬 사용 시 AP 소모량 1 감소
-        return base.GetSkillCost(s) - (HasSkill(286) && resentCategory != s.category ? 1 : 0);
+        return base.GetSkillCost(s) - (HasSkill(286) && s.cooldown > 0 && Mathf.Abs(resentCategory - s.category) == 1 ? 1 : 0);
+    }
+    public string CanCastSkill(int skillSlotIdx, bool isMinus)
+    {
+        Skill s = SkillManager.GetSkill(classIdx, activeIdxs[skillSlotIdx] + (isMinus ? 1 : 0));
+        string skillName = s.category == 1023 ? $"{s.name} : 양" : s.name;
+
+        if (buffStat[(int)Obj.currAP] < GetSkillCost(s))
+            return $"{skillName}(을)를 사용하기 위한 행동력이 부족합니다.";
+        else if (cooldowns[skillSlotIdx] > 0)
+            return $"{skillName}(은)는 아직 쿨타임입니다.";
+        return string.Empty;
     }
 
     public void ActiveSkill_Both(int slotIdx, List<Unit> selects)
@@ -163,7 +175,7 @@ public class VisionMaster : Character
             //웅장한 월광 2세트 - 음 스킬 사용 시 1턴 ACC 버프
             set = ItemManager.GetSetData(20);
             if (set.Value[0] > 0)
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[0], 1, 1, 1, 1));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중, 1, set.Value[0], 1, 1, 1, 1));
 
         }
         //스킬 카운트 - 동시 발동은 1번만 카운트
@@ -222,16 +234,17 @@ public class VisionMaster : Character
             set = ItemManager.GetSetData(20);
             if (set.Value[2] > 0)
                 foreach (Unit u in t)
-                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.회피율, 1, set.Value[2], 1, tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
+                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, (int)Obj.회피, 1, set.Value[2], 1, tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
         }
 
-        orderIdx++;
-        resentCategory = skill.category;
         if (skillState != 2)
         {
             buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
             cooldowns[slotIdx] = skill.cooldown;
         }
+
+        orderIdx++;
+        resentCategory = skill.category;
 
         //310 물아일체 - 7번 스킬 사용 시마다 다음 스킬 2번 발동
         if (HasSkill(310) && skillCount_battle[2] % 7 == 0)
@@ -266,10 +279,10 @@ public class VisionMaster : Character
                                 continue;
 
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
 

@@ -60,7 +60,7 @@ public class MagicalRogue : Character
         if (set.Value[2] > 0 && (skill.idx == 347 || skill.idx == 349))
         {
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.속도, 1, set.Value[2], 1, -1));
         }
@@ -69,7 +69,7 @@ public class MagicalRogue : Character
         //기민한 맹공 2세트 - 1형 무술 ACC, PEN 상승
         if (set.Value[0] > 0 && skill.category == 1019)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[0], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[0], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.방어력무시, 1, set.Value[0], 1, -1));
         }
         //기민한 맹공 4세트 - 가로 베기 공격력 상승, 적 잃은 체력 비례 추가 피해
@@ -189,12 +189,12 @@ public class MagicalRogue : Character
                             if (!u.isActiveAndEnabled)
                                 continue;
 
-                            //명중 연산 - 최소 명중률 10%
+                            //명중 연산 - 최소 명중 10%
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
                             //명중 시
@@ -270,12 +270,12 @@ public class MagicalRogue : Character
                             if (!u.isActiveAndEnabled)
                                 break;
 
-                            //명중 연산 - 최소 명중률 10%
+                            //명중 연산 - 최소 명중 10%
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
                             //명중 시
@@ -333,7 +333,7 @@ public class MagicalRogue : Character
             foreach (Unit u in damaged)
             {
                 u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, (int)Obj.방어력, 1, set.Value[0], 1, skill.effectTurn[2], skill.effectDispel[2], skill.effectVisible[2]));
-                u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, (int)Obj.회피율, 1, set.Value[0], 1, skill.effectTurn[2], skill.effectDispel[2], skill.effectVisible[2]));
+                u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, (int)Obj.회피, 1, set.Value[0], 1, skill.effectTurn[2], skill.effectDispel[2], skill.effectVisible[2]));
             }
         }
     }

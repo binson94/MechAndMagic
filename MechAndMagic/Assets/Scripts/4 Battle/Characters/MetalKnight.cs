@@ -137,12 +137,12 @@ public class MetalKnight : Character
 
                         foreach(Unit u in effectTargets)
                         {
-                            //명중 연산 - 최소 명중률 20%
+                            //명중 연산 - 최소 명중 20%
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
                             //명중 시
@@ -220,12 +220,12 @@ public class MetalKnight : Character
                         if(isAcc)
                         {
                             effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.방어력, 1, 0.2f, 1, 2, 1, 1));
-                            effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.회피율, 1, 0.2f, 1, 2, 1, 1));
+                            effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.회피, 1, 0.2f, 1, 2, 1, 1));
 
                             //대상 무력화
                             if (HasSkill(82))
                             {
-                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.명중률, 1, 0.15f, 1, 2, 1, 1));
+                                effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.명중, 1, 0.15f, 1, 2, 1, 1));
                                 effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.치명타율, 1, 0.15f, 1, 2, 1, 1));
                                 effectTargets[0].turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), "표식", (int)Obj.속도, 1, 0.15f, 1, 2, 1, 1));
                             }

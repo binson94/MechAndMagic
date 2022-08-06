@@ -42,7 +42,7 @@ public class Character : Unit
         //완벽한 톱니바퀴 2세트 - ACC 상승
         set = ItemManager.GetSetData(29);
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중률, 1, set.Value[0], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.명중, 1, set.Value[0], 1, 99));
 
         set = ItemManager.GetSetData(27);
         List<Unit> targets = GetEffectTarget(null, null, 6);
@@ -52,7 +52,7 @@ public class Character : Unit
             {
                 u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.속도, 1, set.Value[0], 1, 99, 0, 1));
                 if (set.Value[1] > 0)
-                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.회피율, 1, set.Value[1], 1, 99, 0, 1));
+                    u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.회피, 1, set.Value[1], 1, 99, 0, 1));
                 if (set.Value[2] > 0)
                     u.turnDebuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
             }

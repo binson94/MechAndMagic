@@ -75,7 +75,7 @@ public class MadScientist : Character
         if (set.Value[2] > 0 && skill.category == 1026)
         {
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중률, 1, set.Value[2], 1, -1));
+            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[2], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.방어력무시, 1, set.Value[2], 1, -1));
@@ -153,7 +153,6 @@ public class MadScientist : Character
                 effectTargets = GetEffectTarget(selects, damaged, 6);
             else
                 effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -162,7 +161,7 @@ public class MadScientist : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = stat * skill.effectRate[i];
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -172,14 +171,17 @@ public class MadScientist : Character
 
                             //172 상태 왜곡 장치, 카오스 패닉 5세트(골렘도)
                             if (HasSkill(172) && (u == this || (u.classIdx == 12 && ItemManager.GetSetData(10).Value[2] > 0)))
-                                u.GetHeal(stat * skill.effectRate[i] * skill.effectCalc[i] == 1 ? buffStat[(int)Obj.체력] : 1);
+                            {
+                                u.GetHeal(dmg);
+                                damaged.Add(u);
+                            }
                             else
                             {
                                 int acc = 20;
-                                if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                    acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                                if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                    acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                                 else
-                                    acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                    acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
 
                                 acc = Mathf.Max(20, acc);
 
@@ -207,7 +209,7 @@ public class MadScientist : Character
                     }
                 case EffectType.Heal:
                     {
-                        float heal = stat * skill.effectRate[i];
+                        float heal = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
                         {
@@ -221,6 +223,7 @@ public class MadScientist : Character
                     }
                 case EffectType.Active_Buff:
                     {
+                        stat = GetEffectStat(effectTargets, skill.effectStat[i]);
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 //172 상태 왜곡 장치
@@ -232,6 +235,7 @@ public class MadScientist : Character
                     }
                 case EffectType.Active_Debuff:
                     {
+                        stat = GetEffectStat(effectTargets, skill.effectStat[i]);
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 //172 상태 왜곡 장치

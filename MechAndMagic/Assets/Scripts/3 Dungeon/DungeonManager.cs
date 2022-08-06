@@ -54,6 +54,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] PopUpManager pm;
 
     [Header("Sub Panels")]
+    [SerializeField] GameObject optionPanel;
     [SerializeField] RepairPanel repairPanel;
 
     ///<summary> 각 퀘스트 정보 표시 UI Set </summary>
@@ -79,6 +80,14 @@ public class DungeonManager : MonoBehaviour
 
         SoundManager.Instance.PlayBGM((BGMList)System.Enum.Parse(typeof(BGMList), $"Battle{chapter}"));
     }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            if (!eventPanel.isActiveAndEnabled && !outbreakPanel.isActiveAndEnabled)
+                optionPanel.SetActive(true);
+    }
+    
     ///<summary> 방 버튼 이미지 생성 </summary>
     private void MakeRoomImage()
     {
@@ -199,6 +208,11 @@ public class DungeonManager : MonoBehaviour
         }
     }
     
+    public void Btn_GoToTitle()
+    {
+        GameManager.Instance.slotData = null;
+        GameManager.Instance.LoadScene(SceneKind.Title);
+    }
     public void Btn_OpenRepair()
     {
         repairPanel.ResetAllState();

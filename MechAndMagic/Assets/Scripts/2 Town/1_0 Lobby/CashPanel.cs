@@ -68,7 +68,7 @@ public class CashPanel : MonoBehaviour
     ///<summary> 공통 재화 획득 정보 불러오기 </summary>
     void LoadResourceData()
     {
-        resourceIdx = GameManager.SlotLvl <= 2 ? 15 : (GameManager.SlotLvl <= 7 ? 14 : 13);
+        resourceIdx = GameManager.SlotLvl <= 2 ? 15 : (GameManager.SlotLvl <= 6 ? 14 : 13);
         resourceCount = (int)json[GameManager.SlotLvl - 1]["resource"];
 
         resourceImage.sprite = SpriteGetter.instance.GetResourceIcon(resourceIdx);

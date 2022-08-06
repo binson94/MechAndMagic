@@ -176,12 +176,12 @@ public class Monster : Unit
                             if (!u.isActiveAndEnabled)
                                 continue;
 
-                            //명중 연산 - 최소 명중률 10%
+                            //명중 연산 - 최소 명중 10%
                             int acc = 20;
-                            if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                             else
-                                acc = 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2);
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
                             
                             acc = Mathf.Max(20, acc);
                             //명중 시
@@ -280,6 +280,7 @@ public class Monster : Unit
                 int skillIdx = dito[0] ? 61 : dito[1] ? 62 : dito[2] ? 87 : 100;
                 Skill skill = SkillManager.GetSkill(10, skillIdx);
                 LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
+                SoundManager.Instance.PlaySFX(skill.sfx);
 
                 StatUpdate_Skill(skill);
 
@@ -292,10 +293,10 @@ public class Monster : Unit
                         continue;
 
                     int acc = 20;
-                    if (buffStat[(int)Obj.명중률] >= u.buffStat[(int)Obj.회피율])
-                        acc = 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (u.LVL + 2);
+                    if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                        acc = 60 + 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
                     else
-                        acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중률] - u.buffStat[(int)Obj.회피율]) / (LVL + 2));
+                        acc = Mathf.Max(acc, 60 + 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2));
                     acc = Mathf.Max(20, acc);
                     
                     //명중 시
@@ -345,8 +346,8 @@ public class Monster : Unit
         dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.체력] = (int)json[jsonIdx]["HP"];
         dungeonStat[(int)Obj.공격력] = (int)json[jsonIdx]["ATK"];
         dungeonStat[(int)Obj.방어력] = (int)json[jsonIdx]["DEF"];
-        dungeonStat[(int)Obj.명중률] = (int)json[jsonIdx]["ACC"];
-        dungeonStat[(int)Obj.회피율] = (int)json[jsonIdx]["DOG"];
+        dungeonStat[(int)Obj.명중] = (int)json[jsonIdx]["ACC"];
+        dungeonStat[(int)Obj.회피] = (int)json[jsonIdx]["DOG"];
         dungeonStat[(int)Obj.치명타율] = (int)json[jsonIdx]["CRC"];
         dungeonStat[(int)Obj.치명타피해] = (int)json[jsonIdx]["CRB"];
         dungeonStat[(int)Obj.방어력무시] = (int)json[jsonIdx]["PEN"];
