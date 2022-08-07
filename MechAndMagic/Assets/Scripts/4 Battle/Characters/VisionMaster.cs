@@ -252,6 +252,7 @@ public class VisionMaster : Character
         else
             skillState = 0;
 
+        CountSkill();
         StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)

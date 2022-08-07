@@ -158,6 +158,7 @@ public class MagicalRogue : Character
             guileCount[1] = 0;
         }
 
+        CountSkill();
         StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)

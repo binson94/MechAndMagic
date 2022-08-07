@@ -221,6 +221,7 @@ public class Druid : Character
                 cooldowns[slotIdx] = 1;
         }
 
+        CountSkill();
         StatUpdate_Turn();
     }
     protected override void Active_Effect(Skill skill, List<Unit> selects)
