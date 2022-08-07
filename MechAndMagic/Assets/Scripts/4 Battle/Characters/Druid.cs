@@ -270,7 +270,7 @@ public class Druid : Character
 
                                 //229 생명력 흡수
                                 if (skill.idx == 229)
-                                    GetHeal(killDmgPair.Value * 0.2f);
+                                    GetHeal(killDmgPair.Value * skill.effectRate[1]);
                                 //239 소멸
                                 if (skill.idx == 239 && killDmgPair.Key)
                                     HealVitality(maxVitality);

@@ -207,6 +207,10 @@ public class MagicalRogue : Character
                                 isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율] + crcAdd;
 
                                 KeyValuePair<bool, int> kill = u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
+
+                                //338 생기 흡수 - 생명력 흡수
+                                if (skill.idx == 338)
+                                    GetHeal(kill.Value * skill.effectRate[1]);
                                 //348 환골탈태 - 생명력 흡수
                                 if (turnBuffs.buffs.Any(x => x.name == SkillManager.GetSkill(classIdx, 348).name))
                                     GetHeal(kill.Value * skill.effectRate[4]);

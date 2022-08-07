@@ -29,7 +29,7 @@ public class SkillManager
     }
     static public Skill GetSkill(int classIdx, int idx)
     {
-        if (idx <= 0)
+        if (classIdx <= 0 || idx < skillDB[classIdx].startIdx)
             return dummySkill;
 
         return skillDB[classIdx].skills[idx - skillDB[classIdx].startIdx];

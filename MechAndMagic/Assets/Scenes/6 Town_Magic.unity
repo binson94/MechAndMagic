@@ -86932,7 +86932,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 40ed896e1889265429fe720cebb02d64, type: 3}
   - {fileID: 21300000, guid: ac3ffced39fb1f94986c2f5dd850985e, type: 3}
   - {fileID: 21300000, guid: f186969f2b6cb72438c0de204fe1bafc, type: 3}
-  - {fileID: 21300000, guid: a7b211498b0591d4eac859075b66a5ae, type: 3}
+  - {fileID: 21300000, guid: 5146f5dacd014bd4897d91b07735ac85, type: 3}
   playerInfoPanel: {fileID: 1876387002}
   classTxt: {fileID: 883303068}
   lvlTxt: {fileID: 679039987}

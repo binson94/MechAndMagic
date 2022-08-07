@@ -112,21 +112,23 @@ public class Elemental : Unit
                 switch(i)
                 {
                     case Obj.체력:
-                    case Obj.공격력:
-                    case Obj.방어력:
-                        dungeonStat[(int)i] = Mathf.RoundToInt(0.6f * ec.dungeonStat[(int)i]);
-                        break;
-                    case Obj.명중:
-                        dungeonStat[(int)i] = Mathf.RoundToInt(0.7f * ec.dungeonStat[(int)i]);
-                        break;
-                    case Obj.회피:
-                    case Obj.속도:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.8f * ec.dungeonStat[(int)i]);
                         break;
+                    case Obj.공격력:
+                    case Obj.방어력:
                     case Obj.치명타율:
                     case Obj.치명타피해:
                     case Obj.방어력무시:
                         dungeonStat[(int)i] = ec.dungeonStat[(int)i];
+                        break;
+                    case Obj.명중:
+                        dungeonStat[(int)i] = Mathf.RoundToInt(1.1f * ec.dungeonStat[(int)i]);
+                        break;
+                    case Obj.회피:
+                        dungeonStat[(int)i] = Mathf.RoundToInt(0.7f * ec.dungeonStat[(int)i]);
+                        break;
+                    case Obj.속도:
+                        dungeonStat[(int)i] = Mathf.RoundToInt(1.2f * ec.dungeonStat[(int)i]);
                         break;
                 }
             }
@@ -135,20 +137,20 @@ public class Elemental : Unit
                 switch(i)
                 {
                     case Obj.체력:
-                    case Obj.공격력:
-                    case Obj.방어력:
-                        dungeonStat[(int)i] = Mathf.RoundToInt(0.4f * ec.dungeonStat[(int)i]);
-                        break;
-                    case Obj.명중:
                         dungeonStat[(int)i] = Mathf.RoundToInt(0.6f * ec.dungeonStat[(int)i]);
                         break;
-                    case Obj.속도:
-                        dungeonStat[(int)i] = Mathf.RoundToInt(0.7f * ec.dungeonStat[(int)i]);
-                        break;
-                    case Obj.회피:
+                    case Obj.공격력:
+                    case Obj.방어력:
                     case Obj.치명타율:
                     case Obj.치명타피해:
-                        dungeonStat[(int)i] = Mathf.RoundToInt(0.8f * ec.dungeonStat[(int)i]);
+                        dungeonStat[(int)i] = Mathf.RoundToInt(0.7f * ec.dungeonStat[(int)i]);
+                        break;
+                    case Obj.명중:
+                    case Obj.속도:
+                        dungeonStat[(int)i] = Mathf.RoundToInt(0.9f * ec.dungeonStat[(int)i]);
+                        break;
+                    case Obj.회피:
+                        dungeonStat[(int)i] = Mathf.RoundToInt(0.5f * ec.dungeonStat[(int)i]);
                         break;
                     case Obj.방어력무시:
                         dungeonStat[(int)i] = ec.dungeonStat[(int)i];

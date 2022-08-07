@@ -998,7 +998,7 @@
         0,
         0
      ],
-     "apCost": 2,
+     "apCost": 1,
      "cool": 1,
      "targetSelect": 0,
      "targetCount": 0,
@@ -1314,7 +1314,7 @@
    {
      "name": "생명력 흡수",
      "script": "[생명력 1 획득] 피해의 일부만큼 회복하는 공격",
-     "script_pos": "적 1개체\n생명력 1 획득\n공격력의 110% 데미지\n피해의 20% 회복",
+     "script_pos": "적 1개체\n생명력 1 획득\n공격력의 110% 데미지\n피해의 40% 회복",
      "script_neg": "",
      "idx": 229,
      "icon": 1,
@@ -1330,12 +1330,12 @@
      "cool": 1,
      "targetSelect": 1,
      "targetCount": 1,
-     "effectCount": 2,
+     "effectCount": 3,
      "sfx": 3,
      "effectType": [
         1,
+        16,
         18,
-        0,
         0
      ],
      "effectCond": [
@@ -1364,8 +1364,8 @@
      ],
      "effectRate": [
         1.1,
+        0.4,
         1,
-        0,
         0
      ],
      "effectCalc": [
