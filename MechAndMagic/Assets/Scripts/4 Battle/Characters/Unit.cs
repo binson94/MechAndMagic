@@ -437,7 +437,12 @@ public class Unit : MonoBehaviour
     #endregion Add
 
     #region Random Remove
-    public virtual int RemoveBuff(int count) => turnBuffs.Remove(count);
+    public int RemoveBuff(int count)
+    {
+        int removeCount = turnBuffs.Remove(count);
+        ShieldUpdate();
+        return removeCount;
+    }
     public virtual int RemoveDebuff(int count) => turnDebuffs.Remove(count);
     #endregion Random Remove
 

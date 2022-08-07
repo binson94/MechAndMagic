@@ -270,7 +270,7 @@ public class Druid : Character
 
                                 //229 생명력 흡수
                                 if (skill.idx == 229)
-                                    GetHeal(killDmgPair.Value * 0.3f);
+                                    GetHeal(killDmgPair.Value * 0.2f);
                                 //239 소멸
                                 if (skill.idx == 239 && killDmgPair.Key)
                                     HealVitality(maxVitality);
@@ -393,7 +393,7 @@ public class Druid : Character
         }
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(18);
-        //순환 2세트 - 생명력 획득 시 다음 생명력 변환 ATK 상승
+        //순환 2세트 - 생명력 획득 시 다음 생명력 흡수 ATK 상승
         cycleSet[0] = set.Value[0] > 0;
         //순환 4세트 - 생명력 3일 경우 방어력 상승 및 디버프 면역
         cycleSet[2] = set.Value[2] > 0 && currVitality == 3;

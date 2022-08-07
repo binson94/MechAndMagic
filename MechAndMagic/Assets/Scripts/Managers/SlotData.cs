@@ -101,7 +101,7 @@ public class SlotData
                 className = "드루이드";
                 break;
             case 7:
-                className = "비전 마스터";
+                className = "비전술사";
                 break;
             case 8:
                 className = "매지컬 로그";

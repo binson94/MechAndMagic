@@ -121,6 +121,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] ReportPanel reportPanel;
 
     bool isMechEnding = false;
+    bool isMagicEnding = false;
     #endregion Variables
 
     #region Function_Start
@@ -935,8 +936,11 @@ public class BattleManager : MonoBehaviour
             QuestManager.QuestUpdate(QuestType.Dungeon, GameManager.Instance.slotData.dungeonIdx, 1);
 
             isMechEnding = GameManager.Instance.slotData.dungeonIdx == 23 && QuestManager.GetCurrQuest().Any(x => x.idx == 26);
+            isMagicEnding = GameManager.Instance.slotData.dungeonIdx == 48 && QuestManager.GetCurrQuest().Any(x => x.idx == 55);
             if(isMechEnding)
                 QuestManager.ClearQuest(26);
+            if(isMagicEnding)
+                QuestManager.ClearQuest(55);
 
             reportPanel.LoadData(true);
             reportPanel.gameObject.SetActive(true);
@@ -988,6 +992,12 @@ public class BattleManager : MonoBehaviour
         if(isMechEnding)
         {
             GameManager.Instance.slotData.storyIdx = 5;
+            GameManager.Instance.SwitchSceneData(SceneKind.Story);
+            GameManager.Instance.LoadScene(SceneKind.Story);
+        }
+        else if (isMagicEnding)
+        {
+            GameManager.Instance.slotData.storyIdx = 10;
             GameManager.Instance.SwitchSceneData(SceneKind.Story);
             GameManager.Instance.LoadScene(SceneKind.Story);
         }

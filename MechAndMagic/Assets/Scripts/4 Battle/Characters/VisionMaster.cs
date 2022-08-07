@@ -202,13 +202,13 @@ public class VisionMaster : Character
         }
 
         set = ItemManager.GetSetData(21);
-        //완벽한 균형 2세트 - 넘치는 생명력이 3회마다 발동
-        //277 넘치는 생명력 - 아무 스킬 5번마다 다음 턴 AP 상승 버프
-        if (HasSkill(277) && ((set.Value[0] > 0 && skillCount_battle[2] % 3 == 0) || (set.Value[0] == 0 && skillCount_battle[2] % 5 == 0)) && !(skill.category == 1023 && skillState == 2))
+        //완벽한 균형 2세트 - 넘치는 생명력이 4회마다 발동
+        //277 넘치는 생명력 - 아무 스킬 6번마다 다음 턴 AP 상승 버프
+        if (HasSkill(277) && ((set.Value[0] > 0 && skillCount_battle[2] % 4 == 0) || (set.Value[0] == 0 && skillCount_battle[2] % 6 == 0)) && !(skill.category == 1023 && skillState == 2))
             AddBuff(this, orderIdx, SkillManager.GetSkill(classIdx, 277), 0, 0);
 
         //287 부조화 - 직전 스킬과 카테고리 다르면 무작위 방어력 디버프
-        if (HasSkill(287) && resentCategory != skill.category)
+        if (HasSkill(287) && Mathf.Abs(resentCategory - skill.category) == 1)
             BM.GetEffectTarget(4)[0].AddDebuff(this, ++orderIdx, SkillManager.GetSkill(classIdx, 287), 0, 0);
         //288 일치 - 직전 스킬과 카테고리 같으면 힐
         if (HasSkill(288) && resentCategory == skill.category)
@@ -333,9 +333,13 @@ public class VisionMaster : Character
         }
 
         turnBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
-        //302, 303 비전 대폭격 - 버프 2배로 적용
+        //302, 303 비전 대폭격 - 버프 1.5배로 적용
         if (s.idx == 302 || s.idx == 303)
-            turnBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
+            for(int i = 1;i <=12 ;i++)
+            {
+                mulPivot[i] *= 1.5f;
+                addPivot[i] *= 1.5f;
+            }
 
         turnDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
         skillBuffs.GetBuffRate(ref addPivot, ref mulPivot, true);
