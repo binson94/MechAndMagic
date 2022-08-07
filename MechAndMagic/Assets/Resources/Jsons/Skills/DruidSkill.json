@@ -986,8 +986,8 @@
    {
      "name": "생명력 변환",
      "script": "[생명력 2 획득] 체력을 일부 잃고 생명력 회복",
-     "script_pos": "자신\n생명력 2 획득\n체력 8 데미지",
-     "script_neg": "",
+     "script_pos": "자신\n생명력 2 획득",
+     "script_neg": "자신 체력 8 데미지",
      "idx": 225,
      "icon": 4,
      "category": 1013,

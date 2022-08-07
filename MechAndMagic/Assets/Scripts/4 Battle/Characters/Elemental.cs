@@ -43,7 +43,63 @@ public class Elemental : Unit
     void ElementalSkill()
     {
         ActiveSkill(pattern++, new List<Unit>());
-        pattern = pattern ^ 1;
+        pattern %= 2;
+    }
+
+    protected override void Active_Effect(Skill skill, List<Unit> selects)
+    {
+        List<Unit> effectTargets;
+        List<Unit> damaged = new List<Unit>();
+
+        for (int i = 0; i < skill.effectCount; i++)
+        {
+            effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
+
+            switch ((EffectType)skill.effectType[i])
+            {
+                //데미지 - 스킬 버프 계산 후 
+                case EffectType.Damage:
+                    {
+                        damaged.Clear();
+                        StatUpdate_Skill(skill);
+
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+
+                        foreach (Unit u in effectTargets)
+                        {
+                            int acc = 20;
+                            if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
+                            else
+                                acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
+                            
+                            acc = Mathf.Max(20, acc);
+
+                            if (Random.Range(0, 100) < acc)
+                            {
+                                isAcc = true;
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
+
+                                u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
+                                damaged.Add(u);
+                                Passive_SkillHit(skill);
+                            }
+                            else
+                            {
+                                isAcc = false;
+                                LogManager.instance.AddLog($"{u.name}(이)가 스킬을 회피하였습니다.");
+                            }
+                        }
+
+                        break;
+                    }
+                case EffectType.DoNothing:
+                    break;
+                default:
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    break;
+            }
+        }
     }
 
 

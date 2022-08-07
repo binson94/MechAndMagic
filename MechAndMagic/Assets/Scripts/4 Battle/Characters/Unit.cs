@@ -145,9 +145,9 @@ public class Unit : MonoBehaviour
 
         Passive_SkillCast(skill);
 
+        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         //skill 효과 순차적으로 계산
         Active_Effect(skill, selects);
-        LogManager.instance.AddLog($"{name}(이)가 {skill.name}(을)를 시전했습니다.");
         SoundManager.Instance.PlaySFX(skill.sfx);
 
         orderIdx++;
