@@ -993,11 +993,11 @@
      "CRB": 118,
      "PEN": 7,
      "SPD": 10,
-     "pattern": 12,
+     "pattern": 1323,
      "skillIdx": [
         50,
         51,
-        0,
+        53,
         0
      ],
      "skillChance": [

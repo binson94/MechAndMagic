@@ -343,6 +343,7 @@ public class Monster : Unit
 
         name = json[jsonIdx]["name"].ToString();
         LVL = (int)json[jsonIdx]["lvl"];
+        dungeonStat[0] = 1;
         dungeonStat[(int)Obj.currHP] = dungeonStat[(int)Obj.체력] = (int)json[jsonIdx]["HP"];
         dungeonStat[(int)Obj.공격력] = (int)json[jsonIdx]["ATK"];
         dungeonStat[(int)Obj.방어력] = (int)json[jsonIdx]["DEF"];

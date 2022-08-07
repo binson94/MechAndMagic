@@ -5763,7 +5763,7 @@
      "name": "분열!",
      "idx": 61,
      "effectCount": 1,
-     "sfx": 7,
+     "sfx": 16,
      "effectType": [
         16,
         0,
@@ -5859,7 +5859,7 @@
      "name": "파상풍 분열!",
      "idx": 62,
      "effectCount": 2,
-     "sfx": 7,
+     "sfx": 16,
      "effectType": [
         16,
         16,
