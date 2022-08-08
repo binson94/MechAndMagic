@@ -31,14 +31,6 @@ public class ElementalController : Character
             elementalUsed[i] = false;
     }
 
-    public override int GetSkillCost(Skill s)
-    {
-        float rate = 1;
-        if(s.category == 1007 || s.category == 1008 || s.category == 1009)
-            rate -= ItemManager.GetSetData(15).Value[1];
-        return Mathf.RoundToInt(base.GetSkillCost(s) * rate);
-    }
-
     public override void ActiveSkill(int slotIdx, List<Unit> selects)
     {
         //적중 성공 여부
