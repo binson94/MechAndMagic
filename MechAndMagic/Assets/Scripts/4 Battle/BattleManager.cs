@@ -473,6 +473,7 @@ public class BattleManager : MonoBehaviour
         if (currCaster.classIdx == 11 || currCaster.classIdx == 12 || currCaster.IsStun())
         {
             if (IsWin()) Win();
+            else if (IsLose()) Lose();
             else Btn_TurnEnd();
         }
         else
