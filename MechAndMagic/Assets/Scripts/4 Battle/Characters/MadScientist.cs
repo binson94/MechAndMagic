@@ -25,9 +25,12 @@ public class MadScientist : Character
         base.OnTurnStart();
         bombState = 0;
 
+        //144 시선 집중 기계
         string s1 = SkillManager.GetSkill(classIdx, 144).name;
+        //157 하이라이트 부츠
         string s2 = SkillManager.GetSkill(classIdx, 157).name;
         
+        //162 골렘 주종 역전
         isMagnetic = HasSkill(162) || turnBuffs.buffs.Any(x => x.name == s1 || x.name == s2);
     }
     public override void OnTurnEnd()

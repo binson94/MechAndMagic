@@ -19,6 +19,7 @@ public class MagicalRogue : Character
         base.OnTurnStart();
         resentCategory = 0;
 
+        //340 어둠 속으로 - 다음 턴 시작 시 치명타율 버프
         if (castInDark)
             AddBuff(this, orderIdx, SkillManager.GetSkill(classIdx, 340), 2, 0);
         castInDark = false;

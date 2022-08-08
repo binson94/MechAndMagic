@@ -100,10 +100,10 @@ public class Druid : Character
     {
         //233 평화주의자 - 이번 턴 피해 입히지 않았으면 생명력 회복
         if (HasSkill(233) && dmgs[0] == 0)
-            HealVitality((int)SkillManager.GetSkill(6, 145).effectRate[0]);
-        //244 완벽한 상태 - 생명력 최대 상태에세 턴 종료 시 행동력 버프
+            HealVitality((int)SkillManager.GetSkill(6, 233).effectRate[0]);
+        //244 완벽한 상태 - 생명력 최대 상태에서 턴 종료 시 행동력 버프
         if (HasSkill(244) && currVitality == maxVitality)
-            AddBuff(this, orderIdx, SkillManager.GetSkill(6, 156), 0, 0);
+            AddBuff(this, orderIdx, SkillManager.GetSkill(6, 244), 0, 0);
         rooted = false;
     }
 
@@ -361,7 +361,7 @@ public class Druid : Character
                     break;
                 }
 
-        //세계수의 보호 - 던전 당 한 번 부활
+        //255 세계수의 보호 - 던전 당 한 번 부활
         if (HasSkill(255) && killed.Key && revive == 0)
         {
             buffStat[(int)Obj.currHP] = 0;
@@ -404,6 +404,8 @@ public class Druid : Character
     void SpendVitality(int rate)
     {
         currVitality = Mathf.Max(0, currVitality - rate);
+
+        //253 강력한 수호자 - 생명력 비례 공격력, 명중 상승
         if (HasSkill(253))
         {
             Skill s = SkillManager.GetSkill(6, 253);
