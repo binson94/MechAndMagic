@@ -378,7 +378,7 @@ public class Monster : Unit
             }
         }
 
-        for(int i = 0;i<dungeonStat.Length;i++)
+        for (int i = 0; i < dungeonStat.Length; i++)
             buffStat[i] = dungeonStat[i];
     }
     public override bool IsBoss() => isBoss;

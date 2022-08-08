@@ -243,7 +243,7 @@ public class MetalKnight : Character
     {
         List<Unit> effectTargets;
 
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < passiveIdxs.Length; j++)
         {
             Skill s = SkillManager.GetSkill(classIdx, passiveIdxs[j]);
             if (s == null)

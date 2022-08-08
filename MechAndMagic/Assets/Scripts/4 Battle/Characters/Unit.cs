@@ -315,8 +315,6 @@ public class Unit : MonoBehaviour
     #endregion Active
 
     #region Passive
-    //전투 시작 시, 패시브 버프 시전
-    protected virtual void Passive_BattleStart() { }
     //타격 성공 시, 패시브 버프 시전
     protected virtual void Passive_SkillHit(Skill active)
     {
@@ -382,7 +380,7 @@ public class Unit : MonoBehaviour
         float stat;
         if (s.effectStat[effectIdx] <= 0) stat = 1;
         else if (s.effectStat[effectIdx] <= 12 && caster != null)
-            stat = caster.dungeonStat[s.effectStat[effectIdx]];
+            stat = caster.buffStat[s.effectStat[effectIdx]];
         else
             stat = rate;
 
@@ -409,7 +407,7 @@ public class Unit : MonoBehaviour
         float stat;
         if (s.effectStat[effectIdx] <= 0) stat = 1;
         else if (s.effectStat[effectIdx] <= 12 && caster != null)
-            stat = caster.dungeonStat[s.effectStat[effectIdx]];
+            stat = caster.buffStat[s.effectStat[effectIdx]];
         else
             stat = rate;
 
@@ -486,8 +484,11 @@ public class Unit : MonoBehaviour
         skillDebuffs.GetBuffRate(ref addPivot, ref mulPivot, false);
 
         for (int i = 0; i <= 12; i++)
-            if (i != 1 && i != 3)
-                buffStat[i] = Mathf.Max(0, Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]));
+            if (i != (int)Obj.currHP && i != (int)Obj.currAP)
+                if(i == (int)Obj.치명타피해)
+                    buffStat[i] = Mathf.Max(100, Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]));
+                else
+                    buffStat[i] = Mathf.Max(0, Mathf.CeilToInt(dungeonStat[i] * mulPivot[i] + addPivot[i]));
     }
     #endregion StatUpdate
 

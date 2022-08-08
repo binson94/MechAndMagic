@@ -177,11 +177,14 @@ public class Elemental : Unit
             Skill s= SkillManager.GetSkill(5, 195);
             turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(ec), s.name, s.effectObject[0], ec.buffStat[s.effectStat[0]], s.effectRate[0] * rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));
         }
+        //202 화염 고급 숙달
         if (ec.HasSkill(202) && type == 1007)
-            AddBuff(ec, -2, SkillManager.GetSkill(5, 114), 1, 0);
+            AddBuff(ec, -2, SkillManager.GetSkill(5, 202), 1, 0);
+        //203 물 고급 숙달
         if (ec.HasSkill(203) && type == 1008)
-            AddBuff(ec, -2, SkillManager.GetSkill(5, 115), 1, 0);
+            AddBuff(ec, -2, SkillManager.GetSkill(5, 203), 1, 0);
+        //204 바람 고급 숙달
         if (ec.HasSkill(204) && type == 1009)
-            AddBuff(ec, -2, SkillManager.GetSkill(5, 116), 1, 0);
+            AddBuff(ec, -2, SkillManager.GetSkill(5, 204), 1, 0);
     }
 }

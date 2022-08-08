@@ -187,7 +187,7 @@ public class Character : Unit
             RemoveDebuff(1);
         }
     }
-    protected override void Passive_BattleStart()
+    protected virtual void Passive_BattleStart()
     {
         List<Unit> effectTargets;
         //passive
@@ -285,6 +285,6 @@ public class Character : Unit
     public override void StatLoad()
     {
         for (int i = 0; i <= 12; i++)
-            dungeonStat[i] = GameManager.Instance.slotData.itemStats[i];
+            buffStat[i] = dungeonStat[i] = GameManager.Instance.slotData.itemStats[i];
     }
 }

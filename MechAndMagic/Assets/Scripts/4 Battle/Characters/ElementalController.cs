@@ -18,9 +18,9 @@ public class ElementalController : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(15);
         if(set.Value[1] > 0)
         {
-            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1007, 1, set.Value[1], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1008, 1, set.Value[1], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1009, 1, set.Value[1], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1007, 1, set.Value[1], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1008, 1, set.Value[1], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1009, 1, set.Value[1], 1, 99));
         }
     }
 
@@ -316,7 +316,7 @@ public class ElementalController : Character
         List<Unit> effectTargets;
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(14);
 
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < passiveIdxs.Length; j++)
         {
             Skill s = SkillManager.GetSkill(classIdx, passiveIdxs[j]);
             if (s == null)
