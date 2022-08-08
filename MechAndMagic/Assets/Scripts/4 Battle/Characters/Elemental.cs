@@ -63,7 +63,7 @@ public class Elemental : Unit
                         damaged.Clear();
                         StatUpdate_Skill(skill);
 
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
                         {
@@ -96,7 +96,7 @@ public class Elemental : Unit
                 case EffectType.DoNothing:
                     break;
                 default:
-                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }

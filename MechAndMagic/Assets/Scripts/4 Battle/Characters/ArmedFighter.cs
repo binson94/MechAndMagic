@@ -121,7 +121,6 @@ public class ArmedFighter : Character
         for (int i = 0; i < count; i++)
         {
             effectTargets = GetEffectTarget(selects, damaged, skill.effectTarget[i]);
-            float stat = GetEffectStat(effectTargets, skill.effectStat[i]);
 
             switch ((EffectType)skill.effectType[i])
             {
@@ -132,7 +131,7 @@ public class ArmedFighter : Character
                         StatUpdate_Skill(skill);
 
                         //skillEffectRate가 기본적으로 음수
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
                         {
@@ -205,7 +204,7 @@ public class ArmedFighter : Character
                         break;
                     }
                 default:
-                    ActiveDefaultCase(skill, i, effectTargets, stat);
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }
@@ -283,7 +282,7 @@ public class ArmedFighter : Character
             {
                 //강화 계열 스킬 사용 시 회복
                 if(active.category == skill.effectCond[0])
-                    GetHeal(GetEffectStat(null, skill.effectStat[0]) * skill.effectRate[0]);
+                    GetHeal(GetEffectStat(new List<Unit>(), skill.effectStat[0]) * skill.effectRate[0]);
                 
                 continue;
             }

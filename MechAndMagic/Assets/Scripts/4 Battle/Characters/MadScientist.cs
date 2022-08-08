@@ -164,7 +164,7 @@ public class MadScientist : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -212,7 +212,7 @@ public class MadScientist : Character
                     }
                 case EffectType.Heal:
                     {
-                        float heal = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float heal = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach (Unit u in effectTargets)
                         {
@@ -226,7 +226,7 @@ public class MadScientist : Character
                     }
                 case EffectType.Active_Buff:
                     {
-                        stat = GetEffectStat(effectTargets, skill.effectStat[i]);
+                        stat = GetEffectStat(selects, skill.effectStat[i]);
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 //172 상태 왜곡 장치
@@ -238,7 +238,7 @@ public class MadScientist : Character
                     }
                 case EffectType.Active_Debuff:
                     {
-                        stat = GetEffectStat(effectTargets, skill.effectStat[i]);
+                        stat = GetEffectStat(selects, skill.effectStat[i]);
                         if (skill.effectCond[i] == 0 || skill.effectCond[i] == 1 && isAcc || skill.effectCond[i] == 2 && isCrit)
                             foreach (Unit u in effectTargets)
                                 //172 상태 왜곡 장치
@@ -257,7 +257,7 @@ public class MadScientist : Character
                         break;
                     }
                 default:
-                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }

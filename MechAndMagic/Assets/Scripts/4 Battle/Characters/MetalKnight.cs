@@ -133,7 +133,7 @@ public class MetalKnight : Character
                         StatUpdate_Skill(skill);
 
                         //skillEffectRate가 기본적으로 음수
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         foreach(Unit u in effectTargets)
                         {
@@ -198,7 +198,7 @@ public class MetalKnight : Character
                     }
                 case EffectType.Active_Buff:
                     {
-                        float stat = GetEffectStat((skill.idx == 52) ? selects : effectTargets, skill.effectStat[i]);
+                        float stat = GetEffectStat(selects, skill.effectStat[i]);
                         if (skill.effectCond[i] == 0 || (skill.effectCond[i] == 1 && isAcc) || (skill.effectCond[i] == 2 && isCrit))
                             foreach (Unit u in effectTargets)
                                 u.AddBuff(this, orderIdx, skill, i, stat);
@@ -233,7 +233,7 @@ public class MetalKnight : Character
                         break;
                     }
                 default:
-                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }

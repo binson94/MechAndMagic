@@ -170,7 +170,7 @@ public class Unit : MonoBehaviour
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach(Unit u in effectTargets)
@@ -208,7 +208,7 @@ public class Unit : MonoBehaviour
                 case EffectType.DoNothing:
                     break;
                 default:
-                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }
@@ -276,7 +276,7 @@ public class Unit : MonoBehaviour
         }
     }
     ///<summary> 효과 발동 시 계수 스텟 반환 </summary>
-    protected float GetEffectStat(List<Unit> targets, int effectStatIdx)
+    protected float GetEffectStat(List<Unit> selects, int effectStatIdx)
     {
         //기본 스텟
         if (effectStatIdx <= 12)
@@ -291,23 +291,23 @@ public class Unit : MonoBehaviour
                 return dmgs[1];
             //타겟 잃은 체력 비율
             case Obj.LossPer:
-                if (targets.Count <= 0) return 0;
-                return 1 - ((float)targets[0].buffStat[(int)Obj.currHP] / targets[0].buffStat[(int)Obj.체력]);
+                if (selects.Count <= 0) return 0;
+                return 1 - ((float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.체력]);
             //타겟 현재 체력 비율
             case Obj.CurrPer:
-                if (targets.Count <= 0) return 0;
-                return (float)targets[0].buffStat[(int)Obj.currHP] / targets[0].buffStat[(int)Obj.체력];
+                if (selects.Count <= 0) return 0;
+                return (float)selects[0].buffStat[(int)Obj.currHP] / selects[0].buffStat[(int)Obj.체력];
             //버프 갯수
             case Obj.BuffCnt:
                 return turnBuffs.buffs.Count(x => x.isVisible);
             //타겟 디버프 갯수
             case Obj.DebuffCnt:
-                if (targets.Count <= 0) return 0;
-                return targets[0].turnDebuffs.buffs.Count(x => x.isVisible);
+                if (selects.Count <= 0) return 0;
+                return selects[0].turnDebuffs.buffs.Count(x => x.isVisible);
             //타겟 최대 체력
             case Obj.MaxHP:
-                if (targets.Count <= 0) return 1;
-                return targets[0].buffStat[(int)Obj.체력];
+                if (selects.Count <= 0) return 1;
+                return selects[0].buffStat[(int)Obj.체력];
             default:
                 return 0;
         }

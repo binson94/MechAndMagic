@@ -240,7 +240,7 @@ public class Druid : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         damaged.Clear();
                         foreach (Unit u in effectTargets)
@@ -328,7 +328,7 @@ public class Druid : Character
                         break;
                     }
                 default:
-                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    ActiveDefaultCase(skill, i, effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }

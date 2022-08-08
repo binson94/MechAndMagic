@@ -142,7 +142,7 @@ public class ElementalController : Character
                     {
                         StatUpdate_Skill(skill);
 
-                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+                        float dmg = GetEffectStat(selects, skill.effectStat[i]) * skill.effectRate[i];
 
                         //193 원소 결합
                         if (skill.idx == 193)
@@ -305,7 +305,7 @@ public class ElementalController : Character
                         break;
                     }
                 default:
-                    ActiveDefaultCase(skill, i , effectTargets, GetEffectStat(effectTargets, skill.effectStat[i]));
+                    ActiveDefaultCase(skill, i , effectTargets, GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }
