@@ -60,7 +60,7 @@ public class SkillbookPanel : MonoBehaviour, ITownPanel
                 canLearn = false;
             }
 
-            disassembleTxts[i].text = $"+{Mathf.CeilToInt(resources[i].third / 4f)}";
+            disassembleTxts[i].text = $"+{Mathf.CeilToInt(resources[i].third / 10f)}";
         }
         for (; i < 2; i++)
         {

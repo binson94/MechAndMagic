@@ -268,7 +268,7 @@ public class ItemManager
         int lvl = SkillManager.GetSkill(GameManager.SlotClass, skillbook.Value.idx).reqLvl;
         GameManager.Instance.slotData.itemData.DisassembleSkillbook(skillbook.Key);
         for(int i = 1;i <= 3;i++)
-            GameManager.Instance.slotData.itemData.basicMaterials[i] += Mathf.CeilToInt((int)skillLearnJson[lvl / 2][$"resource{i}"] / 4f);
+            GameManager.Instance.slotData.itemData.basicMaterials[i] += Mathf.CeilToInt((int)skillLearnJson[lvl / 2][$"resource{i}"] / 10f);
         GameManager.Instance.SaveSlotData();
     }
     #endregion SmithSkill
