@@ -28,15 +28,15 @@ public class VisionMaster : Character
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(21);
         if(set.Value[2] > 0 && LVL >= 10)
         {
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.행동력, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.명중, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.회피, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.치명타피해, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.방어력무시, 1, set.Value[2], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.속도, 1, set.Value[2], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.행동력, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.공격력, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 0), set.Key, (int)Obj.방어력, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.명중, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.회피, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 1), set.Key, (int)Obj.치명타율, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.치명타피해, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.방어력무시, 1, set.Value[2], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, 2), set.Key, (int)Obj.속도, 1, set.Value[2], 1, 99));
         }
     }
     public override void OnTurnStart()

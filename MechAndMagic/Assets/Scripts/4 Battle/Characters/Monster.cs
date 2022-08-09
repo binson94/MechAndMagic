@@ -193,8 +193,6 @@ public class Monster : Unit
 
                                 u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
                                 damaged.Add(u);
-
-                                Passive_SkillHit(skill);
                             }
                             else
                             {
@@ -220,6 +218,40 @@ public class Monster : Unit
                         foreach (Unit u in effectTargets)
                             if (u.turnDebuffs.buffs.Any(x => x.objectIdx[0] == (int)Obj.저주))
                                 u.AddDebuff(this, orderIdx, skill, 1, 0);
+
+                        break;
+                    }
+                //체력 비례 공격
+                case EffectType.CharSpecial3:
+                    { 
+                        StatUpdate_Skill(skill);
+
+                        float dmg = GetEffectStat(effectTargets, skill.effectStat[i]) * skill.effectRate[i];
+
+                        foreach (Unit u in effectTargets)
+                        {
+                            if (!u.isActiveAndEnabled)
+                                continue;
+
+                            //78 파멸의 공백
+                            if (skill.idx == 78)
+                            {
+                                int acc = 20;
+                                if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
+                                    acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
+                                else
+                                    acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
+
+                                acc = Mathf.Max(20, acc);
+
+                                if(acc <= Random.Range(0, 100)) continue;
+                            }
+
+                            //크리티컬 연산 - dmg * CRB
+                            isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
+
+                            u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
+                        }
 
                         break;
                     }
@@ -308,8 +340,6 @@ public class Monster : Unit
                         u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
                         if(dito[1])
                             u.AddDebuff(this, -1, skill, 1, 0);
-
-                        Passive_SkillHit(skill);
                     }
                     else
                     {

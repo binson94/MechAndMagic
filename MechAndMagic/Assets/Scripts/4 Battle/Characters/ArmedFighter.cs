@@ -25,14 +25,14 @@ public class ArmedFighter : Character
         //종합 타격 2세트 - 손, 발 기술 AP 감소
         if (set.Value[0] > 0)
         {
-            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1000, 1, set.Value[0], 1, 99, 0, 1));
-            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1001, 1, set.Value[0], 1, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1000, 1, set.Value[0], 1, 99));
+            turnBuffs.Add(new Buff(BuffType.AP, BuffOrder.Default, set.Key, 1001, 1, set.Value[0], 1, 99));
         }
 
         set = ItemManager.GetSetData(2);
         //소닉붐 2세트 - SPD 비례 DOG 향상
         if (set.Value[0] > 0)
-            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.회피, dungeonStat[(int)Obj.속도], set.Value[0], 0, 99, 0, 1));
+            turnBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, set.Key, (int)Obj.회피, dungeonStat[(int)Obj.속도], set.Value[0], 0, 99));
     }
     public override void OnTurnStart()
     {
