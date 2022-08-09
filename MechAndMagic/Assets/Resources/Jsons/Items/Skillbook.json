@@ -2,25 +2,25 @@
     {
       "resource1": 0,
       "resource2": 0,
-      "resource3": 5
+      "resource3": 3
     },
     {
       "resource1": 0,
-      "resource2": 10,
-      "resource3": 15
+      "resource2": 5,
+      "resource3": 7
     },
     {
       "resource1": 0,
-      "resource2": 25,
+      "resource2": 15,
       "resource3": 0
     },
     {
-      "resource1": 15,
-      "resource2": 40,
+      "resource1": 12,
+      "resource2": 30,
       "resource3": 0
     },
     {
-      "resource1": 40,
+      "resource1": 25,
       "resource2": 0,
       "resource3": 0
     }

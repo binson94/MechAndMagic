@@ -199,6 +199,8 @@ public class Blaster : Character
                                     u.implantBomb = new ImplantBomb(this, buffStat[(int)Obj.공격력], buffStat[(int)Obj.방어력무시]);
                                     if(u.buffStat[(int)Obj.currHP] <= 0)
                                         u.implantBomb.Bomb(BM, u);
+                                    else
+                                        u.turnDebuffs.Add(new Buff(BuffType.None, BuffOrder.Default, skill.name, (int)Obj.임플란트봄, 0, 0, 0, 99, 0, 1));
                                 }
                                 damaged.Add(u);
 

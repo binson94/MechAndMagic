@@ -143,14 +143,24 @@ public class Monster : Unit
         List<Unit> effectTargets;
         List<Unit> damaged = new List<Unit>();
 
+        //78 파멸의 공백 - 타겟의 저주 디버프 갯수만큼 공격력 증가, 타겟 저주 제거
         if(skill.idx == 78)
         {
-            effectTargets = BM.GetEffectTarget(2);
+            Unit target = BM.GetEffectTarget(2)[0];
 
             Skill tmp = SkillManager.GetSkill(classIdx, 78);
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", tmp.effectObject[0], effectTargets[0].turnDebuffs.buffs.Count(x => x.objectIdx[0] == (int)Obj.저주), tmp.effectRate[0], tmp.effectCalc[0], -1));
-            effectTargets[0].turnDebuffs.buffs.RemoveAll(x => x.objectIdx[0] == (int)Obj.저주);
-            damaged.Add(effectTargets[0]);
+
+            int acc = 6 * (buffStat[(int)Obj.명중] - target.buffStat[(int)Obj.회피]) / (target.LVL + 2);
+            acc = Mathf.Max(20, acc);
+
+            if (Random.Range(0, 100) < acc)
+            {
+                skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", tmp.effectObject[0], target.turnDebuffs.buffs.Count(x => x.objectIdx.Any(y => y == (int)Obj.저주)), tmp.effectRate[0], tmp.effectCalc[0], -1));
+                target.turnDebuffs.buffs.RemoveAll(x => x.objectIdx[0] == (int)Obj.저주);
+                damaged.Add(target);
+            }
+            else
+                LogManager.instance.AddLog($"{target.name}(이)가 스킬을 회피하였습니다.");
         }
 
         for (int i = 0; i < skill.effectCount; i++)
@@ -232,20 +242,6 @@ public class Monster : Unit
                         {
                             if (!u.isActiveAndEnabled)
                                 continue;
-
-                            //78 파멸의 공백
-                            if (skill.idx == 78)
-                            {
-                                int acc = 20;
-                                if (buffStat[(int)Obj.명중] >= u.buffStat[(int)Obj.회피])
-                                    acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (u.LVL + 2);
-                                else
-                                    acc = 6 * (buffStat[(int)Obj.명중] - u.buffStat[(int)Obj.회피]) / (LVL + 2);
-
-                                acc = Mathf.Max(20, acc);
-
-                                if(acc <= Random.Range(0, 100)) continue;
-                            }
 
                             //크리티컬 연산 - dmg * CRB
                             isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];

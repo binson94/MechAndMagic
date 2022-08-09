@@ -47,12 +47,12 @@ public class BuffSlot
         if (Count <= 0)
             return 0;
 
-        List<Buff> b = (from x in buffs where x.type != BuffType.AP && x.isDispel select x).ToList();
+        List<Buff> removableBuffs = buffs.Where(x=>x.type != BuffType.AP && x.isDispel).ToList();
 
-        if (b.Count <= count)
+        if (removableBuffs.Count <= count)
         {
-            count = b.Count;
-            foreach (Buff x in b)
+            count = removableBuffs.Count;
+            foreach (Buff x in removableBuffs)
             {
                 buffs.Remove(x);
                 LogManager.instance.AddLog($"{x.name}(이)가 제거됐습니다.");
@@ -60,10 +60,10 @@ public class BuffSlot
         }
         else
         {
-            while (b.Count > count)
-                b.RemoveAt(Random.Range(0, b.Count));
+            while (removableBuffs.Count > count)
+                removableBuffs.RemoveAt(Random.Range(0, removableBuffs.Count));
 
-            foreach (Buff x in b)
+            foreach (Buff x in removableBuffs)
             {
                 buffs.Remove(x);
                 LogManager.instance.AddLog($"{x.name}(이)가 제거됐습니다.");

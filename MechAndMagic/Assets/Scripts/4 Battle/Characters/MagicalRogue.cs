@@ -97,8 +97,8 @@ public class MagicalRogue : Character
         orderIdx++;
         buffStat[(int)Obj.currAP] -= GetSkillCost(skill);
         
-        //322 나비처럼 날아서 - 행동력 일부 반환
-        if (skill.idx == 322)
+        //323 나비처럼 날아서 - 행동력 일부 반환
+        if (skill.idx == 323)
             GetAPHeal(2);
         //328 구르기 - 행동력 일부 반환
         else if(skill.idx == 328)
