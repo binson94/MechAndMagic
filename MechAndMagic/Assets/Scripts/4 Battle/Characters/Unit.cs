@@ -439,9 +439,15 @@ public class Unit : MonoBehaviour
     {
         int removeCount = turnBuffs.Remove(count);
         ShieldUpdate();
+        StatUpdate_Turn();
         return removeCount;
     }
-    public virtual int RemoveDebuff(int count) => turnDebuffs.Remove(count);
+    public virtual int RemoveDebuff(int count)
+    {
+        int removeCount = turnDebuffs.Remove(count);
+        StatUpdate_Turn();
+        return removeCount;
+    }
     #endregion Random Remove
 
     #region StatUpdate

@@ -392,11 +392,11 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
         DropToken token;
         List<Triplet<DropType, int, int>> idxs = new List<Triplet<DropType, int, int>>();
 
-        for(int i = 0;i < drops.Count;i++)
+        for(int i = 0;i < drops.Count;)
         {
             token = GameManager.GetToken(tokenPool, tokenParent, dropTokenPrefab);
 
-            for(int j = 0;j < 5 && i < drops.Count;i++, j++)
+            for (int j = 0; j < 5 && i < drops.Count; i++, j++)
                 idxs.Add(drops[i]);
 
             token.Initialize(pm, idxs);
@@ -405,7 +405,7 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             idxs.Clear();
         }
 
-        if(GameManager.Instance.questExp >0)
+        if (GameManager.Instance.questExp > 0)
             expTxt.text = $"경험치 +{GameManager.Instance.questExp}";
         else
             expTxt.text = string.Empty;
