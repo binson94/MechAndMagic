@@ -87,7 +87,7 @@ public class ReportPanel : MonoBehaviour
         DropToken token;
         List<Triplet<DropType, int, int>> idxs = new List<Triplet<DropType, int, int>>();
 
-        for(int i = 0;i < drops.Count;i++)
+        for(int i = 0;i < drops.Count;)
         {
             token = GameManager.GetToken(null, tokenParent, dropTokenPrefab);
 

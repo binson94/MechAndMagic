@@ -65,6 +65,7 @@ public class DropToken : MonoBehaviour
                         scripts[i] = $"마법서 : {s.name}";
                     break;
             }
+            dropIconImages[i].gameObject.SetActive(true);
         }
 
         for (; i < dropCountTxts.Length; i++)
