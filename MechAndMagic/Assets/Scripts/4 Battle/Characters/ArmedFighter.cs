@@ -321,11 +321,11 @@ public class ArmedFighter : Character
             }
         }
 
-        //자가개선 2세트 - 자버프 스킬 ATK 상승
+        //자가개선 2세트 - 자버프 시전 시 ATK 상승
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(3);
         if (set.Value[0] > 0 && active.category == 1002)
         {
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[0], 1, -1));
+            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), set.Key, (int)Obj.공격력, 1, set.Value[0], 1, 2, 1, 1));
         }
     }
 

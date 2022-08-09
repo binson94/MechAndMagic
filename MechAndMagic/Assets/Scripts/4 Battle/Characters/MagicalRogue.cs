@@ -66,14 +66,14 @@ public class MagicalRogue : Character
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.속도, 1, set.Value[2], 1, -1));
         }
 
-        set = ItemManager.GetSetData(23);
+        set = ItemManager.GetSetData(24);
         //기민한 맹공 2세트 - 1형 무술 ACC, PEN 상승
         if (set.Value[0] > 0 && skill.category == 1019)
         {
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[0], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.방어력무시, 1, set.Value[0], 1, -1));
         }
-        //기민한 맹공 4세트 - 가로 베기 공격력 상승, 적 잃은 체력 비례 추가 피해
+        //기민한 맹공 4세트 - 가로 베기 공격력 상승, 적 잃은 체력 비례 공격력 상승
         if (set.Value[2] > 0 && skill.idx == 311)
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, GetEffectStat(selects, (int)Obj.LossPer), set.Value[2], 1, -1));
 
@@ -110,6 +110,29 @@ public class MagicalRogue : Character
         else if (skill.idx == 344)
             GetAPHeal(2);
 
+        //1형 교활함 - 1형 3번 사용 시 행동력 회복
+        if (HasSkill(341) && guileCount[0] >= 3)
+        {
+            Skill tmp = SkillManager.GetSkill(classIdx, 341);
+            GetAPHeal(tmp.effectRate[0]);
+
+            guileCount[0] = 0;
+        }
+        //2형 교활함 - 2형 2번 사용 시 행동력 회복
+        if (HasSkill(342) && guileCount[1] >= 2)
+        {
+            Skill tmp = SkillManager.GetSkill(classIdx, 342);
+            GetAPHeal(tmp.effectRate[0]);
+
+            guileCount[1] = 0;
+        }
+        //3형 교활함 - 3형 스킬 사용 시 행동력 회복
+        if(HasSkill(343) && skill.category == 1021)
+        {
+            Skill tmp = SkillManager.GetSkill(classIdx, 343);
+            GetAPHeal(tmp.effectRate[0]);
+        }
+
         cooldowns[slotIdx] = skill.cooldown;
         resentCategory = skill.category;
 
@@ -135,28 +158,14 @@ public class MagicalRogue : Character
         }
 
         set = ItemManager.GetSetData(23);
-        //두려운 악마 4세트 - 환골탈태 사용 시 모든 디버프 해제
+        //두려운 악마 4세트 - 환골탈태 사용 시 모든 디버프 해제, 모든 적 모든 버프 해제
         if (skill.idx == 348 && set.Value[2] > 0)
+        {
             RemoveDebuff(turnDebuffs.Count);
-        //1형 교활함 - 1형 3번 사용 시 행동력 상승
-        if (HasSkill(341) && guileCount[0] >= 3)
-        {
-            Skill tmp = SkillManager.GetSkill(classIdx, 341);
+            List<Unit> units = BM.GetEffectTarget(6);
 
-            //두려운 악마 4세트 - 1형 교활함 강화
-            float rate = tmp.effectRate[0] + set.Value[2];
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], 1, rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            guileCount[0] = 0;
-        }
-        //2형 교활함 - 2형 2번 사용 시 행동력 상승
-        if (HasSkill(342) && guileCount[1] >= 2)
-        {
-            Skill tmp = SkillManager.GetSkill(classIdx, 342);
-
-            //두려운 악마 4세트 - 2형 교활함 강화
-            float rate = tmp.effectRate[0] + set.Value[2];
-            turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), tmp.name, tmp.effectObject[0], 1, rate, tmp.effectCalc[0], tmp.effectTurn[0], tmp.effectDispel[0], tmp.effectVisible[0]));
-            guileCount[1] = 0;
+            foreach(Unit u in units)
+                u.RemoveBuff(u.turnBuffs.Count);
         }
 
         CountSkill();
@@ -328,7 +337,10 @@ public class MagicalRogue : Character
                         break;
                     }
                 default:
-                    ActiveDefaultCase(skill, i , effectTargets, GetEffectStat(selects, skill.effectStat[i]));
+                    float rate = 1;
+                    //기민한 맹공 3세트 - 갑옷 무용화 방어력 감소량 증가
+                    if(skill.idx == 345) rate += ItemManager.GetSetData(23).Value[1];
+                    ActiveDefaultCase(skill, i , effectTargets, rate * GetEffectStat(selects, skill.effectStat[i]));
                     break;
             }
         }
@@ -352,26 +364,15 @@ public class MagicalRogue : Character
         {
             Skill skill = SkillManager.GetSkill(classIdx, passiveIdxs[j]);
 
-            //콤비네이션 5세트 - 강력함 패시브 강화
+            //콤비네이션 5세트 - 1~3형 강력함 공격력 상승량 증가
             if (skill.idx == 350 || skill.idx == 351 || skill.idx == 352)
             {
                 set = ItemManager.GetSetData(22);
                 float rate = 1 + set.Value[2];
                 turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], 1, skill.effectRate[0] * rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
+                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[1], 1, skill.effectRate[1], skill.effectCalc[1], skill.effectTurn[1], skill.effectDispel[1], skill.effectVisible[1]));
                 continue;
             }
-            //두려운 악마 4세트 - 3형 교활함 강화 (1, 2형은 ActiveSkill 함수에서)
-            if (skill.idx == 343)
-            {
-                set = ItemManager.GetSetData(23);
-                float rate = skill.effectRate[0] + set.Value[2];
-                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[0], 1, rate, skill.effectCalc[0], skill.effectTurn[0], skill.effectDispel[0], skill.effectVisible[0]));
-                continue;
-            }
-
-            //기민한 맹공 3세트 - 1형 강화 스킬 추가 강화
-            if(skill.idx == 317 || skill.idx == 325 || skill.idx == 333 || skill.idx == 349)
-                set = ItemManager.GetSetData(24);
 
             for (int i = 0; i < skill.effectCount; i++)
             {
@@ -382,10 +383,7 @@ public class MagicalRogue : Character
                 {
                     case EffectType.Passive_CastBuff:
                         {
-                            if (skill.idx == 317 || skill.idx == 325 || skill.idx == 333 || skill.idx == 349)
-                                turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this, orderIdx), skill.name, skill.effectObject[i], buffStat[skill.effectStat[i]], skill.effectRate[i] * (1 + set.Value[1]), skill.effectCalc[i], skill.effectTurn[i], skill.effectDispel[i], skill.effectVisible[i]));
-                            else
-                                AddBuff(this, orderIdx, skill, i, 0);
+                            AddBuff(this, orderIdx, skill, i, 0);
                             break;
                         }
                     case EffectType.Passive_CastDebuff:

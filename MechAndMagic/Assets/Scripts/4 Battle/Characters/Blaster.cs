@@ -369,6 +369,8 @@ public class Blaster : Character
             {
                 Skill s = SkillManager.GetSkill(classIdx, 89);
                 turnBuffs.buffs.RemoveAll(x=>x.name == s.name);
+
+                //무한동력 4세트 - 열기 강화, 열기 가속 버프량 증가
                 float rate = s.effectRate[0] * (1 + ItemManager.GetSetData(7).Value[1]);
                 if(currHeat > 0)
                     turnBuffs.Add(new Buff(BuffType.Stat, new BuffOrder(this), s.name, s.effectObject[0], currHeat, rate, s.effectCalc[0], s.effectTurn[0], s.effectDispel[0], s.effectVisible[0]));

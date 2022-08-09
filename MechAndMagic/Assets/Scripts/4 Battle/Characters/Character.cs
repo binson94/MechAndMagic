@@ -253,9 +253,9 @@ public class Character : Unit
 
         KeyValuePair<string, float[]> set = ItemManager.GetSetData(25);
 
-        //아이언 하트 3세트 - 체력 40% 이하로 떨어질 때 디버프 한 개 제거
+        //아이언 하트 3세트 - 체력 40% 이하로 떨어질 때 디버프 두 개 제거
         if(set.Value[1] > 0 && beforeRate > 0.4f && (float)buffStat[(int)Obj.currHP] / buffStat[(int)Obj.체력] <= 0.4f)
-            RemoveDebuff(1);
+            RemoveDebuff(2);
         
         set = ItemManager.GetSetData(28);
 

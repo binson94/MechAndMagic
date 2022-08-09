@@ -78,7 +78,7 @@ public class Druid : Character
             SpendVitality(1);
         }
         //254 마력 재생
-        if (HasSkill(254) && currVitality >= 3)
+        if (HasSkill(254) && currVitality >= 1)
         {
             bool[] iscool = new bool[activeIdxs.Length];
             for (int i = 0; i < cooldowns.Length; i++)
@@ -92,7 +92,7 @@ public class Druid : Character
 
                 cooldowns[idx]--;
 
-                SpendVitality(3);
+                SpendVitality(1);
             }
         }
     }

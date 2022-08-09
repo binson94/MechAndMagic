@@ -13,6 +13,7 @@ public class MetalKnight : Character
     {
         base.OnTurnStart();
         resentSkillCategory = 0;
+        guardBuffList.Clear();
     }
 
     public override int GetSkillCost(Skill s)
