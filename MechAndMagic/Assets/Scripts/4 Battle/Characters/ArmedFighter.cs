@@ -148,18 +148,18 @@ public class ArmedFighter : Character
                                 isAcc = true;
                                 accCount++;
 
+                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
+
+                                u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
+                                damaged.Add(u);
+                                Passive_SkillHit(skill);
+
                                 //23 싸움의 리듬 - 3회 적중 성공 시 이번 전투 동안 spd 버프
                                 if (HasSkill(23) && accCount >= 3)
                                 {
                                     accCount = 0;
                                     AddBuff(this, orderIdx, SkillManager.GetSkill(1, 23), 0, 0);
                                 }
-
-                                isCrit = Random.Range(0, 100) < buffStat[(int)Obj.치명타율];
-
-                                u.GetDamage(this, dmg, buffStat[(int)Obj.방어력무시], isCrit ? buffStat[(int)Obj.치명타피해] : 100);
-                                damaged.Add(u);
-                                Passive_SkillHit(skill);
                             }
                             else
                             {

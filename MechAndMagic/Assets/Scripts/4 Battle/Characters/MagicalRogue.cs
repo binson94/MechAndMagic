@@ -322,9 +322,8 @@ public class MagicalRogue : Character
                                     }
                                 }
 
-                                damaged.Add(u);
-
                                 Passive_SkillHit(skill);
+                                AddDebuff(this, 0, skill, 2, 0);
                             }
                             else
                             {
