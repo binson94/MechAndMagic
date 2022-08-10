@@ -1352,9 +1352,9 @@
    {
      "name": "루시는 누굴까?",
      "idx": 51,
-     "script": "던전 '실험소 X-1022' 1회 클리어",
+     "script": "던전 '인스네어 실험체 수용소 K동' 1회 클리어",
      "type": 6,
-     "objectIdx": 45,
+     "objectIdx": 44,
      "objectAmt": 1,
      "rewardCount": 7,
      "rewardIdx": [
