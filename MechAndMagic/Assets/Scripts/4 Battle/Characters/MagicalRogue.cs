@@ -57,14 +57,6 @@ public class MagicalRogue : Character
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타율, 1, set.Value[1], 1, -1));
             skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[1], 1, -1));
         }
-        //콤비네이션 5세트 - 잔인한 난도질, 공허의 타격 강화
-        if (set.Value[2] > 0 && (skill.idx == 347 || skill.idx == 349))
-        {
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.공격력, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.명중, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.치명타피해, 1, set.Value[2], 1, -1));
-            skillBuffs.Add(new Buff(BuffType.Stat, BuffOrder.Default, "", (int)Obj.속도, 1, set.Value[2], 1, -1));
-        }
 
         set = ItemManager.GetSetData(24);
         //기민한 맹공 2세트 - 1형 무술 ACC, PEN 상승
@@ -136,9 +128,9 @@ public class MagicalRogue : Character
         cooldowns[slotIdx] = skill.cooldown;
         resentCategory = skill.category;
 
-        //콤비네이션 3세트 - 3형 무술 쿨타임 1 감소
-        if (skill.category == 1021 && ItemManager.GetSetData(22).Value[1] > 0)
-            cooldowns[slotIdx]--;
+        //콤비네이션 5세트 - 잔인한 난도질, 공허의 타격 쿨타임 1턴으로 감소
+        if((skill.idx == 347 || skill.idx == 349) && ItemManager.GetSetData(22).Value[2] > 0)
+            cooldowns[slotIdx] = 1;
 
         //1형 무술
         if (skill.category == 1019)
