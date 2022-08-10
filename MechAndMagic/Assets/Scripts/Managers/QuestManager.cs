@@ -165,6 +165,7 @@ public class QuestManager
         GameManager.Instance.questExp = 0;
         for (int i = 0; i < qbp.rewardCount; i++)
             ItemManager.ItemDrop(qbp.rewardIdx[i], qbp.rewardAmt[i], true);
+        QuestManager.QuestUpdate(QuestType.Level, 0, 0);
     }
     #endregion QuestProgress
 }
