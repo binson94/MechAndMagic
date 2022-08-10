@@ -36,7 +36,7 @@ public class AdManager : MonoBehaviour
     public void Initialize()
     {
         #if UNITY_ANDROID
-        rewardAdId = "ca-app-pub-3940256099942544/5224354917";
+        rewardAdId = "ca-app-pub-7556771697886086/4723981867";
         #else
         rewardAdId = "Unexpected Target Platform";
         #endif

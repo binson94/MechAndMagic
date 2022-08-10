@@ -77,7 +77,7 @@ public class TitleManager : MonoBehaviour
         GameManager.Instance.LoadSlotData(slot);
         ItemManager.LoadSetData();
 
-        UniClipboard.SetText(PlayerPrefs.GetString($"Slot{slot}"));
+        //UniClipboard.SetText(PlayerPrefs.GetString($"Slot{slot}"));
         GameManager.Instance.LoadScene(GameManager.Instance.slotData.nowScene);
     }
 
