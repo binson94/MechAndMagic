@@ -1233,8 +1233,8 @@
   },
    {
      "name": "해독 키트",
-     "script": "내 무작위 2개 디버프 해제",
-     "script_pos": "자신\n디버프 2개 해제",
+     "script": "내 무작위 1개 디버프 해제",
+     "script_pos": "자신\n디버프 1개 해제",
      "script_neg": "",
      "idx": 96,
      "icon": 4,
@@ -1298,7 +1298,7 @@
         0
      ],
      "effectRate": [
-        2,
+        1,
         0,
         0,
         0,
@@ -1806,8 +1806,8 @@
         0,
         0
      ],
-     "apCost": 5,
-     "cool": 2,
+     "apCost": 3,
+     "cool": 3,
      "targetSelect": 0,
      "targetCount": 0,
      "effectCount": 2,

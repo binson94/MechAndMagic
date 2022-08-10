@@ -11,6 +11,8 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
     #region UI
     [Header("Illust")]
+    [SerializeField] Image blasterImage;
+    [SerializeField] Image otherClassImage;
     ///<summary> 대화 중인 캐릭터와 npc 일러스트 </summary>
     [SerializeField] Image[] charIllusts;
     [SerializeField] Sprite[] playerSprites;
@@ -74,8 +76,14 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     Coroutine proceedDialog;
     #endregion Dialog
 
-    void Start() => charIllusts[0].sprite = playerSprites[GameManager.SlotClass];
-
+    void Start()
+    {
+        charIllusts[0] = GameManager.SlotClass == 3 ? blasterImage : otherClassImage;
+        blasterImage.gameObject.SetActive(GameManager.SlotClass == 3);
+        otherClassImage.gameObject.SetActive(GameManager.SlotClass != 3);
+        
+        charIllusts[0].sprite = playerSprites[GameManager.SlotClass];
+    }
     //최초 상태로 되돌리기
     public void ResetAllState()
     {
