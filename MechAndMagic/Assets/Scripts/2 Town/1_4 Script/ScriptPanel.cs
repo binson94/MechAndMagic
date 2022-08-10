@@ -10,9 +10,10 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
     [SerializeField] TownManager TM;
 
     #region UI
+    ///<summary> 일러스트 크기 다른 클래스
+    ///<para> 0 메탈 나이트, 1 블래스터, 2 엘리멘탈 컨트롤러, 3 드루이드, 4 그 외 </para> </summary>
     [Header("Illust")]
-    [SerializeField] Image blasterImage;
-    [SerializeField] Image otherClassImage;
+    [SerializeField] Image[] specificClassImages;
     ///<summary> 대화 중인 캐릭터와 npc 일러스트 </summary>
     [SerializeField] Image[] charIllusts;
     [SerializeField] Sprite[] playerSprites;
@@ -78,11 +79,28 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
 
     void Start()
     {
-        charIllusts[0] = GameManager.SlotClass == 3 ? blasterImage : otherClassImage;
-        blasterImage.gameObject.SetActive(GameManager.SlotClass == 3);
-        otherClassImage.gameObject.SetActive(GameManager.SlotClass != 3);
-        
+        foreach(Image image in specificClassImages)
+            image.gameObject.SetActive(false);
+        switch (GameManager.SlotClass)
+        {
+            case 2:
+                charIllusts[0] = specificClassImages[0];
+                break;
+            case 3:
+                charIllusts[0] = specificClassImages[1];
+                break;
+            case 5:
+                charIllusts[0] = specificClassImages[2];
+                break;
+            case 6:
+                charIllusts[0] = specificClassImages[3];
+                break;
+            default:
+                charIllusts[0] = specificClassImages[4];
+                break;
+        }
         charIllusts[0].sprite = playerSprites[GameManager.SlotClass];
+        charIllusts[0].gameObject.SetActive(true);
     }
     //최초 상태로 되돌리기
     public void ResetAllState()
