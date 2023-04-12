@@ -16,4 +16,4 @@ Unity Engine / C#
 2021.10 ~ 2022.08
 
 ## 링크
-[스토어 링크](https://play.google.com/store/apps/details?id=com.teammvm.mechvsmagic)
+[(스토어)](https://play.google.com/store/apps/details?id=com.teammvm.mechvsmagic) / [(플레이 영상)](https://youtu.be/mH8nDbofDIc)
