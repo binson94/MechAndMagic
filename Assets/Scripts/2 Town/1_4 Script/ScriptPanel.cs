@@ -83,20 +83,26 @@ public class ScriptPanel : MonoBehaviour, ITownPanel
             image.gameObject.SetActive(false);
         switch (GameManager.SlotClass)
         {
-            case 2:
+            case 1:
                 charIllusts[0] = specificClassImages[0];
                 break;
-            case 3:
+            case 2:
                 charIllusts[0] = specificClassImages[1];
                 break;
-            case 5:
+            case 3:
                 charIllusts[0] = specificClassImages[2];
                 break;
-            case 6:
+            case 5:
                 charIllusts[0] = specificClassImages[3];
                 break;
-            default:
+            case 6:
                 charIllusts[0] = specificClassImages[4];
+                break;
+            case 8:
+                charIllusts[0] = specificClassImages[5];
+                break;
+            default:
+                charIllusts[0] = specificClassImages[6];
                 break;
         }
         charIllusts[0].sprite = playerSprites[GameManager.SlotClass];

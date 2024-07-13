@@ -78,6 +78,11 @@ public class SoundManager : MonoBehaviour
     }
     void SaveOption() => PlayerPrefs.SetString("Option", LitJson.JsonMapper.ToJson(option));
 
+    public void OnLoadComplete()
+    {
+        bgms.Sort((a, b) => a.name.CompareTo(b.name));
+        sfxs.Sort((a, b) => a.name.CompareTo(b.name));
+    }
 
     public void PlayBGM(BGMList idx)
     {
